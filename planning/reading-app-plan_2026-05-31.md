@@ -21,7 +21,7 @@ changed — and lower the barrier for Christians who may be wary of the LDS fait
 - **Scriptures: Jesus The Christ (Bible Only)** — references whose verses are in the Old/New Testament.
 - **Scriptures: Jesus The Christ (Full)** — all standard works.
 
-The split is pastoral/outreach, not technical: **Bible Only is a filter** (`vol ∈ {ot, nt}`) on
+The split is pastoral/outreach, not technical: **Bible Only is a filter** (`vol ∈ {oldtestament, newtestament}`) on
 the same data. Ship as **one app, two flavors / store listings**. EN + ES content. **Android first**, iOS later.
 
 ## Tech stack (decided)
@@ -56,10 +56,12 @@ From the `lds-nl-scriptures` pipeline (now in its `main`):
 - `content/processed/scriptures/en/topical-guide/jesus-christ.json`
 - `content/processed/scriptures/es/topical-guide/jesus-christ.json` (Spanish, verified)
 
-Each reference carries: `vol` (`ot|nt|bofm|pgp|dc-testament`), `book`, `ch`, `verses`, full
+Each reference carries: `vol` (the volume id —
+`oldtestament|newtestament|bookofmormon|doctrineandcovenants|pearlofgreatprice`), `book` (the
+church short code, e.g. `matt`, `john`, `1-ne`, `dc`), `ch`, `verses`, full
 **verse text + ±2 verse context**, a `note` gloss, and sub-topic grouping (53 sub-topics,
 2,196 references). → Ship the JSON as a **bundled asset** (`Resources/Raw/`); Bible Only =
-filter `vol ∈ {ot, nt}` at load.
+filter `vol ∈ {oldtestament, newtestament}` at load.
 
 ## Features (v1 — keep it simple, "Kindle-like")
 
@@ -103,7 +105,7 @@ study-plan scheduling. Revisit after Android v1.
 > Read `planning/reading-app-plan_2026-05-31.md` for full context. Stack is locked: **.NET 10 +
 > MAUI + Material 3 (`<UseMaterial3>true</UseMaterial3>`, net10.0-android, Controls ≥10.0.60),
 > Android-first, offline, no backend**; content is the bundled `jesus-christ.json` Topical Guide
-> extract (EN+ES; Bible Only = `vol ∈ {ot,nt}`). Use the **superpowers:brainstorming** skill and
+> extract (EN+ES; Bible Only = `vol ∈ {oldtestament,newtestament}`). Use the **superpowers:brainstorming** skill and
 > the **visual companion** (browser mockups). Work through the Open Questions one at a time,
 > starting with the **reading-screen layout** (cards list vs. pager) and the **information
 > architecture** for slice-and-dice. Produce a design spec in `planning/`, then hand to

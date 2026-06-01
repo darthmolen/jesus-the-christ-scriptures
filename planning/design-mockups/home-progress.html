@@ -1,0 +1,47 @@
+<h2>The home screen = the challenge tracker. What's the headline?</h2>
+<p class="subtitle">Home is the 53 sub-topics, each with a progress ring, and a challenge header on top. A checkmark on a reference rolls up into its topic ring and the overall total. Which headline metric motivates best? Click one.</p>
+
+<style>
+  .ph{width:250px;margin:6px auto 0;border:2px solid var(--border,#888);border-radius:20px;padding:10px;background:rgba(127,127,127,.06)}
+  .ph .bar{height:5px;width:42px;background:#9994;border-radius:3px;margin:2px auto 10px}
+  .hdr{text-align:center;padding:8px;border:1.5px solid #7c4dff55;border-radius:12px;background:#7c4dff14;margin-bottom:10px}
+  .big{font-size:22px;font-weight:800}
+  .pbar{height:7px;background:#9993;border-radius:4px;margin-top:6px;overflow:hidden}
+  .pbar > div{height:100%;width:19%;background:#7c4dff}
+  .li{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;padding:7px 4px;border-bottom:1px solid #9992}
+  .ring{position:relative;width:20px;height:20px;border-radius:50%;background:conic-gradient(#7c4dff var(--p,40%),#9993 0);display:inline-block}
+  .ring::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--bg,#1b1b1f)}
+  .frac{font-size:9px;opacity:.6;min-width:34px;text-align:right}
+</style>
+
+<div class="ph">
+  <div class="bar"></div>
+  <div class="hdr">
+    <div class="label">El Desafío</div>
+    <div class="big">412 / 2196</div>
+    <div class="pbar"><div></div></div>
+  </div>
+  <div class="li">Resumen <span style="display:flex;gap:6px;align-items:center"><span class="frac">49/103</span><span class="ring" style="--p:48%"></span></span></div>
+  <div class="li">Expiación <span style="display:flex;gap:6px;align-items:center"><span class="frac">31/69</span><span class="ring" style="--p:45%"></span></span></div>
+  <div class="li">Segunda Venida <span style="display:flex;gap:6px;align-items:center"><span class="frac">8/34</span><span class="ring" style="--p:24%"></span></span></div>
+  <div class="li">Juicios de <span style="display:flex;gap:6px;align-items:center"><span class="frac">22/22</span><span class="ring" style="--p:100%"></span></span></div>
+  <div class="li">Luz del Mundo <span style="display:flex;gap:6px;align-items:center"><span class="frac">0/13</span><span class="ring" style="--p:0%"></span></span></div>
+</div>
+
+<div class="options" style="margin-top:18px">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content"><h3>References read — "412 / 2,196"</h3>
+      <p>Mirrors the prophet's words ("all ~2,200"). Concrete, always advancing, every verse counts.</p></div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content"><h3>Topics completed — "8 / 53 temas"</h3>
+      <p>Milestone feel; finishing a whole sub-topic is a real accomplishment. Coarser, slower to move.</p></div>
+  </div>
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content"><h3>Both + a gentle streak</h3>
+      <p>Overall "412 / 2,196" bar, per-topic rings, plus "racha: 5 días" to encourage daily return — without nagging.</p></div>
+  </div>
+</div>

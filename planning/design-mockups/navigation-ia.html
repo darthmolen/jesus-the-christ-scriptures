@@ -1,0 +1,68 @@
+<h2>How do you slice &amp; dice — the navigation backbone?</h2>
+<p class="subtitle">You want to browse by <strong>book</strong>, by <strong>topic</strong>, or <strong>book + topic</strong>. Here are three ways to structure that. (Scope — Bible Only vs Full — is set by the app flavor, so it's not a filter here.) Click the structure that feels right.</p>
+
+<style>
+  .ph{width:235px;border:2px solid var(--border,#888);border-radius:20px;padding:8px;background:rgba(127,127,127,.06)}
+  .ph .bar{height:5px;width:42px;background:#9994;border-radius:3px;margin:2px auto 9px}
+  .seg{display:flex;font-size:10px;border:1px solid #7c4dff66;border-radius:8px;overflow:hidden;margin-bottom:8px}
+  .seg div{flex:1;text-align:center;padding:5px 0}
+  .seg .on{background:#7c4dff;color:#fff}
+  .li{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:7px 8px;border-bottom:1px solid #9992}
+  .ring{width:16px;height:16px;border-radius:50%;border:2px solid #7c4dff;border-right-color:#7c4dff33;display:inline-block}
+  .chip{display:inline-block;font-size:9px;border:1px solid #7c4dff66;border-radius:10px;padding:2px 7px;margin:0 3px 4px 0}
+  .chip.on{background:#7c4dff;color:#fff}
+  .mut{opacity:.6;font-size:10px}
+</style>
+
+<div class="options" style="gap:14px">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)" style="flex:1;min-width:235px">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Topic-first</h3>
+      <p>Home = the 53 sub-topics with progress. Tap → feed. "⇄ by book" re-slices it.</p>
+      <div class="ph">
+        <div class="bar"></div>
+        <div class="li"><b>Jesucristo</b> <span class="mut">2196</span></div>
+        <div class="li">Resumen <span class="ring"></span></div>
+        <div class="li">Expiación <span class="ring"></span></div>
+        <div class="li">Segunda Venida <span class="ring"></span></div>
+        <div class="li">Juicios de <span class="ring"></span></div>
+        <div class="li">Luz del Mundo <span class="ring"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)" style="flex:1;min-width:235px">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Axis tabs</h3>
+      <p>Segmented Topic / Book / All up top picks the grouping. Book + topic = chip inside a book.</p>
+      <div class="ph">
+        <div class="bar"></div>
+        <div class="seg"><div class="on">Tema</div><div>Libro</div><div>Todo</div></div>
+        <div class="li">Mateo <span class="mut">38</span></div>
+        <div class="li">Juan <span class="mut">52</span></div>
+        <div class="li">Isaías <span class="mut">41</span></div>
+        <div class="li">Alma <span class="mut">29</span></div>
+        <div class="li"><span class="mut">…dentro de Juan:</span></div>
+        <div style="padding:4px 8px"><span class="chip on">Todos</span><span class="chip">Expiación</span><span class="chip">Mesías</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)" style="flex:1;min-width:235px">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>One feed + filter chips</h3>
+      <p>A single feed; chips slice it. Combine Tema + Libro to dice. Fewest screens, most flexible.</p>
+      <div class="ph">
+        <div class="bar"></div>
+        <div style="padding:2px 6px 6px"><span class="chip on">Tema: Expiación ✕</span><span class="chip on">Libro: Juan ✕</span><span class="chip">+ filtro</span></div>
+        <div class="li" style="font-weight:700">Juan 3:16 <span class="mut">☐</span></div>
+        <div class="bd" style="font-size:9.5px;padding:0 8px 6px;opacity:.85">Porque de tal manera amó Dios al mundo…</div>
+        <div class="li" style="font-weight:700">Juan 19:30 <span class="mut">☑</span></div>
+        <div class="bd" style="font-size:9.5px;padding:0 8px 6px;opacity:.85">Consumado es…</div>
+      </div>
+    </div>
+  </div>
+</div>

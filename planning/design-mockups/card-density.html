@@ -1,0 +1,66 @@
+<h2>In the feed, how much of each reference shows?</h2>
+<p class="subtitle">You chose the scrolling feed. A big topic has ~69–103 references, so card density is the trade between <em>reading straight through</em> and <em>skimming breadth</em>. Click the one that fits the goal: people <strong>reading</strong> the words of Christ.</p>
+
+<style>
+  .row3{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+  .ph{width:225px;border:2px solid var(--border,#888);border-radius:20px;padding:8px;background:rgba(127,127,127,.06)}
+  .ph .bar{height:5px;width:42px;background:#9994;border-radius:3px;margin:2px auto 8px}
+  .tt{font-size:11px;font-weight:700;background:#7c4dff1f;padding:5px 8px;border-radius:8px 8px 0 0}
+  .cd{border:1.5px solid #7c4dff55;border-radius:10px;margin-bottom:7px;overflow:hidden;background:rgba(127,127,127,.04)}
+  .bd{font-size:9.5px;line-height:1.55;padding:6px 8px;opacity:.9}
+  .tgt{background:#ffd54f55;border-radius:3px}
+  .gl{font-size:9px;font-style:italic;opacity:.7;padding:2px 8px 6px}
+  .rw{display:flex;gap:9px;font-size:10px;opacity:.75;padding:4px 8px;border-top:1px solid #9992}
+  .exp{font-size:9px;color:#7c4dff;padding:4px 8px;border-top:1px solid #9992}
+  .lbl{text-align:center;font-size:11px;opacity:.7;margin-top:4px}
+</style>
+
+<div class="options" style="gap:14px">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)" style="flex:1;min-width:235px">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Full — read straight through</h3>
+      <p>Every card shows the target verse <em>and</em> ±2 context inline. Deepest reading; longest scroll.</p>
+      <div class="ph">
+        <div class="bar"></div>
+        <div class="cd"><div class="tt">Mosíah 3:7</div>
+          <div class="bd">[5] …vendrá a la tierra…<br><span class="tgt">[7] y su sangre brota de cada poro, tan grande será su angustia por la iniquidad…</span><br>[9] …y vendrá la salvación…</div>
+          <div class="gl">"su sangre brota de cada poro"</div>
+          <div class="rw">☐ Leído &nbsp; ✎ Nota</div></div>
+        <div class="cd"><div class="tt">Alma 34:8</div><div class="bd"><span class="tgt">[8] …el Hijo de Dios padecerá…</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)" style="flex:1;min-width:235px">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Verse-focused — context on tap</h3>
+      <p>Card shows the full <strong>target verse</strong> + the note gloss. "Show context (±2)" expands inline when wanted.</p>
+      <div class="ph">
+        <div class="bar"></div>
+        <div class="cd"><div class="tt">Mosíah 3:7</div>
+          <div class="bd"><span class="tgt">y su sangre brota de cada poro, tan grande será su angustia por la iniquidad…</span></div>
+          <div class="gl">"su sangre brota de cada poro"</div>
+          <div class="exp">▾ Mostrar contexto (±2)</div>
+          <div class="rw">☐ Leído &nbsp; ✎ Nota</div></div>
+        <div class="cd"><div class="tt">Alma 34:8</div><div class="bd"><span class="tgt">…el Hijo de Dios padecerá…</span></div><div class="exp">▾ Contexto</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)" style="flex:1;min-width:235px">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Compact index — skim, tap to open</h3>
+      <p>One line per reference (title + gloss + read tick). Tap opens the full verse. Most skimmable; least reading inline.</p>
+      <div class="ph">
+        <div class="bar"></div>
+        <div class="cd"><div class="tt">Mosíah 3:7</div><div class="gl">"su sangre brota de cada poro" &nbsp;☐</div></div>
+        <div class="cd"><div class="tt">Alma 34:8</div><div class="gl">"el Hijo de Dios padecerá" &nbsp;☑</div></div>
+        <div class="cd"><div class="tt">Isaías 53:5</div><div class="gl">"herido fue por nuestras rebeliones" &nbsp;☐</div></div>
+        <div class="cd"><div class="tt">D. y C. 19:18</div><div class="gl">"hizo que yo mismo temblara" &nbsp;☐</div></div>
+      </div>
+    </div>
+  </div>
+</div>

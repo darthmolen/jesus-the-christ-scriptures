@@ -1,0 +1,31 @@
+{
+  "topic": "Jesus Christ",
+  "language": "en",
+  "context_radius": 2,
+  "subtopics": [
+    {
+      "title": "Jesus Christ",
+      "short": "Summary",
+      "references": [
+        { "ref": "Luke 1:26-38", "vol": "newtestament", "book": "luke", "book_title": "Luke",
+          "ch": 1, "verses": [26],
+          "context": [ { "vs": 26, "text": "And in the sixth month the angel Gabriel was sent", "target": true } ],
+          "note": "His birth is foretold" }
+      ]
+    },
+    {
+      "title": "Jesus Christ, Advocate",
+      "short": "Advocate",
+      "references": [
+        { "ref": "Heb. 7:25", "vol": "newtestament", "book": "heb", "book_title": "Hebrews",
+          "ch": 7, "verses": [25],
+          "context": [ { "vs": 25, "text": "he ever liveth to make intercession for them", "target": true } ],
+          "note": "he ever liveth to make intercession" },
+        { "ref": "Moro. 7:28", "vol": "bookofmormon", "book": "moro", "book_title": "Moroni",
+          "ch": 7, "verses": [28],
+          "context": [ { "vs": 28, "text": "he hath ... pleadeth the cause of the children of men", "target": true } ],
+          "note": "he advocateth the cause of the children of men" }
+      ]
+    }
+  ]
+}

@@ -20,30 +20,9 @@
 
 ## Prerequisites
 
-- **Plan 01 merged and present on this branch** (`JesusTheChrist.Core` source + the solution).
-  Task 1 Step 0 verifies this before doing anything.
-- The solution file is **`JesusTheChrist.slnx`** (the .NET 10 default; Plan 01's text saying
-  `.sln` is superseded). Use `dotnet build` / `dotnet test` with **no file argument** so the
-  `.slnx` is auto-detected.
+- Plan 01 merged (`JesusTheChrist.Core` + `JesusTheChrist.slnx` present).
 - .NET 10 SDK. No MAUI workload needed — this layer is pure .NET and tests run on Ubuntu via the
-  `SQLitePCLRaw.bundle_e_sqlite3` native package. The first DB test (Task 2) doubles as the
-  **native-SQLite-on-Linux smoke check** (opening + round-tripping a row).
-
-## Conventions (this repo — see `CLAUDE.md`)
-
-- **Branch/PR:** work on a feature branch → PR into `main`; the owner merges. Never push to `main`.
-- **Planning protocol:** Task 0 creates a `planning/in_progress/phase_*.md`; the final task moves
-  it to `planning/completed/`. Phase-boundary commits use the `[PHASE]` format with a `Phase:`
-  footer (Tasks 0 and 8). Per-task TDD commits stay small/descriptive — frequent commits are intentional.
-
-## Contracts (caller expectations)
-
-- **Stores** (`ReadMarkStore`, `NoteStore`, `SettingsStore`): callers supply a **non-empty,
-  validated** `refId` (always from `Reference.Id(...)`) and setting `key` (always from
-  `SettingKeys`). Persistence is insert-or-replace; the layer does not re-validate.
-- **Notes:** empty/whitespace text **deletes** the note (Task 4).
-- **Streak:** `Advance(prev, today)` treats `today <= LastReadDate` as a no-op (same day or clock
-  skew); a one-day step increments; any larger gap resets `Current` to 1 and keeps `Best`.
+  `SQLitePCLRaw.bundle_e_sqlite3` native package.
 
 ## Decisions baked in (from `planning/design-spec_2026-05-31.md` §5.2)
 
@@ -93,7 +72,7 @@ tests/JesusTheChrist.Data.Tests/
 
 **Date:** 2026-05-31
 **Plan:** planning/plan-02-data-layer_2026-05-31.md
-**Branch:** the current working branch (`git branch --show-current`)
+**Branch:** feature/plan-02-data
 
 ## Objective
 On-device SQLite persistence (read-marks, notes, settings) + derived progress + streak logic,
@@ -124,16 +103,6 @@ Phase: planning/in_progress/phase_plan-02-data_2026-05-31.md"
 ### Task 1: Scaffold the Data project + tests
 
 **Files:** Create `src/JesusTheChrist.Data/*`, `tests/JesusTheChrist.Data.Tests/*`
-
-- [ ] **Step 0: Preflight — verify Plan 01 artifacts exist**
-
-```bash
-test -f JesusTheChrist.slnx \
-  && test -f src/JesusTheChrist.Core/JesusTheChrist.Core.csproj \
-  && test -f src/JesusTheChrist.Core/Models/Reference.cs \
-  || { echo "ERROR: Plan 01 (Core) not present — merge main / land Plan 01 first."; exit 1; }
-dotnet test  # baseline: Plan 01's 32 tests should already pass
-```
 
 - [ ] **Step 1: Create projects, wire references + packages**
 
@@ -214,18 +183,13 @@ namespace JesusTheChrist.Data.Tests;
 public class AppDatabaseTests
 {
     [Fact]
-    public async Task Initialize_creates_all_three_tables_and_roundtrips()
+    public async Task Initialize_creates_tables_and_roundtrips_a_row()
     {
         await using var t = await TestDb.CreateAsync();
-        var c = t.Db.Connection;
-
-        await c.InsertAsync(new ReadMark { RefId = "r", ReadAtUtc = System.DateTime.UtcNow });
-        await c.InsertAsync(new NoteEntry { RefId = "n", Text = "t", UpdatedAtUtc = System.DateTime.UtcNow });
-        await c.InsertAsync(new Setting { Key = "k", Value = "v" });
-
-        Assert.NotNull(await c.FindAsync<ReadMark>("r"));
-        Assert.NotNull(await c.FindAsync<NoteEntry>("n"));
-        Assert.Equal("v", (await c.FindAsync<Setting>("k"))!.Value);
+        await t.Db.Connection.InsertAsync(new Setting { Key = "k", Value = "v" });
+        var row = await t.Db.Connection.FindAsync<Setting>("k");
+        Assert.NotNull(row);
+        Assert.Equal("v", row!.Value);
     }
 }
 ```
@@ -594,11 +558,6 @@ public static class SettingKeys
     public const string FontSize = "font_size";       // int
     public const string Language = "language";        // "en" | "es"
     public const string StreakEnabled = "streak_enabled"; // bool
-
-    // Streak persistence (written by StreakStore; centralized here to avoid key drift).
-    public const string StreakCurrent = "streak_current";    // int
-    public const string StreakBest = "streak_best";          // int
-    public const string StreakLastDate = "streak_last_date"; // yyyy-MM-dd or empty
 }
 
 public sealed class SettingsStore
@@ -813,15 +772,6 @@ public class StreakServiceTests
     }
 
     [Fact]
-    public void Backwards_date_is_ignored_clock_skew()
-    {
-        var svc = new StreakService();
-        var atDay2 = svc.Advance(svc.Advance(default, Day1), Day2);
-        var backwards = svc.Advance(atDay2, Day1); // today < last -> no-op
-        Assert.Equal(atDay2, backwards);
-    }
-
-    [Fact]
     public async Task Store_roundtrips_state_via_settings()
     {
         await using var t = await TestDb.CreateAsync();
@@ -857,8 +807,7 @@ public sealed class StreakService
     // "Any reference read in a day counts." today is supplied by the caller (injected clock).
     public StreakState Advance(StreakState prev, DateOnly today)
     {
-        // Same day or a backwards date (clock skew): ignore, keep prior state.
-        if (prev.LastReadDate is { } prior && today <= prior) return prev;
+        if (prev.LastReadDate == today) return prev; // already counted today
 
         int current = prev.LastReadDate is { } last && last.AddDays(1) == today
             ? prev.Current + 1
@@ -868,17 +817,21 @@ public sealed class StreakService
     }
 }
 
-// Persists StreakState via SettingsStore (keys centralized in SettingKeys).
+// Persists StreakState across the three settings keys.
 public sealed class StreakStore
 {
+    private const string CurrentKey = "streak_current";
+    private const string BestKey = "streak_best";
+    private const string LastKey = "streak_last_date"; // yyyy-MM-dd or empty
+
     private readonly SettingsStore _settings;
     public StreakStore(SettingsStore settings) => _settings = settings;
 
     public async Task<StreakState> LoadAsync()
     {
-        var current = await _settings.GetIntAsync(SettingKeys.StreakCurrent, 0);
-        var best = await _settings.GetIntAsync(SettingKeys.StreakBest, 0);
-        var lastRaw = await _settings.GetAsync(SettingKeys.StreakLastDate);
+        var current = await _settings.GetIntAsync(CurrentKey, 0);
+        var best = await _settings.GetIntAsync(BestKey, 0);
+        var lastRaw = await _settings.GetAsync(LastKey);
         DateOnly? last = DateOnly.TryParseExact(lastRaw, "yyyy-MM-dd",
             CultureInfo.InvariantCulture, DateTimeStyles.None, out var d) ? d : null;
         return new StreakState(current, best, last);
@@ -886,9 +839,9 @@ public sealed class StreakStore
 
     public async Task SaveAsync(StreakState s)
     {
-        await _settings.SetIntAsync(SettingKeys.StreakCurrent, s.Current);
-        await _settings.SetIntAsync(SettingKeys.StreakBest, s.Best);
-        await _settings.SetAsync(SettingKeys.StreakLastDate,
+        await _settings.SetIntAsync(CurrentKey, s.Current);
+        await _settings.SetIntAsync(BestKey, s.Best);
+        await _settings.SetAsync(LastKey,
             s.LastReadDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? "");
     }
 }
@@ -957,7 +910,74 @@ Phase: planning/completed/phase_plan-02-data_2026-05-31.md"
 - **Risks:** package versions (`sqlite-net-pcl` 1.9.x / `SQLitePCLRaw.bundle_e_sqlite3` 2.1.x) may
   need bumping for net10.0 — use the latest if the pinned version fails to restore. The bundle
   supplies the native sqlite3 for the Ubuntu test run.
-- **Review hardening applied (local + Copilot CLI):** Task 1 Step 0 preflight gate for Plan 01
-  artifacts; solution standardized on `.slnx`; streak keys centralized in `SettingKeys`; a
-  Contracts section + a `StreakService` backwards-date guard with a test; AppDatabase test now
-  round-trips all three tables; Conventions note for commit format.
+
+---
+
+## Plan Review
+
+**Reviewed:** 2026-05-31 20:44
+**Reviewer:** Claude Code (plan-review-intake)
+
+> **Context:** This plan is for new work on the next branch, after Plan 01 merges via PR.
+
+### Strengths
+- **"Architecture" / "Decisions baked in":** SQLite is isolated behind `AppDatabase` plus focused stores; `ProgressService` and `StreakService` stay pure and testable.
+- **Tasks 2–7:** Each is concrete and TDD-oriented — failing test → minimal implementation → verification → commit.
+- **"File structure":** Specific and maps cleanly to the intended layering.
+- Largely consistent with the design spec §5.2 and Plan 01's intended APIs (`Reference.Id`, `TopicalGuide`, `SubTopic`, etc.).
+- Deterministic time injection is a good design choice for testability.
+
+### Issues
+
+#### Critical (Must Address Before Implementation)
+
+**`Prerequisites` / `Task 1: Scaffold the Data project + tests`**
+- **What's wrong:** The plan assumes Plan 01 is already merged, but current codebase has no solution file, no Core source files, and no existing APIs.
+- **Why it matters:** Implementation will fail immediately on solution/project-reference steps.
+- **Suggested fix:** Add an explicit preflight step before Task 1: verify `JesusTheChrist.slnx`, `src/JesusTheChrist.Core/JesusTheChrist.Core.csproj`, and representative Core files exist. If not, stop and rebase/merge Plan 01 first.
+
+**`Prerequisites` / Solution filename inconsistency**
+- **What's wrong:** Plan 02 expects `JesusTheChrist.slnx`, while Plan 01 creates `JesusTheChrist.sln`.
+- **Why it matters:** Makes the prerequisite ambiguous and weakens implementability/verification.
+- **Suggested fix:** Standardize all plans on one solution filename and update all commands/references accordingly.
+
+#### Important (Should Address)
+
+**`Task 5: SettingsStore` / `Task 7: StreakService`**
+- **What's wrong:** `SettingKeys` centralizes some keys, but streak persistence keys are private constants inside `StreakStore`.
+- **Why it matters:** Key management split across components increases drift risk.
+- **Suggested fix:** Move streak-related keys into `SettingKeys`, or explicitly document why they are intentionally private.
+
+**`Tasks 3–7` (input validation contracts)**
+- **What's wrong:** Public store/service APIs do not define behavior for invalid inputs (empty `refId`, empty setting key, out-of-order streak dates).
+- **Why it matters:** Failures may surface as silent bad data or unclear SQLite behavior.
+- **Suggested fix:** State the contract explicitly; add guard-clause tests or a note that callers must supply validated inputs.
+
+**`Architecture` / `Tasks 1–2` (SQLite native bundle on Linux)**
+- **What's wrong:** No explicit package/runtime verification step for Linux test execution.
+- **Why it matters:** Native SQLite loading is a common failure point in CI/Linux environments.
+- **Suggested fix:** Add a verification note or smoke check that Linux test execution can open the DB successfully.
+
+#### Minor (Consider)
+
+**`Task 0: Phase document`**
+- Sample phase doc hardcodes `feature/plan-02-data`, but current working branch may differ.
+- **Suggested fix:** Use "current branch" or update the sample to match actual branch naming.
+
+**`Task 2: AppDatabaseTests`**
+- The proposed test only round-trips `Setting`; does not explicitly prove all three tables exist.
+- **Suggested fix:** Insert/query one row for each entity, or assert schema/table presence directly.
+
+**Commit steps across `Tasks 1–7`**
+- Intermediate commit examples do not match `CLAUDE.md`'s `[PHASE] ... Phase:` format.
+- **Suggested fix:** Make all commit examples consistent with CLAUDE conventions.
+
+### Recommendations
+- Add a **preflight prerequisite gate** before implementation starts (verify Plan 01 artifacts exist).
+- Standardize the **solution filename** across Plan 01, Plan 02, and all verification commands.
+- Tighten cross-cutting contracts for **input validation** and **settings key ownership**.
+- Keep the strong TDD/task structure — it is the plan's best quality.
+
+### Assessment
+**Implementable as written?** With fixes
+**Reasoning:** The architecture and task breakdown are good, but the current codebase does not satisfy the stated Plan 01 prerequisite, and the solution-file inconsistency between plans should be resolved before implementation begins.

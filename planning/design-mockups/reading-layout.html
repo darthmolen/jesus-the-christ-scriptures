@@ -1,0 +1,52 @@
+<h2>Reading screen — how do you move through references?</h2>
+<p class="subtitle">Both designs put each reference in its own demarcated card with the reference title on top. The question is the <em>reading motion</em>. Click the one that feels right (or tell me in the terminal).</p>
+
+<style>
+  .phone{width:250px;margin:14px auto 0;border:2px solid var(--border,#888);border-radius:22px;padding:8px 8px 12px;background:rgba(127,127,127,.06)}
+  .phone .bar{height:6px;width:46px;background:#9994;border-radius:3px;margin:2px auto 8px}
+  .appbar{font-size:12px;font-weight:600;padding:6px 8px;border-radius:8px;background:#7c4dff22;color:inherit;margin-bottom:8px}
+  .rcard{border:1.5px solid #7c4dff66;border-radius:12px;padding:0 0 8px;margin-bottom:8px;overflow:hidden;background:rgba(127,127,127,.05)}
+  .rtitle{font-size:11px;font-weight:700;background:#7c4dff1f;padding:5px 8px}
+  .rtext{font-size:10px;line-height:1.5;padding:6px 8px;color:inherit;opacity:.85}
+  .rtext .tgt{background:#ffd54f55;border-radius:3px}
+  .rrow{display:flex;gap:10px;align-items:center;font-size:11px;padding:0 8px;opacity:.8}
+  .big .rtext{font-size:11px;min-height:120px}
+  .pager{display:flex;justify-content:center;gap:8px;font-size:13px;opacity:.7;margin-top:8px}
+  .dot{width:5px;height:5px;border-radius:50%;background:#9997;display:inline-block;margin:0 2px}
+  .dot.on{background:#7c4dff}
+</style>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Scrolling card list (feed)</h3>
+      <p>Every reference under the chosen book/topic stacks vertically — scroll through them like a Kindle page or a feed. Great for skimming many and seeing breadth.</p>
+      <div class="phone">
+        <div class="bar"></div>
+        <div class="appbar">⌂  Jesucristo, Expiación  ▾</div>
+        <div class="rcard"><div class="rtitle">Levítico 17:11</div><div class="rtext">Porque la vida de la carne en la sangre está…</div><div class="rrow">☐ Leído &nbsp; ✎ Nota</div></div>
+        <div class="rcard"><div class="rtitle">Mosíah 3:7</div><div class="rtext">…su sangre brota de cada poro, tan grande será su angustia…</div><div class="rrow">☑ Leído &nbsp; ✎ Nota</div></div>
+        <div class="rcard"><div class="rtitle">Alma 34:8</div><div class="rtext">…el Hijo de Dios padecerá…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>One reference at a time (pager)</h3>
+      <p>Each reference fills the screen; swipe left/right to advance. Focused and devotional — one verse-in-context at a time, with progress always in view.</p>
+      <div class="phone big">
+        <div class="bar"></div>
+        <div class="appbar">Jesucristo, Expiación · 2 / 69</div>
+        <div class="rcard">
+          <div class="rtitle">Mosíah 3:7</div>
+          <div class="rtext">[5] …vendrá a la tierra…<br><span class="tgt">[7] y su sangre brota de cada poro, tan grande será su angustia por la iniquidad…</span><br>[9] …y vendrá la salvación…</div>
+          <div class="rrow">☐ Leído &nbsp;&nbsp; ✎ Nota</div>
+        </div>
+        <div class="pager">‹ &nbsp;<span class="dot"></span><span class="dot on"></span><span class="dot"></span>&nbsp; ›</div>
+      </div>
+    </div>
+  </div>
+</div>

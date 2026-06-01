@@ -16,7 +16,7 @@ Oct 2020, *"We Talk of Christ"*). The printed TG forces you to flip to every ref
 ## 2. Product & scope
 
 - **One MAUI codebase, two Android flavors / store listings:**
-  - **Bible Only** — references where `vol ∈ {ot, nt}`.
+  - **Bible Only** — references where `vol ∈ {oldtestament, newtestament}`.
   - **Full** — all standard works.
   The split is pastoral/outreach (invite those wary of the LDS faith), not a code fork.
 - **Android first** (iOS later, no rewrite). **EN + ES** content. **Offline-first, no backend, no accounts.**
@@ -84,9 +84,13 @@ Oct 2020, *"We Talk of Christ"*). The printed TG forces you to flip to every ref
 - Ship the TG extract `jesus-christ.json` (EN + ES) from the `lds-nl-scriptures` pipeline as a
   **bundled asset** (`Resources/Raw/`). 53 sub-topics, 2,196 references; each reference carries
   `vol, book, ch, verses`, full **verse text + ±2 context**, a `note`, and its sub-topic.
+  - `vol` is the **volume id**: `oldtestament | newtestament | bookofmormon |
+    doctrineandcovenants | pearlofgreatprice`. `book` is the **church short code** (e.g. `matt`,
+    `john`, `1-ne`, `dc`, `moses`). Don't confuse `vol` with the short codes.
 - **Reference id:** `"{subtopicSlug}:{vol}/{book}/{ch}/{versesStart-versesEnd}"` — stable, unique
-  per entry, used to key user data.
-- **Bible Only flavor:** filter `vol ∈ {ot, nt}` at load (compile-time flavor constant).
+  per entry, used to key user data. `subtopicSlug` is **language-invariant** (`Slug.Make(short_en
+  ?? short)`) — never the localized `short` (`Advocate`/`Abogado`), so ids match across EN/ES.
+- **Bible Only flavor:** filter `vol ∈ {oldtestament, newtestament}` at load (compile-time flavor constant).
 - **Canonical sort key:** (volume order, book index, chapter, first verse); Summary bypasses sort.
 
 ### 5.2 User data (on device)

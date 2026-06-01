@@ -1,10 +1,8 @@
-using System.Threading.Tasks;
 using JesusTheChrist.Data;
-using Xunit;
 
 namespace JesusTheChrist.Data.Tests;
 
-public class SettingsStoreTests
+public sealed class SettingsStoreTests
 {
     [Fact]
     public async Task String_get_set_with_fallback()
@@ -23,7 +21,7 @@ public class SettingsStoreTests
         await using var t = await TestDb.CreateAsync();
         var s = new SettingsStore(t.Db);
 
-        Assert.Equal(18, await s.GetIntAsync(SettingKeys.FontSize, 18)); // fallback
+        Assert.Equal(18, await s.GetIntAsync(SettingKeys.FontSize, 18));
         await s.SetIntAsync(SettingKeys.FontSize, 22);
         Assert.Equal(22, await s.GetIntAsync(SettingKeys.FontSize, 18));
 

@@ -28,3 +28,17 @@ dotnet_diagnostic.SA1402.severity = none
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.DocumentationRules.severity = none
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.OrderingRules.severity = none
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.LayoutRules.severity = none
+# CA1861: constant array arguments in test data are fine
+dotnet_diagnostic.CA1861.severity = none
+
+# CA1031: tests may catch general exceptions during cleanup
+dotnet_diagnostic.CA1031.severity = none
+
+# Test method names use underscores by convention (Method_Scenario_Expected)
+dotnet_diagnostic.CA1707.severity = none
+
+# Test classes are public for the test runner
+dotnet_diagnostic.CA1515.severity = none
+
+# Test members are self-documenting; no XML doc requirement
+dotnet_diagnostic.CS1591.severity = none

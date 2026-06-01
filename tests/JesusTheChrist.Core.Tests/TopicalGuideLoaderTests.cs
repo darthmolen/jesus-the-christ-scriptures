@@ -1,25 +1,18 @@
-using System.IO;
-using System.Linq;
 using System.Text;
 using JesusTheChrist.Core.Json;
 using JesusTheChrist.Core.Models;
-using Xunit;
 
-public class TopicalGuideLoaderTests
+namespace JesusTheChrist.Core.Tests;
+
+public sealed class TopicalGuideLoaderTests
 {
-    static TopicalGuide Load()
-    {
-        using var s = File.OpenRead(Path.Combine("Fixtures", "sample.json"));
-        return TopicalGuideLoader.Load(s);
-    }
-
     [Fact]
     public void Loads_subtopics_in_order_with_invariant_keys()
     {
         var g = Load();
         Assert.Equal("Jesus Christ", g.Topic);
-        Assert.Equal(new[] { "Summary", "Advocate" }, g.SubTopics.Select(t => t.Short).ToArray());
-        Assert.Equal(new[] { "summary", "advocate" }, g.SubTopics.Select(t => t.Key).ToArray());
+        Assert.Equal(["Summary", "Advocate"], g.SubTopics.Select(t => t.ShortTitle).ToArray());
+        Assert.Equal(["summary", "advocate"], g.SubTopics.Select(t => t.Key).ToArray());
     }
 
     [Fact]
@@ -30,7 +23,7 @@ public class TopicalGuideLoaderTests
         Assert.Equal(Volume.NewTestament, r.Vol);
         Assert.Equal("heb", r.Book);
         Assert.Equal(7, r.Ch);
-        Assert.Equal(new[] { 25 }, r.Verses.ToArray());
+        Assert.Equal([25], r.Verses.ToArray());
         Assert.Single(r.Context);
         Assert.True(r.Context[0].Target);
     }
@@ -47,5 +40,11 @@ public class TopicalGuideLoaderTests
     {
         using var s = new MemoryStream(Encoding.UTF8.GetBytes("{ this is not json"));
         Assert.ThrowsAny<System.Exception>(() => TopicalGuideLoader.Load(s));
+    }
+
+    private static TopicalGuide Load()
+    {
+        using var s = File.OpenRead(Path.Combine("Fixtures", "sample.json"));
+        return TopicalGuideLoader.Load(s);
     }
 }

@@ -1,13 +1,10 @@
-using System;
-using System.Threading.Tasks;
 using JesusTheChrist.Data;
-using Xunit;
 
 namespace JesusTheChrist.Data.Tests;
 
-public class ReadMarkStoreTests
+public sealed class ReadMarkStoreTests
 {
-    static readonly DateTime Fixed = new(2026, 5, 31, 12, 0, 0, DateTimeKind.Utc);
+    private static readonly DateTime Fixed = new(2026, 5, 31, 12, 0, 0, DateTimeKind.Utc);
 
     [Fact]
     public async Task Mark_then_isread_count_and_ids()
@@ -31,7 +28,7 @@ public class ReadMarkStoreTests
         var store = new ReadMarkStore(t.Db, () => Fixed);
 
         await store.MarkReadAsync("x");
-        await store.MarkReadAsync("x"); // no duplicate
+        await store.MarkReadAsync("x");
         Assert.Equal(1, await store.CountAsync());
 
         await store.UnmarkAsync("x");

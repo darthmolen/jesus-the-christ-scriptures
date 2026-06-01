@@ -1,15 +1,17 @@
-using System;
-
 namespace JesusTheChrist.Core.Models;
 
-public enum Language { En, Es }
-
-public static class LanguageExtensions
+/// <summary>
+/// A supported content language.
+/// </summary>
+public enum Language
 {
-    public static string Code(this Language l) => l switch
-    {
-        Language.En => "en",
-        Language.Es => "es",
-        _ => throw new ArgumentOutOfRangeException(nameof(l))
-    };
+    /// <summary>
+    /// English.
+    /// </summary>
+    En,
+
+    /// <summary>
+    /// Spanish.
+    /// </summary>
+    Es,
 }

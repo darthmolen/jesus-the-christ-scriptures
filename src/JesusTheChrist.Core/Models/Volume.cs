@@ -1,22 +1,32 @@
-using System;
-
 namespace JesusTheChrist.Core.Models;
 
-public enum Volume { OldTestament, NewTestament, BookOfMormon, DoctrineAndCovenants, PearlOfGreatPrice }
-
-public static class VolumeExtensions
+/// <summary>
+/// A volume of the standard works, in canonical order.
+/// </summary>
+public enum Volume
 {
-    public static Volume Parse(string raw) => raw switch
-    {
-        "oldtestament" => Volume.OldTestament,
-        "newtestament" => Volume.NewTestament,
-        "bookofmormon" => Volume.BookOfMormon,
-        "doctrineandcovenants" => Volume.DoctrineAndCovenants,
-        "pearlofgreatprice" => Volume.PearlOfGreatPrice,
-        _ => throw new ArgumentException($"Unknown volume '{raw}'", nameof(raw))
-    };
+    /// <summary>
+    /// The Old Testament.
+    /// </summary>
+    OldTestament,
 
-    public static bool IsBible(this Volume v) => v is Volume.OldTestament or Volume.NewTestament;
+    /// <summary>
+    /// The New Testament.
+    /// </summary>
+    NewTestament,
 
-    public static int Order(this Volume v) => (int)v;
+    /// <summary>
+    /// The Book of Mormon.
+    /// </summary>
+    BookOfMormon,
+
+    /// <summary>
+    /// The Doctrine and Covenants.
+    /// </summary>
+    DoctrineAndCovenants,
+
+    /// <summary>
+    /// The Pearl of Great Price.
+    /// </summary>
+    PearlOfGreatPrice,
 }

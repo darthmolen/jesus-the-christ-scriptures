@@ -1,10 +1,8 @@
-using System.Threading.Tasks;
 using JesusTheChrist.Data;
-using Xunit;
 
 namespace JesusTheChrist.Data.Tests;
 
-public class AppDatabaseTests
+public sealed class AppDatabaseTests
 {
     [Fact]
     public async Task Initialize_creates_all_three_tables_and_roundtrips()
@@ -12,8 +10,8 @@ public class AppDatabaseTests
         await using var t = await TestDb.CreateAsync();
         var c = t.Db.Connection;
 
-        await c.InsertAsync(new ReadMark { RefId = "r", ReadAtUtc = System.DateTime.UtcNow });
-        await c.InsertAsync(new NoteEntry { RefId = "n", Text = "t", UpdatedAtUtc = System.DateTime.UtcNow });
+        await c.InsertAsync(new ReadMark { RefId = "r", ReadAtUtc = DateTime.UtcNow });
+        await c.InsertAsync(new NoteEntry { RefId = "n", Text = "t", UpdatedAtUtc = DateTime.UtcNow });
         await c.InsertAsync(new Setting { Key = "k", Value = "v" });
 
         Assert.NotNull(await c.FindAsync<ReadMark>("r"));

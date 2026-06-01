@@ -1,18 +1,11 @@
-using System.IO;
-using System.Linq;
 using JesusTheChrist.Core.Content;
 using JesusTheChrist.Core.Json;
 using JesusTheChrist.Core.Models;
-using Xunit;
 
-public class ScopeFilterTests
+namespace JesusTheChrist.Core.Tests;
+
+public sealed class ScopeFilterTests
 {
-    static TopicalGuide Load()
-    {
-        using var s = File.OpenRead(Path.Combine("Fixtures", "sample.json"));
-        return TopicalGuideLoader.Load(s);
-    }
-
     [Fact]
     public void Full_keeps_everything()
     {
@@ -25,8 +18,14 @@ public class ScopeFilterTests
     public void BibleOnly_drops_non_bible_refs_and_empty_subtopics()
     {
         var g = ScopeFilter.Apply(Load(), Scope.BibleOnly);
-        var advocate = g.SubTopics.Single(t => t.Short == "Advocate");
+        var advocate = g.SubTopics.Single(t => t.ShortTitle == "Advocate");
         Assert.Single(advocate.References);
         Assert.True(advocate.References.All(r => r.Vol.IsBible()));
+    }
+
+    private static TopicalGuide Load()
+    {
+        using var s = File.OpenRead(Path.Combine("Fixtures", "sample.json"));
+        return TopicalGuideLoader.Load(s);
     }
 }

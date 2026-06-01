@@ -1,21 +1,10 @@
-using System.IO;
-using System.Threading.Tasks;
 using JesusTheChrist.Core.Content;
 using JesusTheChrist.Core.Models;
-using Xunit;
 
-public class ContentServiceTests
+namespace JesusTheChrist.Core.Tests;
+
+public sealed class ContentServiceTests
 {
-    sealed class FileAssets : IAssetSource
-    {
-        public string? LastRequested;
-        public Task<Stream> OpenAsync(string name)
-        {
-            LastRequested = name;
-            return Task.FromResult<Stream>(File.OpenRead(Path.Combine("Fixtures", "sample.json")));
-        }
-    }
-
     [Fact]
     public async Task LoadAsync_uses_language_filename_and_applies_scope()
     {
@@ -25,5 +14,16 @@ public class ContentServiceTests
 
         Assert.Equal("jesus-christ.en.json", assets.LastRequested);
         Assert.All(guide.SubTopics, t => Assert.All(t.References, r => Assert.True(r.Vol.IsBible())));
+    }
+
+    private sealed class FileAssets : IAssetSource
+    {
+        public string? LastRequested { get; private set; }
+
+        public Task<Stream> OpenAsync(string name)
+        {
+            this.LastRequested = name;
+            return Task.FromResult<Stream>(File.OpenRead(Path.Combine("Fixtures", "sample.json")));
+        }
     }
 }

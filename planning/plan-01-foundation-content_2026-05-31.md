@@ -23,9 +23,20 @@ Each plan is its own feature branch → PR. Implement them in order.
 ## Decisions baked in (from `planning/design-spec_2026-05-31.md`)
 
 - `Bible` volumes = `oldtestament`, `newtestament`. Scope filter drops out-of-scope references and any sub-topic left empty.
-- References are **already in canonical TG order** in the JSON (OT→NT→BoM→D&C→PGP, then chapter:verse), and the **Summary** sub-topic is in narrative order. The loader **preserves JSON order** — no re-sort (re-sorting would corrupt Summary). Task 9 adds an invariant test.
-- **Reference id** = `"{subtopicShort}:{vol}/{book}/{ch}/{vStart}-{vEnd}"` (vStart==vEnd → just the number). Same verse can appear under multiple sub-topics, so id is scoped by sub-topic.
+- References are **already in canonical TG order** in the JSON (OT→NT→BoM→D&C→PGP, then chapter:verse), and the **Summary** sub-topic is in narrative order. The loader **preserves JSON order** — no re-sort (re-sorting would corrupt Summary). Task 8 adds an invariant test on the volume blocks only (book/chapter order within a volume is trusted from source, since Core does not model per-book canonical index in this plan).
+- **Reference id** = `"{subtopicKey}:{vol}/{book}/{ch}/{vStart}-{vEnd}"` (vStart==vEnd → just the number). **`subtopicKey` is a language-invariant slug** of the English short — `Slug.Make(short_en ?? short)`, e.g. `atonement-through`. The `short` field is localized (`Advocate`/`Abogado`, `Summary`/`Resumen`), so basing the id on it would break read-marks/notes across EN/ES. ES JSON carries `short_en` (English); EN JSON's `short` is already English (no `short_en`), so `short_en ?? short` is the English short in both.
 - **Gloss shown** only when a `note` exists and is **not** contained in the target verse text (normalized). EN notes are short TG highlights; most ES notes equal the verse and are suppressed.
+
+## Conventions (this repo — see `CLAUDE.md`)
+
+- **Branch/PR:** all work on `feature/implementation-plan` (already created) → PR into `main`; the owner merges. Never push to `main`.
+- **Planning protocol:** Task 0 creates a `planning/in_progress/phase_*.md` doc; Task 9 moves it to `planning/completed/`. Phase-boundary commits use the `[PHASE]` message format with a `Phase:` footer. Per-task TDD commits stay small and descriptive (frequent commits are intentional).
+
+## Prerequisites
+
+- **.NET 10 SDK** installed (`dotnet --version` → `10.*`).
+- **MAUI Android workload** (`dotnet workload install maui-android`) — installs the MAUI templates too; `dotnet new maui` fails without it.
+- **Source content:** the Topical Guide extract produced by the `lds-nl-scriptures` pipeline. Its location is configurable via `LDS_SCRIPTURES_DIR` (default `$HOME/dev/lds-nl-scriptures`). Task 1 **vendors** the two JSON files into `src/JesusTheChrist.App/Resources/Raw/` (committed), so every later step — and CI — depends only on this repo, not the sibling checkout.
 
 ## File structure
 
@@ -34,15 +45,17 @@ JesusTheChrist.sln
 src/JesusTheChrist.Core/
   JesusTheChrist.Core.csproj
   Models/Scope.cs            # Scope enum
+  Models/Language.cs         # Language enum + Code()
   Models/Volume.cs           # Volume enum + parse + order + IsBible
+  Models/Slug.cs             # language-invariant slug helper
   Models/ContextVerse.cs     # record
   Models/Reference.cs        # record + Id, TargetText, ShowGloss
-  Models/SubTopic.cs         # record
+  Models/SubTopic.cs         # record (+ language-invariant Key)
   Models/TopicalGuide.cs     # record
-  Json/Dtos.cs               # System.Text.Json DTOs (wire shape)
-  Json/TopicalGuideLoader.cs # Stream -> TopicalGuide (preserves order)
+  Json/Dtos.cs               # System.Text.Json DTOs (wire shape, incl. short_en)
+  Json/TopicalGuideLoader.cs # Stream -> TopicalGuide (preserves order, computes Key)
   Content/ScopeFilter.cs     # filter a TopicalGuide by Scope
-  Content/ContentService.cs  # load + filter orchestration
+  Content/ContentService.cs  # load + filter orchestration (Language-typed)
 src/JesusTheChrist.App/      # MAUI app (scaffold only this plan)
   JesusTheChrist.App.csproj  # net10.0-android, UseMaterial3, refs Core
   Resources/Raw/jesus-christ.en.json
@@ -51,6 +64,8 @@ tests/JesusTheChrist.Core.Tests/
   JesusTheChrist.Core.Tests.csproj
   Fixtures/sample.json       # tiny deterministic fixture
   VolumeTests.cs
+  LanguageTests.cs
+  SlugTests.cs
   ReferenceIdTests.cs
   ReferenceGlossTests.cs
   TopicalGuideLoaderTests.cs
@@ -61,11 +76,62 @@ tests/JesusTheChrist.Core.Tests/
 
 ---
 
+### Task 0: Phase document (CLAUDE.md protocol)
+
+**Files:**
+- Create: `planning/in_progress/phase_plan-01-foundation_2026-05-31.md`
+
+- [ ] **Step 1: Create the phase doc**
+
+Create `planning/in_progress/phase_plan-01-foundation_2026-05-31.md`:
+
+```markdown
+# Phase: Plan 01 — Foundation & Content Layer
+
+**Date:** 2026-05-31
+**Plan:** planning/plan-01-foundation-content_2026-05-31.md
+
+## Objective
+Scaffold the solution and build the MAUI-free content domain library (models, JSON loader,
+scope filter, content service) with full xUnit coverage.
+
+## Approach
+TDD task-by-task per the plan; pure Core library so tests run without MAUI/Android.
+
+## Success criteria
+- Solution builds; `dotnet test` green (fixtures + real-data smoke).
+- Language-invariant reference ids; Bible-Only filter; order preserved.
+
+## Files expected to change
+- src/JesusTheChrist.Core/** , src/JesusTheChrist.App/** (scaffold), tests/JesusTheChrist.Core.Tests/**
+
+## Outcomes
+(to be filled at completion)
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add planning/in_progress/phase_plan-01-foundation_2026-05-31.md
+git commit -m "[PHASE] Start Plan 01: foundation & content layer
+
+- Create phase doc for the content-layer scaffold + domain library.
+
+Phase: planning/in_progress/phase_plan-01-foundation_2026-05-31.md"
+```
+
+---
+
 ### Task 1: Scaffold solution, projects, and assets
 
 **Files:**
 - Create: `JesusTheChrist.sln`, the three `.csproj` files, `tests/.../Fixtures/sample.json`
-- Copy: the two content JSON files into `src/JesusTheChrist.App/Resources/Raw/`
+- Vendor: the two content JSON files into `src/JesusTheChrist.App/Resources/Raw/`
+
+- [ ] **Step 0: Preflight — verify the toolchain**
+
+Run: `dotnet --version`  → expect `10.*`. If not, install the .NET 10 SDK first.
+Run: `dotnet workload install maui-android`  → installs the MAUI Android workload + templates (idempotent).
 
 - [ ] **Step 1: Create solution and projects**
 
@@ -102,15 +168,17 @@ Then ensure the controls package is current enough for Material 3:
 dotnet add src/JesusTheChrist.App package Microsoft.Maui.Controls --version 10.0.60
 ```
 
-- [ ] **Step 3: Bundle the content JSON as raw assets**
+- [ ] **Step 3: Vendor the content JSON as raw assets (with a guard)**
 
 ```bash
+SRC="${LDS_SCRIPTURES_DIR:-$HOME/dev/lds-nl-scriptures}/content/processed/scriptures"
+test -f "$SRC/en/topical-guide/jesus-christ.json" || { echo "ERROR: source JSON not found under $SRC — set LDS_SCRIPTURES_DIR to your lds-nl-scriptures checkout."; exit 1; }
 mkdir -p src/JesusTheChrist.App/Resources/Raw
-cp ~/dev/lds-nl-scriptures/content/processed/scriptures/en/topical-guide/jesus-christ.json src/JesusTheChrist.App/Resources/Raw/jesus-christ.en.json
-cp ~/dev/lds-nl-scriptures/content/processed/scriptures/es/topical-guide/jesus-christ.json src/JesusTheChrist.App/Resources/Raw/jesus-christ.es.json
+cp "$SRC/en/topical-guide/jesus-christ.json" src/JesusTheChrist.App/Resources/Raw/jesus-christ.en.json
+cp "$SRC/es/topical-guide/jesus-christ.json" src/JesusTheChrist.App/Resources/Raw/jesus-christ.es.json
 ```
 
-(MAUI bundles everything under `Resources/Raw/` automatically; the app reads them via `FileSystem.OpenAppPackageFileAsync`.)
+(MAUI bundles everything under `Resources/Raw/` automatically; the app reads them via `FileSystem.OpenAppPackageFileAsync`. The files are committed, so the sibling repo is needed only this once.)
 
 - [ ] **Step 4: Add a tiny deterministic test fixture**
 
@@ -158,27 +226,27 @@ Mark it copy-to-output by adding to `tests/JesusTheChrist.Core.Tests/JesusTheChr
 </ItemGroup>
 ```
 
-- [ ] **Step 5: Verify it builds and tests run (empty)**
+- [ ] **Step 5: Verify it builds**
 
 Run: `dotnet build JesusTheChrist.sln`
-Expected: build succeeds (Android workload must be installed; if not: `dotnet workload install maui-android`).
+Expected: build succeeds.
 
 - [ ] **Step 6: Commit**
 
 ```bash
 git add -A
-git commit -m "chore: scaffold solution, Core/App/Tests projects, bundle content JSON"
+git commit -m "chore: scaffold solution, Core/App/Tests projects, vendor content JSON"
 ```
 
 ---
 
-### Task 2: Scope and Volume models
+### Task 2: Scope, Language, and Volume models
 
 **Files:**
-- Create: `src/JesusTheChrist.Core/Models/Scope.cs`, `src/JesusTheChrist.Core/Models/Volume.cs`
-- Test: `tests/JesusTheChrist.Core.Tests/VolumeTests.cs`
+- Create: `src/JesusTheChrist.Core/Models/Scope.cs`, `Language.cs`, `Volume.cs`
+- Test: `tests/JesusTheChrist.Core.Tests/VolumeTests.cs`, `LanguageTests.cs`
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Write the failing tests**
 
 Create `tests/JesusTheChrist.Core.Tests/VolumeTests.cs`:
 
@@ -215,10 +283,26 @@ public class VolumeTests
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+Create `tests/JesusTheChrist.Core.Tests/LanguageTests.cs`:
 
-Run: `dotnet test --filter VolumeTests`
-Expected: FAIL — `Volume` / `VolumeExtensions` do not exist.
+```csharp
+using JesusTheChrist.Core.Models;
+using Xunit;
+
+public class LanguageTests
+{
+    [Theory]
+    [InlineData(Language.En, "en")]
+    [InlineData(Language.Es, "es")]
+    public void Code_maps_language(Language l, string expected)
+        => Assert.Equal(expected, l.Code());
+}
+```
+
+- [ ] **Step 2: Run tests to verify they fail**
+
+Run: `dotnet test --filter "VolumeTests|LanguageTests"`
+Expected: FAIL — types do not exist.
 
 - [ ] **Step 3: Write minimal implementation**
 
@@ -228,6 +312,26 @@ Create `src/JesusTheChrist.Core/Models/Scope.cs`:
 namespace JesusTheChrist.Core.Models;
 
 public enum Scope { BibleOnly, Full }
+```
+
+Create `src/JesusTheChrist.Core/Models/Language.cs`:
+
+```csharp
+using System;
+
+namespace JesusTheChrist.Core.Models;
+
+public enum Language { En, Es }
+
+public static class LanguageExtensions
+{
+    public static string Code(this Language l) => l switch
+    {
+        Language.En => "en",
+        Language.Es => "es",
+        _ => throw new ArgumentOutOfRangeException(nameof(l))
+    };
+}
 ```
 
 Create `src/JesusTheChrist.Core/Models/Volume.cs`:
@@ -257,27 +361,45 @@ public static class VolumeExtensions
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [ ] **Step 4: Run tests to verify they pass**
 
-Run: `dotnet test --filter VolumeTests`
+Run: `dotnet test --filter "VolumeTests|LanguageTests"`
 Expected: PASS.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/JesusTheChrist.Core/Models/Scope.cs src/JesusTheChrist.Core/Models/Volume.cs tests/JesusTheChrist.Core.Tests/VolumeTests.cs
-git commit -m "feat(core): Scope and Volume models with parse/order/IsBible"
+git add src/JesusTheChrist.Core/Models/Scope.cs src/JesusTheChrist.Core/Models/Language.cs src/JesusTheChrist.Core/Models/Volume.cs tests/JesusTheChrist.Core.Tests/VolumeTests.cs tests/JesusTheChrist.Core.Tests/LanguageTests.cs
+git commit -m "feat(core): Scope, Language, Volume models"
 ```
 
 ---
 
-### Task 3: Domain records + Reference.Id
+### Task 3: Slug, domain records + Reference.Id
 
 **Files:**
-- Create: `src/JesusTheChrist.Core/Models/ContextVerse.cs`, `Reference.cs`, `SubTopic.cs`, `TopicalGuide.cs`
-- Test: `tests/JesusTheChrist.Core.Tests/ReferenceIdTests.cs`
+- Create: `src/JesusTheChrist.Core/Models/Slug.cs`, `ContextVerse.cs`, `Reference.cs`, `SubTopic.cs`, `TopicalGuide.cs`
+- Test: `tests/JesusTheChrist.Core.Tests/SlugTests.cs`, `ReferenceIdTests.cs`
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Write the failing tests**
+
+Create `tests/JesusTheChrist.Core.Tests/SlugTests.cs`:
+
+```csharp
+using JesusTheChrist.Core.Models;
+using Xunit;
+
+public class SlugTests
+{
+    [Theory]
+    [InlineData("Advocate", "advocate")]
+    [InlineData("Atonement through", "atonement-through")]
+    [InlineData("Types of, in Anticipation", "types-of-in-anticipation")]
+    [InlineData("Summary", "summary")]
+    public void Make_kebab_cases(string input, string expected)
+        => Assert.Equal(expected, Slug.Make(input));
+}
+```
 
 Create `tests/JesusTheChrist.Core.Tests/ReferenceIdTests.cs`:
 
@@ -293,21 +415,44 @@ public class ReferenceIdTests
         Ch: 3, Verses: verses, Context: new List<ContextVerse>(), Note: null);
 
     [Fact]
-    public void Id_single_verse()
-        => Assert.Equal("Advocate:newtestament/john/3/16", Ref(new[] { 16 }).Id("Advocate"));
+    public void Id_single_verse_uses_language_invariant_key()
+        => Assert.Equal("advocate:newtestament/john/3/16", Ref(new[] { 16 }).Id("advocate"));
 
     [Fact]
     public void Id_verse_range_uses_first_and_last()
-        => Assert.Equal("Summary:newtestament/john/3/16-18", Ref(new[] { 16, 17, 18 }).Id("Summary"));
+        => Assert.Equal("summary:newtestament/john/3/16-18", Ref(new[] { 16, 17, 18 }).Id("summary"));
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [ ] **Step 2: Run tests to verify they fail**
 
-Run: `dotnet test --filter ReferenceIdTests`
+Run: `dotnet test --filter "SlugTests|ReferenceIdTests"`
 Expected: FAIL — types not defined.
 
 - [ ] **Step 3: Write minimal implementation**
+
+Create `src/JesusTheChrist.Core/Models/Slug.cs`:
+
+```csharp
+using System.Text;
+
+namespace JesusTheChrist.Core.Models;
+
+public static class Slug
+{
+    public static string Make(string text)
+    {
+        var sb = new StringBuilder(text.Length);
+        var lastDash = false;
+        foreach (var ch in text.ToLowerInvariant())
+        {
+            if (char.IsLetterOrDigit(ch)) { sb.Append(ch); lastDash = false; }
+            else if (sb.Length > 0 && !lastDash) { sb.Append('-'); lastDash = true; }
+        }
+        return sb.ToString().Trim('-');
+    }
+}
+```
 
 Create `src/JesusTheChrist.Core/Models/ContextVerse.cs`:
 
@@ -335,12 +480,13 @@ public record Reference(
     IReadOnlyList<ContextVerse> Context,
     string? Note)
 {
-    public string Id(string subtopicShort)
+    // subtopicKey is the language-invariant slug from SubTopic.Key.
+    public string Id(string subtopicKey)
     {
         var lo = Verses.Count > 0 ? Verses[0] : 0;
         var hi = Verses.Count > 0 ? Verses[^1] : 0;
         var span = lo == hi ? $"{lo}" : $"{lo}-{hi}";
-        return $"{subtopicShort}:{Vol.ToString().ToLowerInvariant()}/{Book}/{Ch}/{span}";
+        return $"{subtopicKey}:{Vol.ToString().ToLowerInvariant()}/{Book}/{Ch}/{span}";
     }
 }
 ```
@@ -352,7 +498,8 @@ using System.Collections.Generic;
 
 namespace JesusTheChrist.Core.Models;
 
-public record SubTopic(string Title, string Short, IReadOnlyList<Reference> References);
+// Key is the language-invariant slug (set by the loader from short_en ?? short).
+public record SubTopic(string Key, string Title, string Short, IReadOnlyList<Reference> References);
 ```
 
 Create `src/JesusTheChrist.Core/Models/TopicalGuide.cs`:
@@ -365,16 +512,16 @@ namespace JesusTheChrist.Core.Models;
 public record TopicalGuide(string Topic, string Language, IReadOnlyList<SubTopic> SubTopics);
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [ ] **Step 4: Run tests to verify they pass**
 
-Run: `dotnet test --filter ReferenceIdTests`
+Run: `dotnet test --filter "SlugTests|ReferenceIdTests"`
 Expected: PASS.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/JesusTheChrist.Core/Models tests/JesusTheChrist.Core.Tests/ReferenceIdTests.cs
-git commit -m "feat(core): domain records and Reference.Id"
+git add src/JesusTheChrist.Core/Models tests/JesusTheChrist.Core.Tests/SlugTests.cs tests/JesusTheChrist.Core.Tests/ReferenceIdTests.cs
+git commit -m "feat(core): Slug, domain records, language-invariant Reference.Id"
 ```
 
 ---
@@ -391,6 +538,7 @@ Create `tests/JesusTheChrist.Core.Tests/ReferenceGlossTests.cs`:
 
 ```csharp
 using System.Collections.Generic;
+using System.Linq;
 using JesusTheChrist.Core.Models;
 using Xunit;
 
@@ -422,8 +570,6 @@ public class ReferenceGlossTests
         => Assert.True(Ref("His birth is foretold", (16, "For God so loved the world", true)).ShowGloss);
 }
 ```
-
-Add `using System.Linq;` at the top of the test file.
 
 - [ ] **Step 2: Run test to verify it fails**
 
@@ -477,6 +623,8 @@ Create `tests/JesusTheChrist.Core.Tests/TopicalGuideLoaderTests.cs`:
 
 ```csharp
 using System.IO;
+using System.Linq;
+using System.Text;
 using JesusTheChrist.Core.Json;
 using JesusTheChrist.Core.Models;
 using Xunit;
@@ -490,11 +638,12 @@ public class TopicalGuideLoaderTests
     }
 
     [Fact]
-    public void Loads_subtopics_in_order()
+    public void Loads_subtopics_in_order_with_invariant_keys()
     {
         var g = Load();
         Assert.Equal("Jesus Christ", g.Topic);
         Assert.Equal(new[] { "Summary", "Advocate" }, g.SubTopics.Select(t => t.Short).ToArray());
+        Assert.Equal(new[] { "summary", "advocate" }, g.SubTopics.Select(t => t.Key).ToArray());
     }
 
     [Fact]
@@ -509,10 +658,22 @@ public class TopicalGuideLoaderTests
         Assert.Single(r.Context);
         Assert.True(r.Context[0].Target);
     }
+
+    [Fact]
+    public void Load_null_json_throws_invalid_data()
+    {
+        using var s = new MemoryStream(Encoding.UTF8.GetBytes("null"));
+        Assert.Throws<InvalidDataException>(() => TopicalGuideLoader.Load(s));
+    }
+
+    [Fact]
+    public void Load_malformed_json_throws()
+    {
+        using var s = new MemoryStream(Encoding.UTF8.GetBytes("{ this is not json"));
+        Assert.ThrowsAny<System.Exception>(() => TopicalGuideLoader.Load(s));
+    }
 }
 ```
-
-Add `using System.Linq;` at the top.
 
 - [ ] **Step 2: Run test to verify it fails**
 
@@ -540,6 +701,7 @@ internal sealed class SubTopicDto
 {
     [JsonPropertyName("title")] public string Title { get; set; } = "";
     [JsonPropertyName("short")] public string Short { get; set; } = "";
+    [JsonPropertyName("short_en")] public string? ShortEn { get; set; }
     [JsonPropertyName("references")] public List<ReferenceDto> References { get; set; } = new();
 }
 
@@ -566,7 +728,6 @@ internal sealed class ContextDto
 Create `src/JesusTheChrist.Core/Json/TopicalGuideLoader.cs`:
 
 ```csharp
-using System;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -582,6 +743,7 @@ public static class TopicalGuideLoader
                   ?? throw new InvalidDataException("Empty Topical Guide JSON.");
 
         var subtopics = dto.SubTopics.Select(s => new SubTopic(
+            Slug.Make(s.ShortEn ?? s.Short), // language-invariant key from the English short
             s.Title, s.Short,
             s.References.Select(r => new Reference(
                 r.Ref, VolumeExtensions.Parse(r.Vol), r.Book, r.BookTitle, r.Ch,
@@ -604,7 +766,7 @@ Expected: PASS.
 
 ```bash
 git add src/JesusTheChrist.Core/Json tests/JesusTheChrist.Core.Tests/TopicalGuideLoaderTests.cs
-git commit -m "feat(core): JSON DTOs and TopicalGuideLoader (order-preserving)"
+git commit -m "feat(core): JSON DTOs and TopicalGuideLoader (order-preserving, invariant keys)"
 ```
 
 ---
@@ -647,9 +809,8 @@ public class ScopeFilterTests
     public void BibleOnly_drops_non_bible_refs_and_empty_subtopics()
     {
         var g = ScopeFilter.Apply(Load(), Scope.BibleOnly);
-        // Advocate loses the Book of Mormon (Moroni) reference, keeps Hebrews.
         var advocate = g.SubTopics.Single(t => t.Short == "Advocate");
-        Assert.Single(advocate.References);
+        Assert.Single(advocate.References); // Moroni (Book of Mormon) dropped
         Assert.True(advocate.References.All(r => r.Vol.IsBible()));
     }
 }
@@ -721,15 +882,22 @@ public class ContentServiceTests
 {
     sealed class FileAssets : IAssetSource
     {
-        public Task<Stream> OpenAsync(string name) =>
-            Task.FromResult<Stream>(File.OpenRead(Path.Combine("Fixtures", "sample.json")));
+        public string? LastRequested;
+        public Task<Stream> OpenAsync(string name)
+        {
+            LastRequested = name;
+            return Task.FromResult<Stream>(File.OpenRead(Path.Combine("Fixtures", "sample.json")));
+        }
     }
 
     [Fact]
-    public async Task LoadAsync_applies_scope()
+    public async Task LoadAsync_uses_language_filename_and_applies_scope()
     {
-        var svc = new ContentService(new FileAssets());
-        var guide = await svc.LoadAsync("en", Scope.BibleOnly);
+        var assets = new FileAssets();
+        var svc = new ContentService(assets);
+        var guide = await svc.LoadAsync(Language.En, Scope.BibleOnly);
+
+        Assert.Equal("jesus-christ.en.json", assets.LastRequested);
         Assert.All(guide.SubTopics, t => Assert.All(t.References, r => Assert.True(r.Vol.IsBible())));
     }
 }
@@ -764,9 +932,9 @@ public sealed class ContentService
     private readonly IAssetSource _assets;
     public ContentService(IAssetSource assets) => _assets = assets;
 
-    public async Task<TopicalGuide> LoadAsync(string lang, Scope scope)
+    public async Task<TopicalGuide> LoadAsync(Language lang, Scope scope)
     {
-        await using var stream = await _assets.OpenAsync($"jesus-christ.{lang}.json");
+        await using var stream = await _assets.OpenAsync($"jesus-christ.{lang.Code()}.json");
         var guide = TopicalGuideLoader.Load(stream);
         return ScopeFilter.Apply(guide, scope);
     }
@@ -782,7 +950,7 @@ Expected: PASS.
 
 ```bash
 git add src/JesusTheChrist.Core/Content/ContentService.cs tests/JesusTheChrist.Core.Tests/ContentServiceTests.cs
-git commit -m "feat(core): ContentService load+filter with IAssetSource abstraction"
+git commit -m "feat(core): ContentService (Language-typed) with IAssetSource seam"
 ```
 
 ---
@@ -806,7 +974,9 @@ Add to `tests/JesusTheChrist.Core.Tests/JesusTheChrist.Core.Tests.csproj` inside
 </ItemGroup>
 ```
 
-- [ ] **Step 2: Write the failing test**
+- [ ] **Step 2: Write the test**
+
+The counts below are **pinned by the vendored (committed) asset** — they are not expected to drift. If they ever fail, the bundled JSON was changed deliberately; update the numbers as a conscious decision, not to "make it pass."
 
 Create `tests/JesusTheChrist.Core.Tests/RealDataSmokeTests.cs`:
 
@@ -830,63 +1000,80 @@ public class RealDataSmokeTests
     {
         var g = Load();
         Assert.Equal("Jesus Christ", g.Topic);
-        Assert.Equal(53, g.SubTopics.Count);
-        Assert.Equal(2196, g.SubTopics.Sum(t => t.References.Count));
+        Assert.Equal(53, g.SubTopics.Count);               // pinned by committed asset
+        Assert.Equal(2196, g.SubTopics.Sum(t => t.References.Count)); // pinned by committed asset
     }
 
     [Fact]
-    public void Non_summary_subtopics_are_in_canonical_order()
+    public void Subtopic_keys_are_unique_and_non_empty()
+    {
+        var keys = Load().SubTopics.Select(t => t.Key).ToList();
+        Assert.DoesNotContain("", keys);
+        Assert.Equal(keys.Count, keys.Distinct().Count());
+    }
+
+    [Fact]
+    public void Volume_blocks_appear_in_canonical_order()
     {
         var g = Load();
         foreach (var t in g.SubTopics.Where(t => t.Short != "Summary"))
         {
-            var keys = t.References
-                .Select(r => (r.Vol.Order(), r.Ch, r.Verses.Count > 0 ? r.Verses[0] : 0))
-                .ToList();
-            var sorted = keys.OrderBy(k => k.Item1).ThenBy(k => k.Ch).ThenBy(k => k.Item3).ToList();
-            // Same volume blocks must appear in canonical volume order (book order within a
-            // volume is preserved from source, not re-derived here).
-            Assert.Equal(
-                keys.Select(k => k.Item1).Distinct().ToList(),
-                keys.Select(k => k.Item1).Distinct().OrderBy(x => x).ToList());
+            // The distinct volumes, in first-appearance order, must be non-decreasing
+            // (OT→NT→BoM→D&C→PGP). Book/chapter order *within* a volume is preserved from
+            // source (the TG page order), not re-derived here — Core has no per-book index.
+            var distinctVols = t.References.Select(r => r.Vol.Order()).Distinct().ToList();
+            Assert.Equal(distinctVols.OrderBy(x => x).ToList(), distinctVols);
         }
     }
 }
 ```
 
-- [ ] **Step 3: Run test to verify it fails, then passes**
+- [ ] **Step 3: Run test to verify it passes**
 
 Run: `dotnet test --filter RealDataSmokeTests`
-Expected: PASS if counts match. If `Has_expected_topic_and_counts` fails on the numbers, update the asserted counts to the real values printed in the failure and re-run (the data is authoritative). Volume-order test should pass.
+Expected: PASS. (Task 8 tests already-implemented code, so there is no red→green here — it is a guardrail over the loader + vendored data.)
 
 - [ ] **Step 4: Commit**
 
 ```bash
 git add tests/JesusTheChrist.Core.Tests/RealDataSmokeTests.cs tests/JesusTheChrist.Core.Tests/JesusTheChrist.Core.Tests.csproj
-git commit -m "test(core): real-data smoke counts and canonical volume-order invariant"
+git commit -m "test(core): real-data smoke counts, unique keys, canonical volume-order"
 ```
 
 ---
 
-### Task 9: Full green run
+### Task 9: Full green run + close the phase
 
 - [ ] **Step 1: Run the whole suite**
 
 Run: `dotnet test JesusTheChrist.sln`
 Expected: all tests PASS.
 
-- [ ] **Step 2: Commit any final cleanup**
+- [ ] **Step 2: Record outcomes and move the phase doc**
+
+Fill in the `## Outcomes` section of `planning/in_progress/phase_plan-01-foundation_2026-05-31.md`, then:
+
+```bash
+git mv planning/in_progress/phase_plan-01-foundation_2026-05-31.md planning/completed/phase_plan-01-foundation_2026-05-31.md
+```
+
+- [ ] **Step 3: Commit (phase close)**
 
 ```bash
 git add -A
-git commit -m "chore: Plan 01 foundation complete — content layer green" --allow-empty
+git commit -m "[PHASE] Complete Plan 01: foundation & content layer
+
+- Solution + Core/App/Tests scaffolded; content layer green.
+- Language-invariant ids, Bible-Only filter, order preserved, real-data smoke.
+
+Phase: planning/completed/phase_plan-01-foundation_2026-05-31.md"
 ```
 
 ---
 
 ## Self-review
 
-- **Spec coverage (Plan 01 slice):** bundled JSON load ✓ (T5), reference id ✓ (T3), gloss rule ✓ (T4), Bible-Only filter + empty-subtopic drop ✓ (T6), order preserved incl. Summary exception ✓ (T5/T8), Core stays MAUI-free + testable ✓ (IAssetSource). Out of this plan by design: SQLite, screens, progress, settings, two-flavor packaging (Plans 02–05).
-- **Placeholder scan:** none — every step has runnable code/commands.
-- **Type consistency:** `Reference.Id(string)`, `Reference.TargetText`, `Reference.ShowGloss`, `VolumeExtensions.Parse/IsBible/Order`, `TopicalGuideLoader.Load(Stream)`, `ScopeFilter.Apply(TopicalGuide, Scope)`, `ContentService.LoadAsync(string, Scope)`, `IAssetSource.OpenAsync(string)` are used consistently across tasks.
-- **Risk:** the `2196` count in T8 is asserted from the current data; if the extract is regenerated the test self-documents the new number (update on first run). Android workload may need `dotnet workload install maui-android` before T1 builds.
+- **Spec coverage (Plan 01 slice):** bundled JSON load ✓ (T5), **language-invariant** reference id ✓ (T3, T5), gloss rule ✓ (T4), Bible-Only filter + empty-subtopic drop ✓ (T6), order preserved incl. Summary exception ✓ (T5/T8), Core stays MAUI-free + testable ✓ (IAssetSource), negative-path behavior ✓ (T5). Out of this plan by design: SQLite, screens, progress, settings, two-flavor packaging (Plans 02–05).
+- **Placeholder scan:** none. Two prior assumptions were resolved by review and are now explicit: (a) the content source is a documented **prerequisite** + vendored asset (not a hard-coded home path); (b) ids derive from a **language-invariant slug**, not the localized `short`.
+- **Type consistency:** `Reference.Id(string subtopicKey)`, `Reference.TargetText`, `Reference.ShowGloss`, `Slug.Make(string)`, `SubTopic(Key, Title, Short, References)`, `VolumeExtensions.Parse/IsBible/Order`, `LanguageExtensions.Code`, `TopicalGuideLoader.Load(Stream)`, `ScopeFilter.Apply(TopicalGuide, Scope)`, `ContentService.LoadAsync(Language, Scope)`, `IAssetSource.OpenAsync(string)` are used consistently across tasks.
+- **Known setup gotcha:** the Android workload must be installed (Task 1 Step 0) before `dotnet new maui`.

@@ -1,8 +1,10 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/JesusTheChrist.Core/JesusTheChrist.Core.csproj" />
+    <Project Path="src/JesusTheChrist.Data/JesusTheChrist.Data.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/JesusTheChrist.Core.Tests/JesusTheChrist.Core.Tests.csproj" />
+    <Project Path="tests/JesusTheChrist.Data.Tests/JesusTheChrist.Data.Tests.csproj" />
   </Folder>
 </Solution>

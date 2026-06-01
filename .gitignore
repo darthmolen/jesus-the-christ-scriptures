@@ -1,0 +1,11 @@
+# Brainstorming visual-companion mockups (local design tool)
+.superpowers/
+
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user

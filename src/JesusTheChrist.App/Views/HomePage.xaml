@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="JesusTheChrist.App.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Scriptures: Jesus The Christ">
+
+    <VerticalStackLayout Padding="24" Spacing="12" VerticalOptions="Center">
+        <Label
+            Text="Scriptures: Jesus The Christ"
+            HorizontalOptions="Center"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="24" />
+        <Label
+            Text="Home — coming in PR-B"
+            HorizontalOptions="Center"
+            FontSize="16" />
+    </VerticalStackLayout>
+
+</ContentPage>

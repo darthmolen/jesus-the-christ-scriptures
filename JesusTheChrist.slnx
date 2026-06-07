@@ -2,9 +2,12 @@
   <Folder Name="/src/">
     <Project Path="src/JesusTheChrist.Core/JesusTheChrist.Core.csproj" />
     <Project Path="src/JesusTheChrist.Data/JesusTheChrist.Data.csproj" />
+    <Project Path="src/JesusTheChrist.Presentation/JesusTheChrist.Presentation.csproj" />
+    <Project Path="src/JesusTheChrist.App/JesusTheChrist.App.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/JesusTheChrist.Core.Tests/JesusTheChrist.Core.Tests.csproj" />
     <Project Path="tests/JesusTheChrist.Data.Tests/JesusTheChrist.Data.Tests.csproj" />
+    <Project Path="tests/JesusTheChrist.Presentation.Tests/JesusTheChrist.Presentation.Tests.csproj" />
   </Folder>
 </Solution>

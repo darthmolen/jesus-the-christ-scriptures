@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Android-first; override the net10.0 base TFM from src/Directory.Build.props. -->
+    <TargetFramework>net10.0-android</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>JesusTheChrist.App</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+
+    <!-- Float MAUI ahead of the installed workload baseline (10.0.20) to get the
+         Material 3 control set (requires Microsoft.Maui.Controls >= 10.0.60). -->
+    <MauiVersion>10.0.70</MauiVersion>
+    <UseMaterial3>true</UseMaterial3>
+
+    <!-- XAML compiled at build via source generation. -->
+    <MauiXamlInflator>SourceGen</MauiXamlInflator>
+
+    <!-- Branding (Full flavor). -->
+    <ApplicationTitle>Scriptures: Jesus The Christ</ApplicationTitle>
+    <ApplicationId>org.jesusthechrist.full</ApplicationId>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- App Icon -->
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+    <!-- Splash Screen -->
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+    <!-- Images -->
+    <MauiImage Include="Resources\Images\*" />
+    <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+
+    <!-- Custom Fonts -->
+    <MauiFont Include="Resources\Fonts\*" />
+
+    <!-- Raw Assets: LogicalName strips the Resources\Raw prefix so the bundled
+         JSON is opened by bare name (e.g. "jesus-christ.en.json") via
+         FileSystem.OpenAppPackageFileAsync, matching ContentService. -->
+    <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="StyleCop.Analyzers.Unstable">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JesusTheChrist.Core\JesusTheChrist.Core.csproj" />
+    <ProjectReference Include="..\JesusTheChrist.Data\JesusTheChrist.Data.csproj" />
+    <ProjectReference Include="..\JesusTheChrist.Presentation\JesusTheChrist.Presentation.csproj" />
+  </ItemGroup>
+
+</Project>

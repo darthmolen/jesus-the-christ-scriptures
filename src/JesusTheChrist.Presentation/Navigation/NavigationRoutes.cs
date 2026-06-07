@@ -1,0 +1,17 @@
+namespace JesusTheChrist.Presentation.Navigation;
+
+/// <summary>
+/// Well-known navigation route names and parameter keys.
+/// </summary>
+public static class NavigationRoutes
+{
+    /// <summary>
+    /// The route for a single sub-topic's reference feed.
+    /// </summary>
+    public const string Topic = "topic";
+
+    /// <summary>
+    /// The parameter key carrying a sub-topic's language-invariant key.
+    /// </summary>
+    public const string TopicKeyParameter = "key";
+}

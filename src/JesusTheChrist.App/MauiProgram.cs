@@ -1,7 +1,13 @@
+using System.Globalization;
 using JesusTheChrist.App.Services;
 using JesusTheChrist.App.Views;
 using JesusTheChrist.Core.Content;
+using JesusTheChrist.Core.Models;
 using JesusTheChrist.Data;
+using JesusTheChrist.Presentation;
+using JesusTheChrist.Presentation.Data;
+using JesusTheChrist.Presentation.Navigation;
+using JesusTheChrist.Presentation.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace JesusTheChrist.App;
@@ -44,13 +50,24 @@ public static class MauiProgram
         // On-device data. The SQLite connection is shared, so singletons.
         services.AddSingleton(_ => new AppDatabase(Path.Combine(FileSystem.AppDataDirectory, "app.db")));
         services.AddSingleton<DatabaseInitializer>();
+        services.AddSingleton<IDatabaseInitializer>(sp => sp.GetRequiredService<DatabaseInitializer>());
         services.AddSingleton<ReadMarkStore>();
         services.AddSingleton<NoteStore>();
         services.AddSingleton<SettingsStore>();
         services.AddSingleton<StreakStore>();
 
-        // Shell + pages. Pages are fresh per navigation -> transient.
+        // App context: full-scope flavor; default language from the device locale.
+        services.AddSingleton(new AppEnvironment(
+            Scope.Full,
+            LanguageResolver.Resolve(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)));
+
+        // Navigation seam (Shell-backed).
+        services.AddSingleton<INavigationService, ShellNavigationService>();
+
+        // Shell + pages + view models. Pages/VMs are fresh per navigation -> transient.
         services.AddSingleton<AppShell>();
+        services.AddTransient<HomeViewModel>();
         services.AddTransient<HomePage>();
+        services.AddTransient<TopicStubPage>();
     }
 }

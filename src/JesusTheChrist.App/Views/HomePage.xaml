@@ -3,18 +3,77 @@
     x:Class="JesusTheChrist.App.Views.HomePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:JesusTheChrist.App.Controls"
+    xmlns:vm="clr-namespace:JesusTheChrist.Presentation.ViewModels;assembly=JesusTheChrist.Presentation"
+    x:DataType="vm:HomeViewModel"
     Title="Scriptures: Jesus The Christ">
 
-    <VerticalStackLayout Padding="24" Spacing="12" VerticalOptions="Center">
-        <Label
-            Text="Scriptures: Jesus The Christ"
-            HorizontalOptions="Center"
-            SemanticProperties.HeadingLevel="Level1"
-            FontSize="24" />
-        <Label
-            Text="Home — coming in PR-B"
-            HorizontalOptions="Center"
-            FontSize="16" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="Auto,Auto,*" Padding="16,12">
+
+        <!-- Challenge header -->
+        <VerticalStackLayout Grid.Row="0" Spacing="6">
+            <Label
+                Text="{Binding HeaderText}"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="20"
+                FontAttributes="Bold" />
+            <ProgressBar Progress="{Binding OverallFraction}" />
+        </VerticalStackLayout>
+
+        <ActivityIndicator
+            Grid.Row="1"
+            Margin="0,8"
+            IsVisible="{Binding IsLoading}"
+            IsRunning="{Binding IsLoading}" />
+
+        <CollectionView
+            Grid.Row="2"
+            Margin="0,8,0,0"
+            ItemsSource="{Binding Topics}"
+            ItemSizingStrategy="MeasureFirstItem"
+            SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:TopicRowViewModel">
+                    <Border Padding="12" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=OpenTopicCommand}"
+                                CommandParameter="{Binding}" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto">
+                            <controls:ProgressRingView
+                                Grid.RowSpan="2"
+                                Fraction="{Binding Fraction}"
+                                WidthRequest="44"
+                                HeightRequest="44"
+                                SemanticProperties.Description="{Binding ProgressLabel}" />
+                            <Label
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                Text="{Binding ShortTitle}"
+                                FontSize="16"
+                                FontAttributes="Bold" />
+                            <Label
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                Text="{Binding Title}"
+                                FontSize="12"
+                                LineBreakMode="TailTruncation"
+                                Opacity="0.7" />
+                            <Label
+                                Grid.Column="2"
+                                Grid.RowSpan="2"
+                                Text="{Binding ProgressLabel}"
+                                FontSize="12"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 
 </ContentPage>

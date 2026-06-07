@@ -16,6 +16,9 @@ dotnet_diagnostic.IDE0060.severity = suggestion
 dotnet_diagnostic.CA1002.severity = suggestion
 dotnet_diagnostic.CA1826.severity = suggestion
 
+# CA2000: test fixtures transfer disposable ownership to a harness disposed in DisposeAsync
+dotnet_diagnostic.CA2000.severity = suggestion
+
 # CA1848: Use the LoggerMessage delegates - Disabled for tests
 dotnet_diagnostic.CA1848.severity = none
 

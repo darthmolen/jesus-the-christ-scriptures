@@ -1,4 +1,5 @@
 using JesusTheChrist.Data;
+using JesusTheChrist.Presentation.Data;
 
 namespace JesusTheChrist.App.Services;
 
@@ -6,7 +7,7 @@ namespace JesusTheChrist.App.Services;
 /// Ensures the SQLite database schema is created exactly once, regardless of how
 /// many callers request initialization.
 /// </summary>
-public sealed class DatabaseInitializer
+public sealed class DatabaseInitializer : IDatabaseInitializer
 {
     private readonly AppDatabase database;
     private readonly Lock gate = new();

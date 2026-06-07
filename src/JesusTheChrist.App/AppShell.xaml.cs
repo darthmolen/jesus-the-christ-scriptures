@@ -1,3 +1,6 @@
+using JesusTheChrist.App.Views;
+using JesusTheChrist.Presentation.Navigation;
+
 namespace JesusTheChrist.App;
 
 /// <summary>
@@ -11,5 +14,6 @@ public partial class AppShell : Shell
     public AppShell()
     {
         this.InitializeComponent();
+        Routing.RegisterRoute(NavigationRoutes.Topic, typeof(TopicStubPage));
     }
 }

@@ -76,6 +76,17 @@ public class HomeViewModelTests
     }
 
     [Fact]
+    public async Task Load_SetsOverallFraction()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ReadMarks.MarkReadAsync("advocate:newtestament/heb/7/25");
+
+        await harness.ViewModel.LoadCommand.ExecuteAsync(null);
+
+        Assert.Equal(0.5, harness.ViewModel.OverallFraction);
+    }
+
+    [Fact]
     public async Task Load_WithSavedSpanishPreference_LoadsSpanishGuide()
     {
         await using var harness = await Harness.CreateAsync(defaultLanguage: Language.En);

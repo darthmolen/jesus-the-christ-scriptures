@@ -60,6 +60,12 @@ public partial class HomeViewModel : ObservableObject
     public partial bool IsLoading { get; set; }
 
     /// <summary>
+    /// Gets or sets the overall read fraction in the range [0, 1] for the header bar.
+    /// </summary>
+    [ObservableProperty]
+    public partial double OverallFraction { get; set; }
+
+    /// <summary>
     /// Gets the sub-topic rows shown on the Home screen.
     /// </summary>
     public ObservableCollection<TopicRowViewModel> Topics { get; } = new();
@@ -97,6 +103,7 @@ public partial class HomeViewModel : ObservableObject
             }
 
             this.HeaderText = $"{overall.Read} / {overall.Total} references read";
+            this.OverallFraction = overall.Fraction;
         }
         finally
         {

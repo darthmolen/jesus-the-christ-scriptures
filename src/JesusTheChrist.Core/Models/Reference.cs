@@ -35,7 +35,7 @@ public record Reference(
     /// </summary>
     public bool ShowGloss =>
         !string.IsNullOrWhiteSpace(this.Note)
-        && !Normalize(this.TargetText).Contains(Normalize(this.Note!), StringComparison.Ordinal);
+        && !Normalize(this.TargetText).Contains(Normalize(this.Note), StringComparison.Ordinal);
 
     /// <summary>
     /// Builds the stable, language-invariant identifier for this reference within a sub-topic.

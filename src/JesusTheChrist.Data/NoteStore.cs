@@ -67,4 +67,11 @@ public sealed class NoteStore
     /// <returns><see langword="true"/> if a note exists.</returns>
     public async Task<bool> HasNoteAsync(string refId) =>
         await this.connection.FindAsync<NoteEntry>(refId) is not null;
+
+    /// <summary>
+    /// Gets the set of reference identifiers that have a saved note, in a single query.
+    /// </summary>
+    /// <returns>The reference identifiers with notes.</returns>
+    public async Task<HashSet<string>> GetNoteIdsAsync() =>
+        (await this.connection.Table<NoteEntry>().ToListAsync()).Select(n => n.RefId).ToHashSet();
 }

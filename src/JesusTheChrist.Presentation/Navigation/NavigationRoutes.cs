@@ -19,4 +19,14 @@ public static class NavigationRoutes
     /// The route for the settings screen.
     /// </summary>
     public const string Settings = "settings";
+
+    /// <summary>
+    /// The route for the per-reference note editor.
+    /// </summary>
+    public const string Note = "note";
+
+    /// <summary>
+    /// The parameter key carrying a reference id to the note editor.
+    /// </summary>
+    public const string NoteRefIdParameter = "refId";
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="JesusTheChrist.App.Views.NoteEditorPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:JesusTheChrist.Presentation.ViewModels;assembly=JesusTheChrist.Presentation"
+    x:DataType="vm:NoteEditorViewModel"
+    Title="Note">
+
+    <Grid RowDefinitions="*,Auto" Padding="16">
+
+        <Editor
+            Grid.Row="0"
+            Text="{Binding Text}"
+            Placeholder="Write your thoughts on this reference…"
+            AutoSize="TextChanges"
+            FontSize="{DynamicResource ReadingFontSize}" />
+
+        <HorizontalStackLayout Grid.Row="1" Spacing="12" HorizontalOptions="End" Margin="0,12,0,0">
+            <Button
+                Text="Delete"
+                Command="{Binding DeleteCommand}"
+                IsVisible="{Binding HasExistingNote}" />
+            <Button
+                Text="Save"
+                Command="{Binding SaveCommand}" />
+        </HorizontalStackLayout>
+
+    </Grid>
+
+</ContentPage>

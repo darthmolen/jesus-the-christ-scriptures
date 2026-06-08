@@ -12,4 +12,10 @@ public interface INavigationService
     /// <param name="parameters">Optional navigation parameters.</param>
     /// <returns>A task that completes when navigation has been requested.</returns>
     public Task GoToAsync(string route, IDictionary<string, object>? parameters = null);
+
+    /// <summary>
+    /// Navigates back to the previous page.
+    /// </summary>
+    /// <returns>A task that completes when navigation has been requested.</returns>
+    public Task GoBackAsync();
 }

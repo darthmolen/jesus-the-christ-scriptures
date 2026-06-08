@@ -23,4 +23,7 @@ public sealed class ShellNavigationService : INavigationService
 
         return Shell.Current.GoToAsync(route, query);
     }
+
+    /// <inheritdoc/>
+    public Task GoBackAsync() => Shell.Current.GoToAsync("..");
 }

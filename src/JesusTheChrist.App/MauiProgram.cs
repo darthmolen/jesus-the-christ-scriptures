@@ -74,5 +74,7 @@ public static class MauiProgram
         services.AddTransient<TopicFeedPage>();
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<SettingsPage>();
+        services.AddTransient<NoteEditorViewModel>();
+        services.AddTransient<NoteEditorPage>();
     }
 }

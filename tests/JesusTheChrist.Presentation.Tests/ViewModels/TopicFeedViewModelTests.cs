@@ -2,6 +2,7 @@ using JesusTheChrist.Core.Content;
 using JesusTheChrist.Core.Models;
 using JesusTheChrist.Data;
 using JesusTheChrist.Presentation;
+using JesusTheChrist.Presentation.Navigation;
 using JesusTheChrist.Presentation.Tests.Fakes;
 using JesusTheChrist.Presentation.ViewModels;
 
@@ -105,20 +106,64 @@ public class TopicFeedViewModelTests
         Assert.True(card.IsContextVisible);
     }
 
+    [Fact]
+    public async Task Load_ReflectsExistingNote()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.Notes.SaveAsync(AdvocateRefId, "a thought");
+
+        await harness.ViewModel.LoadAsync("advocate");
+
+        Assert.True(harness.ViewModel.References[0].HasNote);
+        Assert.False(harness.ViewModel.References[1].HasNote);
+    }
+
+    [Fact]
+    public async Task OpenNote_NavigatesToNoteRouteWithRefId()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+
+        await harness.ViewModel.References[0].OpenNoteCommand.ExecuteAsync(null);
+
+        var call = Assert.Single(harness.Navigation.Calls);
+        Assert.Equal(NavigationRoutes.Note, call.Route);
+        Assert.Equal(AdvocateRefId, call.Parameters![NavigationRoutes.NoteRefIdParameter]);
+    }
+
+    [Fact]
+    public async Task RefreshNotes_UpdatesIndicators()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+        Assert.False(harness.ViewModel.References[0].HasNote);
+
+        await harness.Notes.SaveAsync(AdvocateRefId, "added later");
+        await harness.ViewModel.RefreshNotesAsync();
+
+        Assert.True(harness.ViewModel.References[0].HasNote);
+    }
+
     private sealed class Harness : IAsyncDisposable
     {
         private readonly TempDatabase database;
 
-        private Harness(TempDatabase database, TopicFeedViewModel viewModel, ReadMarkStore readMarks)
+        private Harness(TempDatabase database, TopicFeedViewModel viewModel, ReadMarkStore readMarks, NoteStore notes, RecordingNavigationService navigation)
         {
             this.database = database;
             this.ViewModel = viewModel;
             this.ReadMarks = readMarks;
+            this.Notes = notes;
+            this.Navigation = navigation;
         }
 
         public TopicFeedViewModel ViewModel { get; }
 
         public ReadMarkStore ReadMarks { get; }
+
+        public NoteStore Notes { get; }
+
+        public RecordingNavigationService Navigation { get; }
 
         public static async Task<Harness> CreateAsync()
         {
@@ -130,10 +175,12 @@ public class TopicFeedViewModelTests
             });
             var content = new ContentService(assets);
             var readMarks = new ReadMarkStore(db.Db);
+            var notes = new NoteStore(db.Db);
             var settings = new SettingsStore(db.Db);
+            var navigation = new RecordingNavigationService();
             var env = new AppEnvironment(Scope.Full, Language.En);
-            var vm = new TopicFeedViewModel(content, readMarks, settings, db, env);
-            return new Harness(db, vm, readMarks);
+            var vm = new TopicFeedViewModel(content, readMarks, notes, settings, db, navigation, env);
+            return new Harness(db, vm, readMarks, notes, navigation);
         }
 
         public async ValueTask DisposeAsync() => await this.database.DisposeAsync();

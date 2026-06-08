@@ -37,9 +37,19 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        if (!string.IsNullOrEmpty(this.topicKey) && this.viewModel.References.Count == 0)
+        if (string.IsNullOrEmpty(this.topicKey))
+        {
+            return;
+        }
+
+        if (this.viewModel.References.Count == 0)
         {
             await this.viewModel.LoadAsync(this.topicKey);
+        }
+        else
+        {
+            // Returning from the note editor — refresh the note indicators.
+            await this.viewModel.RefreshNotesAsync();
         }
     }
 }

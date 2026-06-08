@@ -4,6 +4,7 @@ using JesusTheChrist.Core.Content;
 using JesusTheChrist.Core.Models;
 using JesusTheChrist.Data;
 using JesusTheChrist.Presentation.Data;
+using JesusTheChrist.Presentation.Navigation;
 
 namespace JesusTheChrist.Presentation.ViewModels;
 
@@ -15,8 +16,10 @@ public partial class TopicFeedViewModel : ObservableObject
 {
     private readonly ContentService content;
     private readonly ReadMarkStore readMarks;
+    private readonly NoteStore notes;
     private readonly SettingsStore settings;
     private readonly IDatabaseInitializer databaseInitializer;
+    private readonly INavigationService navigation;
     private readonly AppEnvironment environment;
 
     /// <summary>
@@ -24,20 +27,26 @@ public partial class TopicFeedViewModel : ObservableObject
     /// </summary>
     /// <param name="content">The content service that loads the Topical Guide.</param>
     /// <param name="readMarks">The read-mark store.</param>
+    /// <param name="notes">The note store.</param>
     /// <param name="settings">The settings store (language preference).</param>
     /// <param name="databaseInitializer">Ensures the database schema before reads.</param>
+    /// <param name="navigation">The navigation service.</param>
     /// <param name="environment">App scope and default language.</param>
     public TopicFeedViewModel(
         ContentService content,
         ReadMarkStore readMarks,
+        NoteStore notes,
         SettingsStore settings,
         IDatabaseInitializer databaseInitializer,
+        INavigationService navigation,
         AppEnvironment environment)
     {
         this.content = content;
         this.readMarks = readMarks;
+        this.notes = notes;
         this.settings = settings;
         this.databaseInitializer = databaseInitializer;
+        this.navigation = navigation;
         this.environment = environment;
     }
 
@@ -103,7 +112,9 @@ public partial class TopicFeedViewModel : ObservableObject
                     reference.ShowGloss ? reference.Note : null,
                     context,
                     readIds.Contains(id),
-                    this.SetReadAsync));
+                    await this.notes.HasNoteAsync(id),
+                    this.SetReadAsync,
+                    this.OpenNoteAsync));
             }
         }
         finally
@@ -111,6 +122,23 @@ public partial class TopicFeedViewModel : ObservableObject
             this.IsLoading = false;
         }
     }
+
+    /// <summary>
+    /// Refreshes each card's note indicator (call after returning from the note editor).
+    /// </summary>
+    /// <returns>A task that completes when the indicators are refreshed.</returns>
+    public async Task RefreshNotesAsync()
+    {
+        foreach (var card in this.References)
+        {
+            card.HasNote = await this.notes.HasNoteAsync(card.Id);
+        }
+    }
+
+    private Task OpenNoteAsync(string id) =>
+        this.navigation.GoToAsync(
+            NavigationRoutes.Note,
+            new Dictionary<string, object> { [NavigationRoutes.NoteRefIdParameter] = id });
 
     private Task SetReadAsync(string id, bool isRead) =>
         isRead ? this.readMarks.MarkReadAsync(id) : this.readMarks.UnmarkAsync(id);

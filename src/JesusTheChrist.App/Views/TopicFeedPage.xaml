@@ -100,14 +100,22 @@
 
                             <!-- Context toggle -->
                             <Button
-                                Text="Show context (±2)"
                                 IsVisible="{Binding HasContext}"
                                 Command="{Binding ToggleContextCommand}"
                                 HorizontalOptions="Start"
                                 FontSize="13"
                                 Padding="0"
                                 BackgroundColor="Transparent"
-                                TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}" />
+                                TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding IsContextVisible}" Value="False">
+                                        <Setter Property="Text" Value="Show scriptural context" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Button" Binding="{Binding IsContextVisible}" Value="True">
+                                        <Setter Property="Text" Value="Hide scriptural context" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
 
                             <!-- Context window -->
                             <VerticalStackLayout
@@ -116,7 +124,7 @@
                                 BindableLayout.ItemsSource="{Binding Context}">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate x:DataType="vm:ContextLineViewModel">
-                                        <Label FontSize="14" Opacity="0.85">
+                                        <Label FontSize="{DynamicResource ReadingFontSize}" Opacity="0.85">
                                             <Label.Triggers>
                                                 <DataTrigger TargetType="Label" Binding="{Binding IsTarget}" Value="True">
                                                     <Setter Property="FontAttributes" Value="Bold" />

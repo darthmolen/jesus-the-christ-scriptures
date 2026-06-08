@@ -8,6 +8,10 @@
     x:DataType="vm:HomeViewModel"
     Title="Scriptures: Jesus The Christ">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Settings" Command="{Binding OpenSettingsCommand}" />
+    </ContentPage.ToolbarItems>
+
     <Grid RowDefinitions="Auto,Auto,*" Padding="16,12">
 
         <!-- Challenge header -->

@@ -58,7 +58,7 @@
                             <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding Verses}">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate x:DataType="vm:ContextLineViewModel">
-                                        <Label FontSize="15" LineHeight="1.35">
+                                        <Label FontSize="{DynamicResource ReadingFontSize}" LineHeight="1.35">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{Binding Verse}" FontAttributes="Bold" FontSize="11" />

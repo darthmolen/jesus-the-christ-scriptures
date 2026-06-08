@@ -36,6 +36,17 @@ public class HomeViewModelTests
     }
 
     [Fact]
+    public async Task OpenSettings_NavigatesToSettingsRoute()
+    {
+        await using var harness = await Harness.CreateAsync();
+
+        await harness.ViewModel.OpenSettingsCommand.ExecuteAsync(null);
+
+        var call = Assert.Single(harness.Navigation.Calls);
+        Assert.Equal(NavigationRoutes.Settings, call.Route);
+    }
+
+    [Fact]
     public async Task Load_PopulatesTopicsInGuideOrder()
     {
         await using var harness = await Harness.CreateAsync();

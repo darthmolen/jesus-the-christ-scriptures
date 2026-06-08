@@ -5,6 +5,7 @@ using JesusTheChrist.Core.Content;
 using JesusTheChrist.Core.Models;
 using JesusTheChrist.Data;
 using JesusTheChrist.Presentation;
+using JesusTheChrist.Presentation.Appearance;
 using JesusTheChrist.Presentation.Data;
 using JesusTheChrist.Presentation.Navigation;
 using JesusTheChrist.Presentation.ViewModels;
@@ -61,8 +62,9 @@ public static class MauiProgram
             Scope.Full,
             LanguageResolver.Resolve(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)));
 
-        // Navigation seam (Shell-backed).
+        // Navigation + appearance seams.
         services.AddSingleton<INavigationService, ShellNavigationService>();
+        services.AddSingleton<IAppearanceApplier, AppearanceApplier>();
 
         // Shell + pages + view models. Pages/VMs are fresh per navigation -> transient.
         services.AddSingleton<AppShell>();
@@ -70,5 +72,7 @@ public static class MauiProgram
         services.AddTransient<HomePage>();
         services.AddTransient<TopicFeedViewModel>();
         services.AddTransient<TopicFeedPage>();
+        services.AddTransient<SettingsViewModel>();
+        services.AddTransient<SettingsPage>();
     }
 }

@@ -112,6 +112,9 @@ public partial class HomeViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private Task OpenSettingsAsync() => this.navigation.GoToAsync(NavigationRoutes.Settings);
+
+    [RelayCommand]
     private async Task OpenTopicAsync(TopicRowViewModel? row)
     {
         if (row is null)

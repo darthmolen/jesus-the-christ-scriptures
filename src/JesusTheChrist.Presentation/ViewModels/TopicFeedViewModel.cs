@@ -97,6 +97,7 @@ public partial class TopicFeedViewModel : ObservableObject
 
             this.Title = subTopic.Title;
             var readIds = await this.readMarks.GetReadIdsAsync();
+            var noteIds = await this.notes.GetNoteIdsAsync();
 
             foreach (var reference in subTopic.References)
             {
@@ -112,7 +113,7 @@ public partial class TopicFeedViewModel : ObservableObject
                     reference.ShowGloss ? reference.Note : null,
                     context,
                     readIds.Contains(id),
-                    await this.notes.HasNoteAsync(id),
+                    noteIds.Contains(id),
                     this.SetReadAsync,
                     this.OpenNoteAsync));
             }
@@ -129,9 +130,10 @@ public partial class TopicFeedViewModel : ObservableObject
     /// <returns>A task that completes when the indicators are refreshed.</returns>
     public async Task RefreshNotesAsync()
     {
+        var noteIds = await this.notes.GetNoteIdsAsync();
         foreach (var card in this.References)
         {
-            card.HasNote = await this.notes.HasNoteAsync(card.Id);
+            card.HasNote = noteIds.Contains(card.Id);
         }
     }
 

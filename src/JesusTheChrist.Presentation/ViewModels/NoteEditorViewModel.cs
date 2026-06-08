@@ -59,6 +59,7 @@ public partial class NoteEditorViewModel : ObservableObject
     [RelayCommand]
     private async Task SaveAsync()
     {
+        await this.databaseInitializer.EnsureInitializedAsync();
         await this.notes.SaveAsync(this.referenceId, this.Text);
         await this.navigation.GoBackAsync();
     }
@@ -66,6 +67,7 @@ public partial class NoteEditorViewModel : ObservableObject
     [RelayCommand]
     private async Task DeleteAsync()
     {
+        await this.databaseInitializer.EnsureInitializedAsync();
         await this.notes.DeleteAsync(this.referenceId);
         await this.navigation.GoBackAsync();
     }

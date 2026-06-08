@@ -39,7 +39,8 @@
                                     WidthRequest="32"
                                     HeightRequest="32"
                                     StrokeShape="RoundRectangle 6"
-                                    StrokeThickness="1">
+                                    StrokeThickness="1"
+                                    SemanticProperties.Description="Toggle read">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ToggleReadCommand}" />
                                     </Border.GestureRecognizers>

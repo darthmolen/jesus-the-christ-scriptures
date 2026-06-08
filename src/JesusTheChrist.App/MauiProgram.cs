@@ -68,6 +68,7 @@ public static class MauiProgram
         services.AddSingleton<AppShell>();
         services.AddTransient<HomeViewModel>();
         services.AddTransient<HomePage>();
-        services.AddTransient<TopicStubPage>();
+        services.AddTransient<TopicFeedViewModel>();
+        services.AddTransient<TopicFeedPage>();
     }
 }

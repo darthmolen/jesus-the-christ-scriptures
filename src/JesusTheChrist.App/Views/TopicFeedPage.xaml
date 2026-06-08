@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="JesusTheChrist.App.Views.TopicFeedPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:JesusTheChrist.Presentation.ViewModels;assembly=JesusTheChrist.Presentation"
+    x:DataType="vm:TopicFeedViewModel"
+    Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,*" Padding="16,12">
+
+        <ActivityIndicator
+            Grid.Row="0"
+            IsVisible="{Binding IsLoading}"
+            IsRunning="{Binding IsLoading}" />
+
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding References}"
+            SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:ReferenceCardViewModel">
+                    <Border Padding="14" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                        <VerticalStackLayout Spacing="8">
+
+                            <!-- Reference title + read checkmark -->
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label
+                                    Grid.Column="0"
+                                    Text="{Binding RefLabel}"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    VerticalOptions="Center" />
+                                <Border
+                                    Grid.Column="1"
+                                    WidthRequest="32"
+                                    HeightRequest="32"
+                                    StrokeShape="RoundRectangle 6"
+                                    StrokeThickness="1"
+                                    SemanticProperties.Description="Toggle read">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleReadCommand}" />
+                                    </Border.GestureRecognizers>
+                                    <Label
+                                        Text="✓"
+                                        FontSize="18"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        IsVisible="{Binding IsRead}"
+                                        SemanticProperties.Description="Read" />
+                                </Border>
+                            </Grid>
+
+                            <!-- Target verses, each prefixed with its verse number -->
+                            <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding Verses}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:ContextLineViewModel">
+                                        <Label FontSize="15" LineHeight="1.35">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Verse}" FontAttributes="Bold" FontSize="11" />
+                                                    <Span Text="  " />
+                                                    <Span Text="{Binding Text}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+
+                            <!-- Gloss (only when it adds information) -->
+                            <Label
+                                Text="{Binding Gloss}"
+                                IsVisible="{Binding HasGloss}"
+                                FontSize="13"
+                                FontAttributes="Italic"
+                                Opacity="0.7" />
+
+                            <!-- Context toggle -->
+                            <Button
+                                Text="Show context (±2)"
+                                IsVisible="{Binding HasContext}"
+                                Command="{Binding ToggleContextCommand}"
+                                HorizontalOptions="Start"
+                                FontSize="13"
+                                Padding="0"
+                                BackgroundColor="Transparent" />
+
+                            <!-- Context window -->
+                            <VerticalStackLayout
+                                IsVisible="{Binding IsContextVisible}"
+                                Spacing="4"
+                                BindableLayout.ItemsSource="{Binding Context}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:ContextLineViewModel">
+                                        <Label FontSize="14" Opacity="0.85">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding IsTarget}" Value="True">
+                                                    <Setter Property="FontAttributes" Value="Bold" />
+                                                    <Setter Property="Opacity" Value="1" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Verse}" FontAttributes="Bold" />
+                                                    <Span Text=" " />
+                                                    <Span Text="{Binding Text}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

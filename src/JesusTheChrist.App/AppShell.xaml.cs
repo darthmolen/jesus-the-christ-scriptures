@@ -14,6 +14,6 @@ public partial class AppShell : Shell
     public AppShell()
     {
         this.InitializeComponent();
-        Routing.RegisterRoute(NavigationRoutes.Topic, typeof(TopicStubPage));
+        Routing.RegisterRoute(NavigationRoutes.Topic, typeof(TopicFeedPage));
     }
 }

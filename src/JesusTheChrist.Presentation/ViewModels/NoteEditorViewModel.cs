@@ -49,9 +49,16 @@ public partial class NoteEditorViewModel : ObservableObject
     /// <returns>A task that completes when the note is loaded.</returns>
     public async Task LoadAsync(string refId)
     {
+        this.referenceId = (refId ?? string.Empty).Trim();
+        this.Text = string.Empty;
+        this.HasExistingNote = false;
+        if (this.referenceId.Length == 0)
+        {
+            return;
+        }
+
         await this.databaseInitializer.EnsureInitializedAsync();
-        this.referenceId = refId;
-        var existing = await this.notes.GetAsync(refId);
+        var existing = await this.notes.GetAsync(this.referenceId);
         this.Text = existing ?? string.Empty;
         this.HasExistingNote = !string.IsNullOrWhiteSpace(existing);
     }
@@ -59,16 +66,24 @@ public partial class NoteEditorViewModel : ObservableObject
     [RelayCommand]
     private async Task SaveAsync()
     {
-        await this.databaseInitializer.EnsureInitializedAsync();
-        await this.notes.SaveAsync(this.referenceId, this.Text);
+        if (this.referenceId.Length > 0)
+        {
+            await this.databaseInitializer.EnsureInitializedAsync();
+            await this.notes.SaveAsync(this.referenceId, this.Text);
+        }
+
         await this.navigation.GoBackAsync();
     }
 
     [RelayCommand]
     private async Task DeleteAsync()
     {
-        await this.databaseInitializer.EnsureInitializedAsync();
-        await this.notes.DeleteAsync(this.referenceId);
+        if (this.referenceId.Length > 0)
+        {
+            await this.databaseInitializer.EnsureInitializedAsync();
+            await this.notes.DeleteAsync(this.referenceId);
+        }
+
         await this.navigation.GoBackAsync();
     }
 }

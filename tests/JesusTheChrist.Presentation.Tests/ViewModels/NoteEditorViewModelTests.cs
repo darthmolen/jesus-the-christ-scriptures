@@ -70,6 +70,30 @@ public class NoteEditorViewModelTests
         Assert.Equal(1, harness.Navigation.BackCount);
     }
 
+    [Fact]
+    public async Task Load_WithBlankRefId_StaysEmptyWithoutQuerying()
+    {
+        await using var harness = await Harness.CreateAsync();
+
+        await harness.ViewModel.LoadAsync("   ");
+
+        Assert.Equal(string.Empty, harness.ViewModel.Text);
+        Assert.False(harness.ViewModel.HasExistingNote);
+    }
+
+    [Fact]
+    public async Task Save_WithoutValidReference_DoesNotPersistButNavigatesBack()
+    {
+        await using var harness = await Harness.CreateAsync();
+
+        // LoadAsync was never called, so there is no reference id.
+        harness.ViewModel.Text = "orphan note";
+        await harness.ViewModel.SaveCommand.ExecuteAsync(null);
+
+        Assert.Empty(await harness.Notes.GetNoteIdsAsync());
+        Assert.Equal(1, harness.Navigation.BackCount);
+    }
+
     private sealed class Harness : IAsyncDisposable
     {
         private readonly TempDatabase database;

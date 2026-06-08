@@ -26,27 +26,53 @@
                     <Border Padding="14" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                         <VerticalStackLayout Spacing="8">
 
-                            <!-- Reference title + read checkmark -->
-                            <Grid ColumnDefinitions="*,Auto">
-                                <Label
-                                    Grid.Column="0"
-                                    Text="{Binding RefLabel}"
-                                    FontSize="16"
-                                    FontAttributes="Bold"
-                                    VerticalOptions="Center" />
-                                <Border
+                            <!-- Heading: narrative gloss (top) + reference, with note + read actions -->
+                            <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                                <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
+                                    <Label
+                                        Text="{Binding Gloss}"
+                                        IsVisible="{Binding HasGloss}"
+                                        FontSize="18"
+                                        FontAttributes="Bold" />
+                                    <Label
+                                        Text="{Binding RefLabel}"
+                                        FontSize="15"
+                                        FontAttributes="Bold"
+                                        Opacity="0.75" />
+                                </VerticalStackLayout>
+                                <Button
                                     Grid.Column="1"
-                                    WidthRequest="32"
-                                    HeightRequest="32"
+                                    Command="{Binding OpenNoteCommand}"
+                                    FontSize="13"
+                                    Padding="10,4"
+                                    CornerRadius="8"
+                                    BorderWidth="1"
+                                    BorderColor="{AppThemeBinding Light=#CCCCCC, Dark=#555555}"
+                                    BackgroundColor="Transparent"
+                                    VerticalOptions="Center">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding HasNote}" Value="True">
+                                            <Setter Property="Text" Value="✎ Note" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding HasNote}" Value="False">
+                                            <Setter Property="Text" Value="+ Note" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Border
+                                    Grid.Column="2"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
                                     StrokeShape="RoundRectangle 6"
                                     StrokeThickness="1"
+                                    VerticalOptions="Center"
                                     SemanticProperties.Description="Toggle read">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ToggleReadCommand}" />
                                     </Border.GestureRecognizers>
                                     <Label
                                         Text="✓"
-                                        FontSize="18"
+                                        FontSize="20"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center"
                                         IsVisible="{Binding IsRead}"
@@ -71,38 +97,15 @@
                                 </BindableLayout.ItemTemplate>
                             </VerticalStackLayout>
 
-                            <!-- Gloss (only when it adds information) -->
-                            <Label
-                                Text="{Binding Gloss}"
-                                IsVisible="{Binding HasGloss}"
+                            <!-- Context toggle -->
+                            <Button
+                                Text="Show context (±2)"
+                                IsVisible="{Binding HasContext}"
+                                Command="{Binding ToggleContextCommand}"
+                                HorizontalOptions="Start"
                                 FontSize="13"
-                                FontAttributes="Italic"
-                                Opacity="0.7" />
-
-                            <!-- Actions: context toggle + note -->
-                            <HorizontalStackLayout Spacing="16">
-                                <Button
-                                    Text="Show context (±2)"
-                                    IsVisible="{Binding HasContext}"
-                                    Command="{Binding ToggleContextCommand}"
-                                    FontSize="13"
-                                    Padding="0"
-                                    BackgroundColor="Transparent" />
-                                <Button
-                                    Command="{Binding OpenNoteCommand}"
-                                    FontSize="13"
-                                    Padding="0"
-                                    BackgroundColor="Transparent">
-                                    <Button.Triggers>
-                                        <DataTrigger TargetType="Button" Binding="{Binding HasNote}" Value="True">
-                                            <Setter Property="Text" Value="✎ Note" />
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="Button" Binding="{Binding HasNote}" Value="False">
-                                            <Setter Property="Text" Value="+ Note" />
-                                        </DataTrigger>
-                                    </Button.Triggers>
-                                </Button>
-                            </HorizontalStackLayout>
+                                Padding="0"
+                                BackgroundColor="Transparent" />
 
                             <!-- Context window -->
                             <VerticalStackLayout

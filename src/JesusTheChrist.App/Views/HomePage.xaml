@@ -47,31 +47,29 @@
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=OpenTopicCommand}"
                                 CommandParameter="{Binding}" />
                         </Border.GestureRecognizers>
-                        <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto">
+                        <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="12">
                             <controls:ProgressRingView
-                                Grid.RowSpan="2"
+                                Grid.Column="0"
                                 Fraction="{Binding Fraction}"
                                 WidthRequest="44"
                                 HeightRequest="44"
+                                VerticalOptions="Center"
                                 SemanticProperties.Description="{Binding ProgressLabel}" />
-                            <Label
-                                Grid.Column="1"
-                                Grid.Row="0"
-                                Text="{Binding ShortTitle}"
-                                FontSize="16"
-                                FontAttributes="Bold" />
-                            <Label
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                Text="{Binding Title}"
-                                FontSize="12"
-                                LineBreakMode="TailTruncation"
-                                Opacity="0.7" />
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <Label
+                                    Text="{Binding ShortTitle}"
+                                    FontSize="{DynamicResource ReadingFontSize}"
+                                    FontAttributes="Bold" />
+                                <Label
+                                    Text="{Binding Title}"
+                                    FontSize="13"
+                                    LineBreakMode="TailTruncation"
+                                    Opacity="0.7" />
+                            </VerticalStackLayout>
                             <Label
                                 Grid.Column="2"
-                                Grid.RowSpan="2"
                                 Text="{Binding ProgressLabel}"
-                                FontSize="12"
+                                FontSize="13"
                                 VerticalOptions="Center" />
                         </Grid>
                     </Border>

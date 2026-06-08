@@ -1,4 +1,5 @@
 using JesusTheChrist.App.Services;
+using JesusTheChrist.Presentation.ViewModels;
 
 namespace JesusTheChrist.App;
 
@@ -25,6 +26,9 @@ public partial class App : Application
         // Container is fully built here (safe to resolve — see DI XAML-parse-timing gotcha).
         // Kick off idempotent schema creation; data screens await the same task before reading.
         _ = this.services.GetRequiredService<DatabaseInitializer>().EnsureInitializedAsync();
+
+        // Apply the persisted theme + reading font size at launch.
+        _ = this.services.GetRequiredService<SettingsViewModel>().LoadAsync();
 
         var shell = this.services.GetRequiredService<AppShell>();
         return new Window(shell);

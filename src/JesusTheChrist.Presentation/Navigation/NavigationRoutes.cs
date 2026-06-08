@@ -14,4 +14,9 @@ public static class NavigationRoutes
     /// The parameter key carrying a sub-topic's language-invariant key.
     /// </summary>
     public const string TopicKeyParameter = "key";
+
+    /// <summary>
+    /// The route for the settings screen.
+    /// </summary>
+    public const string Settings = "settings";
 }

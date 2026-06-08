@@ -9,6 +9,10 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- Reading comfort: scripture text binds to this via DynamicResource;
+                 SettingsViewModel updates it through the AppearanceApplier. -->
+            <x:Double x:Key="ReadingFontSize">16</x:Double>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

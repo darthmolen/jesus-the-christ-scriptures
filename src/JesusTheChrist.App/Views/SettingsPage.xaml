@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="JesusTheChrist.App.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Settings">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Reading font size -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Reading font size" FontAttributes="Bold" />
+                <Slider x:Name="FontSlider" Minimum="12" Maximum="28" />
+                <Label
+                    Text="The quick brown fox — sample verse text."
+                    FontSize="{DynamicResource ReadingFontSize}" />
+            </VerticalStackLayout>
+
+            <!-- Theme -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Theme" FontAttributes="Bold" />
+                <Picker x:Name="ThemePicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>System</x:String>
+                            <x:String>Light</x:String>
+                            <x:String>Dark</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </VerticalStackLayout>
+
+            <!-- Language -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Language" FontAttributes="Bold" />
+                <Picker x:Name="LanguagePicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>English</x:String>
+                            <x:String>Español</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Label Text="Applies the next time a topic or the home list loads." FontSize="12" Opacity="0.7" />
+            </VerticalStackLayout>
+
+            <!-- Streak -->
+            <Grid ColumnDefinitions="*,Auto">
+                <VerticalStackLayout Grid.Column="0">
+                    <Label Text="Track reading streak" FontAttributes="Bold" />
+                    <Label Text="Any reference read in a day counts." FontSize="12" Opacity="0.7" />
+                </VerticalStackLayout>
+                <Switch x:Name="StreakSwitch" Grid.Column="1" VerticalOptions="Center" />
+            </Grid>
+
+            <!-- About / attribution -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="About" FontAttributes="Bold" />
+                <Label
+                    FontSize="13"
+                    Opacity="0.8"
+                    Text="Scriptures: Jesus The Christ gathers the ~2,200 Topical Guide references under &quot;Jesus Christ.&quot; English Bible text is the King James Version (public domain). The Spanish scripture text and the Topical Guide structure and notes are © Intellectual Reserve, Inc., used under its terms; all rights reserved." />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

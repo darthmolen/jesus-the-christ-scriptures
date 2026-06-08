@@ -49,6 +49,7 @@
                                     BorderWidth="1"
                                     BorderColor="{AppThemeBinding Light=#CCCCCC, Dark=#555555}"
                                     BackgroundColor="Transparent"
+                                    TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}"
                                     VerticalOptions="Center">
                                     <Button.Triggers>
                                         <DataTrigger TargetType="Button" Binding="{Binding HasNote}" Value="True">
@@ -105,7 +106,8 @@
                                 HorizontalOptions="Start"
                                 FontSize="13"
                                 Padding="0"
-                                BackgroundColor="Transparent" />
+                                BackgroundColor="Transparent"
+                                TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}" />
 
                             <!-- Context window -->
                             <VerticalStackLayout

@@ -10,6 +10,7 @@ namespace JesusTheChrist.Presentation.ViewModels;
 public partial class ReferenceCardViewModel : ObservableObject
 {
     private readonly Func<string, bool, Task> setReadAsync;
+    private readonly Func<string, Task> openNoteAsync;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ReferenceCardViewModel"/> class.
@@ -20,7 +21,9 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// <param name="gloss">The note gloss to show, or null when it adds nothing.</param>
     /// <param name="context">The ±context verse window.</param>
     /// <param name="isRead">Whether the reference is already marked read.</param>
+    /// <param name="hasNote">Whether a saved note exists for the reference.</param>
     /// <param name="setReadAsync">Persists a new read state for the given id.</param>
+    /// <param name="openNoteAsync">Opens the note editor for the given id.</param>
     public ReferenceCardViewModel(
         string id,
         string refLabel,
@@ -28,7 +31,9 @@ public partial class ReferenceCardViewModel : ObservableObject
         string? gloss,
         IReadOnlyList<ContextLineViewModel> context,
         bool isRead,
-        Func<string, bool, Task> setReadAsync)
+        bool hasNote,
+        Func<string, bool, Task> setReadAsync,
+        Func<string, Task> openNoteAsync)
     {
         this.Id = id;
         this.RefLabel = refLabel;
@@ -37,7 +42,9 @@ public partial class ReferenceCardViewModel : ObservableObject
         this.Context = context;
         this.Verses = context.Where(c => c.IsTarget).ToList();
         this.setReadAsync = setReadAsync;
+        this.openNoteAsync = openNoteAsync;
         this.IsRead = isRead;
+        this.HasNote = hasNote;
     }
 
     /// <summary>
@@ -92,6 +99,12 @@ public partial class ReferenceCardViewModel : ObservableObject
     [ObservableProperty]
     public partial bool IsContextVisible { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether a saved note exists for this reference.
+    /// </summary>
+    [ObservableProperty]
+    public partial bool HasNote { get; set; }
+
     [RelayCommand]
     private async Task ToggleReadAsync()
     {
@@ -102,4 +115,7 @@ public partial class ReferenceCardViewModel : ObservableObject
 
     [RelayCommand]
     private void ToggleContext() => this.IsContextVisible = !this.IsContextVisible;
+
+    [RelayCommand]
+    private Task OpenNoteAsync() => this.openNoteAsync(this.Id);
 }

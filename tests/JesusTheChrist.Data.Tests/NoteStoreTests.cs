@@ -32,4 +32,19 @@ public sealed class NoteStoreTests
         Assert.False(await store.HasNoteAsync("r"));
         Assert.Null(await store.GetAsync("r"));
     }
+
+    [Fact]
+    public async Task GetNoteIds_returns_only_referenced_with_notes()
+    {
+        await using var t = await TestDb.CreateAsync();
+        var store = new NoteStore(t.Db, () => Fixed);
+
+        await store.SaveAsync("a", "note a");
+        await store.SaveAsync("b", "note b");
+        await store.SaveAsync("b", "   "); // deletes b
+
+        var ids = await store.GetNoteIdsAsync();
+
+        Assert.Equal(new HashSet<string> { "a" }, ids);
+    }
 }

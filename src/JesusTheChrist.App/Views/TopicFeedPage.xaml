@@ -79,15 +79,30 @@
                                 FontAttributes="Italic"
                                 Opacity="0.7" />
 
-                            <!-- Context toggle -->
-                            <Button
-                                Text="Show context (±2)"
-                                IsVisible="{Binding HasContext}"
-                                Command="{Binding ToggleContextCommand}"
-                                HorizontalOptions="Start"
-                                FontSize="13"
-                                Padding="0"
-                                BackgroundColor="Transparent" />
+                            <!-- Actions: context toggle + note -->
+                            <HorizontalStackLayout Spacing="16">
+                                <Button
+                                    Text="Show context (±2)"
+                                    IsVisible="{Binding HasContext}"
+                                    Command="{Binding ToggleContextCommand}"
+                                    FontSize="13"
+                                    Padding="0"
+                                    BackgroundColor="Transparent" />
+                                <Button
+                                    Command="{Binding OpenNoteCommand}"
+                                    FontSize="13"
+                                    Padding="0"
+                                    BackgroundColor="Transparent">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding HasNote}" Value="True">
+                                            <Setter Property="Text" Value="✎ Note" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding HasNote}" Value="False">
+                                            <Setter Property="Text" Value="+ Note" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </HorizontalStackLayout>
 
                             <!-- Context window -->
                             <VerticalStackLayout

@@ -98,7 +98,12 @@
                                 </BindableLayout.ItemTemplate>
                             </VerticalStackLayout>
 
-                            <!-- Context toggle -->
+                            <!-- Separator + context toggle -->
+                            <BoxView
+                                HeightRequest="1"
+                                Margin="0,4"
+                                IsVisible="{Binding HasContext}"
+                                Color="{AppThemeBinding Light=#E0E0E0, Dark=#444444}" />
                             <Button
                                 IsVisible="{Binding HasContext}"
                                 Command="{Binding ToggleContextCommand}"

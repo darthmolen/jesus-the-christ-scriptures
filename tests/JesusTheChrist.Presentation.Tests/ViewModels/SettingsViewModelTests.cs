@@ -12,7 +12,7 @@ public class SettingsViewModelTests
     public async Task Load_AppliesPersistedThemeAndFontSize()
     {
         await using var harness = await Harness.CreateAsync();
-        await harness.Settings.SetAsync(SettingKeys.Theme, "Dark");
+        await harness.Settings.SetAsync(SettingKeys.Theme, "dark");
         await harness.Settings.SetIntAsync(SettingKeys.FontSize, 22);
 
         await harness.ViewModel.LoadAsync();
@@ -50,6 +50,35 @@ public class SettingsViewModelTests
     }
 
     [Fact]
+    public async Task SetReadingFontSize_RoundsConsistently()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync();
+
+        await harness.ViewModel.SetReadingFontSizeAsync(20.6);
+
+        // In-memory, persisted, and applied values all match the rounded integer.
+        Assert.Equal(21, harness.ViewModel.ReadingFontSize);
+        Assert.Equal(21, await harness.Settings.GetIntAsync(SettingKeys.FontSize, 0));
+        Assert.Equal(21, harness.Appearance.LastFontSize);
+    }
+
+    [Fact]
+    public async Task PreviewReadingFontSize_AppliesWithoutPersisting()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync();
+
+        harness.ViewModel.PreviewReadingFontSize(24);
+
+        Assert.Equal(24, harness.ViewModel.ReadingFontSize);
+        Assert.Equal(24, harness.Appearance.LastFontSize);
+
+        // Not persisted: a fresh load still sees the default.
+        Assert.Equal((int)SettingsViewModel.DefaultReadingFontSize, await harness.Settings.GetIntAsync(SettingKeys.FontSize, (int)SettingsViewModel.DefaultReadingFontSize));
+    }
+
+    [Fact]
     public async Task SetTheme_PersistsAndApplies()
     {
         await using var harness = await Harness.CreateAsync();
@@ -58,7 +87,7 @@ public class SettingsViewModelTests
         await harness.ViewModel.SetThemeAsync(ThemeOption.Light);
 
         Assert.Equal(ThemeOption.Light, harness.ViewModel.Theme);
-        Assert.Equal("Light", await harness.Settings.GetAsync(SettingKeys.Theme));
+        Assert.Equal("light", await harness.Settings.GetAsync(SettingKeys.Theme));
         Assert.Equal(ThemeOption.Light, harness.Appearance.LastTheme);
     }
 

@@ -21,6 +21,7 @@ public sealed class AppearanceApplier : IAppearanceApplier
             {
                 ThemeOption.Light => AppTheme.Light,
                 ThemeOption.Dark => AppTheme.Dark,
+                ThemeOption.System => AppTheme.Unspecified,
                 _ => AppTheme.Unspecified,
             };
         }

@@ -69,7 +69,7 @@ public partial class SettingsViewModel : ObservableObject
         this.ReadingFontSize = await this.settings.GetIntAsync(SettingKeys.FontSize, (int)DefaultReadingFontSize);
 
         var savedTheme = await this.settings.GetAsync(SettingKeys.Theme);
-        this.Theme = Enum.TryParse<ThemeOption>(savedTheme, out var theme) ? theme : ThemeOption.System;
+        this.Theme = Enum.TryParse<ThemeOption>(savedTheme, ignoreCase: true, out var theme) ? theme : ThemeOption.System;
 
         var savedLanguage = await this.settings.GetAsync(SettingKeys.Language);
         this.Language = string.IsNullOrWhiteSpace(savedLanguage) ? Language.En : LanguageResolver.Resolve(savedLanguage);
@@ -81,15 +81,30 @@ public partial class SettingsViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Sets, persists, and applies the reading font size.
+    /// Applies a reading font size for live preview without persisting it
+    /// (call while the slider is moving).
+    /// </summary>
+    /// <param name="fontSize">The font size to preview.</param>
+    public void PreviewReadingFontSize(double fontSize)
+    {
+        var rounded = Math.Round(fontSize);
+        this.ReadingFontSize = rounded;
+        this.appearance.ApplyReadingFontSize(rounded);
+    }
+
+    /// <summary>
+    /// Sets, persists, and applies the reading font size. The persisted, in-memory,
+    /// and applied values are all the same rounded integer, so the session matches
+    /// what is read back after a restart.
     /// </summary>
     /// <param name="fontSize">The new font size.</param>
     /// <returns>A task that completes when persisted and applied.</returns>
     public async Task SetReadingFontSizeAsync(double fontSize)
     {
-        this.ReadingFontSize = fontSize;
-        await this.settings.SetIntAsync(SettingKeys.FontSize, (int)Math.Round(fontSize));
-        this.appearance.ApplyReadingFontSize(fontSize);
+        var rounded = Math.Round(fontSize);
+        this.ReadingFontSize = rounded;
+        await this.settings.SetIntAsync(SettingKeys.FontSize, (int)rounded);
+        this.appearance.ApplyReadingFontSize(rounded);
     }
 
     /// <summary>
@@ -100,7 +115,7 @@ public partial class SettingsViewModel : ObservableObject
     public async Task SetThemeAsync(ThemeOption theme)
     {
         this.Theme = theme;
-        await this.settings.SetAsync(SettingKeys.Theme, theme.ToString());
+        await this.settings.SetAsync(SettingKeys.Theme, theme.ToString().ToLowerInvariant());
         this.appearance.ApplyTheme(theme);
     }
 

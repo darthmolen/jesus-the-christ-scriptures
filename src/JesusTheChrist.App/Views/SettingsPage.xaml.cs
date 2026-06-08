@@ -36,6 +36,7 @@ public partial class SettingsPage : ContentPage
         this.StreakSwitch.IsToggled = this.viewModel.StreakEnabled;
         this.initializing = false;
 
+        this.FontSlider.ValueChanged += this.OnFontValueChanged;
         this.FontSlider.DragCompleted += this.OnFontDragCompleted;
         this.ThemePicker.SelectedIndexChanged += this.OnThemeChanged;
         this.LanguagePicker.SelectedIndexChanged += this.OnLanguageChanged;
@@ -46,10 +47,20 @@ public partial class SettingsPage : ContentPage
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
+        this.FontSlider.ValueChanged -= this.OnFontValueChanged;
         this.FontSlider.DragCompleted -= this.OnFontDragCompleted;
         this.ThemePicker.SelectedIndexChanged -= this.OnThemeChanged;
         this.LanguagePicker.SelectedIndexChanged -= this.OnLanguageChanged;
         this.StreakSwitch.Toggled -= this.OnStreakToggled;
+    }
+
+    private void OnFontValueChanged(object? sender, ValueChangedEventArgs e)
+    {
+        if (!this.initializing)
+        {
+            // Live preview as the slider moves; persistence happens on release.
+            this.viewModel.PreviewReadingFontSize(e.NewValue);
+        }
     }
 
     private async void OnFontDragCompleted(object? sender, EventArgs e)

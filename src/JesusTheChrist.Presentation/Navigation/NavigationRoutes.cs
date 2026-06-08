@@ -29,4 +29,9 @@ public static class NavigationRoutes
     /// The parameter key carrying a reference id to the note editor.
     /// </summary>
     public const string NoteRefIdParameter = "refId";
+
+    /// <summary>
+    /// The route for the first-run invitation screen.
+    /// </summary>
+    public const string Invitation = "invitation";
 }

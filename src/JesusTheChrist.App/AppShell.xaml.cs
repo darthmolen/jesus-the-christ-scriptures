@@ -17,5 +17,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(NavigationRoutes.Topic, typeof(TopicFeedPage));
         Routing.RegisterRoute(NavigationRoutes.Settings, typeof(SettingsPage));
         Routing.RegisterRoute(NavigationRoutes.Note, typeof(NoteEditorPage));
+        Routing.RegisterRoute(NavigationRoutes.Invitation, typeof(InvitationPage));
     }
 }

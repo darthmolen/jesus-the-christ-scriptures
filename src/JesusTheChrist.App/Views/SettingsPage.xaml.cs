@@ -1,5 +1,6 @@
 using JesusTheChrist.Core.Models;
 using JesusTheChrist.Presentation.Appearance;
+using JesusTheChrist.Presentation.Navigation;
 using JesusTheChrist.Presentation.ViewModels;
 
 namespace JesusTheChrist.App.Views;
@@ -94,4 +95,7 @@ public partial class SettingsPage : ContentPage
             await this.viewModel.SetStreakEnabledAsync(e.Value);
         }
     }
+
+    private async void OnReadInvitation(object? sender, EventArgs e) =>
+        await Shell.Current.GoToAsync(NavigationRoutes.Invitation);
 }

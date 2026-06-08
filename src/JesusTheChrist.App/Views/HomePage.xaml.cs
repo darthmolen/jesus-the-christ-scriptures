@@ -9,6 +9,7 @@ namespace JesusTheChrist.App.Views;
 public partial class HomePage : ContentPage
 {
     private readonly HomeViewModel viewModel;
+    private bool checkedFirstRun;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="HomePage"/> class.
@@ -26,5 +27,15 @@ public partial class HomePage : ContentPage
     {
         base.OnAppearing();
         await this.viewModel.LoadCommand.ExecuteAsync(null);
+
+        // First launch only: show the invitation once, then never again.
+        if (!this.checkedFirstRun)
+        {
+            this.checkedFirstRun = true;
+            if (await this.viewModel.IsInvitationUnseenAsync())
+            {
+                await this.viewModel.OpenInvitationCommand.ExecuteAsync(null);
+            }
+        }
     }
 }

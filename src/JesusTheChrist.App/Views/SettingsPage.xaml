@@ -60,7 +60,15 @@
                 <Label
                     FontSize="13"
                     Opacity="0.8"
-                    Text="Scriptures: Jesus The Christ gathers the ~2,200 Topical Guide references under &quot;Jesus Christ.&quot; English Bible text is the King James Version (public domain). The Spanish scripture text and the Topical Guide structure and notes are © Intellectual Reserve, Inc., used under its terms; all rights reserved." />
+                    Text="&quot;Scriptures: Jesus The Christ&quot; gathers the ~2,200 Topical Guide references under &quot;Jesus Christ.&quot; English Bible text is the King James Version (public domain). The Spanish scripture text and the Topical Guide structure and notes are © Intellectual Reserve, Inc., used under its terms; all rights reserved." />
+                <Button
+                    x:Name="InvitationButton"
+                    Text="Read the invitation"
+                    Clicked="OnReadInvitation"
+                    HorizontalOptions="Start"
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>

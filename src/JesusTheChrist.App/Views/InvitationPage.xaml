@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="JesusTheChrist.App.Views.InvitationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:JesusTheChrist.App.Controls"
+    xmlns:vm="clr-namespace:JesusTheChrist.Presentation.ViewModels;assembly=JesusTheChrist.Presentation"
+    x:DataType="vm:InvitationViewModel"
+    Title="The Invitation">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+            <controls:MarkdownView Padding="24,20" Source="{Binding BodyMarkdown}" />
+        </ScrollView>
+
+        <Button
+            Grid.Row="1"
+            Margin="24,12,24,20"
+            Text="Begin"
+            Command="{Binding AcknowledgeCommand}" />
+
+    </Grid>
+
+</ContentPage>

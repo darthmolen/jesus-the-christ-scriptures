@@ -59,6 +59,7 @@
                                 <Label
                                     Text="{Binding ShortTitle}"
                                     FontSize="{DynamicResource ReadingFontSize}"
+                                    LineBreakMode="TailTruncation"
                                     FontAttributes="Bold" />
                                 <Label
                                     Text="{Binding Title}"

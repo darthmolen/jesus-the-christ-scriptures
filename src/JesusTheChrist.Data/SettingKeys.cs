@@ -28,4 +28,7 @@ public static class SettingKeys
 
     /// <summary>The last read date (<c>yyyy-MM-dd</c>) or empty.</summary>
     public const string StreakLastDate = "streak_last_date";
+
+    /// <summary>Whether the first-run invitation screen has been seen (boolean).</summary>
+    public const string InvitationSeen = "invitation_seen";
 }

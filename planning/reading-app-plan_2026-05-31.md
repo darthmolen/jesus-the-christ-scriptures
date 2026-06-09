@@ -8,10 +8,15 @@
 
 Come Follow Me, May 25–31 2026 ("The Lord Raised Up a Deliverer," Judges 2–4; 6–8; 13–16)
 points to Elder Neil L. Andersen's Oct 2020 talk *"We Talk of Christ,"* which recounts
-President Russell M. Nelson's challenge (that talk's footnote 10 for the source) to study
+President Russell M. Nelson's invitation (that talk's footnote 8 for the source) to study
 **all ~2,200 Topical Guide references under "Jesus Christ."** President Nelson said he took the
 challenge himself and **it changed him** — an apostle of 50+ years, changed by it. (He has
 since passed away.)
+
+The invitation was originally given in President Nelson's 2017 young-adult devotional — see
+`planning/the-invitation.md` for the quote and source links:
+- [President Russell M. Nelson, *"Prophets, Leadership, and Divine Law"* (Jan. 8, 2017)](https://www.churchofjesuschrist.org/study/broadcasts/worldwide-devotional-for-young-adults-an-evening-with-president-nelson/2017/01/prophets-leadership-and-divine-law?lang=eng)
+- [Neil L. Andersen, *"We Talk of Christ"* (Oct. 2020)](https://www.churchofjesuschrist.org/study/general-conference/2020/10/45andersen?lang=eng)
 
 Goal: let **anyone** read the words of and about Christ in that curated set and have their lives
 changed — and lower the barrier for Christians who may be wary of the LDS faith.

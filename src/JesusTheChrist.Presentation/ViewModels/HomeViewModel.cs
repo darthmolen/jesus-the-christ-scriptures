@@ -111,6 +111,19 @@ public partial class HomeViewModel : ObservableObject
         }
     }
 
+    /// <summary>
+    /// Determines whether the first-run invitation has not yet been seen.
+    /// </summary>
+    /// <returns><see langword="true"/> if the invitation should be shown.</returns>
+    public async Task<bool> IsInvitationUnseenAsync()
+    {
+        await this.databaseInitializer.EnsureInitializedAsync();
+        return !await this.settings.GetBoolAsync(SettingKeys.InvitationSeen, false);
+    }
+
+    [RelayCommand]
+    private Task OpenInvitationAsync() => this.navigation.GoToAsync(NavigationRoutes.Invitation);
+
     [RelayCommand]
     private Task OpenSettingsAsync() => this.navigation.GoToAsync(NavigationRoutes.Settings);
 

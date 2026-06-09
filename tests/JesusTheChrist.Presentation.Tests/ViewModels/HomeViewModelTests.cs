@@ -36,6 +36,28 @@ public class HomeViewModelTests
     }
 
     [Fact]
+    public async Task IsInvitationUnseen_TrueByDefaultThenFalseOnceSeen()
+    {
+        await using var harness = await Harness.CreateAsync();
+
+        Assert.True(await harness.ViewModel.IsInvitationUnseenAsync());
+
+        await harness.Settings.SetBoolAsync(SettingKeys.InvitationSeen, true);
+        Assert.False(await harness.ViewModel.IsInvitationUnseenAsync());
+    }
+
+    [Fact]
+    public async Task OpenInvitation_NavigatesToInvitationRoute()
+    {
+        await using var harness = await Harness.CreateAsync();
+
+        await harness.ViewModel.OpenInvitationCommand.ExecuteAsync(null);
+
+        var call = Assert.Single(harness.Navigation.Calls);
+        Assert.Equal(NavigationRoutes.Invitation, call.Route);
+    }
+
+    [Fact]
     public async Task OpenSettings_NavigatesToSettingsRoute()
     {
         await using var harness = await Harness.CreateAsync();

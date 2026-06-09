@@ -95,6 +95,49 @@ public class TopicFeedViewModelTests
     }
 
     [Fact]
+    public async Task Load_CardsStartExpanded()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+
+        Assert.True(harness.ViewModel.References[0].IsExpanded);
+        Assert.Equal("▾", harness.ViewModel.References[0].ChevronGlyph);
+    }
+
+    [Fact]
+    public async Task ToggleRead_CollapsesWhenMarkedAndExpandsWhenCleared()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+        var card = harness.ViewModel.References[0];
+
+        await card.ToggleReadCommand.ExecuteAsync(null);
+        Assert.True(card.IsRead);
+        Assert.False(card.IsExpanded);
+        Assert.Equal("▸", card.ChevronGlyph);
+
+        await card.ToggleReadCommand.ExecuteAsync(null);
+        Assert.False(card.IsRead);
+        Assert.True(card.IsExpanded);
+    }
+
+    [Fact]
+    public async Task ToggleExpanded_FlipsBodyWithoutChangingReadState()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+        var card = harness.ViewModel.References[0];
+
+        card.ToggleExpandedCommand.Execute(null);
+        Assert.False(card.IsExpanded);
+        Assert.False(card.IsRead);
+
+        card.ToggleExpandedCommand.Execute(null);
+        Assert.True(card.IsExpanded);
+        Assert.False(card.IsRead);
+    }
+
+    [Fact]
     public async Task ToggleContext_FlipsVisibility()
     {
         await using var harness = await Harness.CreateAsync();

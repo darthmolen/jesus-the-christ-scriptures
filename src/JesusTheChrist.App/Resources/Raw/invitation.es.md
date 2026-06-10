@@ -1,6 +1,6 @@
 # La invitación
 
-**(ES pendiente)** In 2017, A year before President Nelson was called to be prophet of the Church of Jesus Christ of Latter Day Saints, he issued this powerful invitation.
+En 2017, un año antes de que el presidente Nelson fuera llamado como profeta de la Iglesia de Jesucristo de los Santos de los Últimos Días, él nos extendió una invitación muy poderosa.
 
 "Como miembros de Su Iglesia restaurada, sabemos que Jesucristo, nuestro Maestro, es nuestro Mentor supremo. Como verdaderos milénicos, nacieron para ser verdaderos discípulos de Jesucristo. De hecho, ¡la única manera de ser un verdadero milénico es ser uno de Sus verdaderos discípulos!
 
@@ -8,9 +8,9 @@
 
 Esto podrá parecer una tarea enorme, pero los animo a que la acepten. Si aprenden todo lo que puedan acerca de Jesucristo, les prometo que su amor por Él, y por las leyes de Dios, crecerá más allá de lo que actualmente se imaginan. Les prometo también que su capacidad de alejarse del pecado aumentará; su deseo de guardar los mandamientos se intensificará; tendrán mayor capacidad para alejarse del entretenimiento y de los enredos de aquellos que se burlan de los seguidores de Jesucristo."
 
-**(ES pendiente)** This beautiful invitation was then recounted later by Elder Neil L. Andersen.
+Esta hermosa invitación fue luego relatada por el élder Neil L. Andersen.
 
-"Tres meses después, en la conferencia general de abril, habló de cómo, a pesar de las décadas de devoto discipulado, ese estudio más a fondo de Jesucristo había tenido una gran influencia en él. La hermana Wendy Nelson le preguntó en cuanto al efecto que aquello tuvo. Él respondió: “¡Soy un hombre diferente!”. ¿Era un hombre diferente? ¿A los 92 años era un hombre diferente? El presidente Nelson explicó:
+"Tres meses después, en la conferencia general de abril, habló de cómo, a pesar de las décadas de devoto discipulado, ese estudio más a fondo de Jesucristo había tenido una gran influencia en él. La hermana Wendy Nelson le preguntó en cuanto al efecto que aquello tuvo. Él respondió: “¡Soy un hombre diferente!”. ¿Era un hombre diferente? ¿A los 92 años era un hombre diferente? El Presidente Nelson explicó:
 
 “Cuando dedicamos tiempo a aprender sobre el Salvador y Su sacrificio expiatorio, sentimos el deseo de [acercarnos a] Él […].
 
@@ -22,9 +22,11 @@ En un mundo de trabajo, preocupaciones y empeños encomiables, mantenemos el cor
 
 Si un renovado estudio del Salvador ayudó al presidente Nelson a prepararse, ¿acaso no podría ayudar a prepararnos a nosotros también?"
 
-**(ES pendiente)** To help in this, President Nelson referenced everyone to the Topical Guide, printed in every Standard Works that the Church of Jesus Christ of Latter Day Saints prints, which is around 2,200 references in total. The printed Topical Guide forces you to flip to every reference by hand.
+Para ayudarnos en este propósito, el presidente Nelson remitió a todos a la Topical Guide, impresa en cada ejemplar de las Obras Canónicas que publica la Iglesia de Jesucristo de los Santos de los Últimos Días en inglés, la cual contiene alrededor de 2200 referencias sobre Jesucristo. La Topical Guide, al estar impresa, requiere que uno adquiera las Obras Canónicas en inglés, traduzca del inglés, y luego busque cada referencia manualmente en las Obras Canónicas en español.
 
-**(ES pendiente)** On the other hand, social media sites have made information easier to consume in bite size chunks and the continuous feeding can consume hours, or seconds. This app endeavors to recreate a similar experience as the social media experiences, by bringing the Topical Guide forward but in a continuous feed format. A feed filled with everything about our Savior and Redeemer. Hopefully by making these words continually accessible, the invitation given by a loving prophet will become a rewarding and easy process, where we fill our micro-moments learning about Jesus, and therefore become "new people" as mentioned by our late prophet.
+Por otro lado, las redes sociales han hecho que la información sea más fácil de consumir en pedacitos, y ese flujo continuo puede absorber horas… o solo segundos. Esta aplicación procura recrear una experiencia similar a la de las redes sociales, al presentar la Topical Guide en un formato de “feed” continuo y en español. Un “feed” lleno de todo lo que testifica de nuestro Salvador y Redentor.
+
+Al hacer que estas palabras estén siempre al alcance, esperamos que la invitación extendida por un profeta amoroso llegue a ser un proceso sencillo y edificante, en el cual llenemos nuestros micro‑momentos aprendiendo acerca de Jesucristo y, por lo tanto, lleguemos a ser “nuevas personas”, como mencionó nuestro querido profeta ya fallecido.
 
 ## Referencias
 

@@ -25,6 +25,25 @@
     <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
+  <!-- Release packaging: produce an Android App Bundle (.aab) for Google Play. -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <AndroidPackageFormat>aab</AndroidPackageFormat>
+  </PropertyGroup>
+
+  <!-- Release signing. Activates ONLY when the keystore env vars are set, so a plain
+       Release build still works without secrets. The keystore lives OUTSIDE the repo
+       and is never committed. Set before publishing:
+         JTC_KEYSTORE       = full path to vozloop-upload.keystore
+         JTC_KEYSTORE_PASS  = the store/key password
+       See planning/google-play-publishing_2026-06-10.md (Phase B). -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release' and '$(JTC_KEYSTORE)' != ''">
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>$(JTC_KEYSTORE)</AndroidSigningKeyStore>
+    <AndroidSigningKeyAlias>vozloop-upload</AndroidSigningKeyAlias>
+    <AndroidSigningStorePass>$(JTC_KEYSTORE_PASS)</AndroidSigningStorePass>
+    <AndroidSigningKeyPass>$(JTC_KEYSTORE_PASS)</AndroidSigningKeyPass>
+  </PropertyGroup>
+
   <ItemGroup>
     <!-- App Icon -->
     <MauiIcon Include="Resources\AppIcon\appicon.png" />

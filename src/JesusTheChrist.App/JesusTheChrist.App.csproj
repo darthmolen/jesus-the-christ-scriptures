@@ -18,7 +18,7 @@
 
     <!-- Branding (Full flavor). -->
     <ApplicationTitle>Scriptures: Jesus The Christ</ApplicationTitle>
-    <ApplicationId>org.jesusthechrist.full</ApplicationId>
+    <ApplicationId>com.vozloop.jesusthechristscriptures.full</ApplicationId>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
 
@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <!-- App Icon -->
-    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+    <MauiIcon Include="Resources\AppIcon\appicon.png" />
 
     <!-- Splash Screen -->
     <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />

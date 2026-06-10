@@ -28,17 +28,32 @@
 
                             <!-- Heading: narrative gloss (top) + reference, with note + read actions -->
                             <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
-                                <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
+                                <VerticalStackLayout
+                                    Grid.Column="0"
+                                    Spacing="2"
+                                    VerticalOptions="Center"
+                                    SemanticProperties.Description="Expand or collapse this reference">
+                                    <VerticalStackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleExpandedCommand}" />
+                                    </VerticalStackLayout.GestureRecognizers>
                                     <Label
                                         Text="{Binding Gloss}"
                                         IsVisible="{Binding HasGloss}"
                                         FontSize="18"
                                         FontAttributes="Bold" />
-                                    <Label
-                                        Text="{Binding RefLabel}"
-                                        FontSize="15"
-                                        FontAttributes="Bold"
-                                        Opacity="0.75" />
+                                    <HorizontalStackLayout Spacing="6">
+                                        <Label
+                                            Text="{Binding ChevronGlyph}"
+                                            FontSize="13"
+                                            Opacity="0.55"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Text="{Binding RefLabel}"
+                                            FontSize="15"
+                                            FontAttributes="Bold"
+                                            Opacity="0.75"
+                                            VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
                                 </VerticalStackLayout>
                                 <Button
                                     Grid.Column="1"
@@ -80,6 +95,9 @@
                                         SemanticProperties.Description="Read" />
                                 </Border>
                             </Grid>
+
+                            <!-- Collapsible body: hidden when the card is rolled up to its heading -->
+                            <VerticalStackLayout Spacing="8" IsVisible="{Binding IsExpanded}">
 
                             <!-- Target verses, each prefixed with its verse number -->
                             <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding Verses}">
@@ -147,6 +165,9 @@
                                     </DataTemplate>
                                 </BindableLayout.ItemTemplate>
                             </VerticalStackLayout>
+
+                            </VerticalStackLayout>
+                            <!-- /Collapsible body -->
 
                         </VerticalStackLayout>
                     </Border>

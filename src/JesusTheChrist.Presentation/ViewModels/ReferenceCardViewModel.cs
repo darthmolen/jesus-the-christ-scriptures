@@ -45,6 +45,7 @@ public partial class ReferenceCardViewModel : ObservableObject
         this.openNoteAsync = openNoteAsync;
         this.IsRead = isRead;
         this.HasNote = hasNote;
+        this.IsExpanded = true;
     }
 
     /// <summary>
@@ -105,13 +106,33 @@ public partial class ReferenceCardViewModel : ObservableObject
     [ObservableProperty]
     public partial bool HasNote { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the card body is expanded. When false, only
+    /// the heading shows so the feed reads as a progress checklist; tapping the heading or
+    /// un-reading the card expands it again.
+    /// </summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ChevronGlyph))]
+    public partial bool IsExpanded { get; set; }
+
+    /// <summary>
+    /// Gets the chevron glyph that signals whether the heading expands or collapses the body.
+    /// </summary>
+    public string ChevronGlyph => this.IsExpanded ? "▾" : "▸";
+
     [RelayCommand]
     private async Task ToggleReadAsync()
     {
         var next = !this.IsRead;
         await this.setReadAsync(this.Id, next);
         this.IsRead = next;
+
+        // Marking read rolls the card up to its heading; un-reading rolls it back out.
+        this.IsExpanded = !next;
     }
+
+    [RelayCommand]
+    private void ToggleExpanded() => this.IsExpanded = !this.IsExpanded;
 
     [RelayCommand]
     private void ToggleContext() => this.IsContextVisible = !this.IsContextVisible;

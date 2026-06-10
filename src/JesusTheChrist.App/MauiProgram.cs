@@ -9,7 +9,9 @@ using JesusTheChrist.Presentation.Appearance;
 using JesusTheChrist.Presentation.Data;
 using JesusTheChrist.Presentation.Navigation;
 using JesusTheChrist.Presentation.ViewModels;
+#if DEBUG
 using Microsoft.Extensions.Logging;
+#endif
 
 namespace JesusTheChrist.App;
 

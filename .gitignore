@@ -9,3 +9,8 @@
 .vs/
 .idea/
 *.user
+
+# Android signing — NEVER commit keystores or signing secrets
+*.keystore
+*.jks
+*.keystore.properties

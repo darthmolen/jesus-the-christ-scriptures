@@ -1,3 +1,8 @@
+---
+title: Privacy Policy
+permalink: /privacy/
+---
+
 # Privacy Policy — Scriptures: Jesus The Christ
 
 _Last updated: 2026-06-10_

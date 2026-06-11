@@ -24,7 +24,7 @@ If a renewed study of the Savior helped prepare President Nelson, could it not h
 
 To help in this, President Nelson referenced everyone to the Topical Guide, printed in every Standard Works that the Church of Jesus Christ of Latter Day Saints prints, which is around 2,200 references in total. The printed Topical Guide forces you to flip to every reference by hand.
 
-On the other hand, social media sites have made information easier to consume in bite size chunks and the continuous feeding can consume hours, or seconds. This app endeavors to recreate a similar experience as the social media experiences, by bringing the Topical Guide forward but in a continuous feed format. A feed filled with everything about our Savior and Redeemer. Hopefully by making these words continually accessible, the invitation given by a loving prophet will become a rewarding and easy process, where we fill our micro-moments learning about Jesus, and therefore become "new people" as mentioned by our late prophet.
+Newer technology like social media sites have made information easier to consume in bite size chunks and the continuous feeding can consume hours, or seconds. This app endeavors to recreate the experience social media delivers, by bringing the Topical Guide forward but in a continuous feed format. A feed filled with everything about our Savior and Redeemer. Hopefully by making these words continually accessible, the invitation given by a loving prophet will become a rewarding and easy process, where we fill our micro-moments learning about Jesus, and therefore become "new people" as mentioned by our late prophet.
 
 ## References
 

@@ -82,10 +82,18 @@ public partial class SettingsPage : ContentPage
 
     private async void OnLanguageChanged(object? sender, EventArgs e)
     {
-        if (!this.initializing)
+        if (this.initializing)
         {
-            await this.viewModel.SetLanguageAsync(this.LanguagePicker.SelectedIndex == 1 ? Language.Es : Language.En);
+            return;
         }
+
+        await this.viewModel.SetLanguageAsync(this.LanguagePicker.SelectedIndex == 1 ? Language.Es : Language.En);
+
+        // UI text is resolved when a page is built, so reload Settings to re-render it in the
+        // newly selected language. Pop then re-push the route (no animation) so the user stays
+        // on Settings; other pages are transient and already rebuild on their next navigation.
+        await Shell.Current.GoToAsync("..", animate: false);
+        await Shell.Current.GoToAsync(NavigationRoutes.Settings, animate: false);
     }
 
     private async void OnStreakToggled(object? sender, ToggledEventArgs e)

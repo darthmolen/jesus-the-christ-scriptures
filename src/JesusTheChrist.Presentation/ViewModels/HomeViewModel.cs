@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using JesusTheChrist.Core.Content;
@@ -6,6 +7,7 @@ using JesusTheChrist.Core.Models;
 using JesusTheChrist.Data;
 using JesusTheChrist.Presentation.Data;
 using JesusTheChrist.Presentation.Navigation;
+using JesusTheChrist.Presentation.Resources;
 
 namespace JesusTheChrist.Presentation.ViewModels;
 
@@ -102,7 +104,12 @@ public partial class HomeViewModel : ObservableObject
                     progress.Total));
             }
 
-            this.HeaderText = $"{overall.Read} / {overall.Total} references read";
+            // Format with the same culture that resolves the string, so the numbers and the
+            // wording always agree (and the value is deterministic given AppResources.Culture).
+            var culture = AppResources.Culture ?? CultureInfo.CurrentUICulture;
+#pragma warning disable CA1863 // Format string is culture-dependent (changes on language switch); a cached CompositeFormat cannot be used.
+            this.HeaderText = string.Format(culture, AppResources.HomeReferencesReadFormat, overall.Read, overall.Total);
+#pragma warning restore CA1863
             this.OverallFraction = overall.Fraction;
         }
         finally

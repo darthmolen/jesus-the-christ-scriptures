@@ -1,8 +1,10 @@
+using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using JesusTheChrist.Core.Models;
 using JesusTheChrist.Data;
 using JesusTheChrist.Presentation.Appearance;
 using JesusTheChrist.Presentation.Data;
+using JesusTheChrist.Presentation.Resources;
 
 namespace JesusTheChrist.Presentation.ViewModels;
 
@@ -76,6 +78,7 @@ public partial class SettingsViewModel : ObservableObject
 
         this.StreakEnabled = await this.settings.GetBoolAsync(SettingKeys.StreakEnabled, false);
 
+        ApplyCulture(this.Language);
         this.appearance.ApplyTheme(this.Theme);
         this.appearance.ApplyReadingFontSize(this.ReadingFontSize);
     }
@@ -128,6 +131,23 @@ public partial class SettingsViewModel : ObservableObject
     {
         this.Language = language;
         await this.settings.SetAsync(SettingKeys.Language, language.Code());
+        ApplyCulture(language);
+    }
+
+    /// <summary>
+    /// Applies the given language to the app-wide culture and the localized string table.
+    /// Pages built after this (on the next navigation) render in the new language; the
+    /// existing page does not change live, matching the content "applies on next load" model.
+    /// </summary>
+    /// <param name="language">The language whose culture to apply.</param>
+    private static void ApplyCulture(Language language)
+    {
+        var culture = CultureInfo.GetCultureInfo(language.Code());
+        CultureInfo.CurrentCulture = culture;
+        CultureInfo.CurrentUICulture = culture;
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+        AppResources.Culture = culture;
     }
 
     /// <summary>

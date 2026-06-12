@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Scriptures: Jesus The Christ</value>
+    <comment>App / Home title. Brand name — kept in English in both languages by default.</comment>
+  </data>
+  <data name="NavHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsReadingFontSize" xml:space="preserve">
+    <value>Reading font size</value>
+  </data>
+  <data name="SettingsFontSample" xml:space="preserve">
+    <value>The quick brown fox — sample verse text.</value>
+  </data>
+  <data name="SettingsTheme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="ThemeSystem" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="SettingsLanguage" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LanguageEnglish" xml:space="preserve">
+    <value>English</value>
+    <comment>Language autonym — shown in its own language in both locales.</comment>
+  </data>
+  <data name="LanguageSpanish" xml:space="preserve">
+    <value>Español</value>
+    <comment>Language autonym — shown in its own language in both locales.</comment>
+  </data>
+  <data name="SettingsLanguageNote" xml:space="preserve">
+    <value>Applies the next time a topic or the home list loads.</value>
+  </data>
+  <data name="SettingsTrackStreak" xml:space="preserve">
+    <value>Track reading streak</value>
+  </data>
+  <data name="SettingsStreakHint" xml:space="preserve">
+    <value>Any reference read in a day counts.</value>
+  </data>
+  <data name="SettingsAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="SettingsAttribution" xml:space="preserve">
+    <value>"Scriptures: Jesus The Christ" gathers the ~2,200 Topical Guide references under "Jesus Christ." English Bible text is the King James Version (public domain). The Spanish scripture text and the Topical Guide structure and notes are © Intellectual Reserve, Inc., used under its terms; all rights reserved.</value>
+    <comment>Long attribution block. Spanish value intentionally left in English for now (to be translated later).</comment>
+  </data>
+  <data name="SettingsReadInvitation" xml:space="preserve">
+    <value>Read the invitation</value>
+  </data>
+  <data name="NoteTitle" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="NotePlaceholder" xml:space="preserve">
+    <value>Write your thoughts on this reference…</value>
+  </data>
+  <data name="ActionDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ActionSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="InvitationTitle" xml:space="preserve">
+    <value>The Invitation</value>
+  </data>
+  <data name="ActionBegin" xml:space="preserve">
+    <value>Begin</value>
+  </data>
+  <data name="CardAddNote" xml:space="preserve">
+    <value>+ Note</value>
+  </data>
+  <data name="CardEditNote" xml:space="preserve">
+    <value>✎ Note</value>
+  </data>
+  <data name="CardShowContext" xml:space="preserve">
+    <value>Show scriptural context</value>
+  </data>
+  <data name="CardHideContext" xml:space="preserve">
+    <value>Hide scriptural context</value>
+  </data>
+  <data name="A11yExpandCollapse" xml:space="preserve">
+    <value>Expand or collapse this reference</value>
+  </data>
+  <data name="A11yToggleRead" xml:space="preserve">
+    <value>Toggle read</value>
+  </data>
+  <data name="A11yRead" xml:space="preserve">
+    <value>Read</value>
+  </data>
+  <data name="HomeReferencesReadFormat" xml:space="preserve">
+    <value>{0} / {1} references read</value>
+    <comment>{0} = count read, {1} = total.</comment>
+  </data>
+</root>

@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:JesusTheChrist.Presentation.ViewModels;assembly=JesusTheChrist.Presentation"
+    xmlns:loc="clr-namespace:JesusTheChrist.Presentation.Resources;assembly=JesusTheChrist.Presentation"
     x:DataType="vm:TopicFeedViewModel"
     Title="{Binding Title}">
 
@@ -32,7 +33,7 @@
                                     Grid.Column="0"
                                     Spacing="2"
                                     VerticalOptions="Center"
-                                    SemanticProperties.Description="Expand or collapse this reference">
+                                    SemanticProperties.Description="{x:Static loc:AppResources.A11yExpandCollapse}">
                                     <VerticalStackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ToggleExpandedCommand}" />
                                     </VerticalStackLayout.GestureRecognizers>
@@ -68,10 +69,10 @@
                                     VerticalOptions="Center">
                                     <Button.Triggers>
                                         <DataTrigger TargetType="Button" Binding="{Binding HasNote}" Value="True">
-                                            <Setter Property="Text" Value="✎ Note" />
+                                            <Setter Property="Text" Value="{x:Static loc:AppResources.CardEditNote}" />
                                         </DataTrigger>
                                         <DataTrigger TargetType="Button" Binding="{Binding HasNote}" Value="False">
-                                            <Setter Property="Text" Value="+ Note" />
+                                            <Setter Property="Text" Value="{x:Static loc:AppResources.CardAddNote}" />
                                         </DataTrigger>
                                     </Button.Triggers>
                                 </Button>
@@ -82,7 +83,7 @@
                                     StrokeShape="RoundRectangle 6"
                                     StrokeThickness="1"
                                     VerticalOptions="Center"
-                                    SemanticProperties.Description="Toggle read">
+                                    SemanticProperties.Description="{x:Static loc:AppResources.A11yToggleRead}">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ToggleReadCommand}" />
                                     </Border.GestureRecognizers>
@@ -92,7 +93,7 @@
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center"
                                         IsVisible="{Binding IsRead}"
-                                        SemanticProperties.Description="Read" />
+                                        SemanticProperties.Description="{x:Static loc:AppResources.A11yRead}" />
                                 </Border>
                             </Grid>
 
@@ -132,10 +133,10 @@
                                 TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}">
                                 <Button.Triggers>
                                     <DataTrigger TargetType="Button" Binding="{Binding IsContextVisible}" Value="False">
-                                        <Setter Property="Text" Value="Show scriptural context" />
+                                        <Setter Property="Text" Value="{x:Static loc:AppResources.CardShowContext}" />
                                     </DataTrigger>
                                     <DataTrigger TargetType="Button" Binding="{Binding IsContextVisible}" Value="True">
-                                        <Setter Property="Text" Value="Hide scriptural context" />
+                                        <Setter Property="Text" Value="{x:Static loc:AppResources.CardHideContext}" />
                                     </DataTrigger>
                                 </Button.Triggers>
                             </Button>

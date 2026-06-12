@@ -5,8 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:JesusTheChrist.App.Controls"
     xmlns:vm="clr-namespace:JesusTheChrist.Presentation.ViewModels;assembly=JesusTheChrist.Presentation"
+    xmlns:loc="clr-namespace:JesusTheChrist.Presentation.Resources;assembly=JesusTheChrist.Presentation"
     x:DataType="vm:InvitationViewModel"
-    Title="The Invitation">
+    Title="{x:Static loc:AppResources.InvitationTitle}">
 
     <Grid RowDefinitions="*,Auto">
 
@@ -17,7 +18,7 @@
         <Button
             Grid.Row="1"
             Margin="24,12,24,20"
-            Text="Begin"
+            Text="{x:Static loc:AppResources.ActionBegin}"
             Command="{Binding AcknowledgeCommand}" />
 
     </Grid>

@@ -104,8 +104,11 @@ public partial class HomeViewModel : ObservableObject
                     progress.Total));
             }
 
+            // Format with the same culture that resolves the string, so the numbers and the
+            // wording always agree (and the value is deterministic given AppResources.Culture).
+            var culture = AppResources.Culture ?? CultureInfo.CurrentUICulture;
 #pragma warning disable CA1863 // Format string is culture-dependent (changes on language switch); a cached CompositeFormat cannot be used.
-            this.HeaderText = string.Format(CultureInfo.CurrentCulture, AppResources.HomeReferencesReadFormat, overall.Read, overall.Total);
+            this.HeaderText = string.Format(culture, AppResources.HomeReferencesReadFormat, overall.Read, overall.Total);
 #pragma warning restore CA1863
             this.OverallFraction = overall.Fraction;
         }

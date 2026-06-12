@@ -1,10 +1,9 @@
-using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using JesusTheChrist.Core.Models;
 using JesusTheChrist.Data;
 using JesusTheChrist.Presentation.Appearance;
 using JesusTheChrist.Presentation.Data;
-using JesusTheChrist.Presentation.Resources;
+using JesusTheChrist.Presentation.Globalization;
 
 namespace JesusTheChrist.Presentation.ViewModels;
 
@@ -22,6 +21,7 @@ public partial class SettingsViewModel : ObservableObject
     private readonly SettingsStore settings;
     private readonly IDatabaseInitializer databaseInitializer;
     private readonly IAppearanceApplier appearance;
+    private readonly ILanguagePreference languagePreference;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
@@ -29,11 +29,17 @@ public partial class SettingsViewModel : ObservableObject
     /// <param name="settings">The settings store.</param>
     /// <param name="databaseInitializer">Ensures the database schema before reads.</param>
     /// <param name="appearance">Applies theme and font choices app-wide.</param>
-    public SettingsViewModel(SettingsStore settings, IDatabaseInitializer databaseInitializer, IAppearanceApplier appearance)
+    /// <param name="languagePreference">Mirrors the language for synchronous startup reads.</param>
+    public SettingsViewModel(
+        SettingsStore settings,
+        IDatabaseInitializer databaseInitializer,
+        IAppearanceApplier appearance,
+        ILanguagePreference languagePreference)
     {
         this.settings = settings;
         this.databaseInitializer = databaseInitializer;
         this.appearance = appearance;
+        this.languagePreference = languagePreference;
     }
 
     /// <summary>
@@ -78,7 +84,7 @@ public partial class SettingsViewModel : ObservableObject
 
         this.StreakEnabled = await this.settings.GetBoolAsync(SettingKeys.StreakEnabled, false);
 
-        ApplyCulture(this.Language);
+        this.ApplyCulture(this.Language);
         this.appearance.ApplyTheme(this.Theme);
         this.appearance.ApplyReadingFontSize(this.ReadingFontSize);
     }
@@ -131,23 +137,20 @@ public partial class SettingsViewModel : ObservableObject
     {
         this.Language = language;
         await this.settings.SetAsync(SettingKeys.Language, language.Code());
-        ApplyCulture(language);
+        this.ApplyCulture(language);
     }
 
     /// <summary>
-    /// Applies the given language to the app-wide culture and the localized string table.
-    /// Pages built after this (on the next navigation) render in the new language; the
-    /// existing page does not change live, matching the content "applies on next load" model.
+    /// Applies the given language to the app-wide culture and the localized string table, and
+    /// mirrors it to the startup preference so the next cold start renders in this language from
+    /// the first page. Pages built after this (on the next navigation) render in the new language;
+    /// the existing page does not change live, matching the content "applies on next load" model.
     /// </summary>
     /// <param name="language">The language whose culture to apply.</param>
-    private static void ApplyCulture(Language language)
+    private void ApplyCulture(Language language)
     {
-        var culture = CultureInfo.GetCultureInfo(language.Code());
-        CultureInfo.CurrentCulture = culture;
-        CultureInfo.CurrentUICulture = culture;
-        CultureInfo.DefaultThreadCurrentCulture = culture;
-        CultureInfo.DefaultThreadCurrentUICulture = culture;
-        AppResources.Culture = culture;
+        AppCulture.Apply(language);
+        this.languagePreference.SetCode(language.Code());
     }
 
     /// <summary>

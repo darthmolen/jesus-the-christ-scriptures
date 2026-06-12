@@ -104,6 +104,29 @@ public class SettingsViewModelTests
     }
 
     [Fact]
+    public async Task SetLanguage_MirrorsToStartupPreference()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync();
+
+        await harness.ViewModel.SetLanguageAsync(Language.Es);
+
+        // The startup preference is what App reads to apply culture before the first page builds.
+        Assert.Equal("es", harness.LanguagePreference.GetCode());
+    }
+
+    [Fact]
+    public async Task Load_MirrorsSavedLanguageToStartupPreference()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.Settings.SetAsync(SettingKeys.Language, "es");
+
+        await harness.ViewModel.LoadAsync();
+
+        Assert.Equal("es", harness.LanguagePreference.GetCode());
+    }
+
+    [Fact]
     public async Task SetStreakEnabled_Persists()
     {
         await using var harness = await Harness.CreateAsync();
@@ -119,12 +142,13 @@ public class SettingsViewModelTests
     {
         private readonly TempDatabase database;
 
-        private Harness(TempDatabase database, SettingsViewModel viewModel, SettingsStore settings, FakeAppearanceApplier appearance)
+        private Harness(TempDatabase database, SettingsViewModel viewModel, SettingsStore settings, FakeAppearanceApplier appearance, FakeLanguagePreference languagePreference)
         {
             this.database = database;
             this.ViewModel = viewModel;
             this.Settings = settings;
             this.Appearance = appearance;
+            this.LanguagePreference = languagePreference;
         }
 
         public SettingsViewModel ViewModel { get; }
@@ -133,13 +157,16 @@ public class SettingsViewModelTests
 
         public FakeAppearanceApplier Appearance { get; }
 
+        public FakeLanguagePreference LanguagePreference { get; }
+
         public static async Task<Harness> CreateAsync()
         {
             var db = await TempDatabase.CreateAsync();
             var settings = new SettingsStore(db.Db);
             var appearance = new FakeAppearanceApplier();
-            var vm = new SettingsViewModel(settings, db, appearance);
-            return new Harness(db, vm, settings, appearance);
+            var languagePreference = new FakeLanguagePreference();
+            var vm = new SettingsViewModel(settings, db, appearance, languagePreference);
+            return new Harness(db, vm, settings, appearance, languagePreference);
         }
 
         public async ValueTask DisposeAsync() => await this.database.DisposeAsync();

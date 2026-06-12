@@ -7,6 +7,7 @@ using JesusTheChrist.Data;
 using JesusTheChrist.Presentation;
 using JesusTheChrist.Presentation.Appearance;
 using JesusTheChrist.Presentation.Data;
+using JesusTheChrist.Presentation.Globalization;
 using JesusTheChrist.Presentation.Navigation;
 using JesusTheChrist.Presentation.ViewModels;
 #if DEBUG
@@ -67,6 +68,7 @@ public static class MauiProgram
         // Navigation + appearance seams.
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IAppearanceApplier, AppearanceApplier>();
+        services.AddSingleton<ILanguagePreference, PreferencesLanguagePreference>();
 
         // Shell + pages + view models. Pages/VMs are fresh per navigation -> transient.
         services.AddSingleton<AppShell>();

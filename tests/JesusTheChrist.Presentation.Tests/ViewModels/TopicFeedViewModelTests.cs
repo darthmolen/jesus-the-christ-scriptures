@@ -105,6 +105,18 @@ public class TopicFeedViewModelTests
     }
 
     [Fact]
+    public async Task Load_ReadCardStartsCollapsed()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ReadMarks.MarkReadAsync(AdvocateRefId);
+
+        await harness.ViewModel.LoadAsync("advocate");
+
+        Assert.True(harness.ViewModel.References[0].IsRead);
+        Assert.False(harness.ViewModel.References[0].IsExpanded);
+    }
+
+    [Fact]
     public async Task ToggleRead_CollapsesWhenMarkedAndExpandsWhenCleared()
     {
         await using var harness = await Harness.CreateAsync();

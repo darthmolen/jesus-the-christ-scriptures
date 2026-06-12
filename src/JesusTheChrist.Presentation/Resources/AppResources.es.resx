@@ -59,7 +59,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppTitle" xml:space="preserve">
-    <value>Scriptures: Jesus The Christ</value>
+    <value>Escrituras: Jesús el Cristo</value>
+    <comment>In-app title (Home). Spanish rendering of the brand; the store listing and package id stay English.</comment>
   </data>
   <data name="NavHome" xml:space="preserve">
     <value>Inicio</value>

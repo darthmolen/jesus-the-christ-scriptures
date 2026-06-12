@@ -10,17 +10,18 @@ Scriptures: Jesus The Christ
 
 ## Short description (≤ 80 chars)
 ```
-Study everything Jesus said and did — the Topical Guide as a living feed.
+The Latter-day Saint Topical Guide on Jesus Christ, as a living feed.
 ```
-(72 characters)
+(68 characters)
 
 ## Full description (≤ 4000 chars)
 ```
 Become a "new person" by filling your micro-moments with the words of Jesus Christ.
 
 In 2017, a beloved prophet invited everyone to study everything Jesus said and did, as
-recorded throughout the scriptures. The printed Topical Guide gathers roughly 2,200
-references about the Savior — but flipping to each one by hand makes that a daunting task.
+recorded throughout the scriptures. The printed Latter-day Saint Topical Guide gathers
+roughly 2,200 references about the Savior — but flipping to each one by hand makes that a
+daunting task.
 
 Scriptures: Jesus The Christ brings those references forward into the format we already
 scroll every day: a continuous, social-style feed. Instead of an endless feed of noise,

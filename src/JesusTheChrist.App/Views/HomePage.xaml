@@ -10,7 +10,9 @@
     Title="{x:Static loc:AppResources.AppTitle}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{x:Static loc:AppResources.SettingsTitle}" Command="{Binding OpenSettingsCommand}" />
+        <!-- Text is refreshed in OnAppearing: Home is the Shell root and isn't rebuilt on a
+             live language switch, so this x:Static text would otherwise stay in the old language. -->
+        <ToolbarItem x:Name="SettingsToolbarItem" Text="{x:Static loc:AppResources.SettingsTitle}" Command="{Binding OpenSettingsCommand}" />
     </ContentPage.ToolbarItems>
 
     <Grid RowDefinitions="Auto,Auto,*" Padding="16,12">

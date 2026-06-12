@@ -60,7 +60,7 @@
   </resheader>
   <data name="AppTitle" xml:space="preserve">
     <value>Scriptures: Jesus The Christ</value>
-    <comment>App / Home title. Brand name — kept in English in both languages by default.</comment>
+    <comment>In-app title (Home). Localized per language; the store listing and package id stay English.</comment>
   </data>
   <data name="NavHome" xml:space="preserve">
     <value>Home</value>

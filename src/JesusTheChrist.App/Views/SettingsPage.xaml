@@ -3,29 +3,30 @@
     x:Class="JesusTheChrist.App.Views.SettingsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Settings">
+    xmlns:loc="clr-namespace:JesusTheChrist.Presentation.Resources;assembly=JesusTheChrist.Presentation"
+    Title="{x:Static loc:AppResources.SettingsTitle}">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
 
             <!-- Reading font size -->
             <VerticalStackLayout Spacing="6">
-                <Label Text="Reading font size" FontAttributes="Bold" />
+                <Label Text="{x:Static loc:AppResources.SettingsReadingFontSize}" FontAttributes="Bold" />
                 <Slider x:Name="FontSlider" Minimum="12" Maximum="28" />
                 <Label
-                    Text="The quick brown fox — sample verse text."
+                    Text="{x:Static loc:AppResources.SettingsFontSample}"
                     FontSize="{DynamicResource ReadingFontSize}" />
             </VerticalStackLayout>
 
             <!-- Theme -->
             <VerticalStackLayout Spacing="6">
-                <Label Text="Theme" FontAttributes="Bold" />
+                <Label Text="{x:Static loc:AppResources.SettingsTheme}" FontAttributes="Bold" />
                 <Picker x:Name="ThemePicker">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                            <x:String>System</x:String>
-                            <x:String>Light</x:String>
-                            <x:String>Dark</x:String>
+                            <x:Static Member="loc:AppResources.ThemeSystem" />
+                            <x:Static Member="loc:AppResources.ThemeLight" />
+                            <x:Static Member="loc:AppResources.ThemeDark" />
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
@@ -33,37 +34,37 @@
 
             <!-- Language -->
             <VerticalStackLayout Spacing="6">
-                <Label Text="Language" FontAttributes="Bold" />
+                <Label Text="{x:Static loc:AppResources.SettingsLanguage}" FontAttributes="Bold" />
                 <Picker x:Name="LanguagePicker">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                            <x:String>English</x:String>
-                            <x:String>Español</x:String>
+                            <x:Static Member="loc:AppResources.LanguageEnglish" />
+                            <x:Static Member="loc:AppResources.LanguageSpanish" />
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
-                <Label Text="Applies the next time a topic or the home list loads." FontSize="12" Opacity="0.7" />
+                <Label Text="{x:Static loc:AppResources.SettingsLanguageNote}" FontSize="12" Opacity="0.7" />
             </VerticalStackLayout>
 
             <!-- Streak -->
             <Grid ColumnDefinitions="*,Auto">
                 <VerticalStackLayout Grid.Column="0">
-                    <Label Text="Track reading streak" FontAttributes="Bold" />
-                    <Label Text="Any reference read in a day counts." FontSize="12" Opacity="0.7" />
+                    <Label Text="{x:Static loc:AppResources.SettingsTrackStreak}" FontAttributes="Bold" />
+                    <Label Text="{x:Static loc:AppResources.SettingsStreakHint}" FontSize="12" Opacity="0.7" />
                 </VerticalStackLayout>
                 <Switch x:Name="StreakSwitch" Grid.Column="1" VerticalOptions="Center" />
             </Grid>
 
             <!-- About / attribution -->
             <VerticalStackLayout Spacing="6">
-                <Label Text="About" FontAttributes="Bold" />
+                <Label Text="{x:Static loc:AppResources.SettingsAbout}" FontAttributes="Bold" />
                 <Label
                     FontSize="13"
                     Opacity="0.8"
-                    Text="&quot;Scriptures: Jesus The Christ&quot; gathers the ~2,200 Topical Guide references under &quot;Jesus Christ.&quot; English Bible text is the King James Version (public domain). The Spanish scripture text and the Topical Guide structure and notes are © Intellectual Reserve, Inc., used under its terms; all rights reserved." />
+                    Text="{x:Static loc:AppResources.SettingsAttribution}" />
                 <Button
                     x:Name="InvitationButton"
-                    Text="Read the invitation"
+                    Text="{x:Static loc:AppResources.SettingsReadInvitation}"
                     Clicked="OnReadInvitation"
                     HorizontalOptions="Start"
                     Padding="0"

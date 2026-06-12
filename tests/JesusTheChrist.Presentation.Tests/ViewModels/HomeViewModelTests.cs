@@ -1,9 +1,11 @@
 using System.ComponentModel;
+using System.Globalization;
 using JesusTheChrist.Core.Content;
 using JesusTheChrist.Core.Models;
 using JesusTheChrist.Data;
 using JesusTheChrist.Presentation;
 using JesusTheChrist.Presentation.Navigation;
+using JesusTheChrist.Presentation.Resources;
 using JesusTheChrist.Presentation.Tests.Fakes;
 using JesusTheChrist.Presentation.ViewModels;
 
@@ -100,12 +102,22 @@ public class HomeViewModelTests
     [Fact]
     public async Task Load_HeaderShowsOverallProgress()
     {
-        await using var harness = await Harness.CreateAsync();
-        await harness.ReadMarks.MarkReadAsync("advocate:newtestament/heb/7/25");
+        // HeaderText is localized, so pin the culture for a deterministic assertion.
+        var previousCulture = AppResources.Culture;
+        try
+        {
+            AppResources.Culture = new CultureInfo("en");
+            await using var harness = await Harness.CreateAsync();
+            await harness.ReadMarks.MarkReadAsync("advocate:newtestament/heb/7/25");
 
-        await harness.ViewModel.LoadCommand.ExecuteAsync(null);
+            await harness.ViewModel.LoadCommand.ExecuteAsync(null);
 
-        Assert.Equal("1 / 2 references read", harness.ViewModel.HeaderText);
+            Assert.Equal("1 / 2 references read", harness.ViewModel.HeaderText);
+        }
+        finally
+        {
+            AppResources.Culture = previousCulture;
+        }
     }
 
     [Fact]

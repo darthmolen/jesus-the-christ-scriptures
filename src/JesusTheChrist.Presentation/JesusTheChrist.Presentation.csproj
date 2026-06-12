@@ -1,5 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <!-- Neutral (fallback) culture for AppResources.resx — required so 'en' resolves
+         to the embedded neutral resource and ResourceManager never returns null. -->
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" />
     <PackageReference Include="StyleCop.Analyzers.Unstable">

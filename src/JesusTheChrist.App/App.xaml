@@ -13,6 +13,11 @@
             <!-- Reading comfort: scripture text binds to this via DynamicResource;
                  SettingsViewModel updates it through the AppearanceApplier. -->
             <x:Double x:Key="ReadingFontSize">16</x:Double>
+
+            <!-- Verse-number superscript: kept proportional to ReadingFontSize
+                 (~0.6x) by the AppearanceApplier so numbers stay smaller than
+                 the verse body text at every slider position. Seeded at 16 * 0.6. -->
+            <x:Double x:Key="VerseNumberFontSize">9.6</x:Double>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

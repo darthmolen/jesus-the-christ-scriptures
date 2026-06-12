@@ -40,16 +40,46 @@ public sealed class MarkdownView : ContentView
 
         foreach (var block in MarkdownParser.Parse(markdown))
         {
-            layout.Add(block.Kind switch
+            View view = block.Kind switch
             {
                 MarkdownBlockKind.Heading => HeadingLabel(block),
                 MarkdownBlockKind.ListItem => ListItemView(block),
                 MarkdownBlockKind.Paragraph => ParagraphLabel(block),
                 _ => ParagraphLabel(block),
-            });
+            };
+
+            AddBlockLinkTap(view, block);
+            layout.Add(view);
         }
 
         this.Content = layout;
+    }
+
+    /// <summary>
+    /// Makes the whole block tappable when it contains exactly one link, so the link opens
+    /// reliably even where per-span tap gestures are unreliable (notably Android).
+    /// </summary>
+    private static void AddBlockLinkTap(View view, MarkdownBlock block)
+    {
+        var links = block.Inlines
+            .Where(inline => inline.Kind == MarkdownInlineKind.Link && !string.IsNullOrEmpty(inline.Url))
+            .ToList();
+
+        if (links.Count == 1)
+        {
+            var url = links[0].Url!;
+            var tap = new TapGestureRecognizer();
+            tap.Tapped += (_, _) => OpenUrl(url);
+            view.GestureRecognizers.Add(tap);
+        }
+    }
+
+    private static void OpenUrl(string url)
+    {
+        if (Uri.TryCreate(url, UriKind.Absolute, out var uri))
+        {
+            _ = Launcher.Default.OpenAsync(uri);
+        }
     }
 
     private static Label HeadingLabel(MarkdownBlock block)
@@ -107,11 +137,11 @@ public sealed class MarkdownView : ContentView
             case MarkdownInlineKind.Link:
                 span.TextColor = LinkColor;
                 span.TextDecorations = TextDecorations.Underline;
-                var url = inline.Url;
-                if (!string.IsNullOrEmpty(url))
+                if (!string.IsNullOrEmpty(inline.Url))
                 {
+                    var linkUrl = inline.Url;
                     var tap = new TapGestureRecognizer();
-                    tap.Tapped += async (_, _) => await Launcher.Default.OpenAsync(new Uri(url));
+                    tap.Tapped += (_, _) => OpenUrl(linkUrl);
                     span.GestureRecognizers.Add(tap);
                 }
 

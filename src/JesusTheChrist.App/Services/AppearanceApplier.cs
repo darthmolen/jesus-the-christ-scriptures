@@ -12,6 +12,17 @@ public sealed class AppearanceApplier : IAppearanceApplier
     /// </summary>
     public const string ReadingFontSizeKey = "ReadingFontSize";
 
+    /// <summary>
+    /// The resource key the verse-number superscript binds to via DynamicResource.
+    /// </summary>
+    public const string VerseNumberFontSizeKey = "VerseNumberFontSize";
+
+    /// <summary>
+    /// Ratio of the verse-number size to the reading size, keeping the number
+    /// visibly smaller than the verse body text at every slider position.
+    /// </summary>
+    public const double VerseNumberRatio = 0.6;
+
     /// <inheritdoc/>
     public void ApplyTheme(ThemeOption theme)
     {
@@ -33,6 +44,7 @@ public sealed class AppearanceApplier : IAppearanceApplier
         if (Application.Current?.Resources is { } resources)
         {
             resources[ReadingFontSizeKey] = fontSize;
+            resources[VerseNumberFontSizeKey] = fontSize * VerseNumberRatio;
         }
     }
 }

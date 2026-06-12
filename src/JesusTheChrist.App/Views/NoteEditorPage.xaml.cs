@@ -10,6 +10,8 @@ public partial class NoteEditorPage : ContentPage, IQueryAttributable
 {
     private readonly NoteEditorViewModel viewModel;
     private string? referenceId;
+    private string? referenceLabel;
+    private string? verseText;
     private bool loaded;
 
     /// <summary>
@@ -32,6 +34,12 @@ public partial class NoteEditorPage : ContentPage, IQueryAttributable
         this.referenceId = query.TryGetValue(NavigationRoutes.NoteRefIdParameter, out var value)
             ? value?.ToString()?.Trim()
             : null;
+        this.referenceLabel = query.TryGetValue(NavigationRoutes.NoteRefLabelParameter, out var label)
+            ? label?.ToString()
+            : null;
+        this.verseText = query.TryGetValue(NavigationRoutes.NoteVerseTextParameter, out var verse)
+            ? verse?.ToString()
+            : null;
     }
 
     /// <inheritdoc/>
@@ -43,7 +51,10 @@ public partial class NoteEditorPage : ContentPage, IQueryAttributable
         if (!this.loaded && !string.IsNullOrEmpty(this.referenceId))
         {
             this.loaded = true;
-            await this.viewModel.LoadAsync(this.referenceId);
+            await this.viewModel.LoadAsync(
+                this.referenceId,
+                this.referenceLabel ?? string.Empty,
+                this.verseText ?? string.Empty);
         }
     }
 }

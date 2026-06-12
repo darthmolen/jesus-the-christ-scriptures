@@ -43,13 +43,35 @@ public partial class NoteEditorViewModel : ObservableObject
     public partial bool HasExistingNote { get; set; }
 
     /// <summary>
-    /// Loads the saved note for the given reference.
+    /// Gets or sets the display label of the reference being annotated (for example "Heb. 7:25").
+    /// </summary>
+    [ObservableProperty]
+    public partial string ReferenceLabel { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the target verse text shown in the scripture pane.
+    /// </summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasVerse))]
+    public partial string VerseText { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets a value indicating whether there is verse text to show in the scripture pane.
+    /// </summary>
+    public bool HasVerse => !string.IsNullOrWhiteSpace(this.VerseText);
+
+    /// <summary>
+    /// Loads the saved note for the given reference and the verse context shown alongside it.
     /// </summary>
     /// <param name="refId">The reference id whose note is edited.</param>
+    /// <param name="referenceLabel">The reference display label for the scripture pane.</param>
+    /// <param name="verseText">The target verse text for the scripture pane.</param>
     /// <returns>A task that completes when the note is loaded.</returns>
-    public async Task LoadAsync(string refId)
+    public async Task LoadAsync(string refId, string referenceLabel = "", string verseText = "")
     {
         this.referenceId = (refId ?? string.Empty).Trim();
+        this.ReferenceLabel = (referenceLabel ?? string.Empty).Trim();
+        this.VerseText = (verseText ?? string.Empty).Trim();
         this.Text = string.Empty;
         this.HasExistingNote = false;
         if (this.referenceId.Length == 0)

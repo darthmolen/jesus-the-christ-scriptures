@@ -174,16 +174,19 @@ public class TopicFeedViewModelTests
     }
 
     [Fact]
-    public async Task OpenNote_NavigatesToNoteRouteWithRefId()
+    public async Task OpenNote_NavigatesToNoteRouteWithRefIdLabelAndVerseText()
     {
         await using var harness = await Harness.CreateAsync();
         await harness.ViewModel.LoadAsync("advocate");
+        var card = harness.ViewModel.References[0];
 
-        await harness.ViewModel.References[0].OpenNoteCommand.ExecuteAsync(null);
+        await card.OpenNoteCommand.ExecuteAsync(null);
 
         var call = Assert.Single(harness.Navigation.Calls);
         Assert.Equal(NavigationRoutes.Note, call.Route);
         Assert.Equal(AdvocateRefId, call.Parameters![NavigationRoutes.NoteRefIdParameter]);
+        Assert.Equal(card.RefLabel, call.Parameters![NavigationRoutes.NoteRefLabelParameter]);
+        Assert.Equal(card.VerseText, call.Parameters![NavigationRoutes.NoteVerseTextParameter]);
     }
 
     [Fact]

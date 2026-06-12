@@ -10,7 +10,12 @@ public class AppCultureTests
     [Fact]
     public void Apply_SetsCurrentAndResourceCultureToLanguage()
     {
-        var prevCulture = CultureInfo.CurrentUICulture;
+        // Apply mutates several process-wide culture statics; snapshot and restore them all so
+        // this test can't leak an "es" culture into later tests in the (serialized) suite.
+        var prevCulture = CultureInfo.CurrentCulture;
+        var prevUiCulture = CultureInfo.CurrentUICulture;
+        var prevDefaultCulture = CultureInfo.DefaultThreadCurrentCulture;
+        var prevDefaultUiCulture = CultureInfo.DefaultThreadCurrentUICulture;
         var prevResource = AppResources.Culture;
         try
         {
@@ -23,7 +28,9 @@ public class AppCultureTests
         finally
         {
             CultureInfo.CurrentCulture = prevCulture;
-            CultureInfo.CurrentUICulture = prevCulture;
+            CultureInfo.CurrentUICulture = prevUiCulture;
+            CultureInfo.DefaultThreadCurrentCulture = prevDefaultCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = prevDefaultUiCulture;
             AppResources.Culture = prevResource;
         }
     }

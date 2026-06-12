@@ -47,7 +47,7 @@ public class AppResourcesTests
     }
 
     [Fact]
-    public void Attribution_StaysEnglishInSpanish()
+    public void Attribution_IsTranslatedInSpanish()
     {
         var prev = AppResources.Culture;
         try
@@ -58,8 +58,18 @@ public class AppResourcesTests
             AppResources.Culture = new CultureInfo("es");
             var es = AppResources.SettingsAttribution;
 
-            Assert.Equal(en, es);
+            // The Spanish block is now a real translation, not the English placeholder.
+            Assert.NotEqual(en, es);
+
+            // The rights holder is named in both languages.
+            Assert.Contains("Intellectual Reserve", en, StringComparison.Ordinal);
             Assert.Contains("Intellectual Reserve", es, StringComparison.Ordinal);
+
+            // English names the official notes distinctly from the reader's own notes.
+            Assert.Contains("Topical Guide Notes", en, StringComparison.Ordinal);
+
+            // Spanish uses the localized name of the Topical Guide.
+            Assert.Contains("Guía para el Estudio de las Escrituras", es, StringComparison.Ordinal);
         }
         finally
         {

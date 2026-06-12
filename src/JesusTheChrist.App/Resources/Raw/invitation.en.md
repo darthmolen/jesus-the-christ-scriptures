@@ -28,5 +28,6 @@ Newer technology like social media sites have made information easier to consume
 
 ## References
 
-- **Where the invitation was given** — President Russell M. Nelson, "Prophets, Leadership, and Divine Law" (worldwide devotional for young adults, Jan. 8, 2017): <https://www.churchofjesuschrist.org/study/broadcasts/worldwide-devotional-for-young-adults-an-evening-with-president-nelson/2017/01/prophets-leadership-and-divine-law?lang=eng>
-- **Where it is recounted** — Elder Neil L. Andersen, "We Talk of Christ" (Oct. 2020 General Conference): <https://www.churchofjesuschrist.org/study/general-conference/2020/10/45andersen?lang=eng>
+[Where the invitation was given](https://www.churchofjesuschrist.org/study/broadcasts/worldwide-devotional-for-young-adults-an-evening-with-president-nelson/2017/01/prophets-leadership-and-divine-law?lang=eng) — President Russell M. Nelson, "Prophets, Leadership, and Divine Law" (worldwide devotional for young adults, Jan. 8, 2017).
+
+[Where it is recounted](https://www.churchofjesuschrist.org/study/general-conference/2020/10/45andersen?lang=eng) — Elder Neil L. Andersen, "We Talk of Christ" (Oct. 2020 General Conference).

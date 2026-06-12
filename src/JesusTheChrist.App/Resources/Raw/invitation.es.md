@@ -30,5 +30,6 @@ Al hacer que estas palabras estén siempre al alcance, esperamos que la invitaci
 
 ## Referencias
 
-- **Dónde se dio la invitación** — Presidente Russell M. Nelson, "Los profetas, el liderazgo y la ley divina" (devocional mundial para jóvenes adultos, 8 de enero de 2017): <https://www.churchofjesuschrist.org/study/broadcasts/worldwide-devotional-for-young-adults-an-evening-with-president-nelson/2017/01/prophets-leadership-and-divine-law?lang=spa>
-- **Dónde se relata** — Élder Neil L. Andersen, "Hablamos de Cristo" (Conferencia General de octubre de 2020); la invitación aparece en la sección "La preparación del presidente Russell M. Nelson", con la **nota 8** que cita el devocional de 2017 mencionado arriba: <https://www.churchofjesuschrist.org/study/general-conference/2020/10/45andersen?lang=spa>
+[Dónde se dio la invitación](https://www.churchofjesuschrist.org/study/broadcasts/worldwide-devotional-for-young-adults-an-evening-with-president-nelson/2017/01/prophets-leadership-and-divine-law?lang=spa) — Presidente Russell M. Nelson, "Los profetas, el liderazgo y la ley divina" (devocional mundial para jóvenes adultos, 8 de enero de 2017).
+
+[Dónde se relata](https://www.churchofjesuschrist.org/study/general-conference/2020/10/45andersen?lang=spa) — Élder Neil L. Andersen, "Hablamos de Cristo" (Conferencia General de octubre de 2020); la invitación aparece en la sección "La preparación del presidente Russell M. Nelson", con la nota 8 que cita el devocional de 2017 mencionado arriba.

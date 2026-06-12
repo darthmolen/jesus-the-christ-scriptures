@@ -107,8 +107,8 @@
     <value>Acerca de</value>
   </data>
   <data name="SettingsAttribution" xml:space="preserve">
-    <value>"Scriptures: Jesus The Christ" gathers the ~2,200 Topical Guide references under "Jesus Christ." English Bible text is the King James Version (public domain). The Spanish scripture text and the Topical Guide structure and notes are © Intellectual Reserve, Inc., used under its terms; all rights reserved.</value>
-    <comment>Intentionally left in English for now; to be translated later.</comment>
+    <value>"Scriptures: Jesus The Christ" reúne unas 2200 referencias de la Guía para el Estudio de las Escrituras agrupadas bajo "Jesucristo". El texto bíblico en inglés es la versión King James (de dominio público). El texto de las Escrituras en español, así como la estructura y las notas de la Guía para el Estudio de las Escrituras, son © Intellectual Reserve, Inc.; se usan conforme a sus términos y todos los derechos están reservados.</value>
+    <comment>Long attribution block (Spanish).</comment>
   </data>
   <data name="SettingsReadInvitation" xml:space="preserve">
     <value>Leer la invitación</value>

@@ -40,6 +40,11 @@ public partial class NoteEditorPage : ContentPage, IQueryAttributable
         this.verseText = query.TryGetValue(NavigationRoutes.NoteVerseTextParameter, out var verse)
             ? verse?.ToString()
             : null;
+
+        // A new navigation means a new reference, so allow OnAppearing to load it again.
+        // (OnAppearing alone runs on every resume; only a fresh query should reload, so the
+        // guard is reset here, not there — correct even if Shell ever reuses this instance.)
+        this.loaded = false;
     }
 
     /// <inheritdoc/>

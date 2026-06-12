@@ -48,7 +48,7 @@ bordered scripture pane (bottom) with its own pinned label over the scrollable v
 
 - Presentation tests: 80/80 green (added 3: feed nav params, scripture-pane populated,
   no-verse-context case).
-- Android Debug build clean (0/0); installed on device R5CY504DCKZ.
+- Android Debug build clean (0/0); installed on the owner's physical device.
 - Verified live on device: opening a note from Heb. 7:25 shows the verse in the scripture
   pane with the note input above it (`05-note-editor.png`).
 

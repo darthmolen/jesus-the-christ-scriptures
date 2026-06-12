@@ -58,7 +58,7 @@
             <VerticalStackLayout Spacing="6">
                 <Label Text="About" FontAttributes="Bold" />
                 <Label
-                    FontSize="13"
+                    FontSize="{DynamicResource ReadingFontSize}"
                     Opacity="0.8"
                     Text="&quot;Scriptures: Jesus The Christ&quot; gathers the ~2,200 Topical Guide references under &quot;Jesus Christ.&quot; English Bible text is the King James Version (public domain). The Spanish scripture text and the Topical Guide structure and notes are © Intellectual Reserve, Inc., used under its terms; all rights reserved." />
                 <Button

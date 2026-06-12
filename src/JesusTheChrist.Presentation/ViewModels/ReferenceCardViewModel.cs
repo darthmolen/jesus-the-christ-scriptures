@@ -45,7 +45,7 @@ public partial class ReferenceCardViewModel : ObservableObject
         this.openNoteAsync = openNoteAsync;
         this.IsRead = isRead;
         this.HasNote = hasNote;
-        this.IsExpanded = true;
+        this.IsExpanded = !isRead;
     }
 
     /// <summary>

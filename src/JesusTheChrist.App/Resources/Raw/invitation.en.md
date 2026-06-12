@@ -1,6 +1,6 @@
 # The Invitation
 
-In 2017, A year before President Nelson was called to be prophet of the Church of Jesus Christ of Latter Day Saints, he issued this powerful invitation.
+In 2017, a year before President Nelson was called to be prophet of the Church of Jesus Christ of Latter Day Saints, he issued this powerful invitation.
 
 "As members of His restored Church, we know that Jesus Christ, our Master, is our ultimate Mentor. As a true millennial, you were born to be a true disciple of Jesus Christ. In fact, the only way to be a true millennial is to be one of His true disciples!
 

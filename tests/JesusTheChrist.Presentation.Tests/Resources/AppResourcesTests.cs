@@ -65,8 +65,8 @@ public class AppResourcesTests
             Assert.Contains("Intellectual Reserve", en, StringComparison.Ordinal);
             Assert.Contains("Intellectual Reserve", es, StringComparison.Ordinal);
 
-            // English names the official notes distinctly from the reader's own notes.
-            Assert.Contains("Topical Guide Notes", en, StringComparison.Ordinal);
+            // English scopes the notes to the Topical Guide, distinct from the reader's own notes.
+            Assert.Contains("structure and notes of the Topical Guide", en, StringComparison.Ordinal);
 
             // Spanish uses the localized name of the Topical Guide.
             Assert.Contains("Guía para el Estudio de las Escrituras", es, StringComparison.Ordinal);

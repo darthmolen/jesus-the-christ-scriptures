@@ -31,6 +31,17 @@ public static class NavigationRoutes
     public const string NoteRefIdParameter = "refId";
 
     /// <summary>
+    /// The parameter key carrying the reference's display label (for example "Heb. 7:25")
+    /// to the note editor's scripture pane.
+    /// </summary>
+    public const string NoteRefLabelParameter = "refLabel";
+
+    /// <summary>
+    /// The parameter key carrying the target verse text to the note editor's scripture pane.
+    /// </summary>
+    public const string NoteVerseTextParameter = "verseText";
+
+    /// <summary>
     /// The route for the first-run invitation screen.
     /// </summary>
     public const string Invitation = "invitation";

@@ -21,6 +21,29 @@ public class NoteEditorViewModelTests
     }
 
     [Fact]
+    public async Task Load_PopulatesScripturePaneFromVerseContext()
+    {
+        await using var harness = await Harness.CreateAsync();
+
+        await harness.ViewModel.LoadAsync(RefId, "Heb. 7:25", "Wherefore he is able also to save them to the uttermost.");
+
+        Assert.Equal("Heb. 7:25", harness.ViewModel.ReferenceLabel);
+        Assert.Equal("Wherefore he is able also to save them to the uttermost.", harness.ViewModel.VerseText);
+        Assert.True(harness.ViewModel.HasVerse);
+    }
+
+    [Fact]
+    public async Task Load_WithoutVerseContext_HasNoVerse()
+    {
+        await using var harness = await Harness.CreateAsync();
+
+        await harness.ViewModel.LoadAsync(RefId);
+
+        Assert.Equal(string.Empty, harness.ViewModel.VerseText);
+        Assert.False(harness.ViewModel.HasVerse);
+    }
+
+    [Fact]
     public async Task Load_NoNote_IsEmpty()
     {
         await using var harness = await Harness.CreateAsync();

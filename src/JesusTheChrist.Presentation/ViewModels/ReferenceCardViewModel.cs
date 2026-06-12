@@ -10,7 +10,7 @@ namespace JesusTheChrist.Presentation.ViewModels;
 public partial class ReferenceCardViewModel : ObservableObject
 {
     private readonly Func<string, bool, Task> setReadAsync;
-    private readonly Func<string, Task> openNoteAsync;
+    private readonly Func<ReferenceCardViewModel, Task> openNoteAsync;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ReferenceCardViewModel"/> class.
@@ -23,7 +23,7 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// <param name="isRead">Whether the reference is already marked read.</param>
     /// <param name="hasNote">Whether a saved note exists for the reference.</param>
     /// <param name="setReadAsync">Persists a new read state for the given id.</param>
-    /// <param name="openNoteAsync">Opens the note editor for the given id.</param>
+    /// <param name="openNoteAsync">Opens the note editor for the given card.</param>
     public ReferenceCardViewModel(
         string id,
         string refLabel,
@@ -33,7 +33,7 @@ public partial class ReferenceCardViewModel : ObservableObject
         bool isRead,
         bool hasNote,
         Func<string, bool, Task> setReadAsync,
-        Func<string, Task> openNoteAsync)
+        Func<ReferenceCardViewModel, Task> openNoteAsync)
     {
         this.Id = id;
         this.RefLabel = refLabel;
@@ -138,5 +138,5 @@ public partial class ReferenceCardViewModel : ObservableObject
     private void ToggleContext() => this.IsContextVisible = !this.IsContextVisible;
 
     [RelayCommand]
-    private Task OpenNoteAsync() => this.openNoteAsync(this.Id);
+    private Task OpenNoteAsync() => this.openNoteAsync(this);
 }

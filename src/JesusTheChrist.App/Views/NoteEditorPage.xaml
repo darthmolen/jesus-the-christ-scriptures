@@ -8,24 +8,78 @@
     x:DataType="vm:NoteEditorViewModel"
     Title="{x:Static loc:AppResources.NoteTitle}">
 
-    <Grid RowDefinitions="*,Auto" Padding="16">
+    <!-- Pinned reference label + actions header, then the note pane (top, above the
+         keyboard) and the scripture pane (bottom, for reference while writing). -->
+    <Grid RowDefinitions="Auto,*,Auto,*" Padding="16,12" RowSpacing="10">
 
-        <Editor
-            Grid.Row="0"
-            Text="{Binding Text}"
-            Placeholder="{x:Static loc:AppResources.NotePlaceholder}"
-            AutoSize="TextChanges"
-            FontSize="{DynamicResource ReadingFontSize}" />
-
-        <HorizontalStackLayout Grid.Row="1" Spacing="12" HorizontalOptions="End" Margin="0,12,0,0">
+        <!-- Header: which verse you're annotating, plus Save/Delete (always reachable
+             with the keyboard up since they sit above the note pane). -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+            <Label
+                Grid.Column="0"
+                Text="{Binding ReferenceLabel}"
+                IsVisible="{Binding HasVerse}"
+                FontSize="18"
+                FontAttributes="Bold"
+                VerticalOptions="Center" />
             <Button
+                Grid.Column="1"
                 Text="{x:Static loc:AppResources.ActionDelete}"
                 Command="{Binding DeleteCommand}"
-                IsVisible="{Binding HasExistingNote}" />
+                IsVisible="{Binding HasExistingNote}"
+                FontSize="13"
+                Padding="12,6" />
             <Button
+                Grid.Column="2"
                 Text="{x:Static loc:AppResources.ActionSave}"
-                Command="{Binding SaveCommand}" />
-        </HorizontalStackLayout>
+                Command="{Binding SaveCommand}"
+                FontSize="13"
+                Padding="12,6" />
+        </Grid>
+
+        <!-- Note pane (top): where you type. Fills its row and scrolls internally. -->
+        <Border
+            Grid.Row="1"
+            Padding="6,2"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 12"
+            Stroke="{AppThemeBinding Light=#CCCCCC, Dark=#555555}">
+            <Editor
+                Text="{Binding Text}"
+                Placeholder="{x:Static loc:AppResources.NotePlaceholder}"
+                FontSize="{DynamicResource ReadingFontSize}"
+                VerticalOptions="Fill" />
+        </Border>
+
+        <!-- Divider between the panes -->
+        <BoxView
+            Grid.Row="2"
+            HeightRequest="1"
+            Color="{AppThemeBinding Light=#E0E0E0, Dark=#444444}" />
+
+        <!-- Scripture pane (bottom): the verse being annotated, independently scrollable. -->
+        <Border
+            Grid.Row="3"
+            Padding="14"
+            IsVisible="{Binding HasVerse}"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 12"
+            Stroke="{AppThemeBinding Light=#CCCCCC, Dark=#555555}"
+            BackgroundColor="{AppThemeBinding Light=#F6F4FB, Dark=#1A1726}">
+            <ScrollView>
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="{Binding ReferenceLabel}"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        Opacity="0.75" />
+                    <Label
+                        Text="{Binding VerseText}"
+                        FontSize="{DynamicResource ReadingFontSize}"
+                        LineHeight="1.4" />
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
 
     </Grid>
 

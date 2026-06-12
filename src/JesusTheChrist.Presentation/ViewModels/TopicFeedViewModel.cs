@@ -137,10 +137,15 @@ public partial class TopicFeedViewModel : ObservableObject
         }
     }
 
-    private Task OpenNoteAsync(string id) =>
+    private Task OpenNoteAsync(ReferenceCardViewModel card) =>
         this.navigation.GoToAsync(
             NavigationRoutes.Note,
-            new Dictionary<string, object> { [NavigationRoutes.NoteRefIdParameter] = id });
+            new Dictionary<string, object>
+            {
+                [NavigationRoutes.NoteRefIdParameter] = card.Id,
+                [NavigationRoutes.NoteRefLabelParameter] = card.RefLabel,
+                [NavigationRoutes.NoteVerseTextParameter] = card.VerseText,
+            });
 
     private Task SetReadAsync(string id, bool isRead) =>
         isRead ? this.readMarks.MarkReadAsync(id) : this.readMarks.UnmarkAsync(id);

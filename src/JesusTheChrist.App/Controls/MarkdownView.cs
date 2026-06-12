@@ -36,7 +36,7 @@ public sealed class MarkdownView : ContentView
 
     private void Render(string? markdown)
     {
-        var layout = new VerticalStackLayout { Spacing = 12 };
+        var layout = new VerticalStackLayout { Spacing = 16 };
 
         foreach (var block in MarkdownParser.Parse(markdown))
         {

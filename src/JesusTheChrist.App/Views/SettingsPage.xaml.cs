@@ -12,6 +12,7 @@ public partial class SettingsPage : ContentPage
 {
     private readonly SettingsViewModel viewModel;
     private bool initializing;
+    private bool switchingLanguage;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsPage"/> class.
@@ -82,9 +83,28 @@ public partial class SettingsPage : ContentPage
 
     private async void OnLanguageChanged(object? sender, EventArgs e)
     {
-        if (!this.initializing)
+        // Ignore the programmatic selection during load, an empty selection, and any change
+        // that arrives while the persist+rebuild navigation below is still in flight — a
+        // second Shell navigation mid-flight throws, and this async void would crash the app.
+        if (this.initializing || this.switchingLanguage || this.LanguagePicker.SelectedIndex < 0)
+        {
+            return;
+        }
+
+        this.switchingLanguage = true;
+        try
         {
             await this.viewModel.SetLanguageAsync(this.LanguagePicker.SelectedIndex == 1 ? Language.Es : Language.En);
+
+            // UI text is resolved when a page is built, so reload Settings to re-render it in the
+            // newly selected language. Pop then re-push the route (no animation) so the user stays
+            // on Settings; other pages are transient and already rebuild on their next navigation.
+            await Shell.Current.GoToAsync("..", animate: false);
+            await Shell.Current.GoToAsync(NavigationRoutes.Settings, animate: false);
+        }
+        finally
+        {
+            this.switchingLanguage = false;
         }
     }
 

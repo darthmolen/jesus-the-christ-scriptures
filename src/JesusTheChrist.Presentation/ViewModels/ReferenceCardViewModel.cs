@@ -113,7 +113,15 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// </summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ChevronGlyph))]
+    [NotifyPropertyChangedFor(nameof(IsCollapsed))]
     public partial bool IsExpanded { get; set; }
+
+    /// <summary>
+    /// Gets a value indicating whether the card body is rolled up to its heading. The note and
+    /// read actions live in the heading while collapsed and move into the footer while expanded,
+    /// so a reader never has to scroll back up to mark a long passage read or start a note.
+    /// </summary>
+    public bool IsCollapsed => !this.IsExpanded;
 
     /// <summary>
     /// Gets the chevron glyph that signals whether the heading expands or collapses the body.

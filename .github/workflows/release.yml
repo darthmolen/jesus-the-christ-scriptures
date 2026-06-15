@@ -41,10 +41,12 @@ jobs:
       - name: Guard — tag must match csproj version
         run: |
           TAG="${GITHUB_REF_NAME#v}"
-          CSPROJ_VER=$(grep -oPm1 '(?<=<ApplicationDisplayVersion>)[^<]+' "$APP_CSPROJ")
+          CSPROJ_VER=$(grep -oPm1 '(?<=<ApplicationDisplayVersion>)[^<]+' "$APP_CSPROJ" | tr -d '\r')
+          if [ -z "$CSPROJ_VER" ]; then
+            echo "::error::Could not read <ApplicationDisplayVersion> from $APP_CSPROJ"
+            exit 1
+          fi
           echo "Tag version: $TAG / csproj ApplicationDisplayVersion: $CSPROJ_VER"
-          if [ "$TAG" != "$CSPROJ_VER" ]; then
-            echo "::error::Tag v$TAG does not match ApplicationDisplayVersion ($CSPROJ_VER). Bump the csproj versionName AND versionCode (via PR) before tagging."
             exit 1
           fi
 

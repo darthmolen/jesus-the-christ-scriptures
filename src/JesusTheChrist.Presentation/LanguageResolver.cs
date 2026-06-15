@@ -1,9 +1,11 @@
 using JesusTheChrist.Core.Models;
+using JesusTheChrist.Presentation.Globalization;
 
 namespace JesusTheChrist.Presentation;
 
 /// <summary>
-/// Maps a device/culture identifier to a supported content <see cref="Language"/>.
+/// Maps a device/culture identifier to a supported content <see cref="Language"/>, using the
+/// offered set from <see cref="LanguageCatalog"/> (so a new language resolves automatically).
 /// </summary>
 public static class LanguageResolver
 {
@@ -12,8 +14,8 @@ public static class LanguageResolver
     /// </summary>
     /// <param name="cultureName">The culture name; the leading two-letter code is significant.</param>
     /// <returns>
-    /// <see cref="Language.Es"/> for Spanish cultures; <see cref="Language.En"/> for everything else,
-    /// including unknown, empty, or null input.
+    /// The offered language whose code matches the leading two-letter code; <see cref="Language.En"/>
+    /// for unknown, empty, or null input.
     /// </returns>
     public static Language Resolve(string? cultureName)
     {
@@ -23,6 +25,14 @@ public static class LanguageResolver
         }
 
         var twoLetter = cultureName.Split('-', 2)[0].ToLowerInvariant();
-        return twoLetter == "es" ? Language.Es : Language.En;
+        foreach (var option in LanguageCatalog.All)
+        {
+            if (option.Code == twoLetter)
+            {
+                return option.Language;
+            }
+        }
+
+        return Language.En;
     }
 }

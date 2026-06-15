@@ -40,4 +40,12 @@ public class LanguageCatalogTests
         var index = LanguageCatalog.IndexOf(language);
         Assert.Equal(language, LanguageCatalog.At(index));
     }
+
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(int.MaxValue)]
+    public void At_OutOfRange_ThrowsArgumentOutOfRange(int index)
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => LanguageCatalog.At(index));
+    }
 }

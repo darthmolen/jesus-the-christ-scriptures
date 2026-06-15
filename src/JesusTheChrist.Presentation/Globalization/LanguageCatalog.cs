@@ -10,19 +10,22 @@ namespace JesusTheChrist.Presentation.Globalization;
 /// </summary>
 public static class LanguageCatalog
 {
-    /// <summary>
-    /// Gets the offered languages, in display (picker) order.
-    /// </summary>
-    public static IReadOnlyList<LanguageOption> All { get; } =
+    private static readonly LanguageOption[] Options =
     [
         new LanguageOption(Language.En, AppResources.LanguageEnglish),
         new LanguageOption(Language.Es, AppResources.LanguageSpanish),
     ];
 
     /// <summary>
+    /// Gets the offered languages, in display (picker) order. The collection is a read-only
+    /// wrapper, so callers cannot mutate the catalog through it.
+    /// </summary>
+    public static IReadOnlyList<LanguageOption> All { get; } = Array.AsReadOnly(Options);
+
+    /// <summary>
     /// Gets the language autonyms in display order, for the Settings picker's item source.
     /// </summary>
-    public static IReadOnlyList<string> Autonyms { get; } = All.Select(o => o.Autonym).ToList();
+    public static IReadOnlyList<string> Autonyms { get; } = Array.AsReadOnly(Options.Select(o => o.Autonym).ToArray());
 
     /// <summary>
     /// Gets the display index of the given language, or 0 when it is not offered.
@@ -47,5 +50,11 @@ public static class LanguageCatalog
     /// </summary>
     /// <param name="index">The zero-based display index.</param>
     /// <returns>The language at that index.</returns>
-    public static Language At(int index) => All[index].Language;
+    /// <exception cref="ArgumentOutOfRangeException">The index is outside the catalog range.</exception>
+    public static Language At(int index)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegative(index);
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, All.Count);
+        return All[index].Language;
+    }
 }

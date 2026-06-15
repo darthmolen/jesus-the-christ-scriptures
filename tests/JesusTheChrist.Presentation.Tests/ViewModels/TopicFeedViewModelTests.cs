@@ -134,6 +134,21 @@ public class TopicFeedViewModelTests
     }
 
     [Fact]
+    public async Task IsCollapsed_MirrorsInverseOfIsExpanded()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+        var card = harness.ViewModel.References[0];
+
+        Assert.True(card.IsExpanded);
+        Assert.False(card.IsCollapsed);
+
+        card.ToggleExpandedCommand.Execute(null);
+        Assert.False(card.IsExpanded);
+        Assert.True(card.IsCollapsed);
+    }
+
+    [Fact]
     public async Task ToggleExpanded_FlipsBodyWithoutChangingReadState()
     {
         await using var harness = await Harness.CreateAsync();

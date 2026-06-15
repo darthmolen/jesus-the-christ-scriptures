@@ -1,5 +1,5 @@
-using JesusTheChrist.Core.Models;
 using JesusTheChrist.Presentation.Appearance;
+using JesusTheChrist.Presentation.Globalization;
 using JesusTheChrist.Presentation.Navigation;
 using JesusTheChrist.Presentation.ViewModels;
 
@@ -34,7 +34,7 @@ public partial class SettingsPage : ContentPage
         this.initializing = true;
         this.FontSlider.Value = this.viewModel.ReadingFontSize;
         this.ThemePicker.SelectedIndex = (int)this.viewModel.Theme;
-        this.LanguagePicker.SelectedIndex = this.viewModel.Language == Language.Es ? 1 : 0;
+        this.LanguagePicker.SelectedIndex = LanguageCatalog.IndexOf(this.viewModel.Language);
         this.StreakSwitch.IsToggled = this.viewModel.StreakEnabled;
         this.initializing = false;
 
@@ -94,7 +94,7 @@ public partial class SettingsPage : ContentPage
         this.switchingLanguage = true;
         try
         {
-            await this.viewModel.SetLanguageAsync(this.LanguagePicker.SelectedIndex == 1 ? Language.Es : Language.En);
+            await this.viewModel.SetLanguageAsync(LanguageCatalog.At(this.LanguagePicker.SelectedIndex));
 
             // UI text is resolved when a page is built, so reload Settings to re-render it in the
             // newly selected language. Pop then re-push the route (no animation) so the user stays

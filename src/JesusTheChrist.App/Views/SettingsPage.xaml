@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:loc="clr-namespace:JesusTheChrist.Presentation.Resources;assembly=JesusTheChrist.Presentation"
+    xmlns:glob="clr-namespace:JesusTheChrist.Presentation.Globalization;assembly=JesusTheChrist.Presentation"
     Title="{x:Static loc:AppResources.SettingsTitle}">
 
     <ScrollView>
@@ -35,14 +36,10 @@
             <!-- Language -->
             <VerticalStackLayout Spacing="6">
                 <Label Text="{x:Static loc:AppResources.SettingsLanguage}" FontAttributes="Bold" />
-                <Picker x:Name="LanguagePicker">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:Static Member="loc:AppResources.LanguageEnglish" />
-                            <x:Static Member="loc:AppResources.LanguageSpanish" />
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
+                <!-- Items come straight from LanguageCatalog (the single source of truth),
+                     so a new language appears here automatically and can't drift from the
+                     index mapping used in the code-behind. -->
+                <Picker x:Name="LanguagePicker" ItemsSource="{x:Static glob:LanguageCatalog.Autonyms}" />
                 <Label Text="{x:Static loc:AppResources.SettingsLanguageNote}" FontSize="12" Opacity="0.7" />
             </VerticalStackLayout>
 

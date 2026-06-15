@@ -12,7 +12,7 @@ Scriptures: Jesus The Christ
 ```
 The Latter-day Saint Topical Guide on Jesus Christ, as a living feed.
 ```
-(68 characters)
+(69 characters)
 
 ## Full description (≤ 4000 chars)
 ```

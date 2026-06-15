@@ -1,4 +1,4 @@
-# Coding Standards Reminder for MSSQL MCP Server
+# C# Coding Standards
 
 ## Pre-Coding Checklist
 
@@ -438,7 +438,7 @@ When encountering StyleCop or code quality errors during refactoring:
 
 ### Important Note:
 Do NOT use `dotnet format` as it can:
-- Remove necessary using statements (especially CSAT-specific ones)
+- Remove necessary using statements (it's hit or miss for using statements around build-generated code)
 - Get confused by source-generated code (LoggerMessage patterns)
 - Make incorrect "fixes" that break the build
 
@@ -452,30 +452,3 @@ Multiple quality errors remaining. Please fix manually in Visual Studio:
 ```
 
 This prevents endless fix attempts and leverages Visual Studio's built-in quick fixes.
-
-## NuGet Authentication for Private Feeds
-
-When working with private NuGet feeds, NEVER store credentials in cleartext. Use environment variables:
-
-### Required Setup (only if running in WSL):
-1. Ensure `~/.ado_creds` contains: `export ADO_PAT=your_actual_pat_here`
-2. nuget.config should use `%ADO_PAT%` placeholder
-
-### Command Pattern:
-Always source credentials before dotnet commands:
-```bash
-# Pattern: source creds && command with config
-source ~/.ado_creds && dotnet build --configfile nuget.config
-source ~/.ado_creds && dotnet restore --configfile nuget.config
-source ~/.ado_creds && dotnet test --configfile nuget.config
-```
-
-### For AI Agents:
-If you encounter authentication errors or timeouts:
-1. Check if the command supports `--configfile`
-2. Prefix command with `source ~/.ado_creds &&`
-
-### Common Authentication Errors:
-- **401 (Unauthorized)**: Missing or invalid ADO_PAT
-- **Command timeouts**: Often indicates authentication issues with private feeds
-- **"Unable to load the service index"**: Check credentials and network access

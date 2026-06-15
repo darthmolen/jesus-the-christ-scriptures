@@ -2,11 +2,11 @@
 
 ## English
 
-One day in church I came upon [an invitation](https://www.churchofjesuschrist.org/study/broadcasts/worldwide-devotional-for-young-adults-an-evening-with-president-nelson/2017/01/prophets-leadership-and-divine-law?lang=eng) by President Nelson, the late prophet of the Church of Jesus Christ of Latter-day Saints. He invited everyone to read all 2200 scriptures from the Topical Guide about Jesus Christ. For those that don't know, the Topical Guide is a great reference but was built for print. It will get you flipping pages like a pro. There's value in that. Sometimes working with print is it's own beauty.
+One day in church I came upon [an invitation](https://www.churchofjesuschrist.org/study/broadcasts/worldwide-devotional-for-young-adults-an-evening-with-president-nelson/2017/01/prophets-leadership-and-divine-law?lang=eng) by President Nelson, the late prophet of the Church of Jesus Christ of Latter-day Saints. He invited everyone to read all 2200 scriptures from the Topical Guide about Jesus Christ. For those that don't know, the Topical Guide is a great reference but was built for print. It will get you flipping pages like a pro. There's value in that. Sometimes working with print is its own beauty.
 
 Then my brain said, "What if you could make a feed from all those references and make it act like social media, then fill all those micro-moments with learning about becoming a better human being instead?".  
 
-Well brain, challenge accepted. This app currently has 2 languages, English and Spanish but is built specifically so you can pick it up and put it down easily as its ergonomics were specifically written with a phone in mind. It especially excels in helping use those micro-moments accepting President Nelson's invitation, and you can even track your progress as you do it. I hope you enjoy using it as much as I do.
+Well brain, challenge accepted. This app currently has 2 languages, English and Spanish but is built so you can pick it up and put it down easily as its ergonomics were specifically written with a phone in mind. It especially excels in helping use those micro-moments accepting President Nelson's invitation, and you can even track your progress as you do it. I hope you enjoy using it as much as I do.
 
 ## Español
 

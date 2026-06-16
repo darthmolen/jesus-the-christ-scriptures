@@ -30,21 +30,74 @@ commit to `main`.
 
 ### One-time setup
 
-Add three repository secrets (**Settings → Secrets and variables → Actions**):
+CI needs three repository secrets — `PLAY_KEYSTORE_BASE64`, `PLAY_KEYSTORE_PASSWORD`, and
+`PLAY_SERVICE_ACCOUNT_JSON`. Don't add them by hand; the helper scripts read them from local
+files and pipe them to GitHub without ever printing the values. But first you have to create
+the **service-account JSON** (the credential CI uses to talk to the Play Developer API).
 
-| Secret | What it is | How to produce it |
-|---|---|---|
-| `PLAY_KEYSTORE_BASE64` | The upload keystore, base64-encoded | `base64 -w0 vozloop-upload.keystore` (or `certutil -encode` on Windows, stripped of headers) |
-| `PLAY_KEYSTORE_PASSWORD` | The store/key password | from your password manager |
-| `PLAY_SERVICE_ACCOUNT_JSON` | Play Developer API service-account key (full JSON) | Google Cloud Console → create a service account → grant it access in Play Console (**Users and permissions → Invite → grant "Releases"**) → download a JSON key |
+#### 1. Create the Play service-account JSON
 
-The keystore itself is **never committed** — it lives outside the repo (locally at
-`C:\Users\swmol\keys\vozloop-upload.keystore`, alias `vozloop-upload`) and reaches CI only
-as the base64 secret. `*.keystore` / `*.jks` are gitignored.
+> **The old way is gone.** Play Console's **Settings → API access** page no longer exists —
+> `play.google.com/console/api-access` just redirects to the console home. Don't hunt for an
+> "API access" menu item; it isn't there. The current flow is **Google-Cloud-first**, and you
+> grant the account in Play Console afterward under *Users and permissions*.
 
-> Google requires the **first** bundle for a brand-new app to be uploaded through the
-> Console UI before the API will accept uploads. That was already done for 1.0, so the API
-> path is open.
+**In Google Cloud — [console.cloud.google.com](https://console.cloud.google.com):**
+
+1. Top bar: **create a project** (e.g. `jtc-play`) and select it.
+2. **APIs & Services → Library** → search **"Google Play Android Developer API"** → **Enable**.
+3. **APIs & Services → Credentials → + Create credentials → Help me choose**:
+   - *Which API are you using?* **Google Play Android Developer API**
+   - *What data will you be accessing?* **Application data** — this is the option that creates a
+     **service account**. (*User data* makes an OAuth client, which is the wrong credential.)
+   - **Next**.
+4. Name it `play-publisher` → **Create and continue** → skip the optional roles → **Done**.
+5. The wizard creates the account but **not** a key (Google split key creation out of it). Make
+   the key separately: **IAM & Admin → Service Accounts** → click `play-publisher@…` →
+   **Keys** tab → **Add key → Create new key → JSON → Create**. A `.json` downloads.
+6. Save it next to the keystore — `C:\Users\swmol\keys\` — and keep it **out of the repo**.
+7. Copy the account's **email**: `play-publisher@<project>.iam.gserviceaccount.com`.
+
+**In Play Console — grant the account release access:**
+
+8. Play Console → **Users and permissions → Invite new users**.
+9. Paste the service-account **email** from step 7 (yes, a service account is invited exactly
+   like a human user).
+10. Under **App permissions**, add **Scriptures: Jesus The Christ** and grant **Release**
+    permissions (release to testing tracks; add production if you'll auto-publish there later).
+11. **Invite user.** Inviting the service account here *is* the link between Cloud and Play —
+    there is no separate "link project" step in the new flow.
+
+> New permission grants can take a few minutes to propagate. If the very first CI upload fails
+> with a 403, wait a little and re-run. The app already has manual uploads on its tracks, so the
+> "first bundle must be uploaded in the Console" requirement is already satisfied.
+
+#### 2. Stage and push the secrets
+
+The keystore lives outside the repo at `C:\Users\swmol\keys\vozloop-upload.keystore` (alias
+`vozloop-upload`); `*.keystore`, `*.jks`, and `.env` are gitignored. Put the raw inputs in a
+local `.env` at the repo root:
+
+```
+keystore_password=<your keystore store/key password>
+service_account_json_path=C:/Users/swmol/keys/<the-service-account>.json
+```
+
+> Use **forward slashes** and **no quotes** in the path. Git Bash won't resolve `C:\Users\...`
+> (backslashes) or a quoted `"C:\..."` — both forms fail silently. `C:/Users/...` or
+> `/c/Users/...` both work.
+
+Then run the two scripts (in order; values are never printed):
+
+```bash
+bash scripts/collect-secrets.sh   # base64-bundles the keystore + JSON into .env
+bash scripts/push-secrets.sh      # uploads PLAY_KEYSTORE_BASE64, PLAY_KEYSTORE_PASSWORD,
+                                  # and PLAY_SERVICE_ACCOUNT_JSON to GitHub Actions
+```
+
+`collect` honors an optional `keystore_path` in `.env` (defaults to
+`~/keys/vozloop-upload.keystore`). To rotate a secret later, update the source file/value and
+re-run both scripts.
 
 ### Releasing
 

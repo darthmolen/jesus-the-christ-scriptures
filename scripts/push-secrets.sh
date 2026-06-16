@@ -13,6 +13,8 @@ ENV_FILE="$REPO_ROOT/.env"
 [ -f "$ENV_FILE" ] || { echo "ERROR: $ENV_FILE not found — run scripts/collect-secrets.sh first." >&2; exit 1; }
 command -v gh >/dev/null || { echo "ERROR: gh CLI not found on PATH." >&2; exit 1; }
 
+# Run gh from inside the checkout so repo detection works regardless of the caller's cwd.
+cd "$REPO_ROOT"
 REPO="$(gh repo view --json nameWithOwner -q .nameWithOwner)"
 # `|| true` keeps a missing key from tripping `set -e`; `tr -d '\r'` strips CRLF.
 val() { { grep -E "^$1=" "$ENV_FILE" || true; } | head -n1 | cut -d= -f2- | tr -d '\r'; }

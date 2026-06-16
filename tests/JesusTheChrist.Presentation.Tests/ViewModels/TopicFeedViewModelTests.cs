@@ -149,6 +149,36 @@ public class TopicFeedViewModelTests
     }
 
     [Fact]
+    public async Task ToggleRead_WhenMarkingRead_RaisesCardCollapsedAfterRead()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+        var card = harness.ViewModel.References[0];
+
+        ReferenceCardViewModel? collapsed = null;
+        harness.ViewModel.CardCollapsedAfterRead += (_, e) => collapsed = e.Card;
+
+        await card.ToggleReadCommand.ExecuteAsync(null);
+
+        Assert.Same(card, collapsed);
+    }
+
+    [Fact]
+    public async Task ToggleRead_WhenUnmarking_DoesNotRaiseCardCollapsedAfterRead()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+        var card = harness.ViewModel.References[0];
+        await card.ToggleReadCommand.ExecuteAsync(null);
+
+        var raised = false;
+        harness.ViewModel.CardCollapsedAfterRead += (_, _) => raised = true;
+        await card.ToggleReadCommand.ExecuteAsync(null);
+
+        Assert.False(raised);
+    }
+
+    [Fact]
     public async Task ToggleExpanded_FlipsBodyWithoutChangingReadState()
     {
         await using var harness = await Harness.CreateAsync();

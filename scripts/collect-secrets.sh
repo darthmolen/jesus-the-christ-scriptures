@@ -52,6 +52,7 @@ umask 077
   echo "keystore_base64=$(b64 "$KEYSTORE_PATH")"
   [ -n "$SA_B64" ] && echo "service_account_json_base64=$SA_B64"
 } > "$ENV_FILE"
+chmod 600 "$ENV_FILE"
 
 echo "Updated $ENV_FILE (values not shown). Service-account secret included: $([ -n "$SA_B64" ] && echo yes || echo NO)."
 echo "Next: scripts/push-secrets.sh"

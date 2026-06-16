@@ -51,6 +51,13 @@ public partial class TopicFeedViewModel : ObservableObject
     }
 
     /// <summary>
+    /// Occurs when marking a reference read rolls its card up, so the view can re-anchor the
+    /// feed's scroll position to the collapsed card (a tall card otherwise leaves the reader
+    /// stranded below the next reference).
+    /// </summary>
+    public event EventHandler<ReferenceCardEventArgs>? CardCollapsedAfterRead;
+
+    /// <summary>
     /// Gets or sets the sub-topic title shown at the top of the feed.
     /// </summary>
     [ObservableProperty]
@@ -115,7 +122,8 @@ public partial class TopicFeedViewModel : ObservableObject
                     readIds.Contains(id),
                     noteIds.Contains(id),
                     this.SetReadAsync,
-                    this.OpenNoteAsync));
+                    this.OpenNoteAsync,
+                    this.OnCardCollapsedAfterRead));
             }
         }
         finally
@@ -136,6 +144,9 @@ public partial class TopicFeedViewModel : ObservableObject
             card.HasNote = noteIds.Contains(card.Id);
         }
     }
+
+    private void OnCardCollapsedAfterRead(ReferenceCardViewModel card) =>
+        this.CardCollapsedAfterRead?.Invoke(this, new ReferenceCardEventArgs(card));
 
     private Task OpenNoteAsync(ReferenceCardViewModel card) =>
         this.navigation.GoToAsync(

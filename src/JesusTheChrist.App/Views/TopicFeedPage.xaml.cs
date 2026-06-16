@@ -10,6 +10,7 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
 {
     private readonly TopicFeedViewModel viewModel;
     private string? topicKey;
+    private bool isVisible;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TopicFeedPage"/> class.
@@ -37,6 +38,13 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
+        // OnAppearing can fire without a matching OnDisappearing (e.g. app resume), so remove
+        // before adding to keep the subscription single — otherwise the scroll handler stacks.
+        this.viewModel.CardCollapsedAfterRead -= this.OnCardCollapsedAfterRead;
+        this.viewModel.CardCollapsedAfterRead += this.OnCardCollapsedAfterRead;
+        this.isVisible = true;
+
         if (string.IsNullOrEmpty(this.topicKey))
         {
             return;
@@ -51,5 +59,32 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
             // Returning from the note editor — refresh the note indicators.
             await this.viewModel.RefreshNotesAsync();
         }
+    }
+
+    /// <inheritdoc/>
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        this.isVisible = false;
+        this.viewModel.CardCollapsedAfterRead -= this.OnCardCollapsedAfterRead;
+    }
+
+    private void OnCardCollapsedAfterRead(object? sender, ReferenceCardEventArgs e)
+    {
+        // The card has just rolled up. Defer until its smaller layout settles, then bring it
+        // back into view: MakeVisible scrolls up to the collapsed card when it sits above the
+        // viewport (the tall-card case) and leaves a short, already-visible card untouched, so
+        // the next reference lands right below it instead of off the bottom of the screen.
+        this.Dispatcher.DispatchDelayed(
+            TimeSpan.FromMilliseconds(100),
+            () =>
+            {
+                // The reader may have navigated away during the delay; only scroll while this
+                // page is still visible, or the deferred scroll could jump or hit a stale view.
+                if (this.isVisible)
+                {
+                    this.ReferencesView.ScrollTo(e.Card, position: ScrollToPosition.MakeVisible, animate: true);
+                }
+            });
     }
 }

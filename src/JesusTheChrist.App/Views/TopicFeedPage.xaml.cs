@@ -37,6 +37,8 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        this.viewModel.CardCollapsedAfterRead += this.OnCardCollapsedAfterRead;
+
         if (string.IsNullOrEmpty(this.topicKey))
         {
             return;
@@ -51,5 +53,23 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
             // Returning from the note editor — refresh the note indicators.
             await this.viewModel.RefreshNotesAsync();
         }
+    }
+
+    /// <inheritdoc/>
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        this.viewModel.CardCollapsedAfterRead -= this.OnCardCollapsedAfterRead;
+    }
+
+    private void OnCardCollapsedAfterRead(object? sender, ReferenceCardEventArgs e)
+    {
+        // The card has just rolled up. Defer until its smaller layout settles, then bring it
+        // back into view: MakeVisible scrolls up to the collapsed card when it sits above the
+        // viewport (the tall-card case) and leaves a short, already-visible card untouched, so
+        // the next reference lands right below it instead of off the bottom of the screen.
+        this.Dispatcher.DispatchDelayed(
+            TimeSpan.FromMilliseconds(100),
+            () => this.ReferencesView.ScrollTo(e.Card, position: ScrollToPosition.MakeVisible, animate: true));
     }
 }

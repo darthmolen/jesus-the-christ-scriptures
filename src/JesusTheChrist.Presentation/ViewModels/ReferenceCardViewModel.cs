@@ -11,6 +11,7 @@ public partial class ReferenceCardViewModel : ObservableObject
 {
     private readonly Func<string, bool, Task> setReadAsync;
     private readonly Func<ReferenceCardViewModel, Task> openNoteAsync;
+    private readonly Action<ReferenceCardViewModel> onReadCollapsed;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ReferenceCardViewModel"/> class.
@@ -24,6 +25,7 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// <param name="hasNote">Whether a saved note exists for the reference.</param>
     /// <param name="setReadAsync">Persists a new read state for the given id.</param>
     /// <param name="openNoteAsync">Opens the note editor for the given card.</param>
+    /// <param name="onReadCollapsed">Notified when marking read rolls this card up, so the view can re-anchor scroll.</param>
     public ReferenceCardViewModel(
         string id,
         string refLabel,
@@ -33,7 +35,8 @@ public partial class ReferenceCardViewModel : ObservableObject
         bool isRead,
         bool hasNote,
         Func<string, bool, Task> setReadAsync,
-        Func<ReferenceCardViewModel, Task> openNoteAsync)
+        Func<ReferenceCardViewModel, Task> openNoteAsync,
+        Action<ReferenceCardViewModel> onReadCollapsed)
     {
         this.Id = id;
         this.RefLabel = refLabel;
@@ -43,6 +46,7 @@ public partial class ReferenceCardViewModel : ObservableObject
         this.Verses = context.Where(c => c.IsTarget).ToList();
         this.setReadAsync = setReadAsync;
         this.openNoteAsync = openNoteAsync;
+        this.onReadCollapsed = onReadCollapsed;
         this.IsRead = isRead;
         this.HasNote = hasNote;
         this.IsExpanded = !isRead;
@@ -137,6 +141,13 @@ public partial class ReferenceCardViewModel : ObservableObject
 
         // Marking read rolls the card up to its heading; un-reading rolls it back out.
         this.IsExpanded = !next;
+
+        // When a card taller than the screen rolls up, the feed keeps its old scroll offset
+        // and strands the reader below the next card. Let the view re-anchor on collapse.
+        if (next)
+        {
+            this.onReadCollapsed(this);
+        }
     }
 
     [RelayCommand]

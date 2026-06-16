@@ -16,6 +16,7 @@
             IsRunning="{Binding IsLoading}" />
 
         <CollectionView
+            x:Name="ReferencesView"
             Grid.Row="1"
             ItemsSource="{Binding References}"
             SelectionMode="None">

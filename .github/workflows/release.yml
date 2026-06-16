@@ -47,6 +47,8 @@ jobs:
             exit 1
           fi
           echo "Tag version: $TAG / csproj ApplicationDisplayVersion: $CSPROJ_VER"
+          if [ "$TAG" != "$CSPROJ_VER" ]; then
+            echo "::error::Tag v$TAG does not match csproj <ApplicationDisplayVersion> ($CSPROJ_VER). Make them match (and bump <ApplicationVersion> too) before tagging."
             exit 1
           fi
 

@@ -14,7 +14,8 @@ ENV_FILE="$REPO_ROOT/.env"
 command -v gh >/dev/null || { echo "ERROR: gh CLI not found on PATH." >&2; exit 1; }
 
 REPO="$(gh repo view --json nameWithOwner -q .nameWithOwner)"
-val() { grep -E "^$1=" "$ENV_FILE" | head -n1 | cut -d= -f2-; }
+# `|| true` keeps a missing key from tripping `set -e`; `tr -d '\r'` strips CRLF.
+val() { { grep -E "^$1=" "$ENV_FILE" || true; } | head -n1 | cut -d= -f2- | tr -d '\r'; }
 
 KEYSTORE_B64="$(val keystore_base64)"
 KEYSTORE_PW="$(val keystore_password)"

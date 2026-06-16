@@ -76,5 +76,5 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
           packageName: ${{ env.PACKAGE_NAME }}
           releaseFiles: ${{ steps.aab.outputs.path }}
-          track: ${{ env.PLAY_TRACK }}
+          tracks: ${{ env.PLAY_TRACK }}
           status: completed

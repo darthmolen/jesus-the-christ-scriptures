@@ -26,7 +26,7 @@ otherwise. (Already observed: the invitation-page links in `invitation.en.md` be
   - **verify our `book` values already equal the church book codes** in the doc (`heb`,
     `1-jn`, `1-ne`, `w-of-m`, `moro`, …). If any differ, add a small override map. **D&C is
     section-based** (`dc-testament/dc/{section}`) — handle that special case.
-  - **verses → `id`/anchor:** single `p25`, range `p7-p8`, list `p7,p9,p11`; anchor `#p{first}`.
+  - **verses → `id`/anchor:** single `p25`, range `p7-p8`, list `p7,p9,p11`; Spike if there's a way to anchor against many, if not, anchor `#p{first}`.
   - **language:** map `Language.En→eng`, `Language.Es→spa`.
 - **Open the link:** `Launcher.Default.OpenAsync(uri)` from the card (a `OpenReferenceCommand`),
   wired to a tap on the `RefLabel` in `TopicFeedPage.xaml`. Give the label a link affordance

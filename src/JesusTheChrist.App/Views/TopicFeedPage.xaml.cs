@@ -1,6 +1,5 @@
-using JesusTheChrist.Presentation.Navigation;
+﻿using JesusTheChrist.Presentation.Navigation;
 using JesusTheChrist.Presentation.ViewModels;
-using JesusTheChrist.Presentation.Views;
 
 namespace JesusTheChrist.App.Views;
 
@@ -12,8 +11,6 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
     private readonly TopicFeedViewModel viewModel;
     private string? topicKey;
     private bool isVisible;
-    private int? lastFirstVisible;
-    private int? lastLastVisible;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TopicFeedPage"/> class.
@@ -55,10 +52,6 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
 
         if (this.viewModel.References.Count == 0)
         {
-            // Fresh topic: drop any cached scroll state so stale indices from a previously
-            // shown topic can't misclassify the first collapse.
-            this.lastFirstVisible = null;
-            this.lastLastVisible = null;
             await this.viewModel.LoadAsync(this.topicKey);
         }
         else
@@ -76,21 +69,11 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
         this.viewModel.CardCollapsedAfterRead -= this.OnCardCollapsedAfterRead;
     }
 
-    private void OnReferencesScrolled(object? sender, ItemsViewScrolledEventArgs e)
-    {
-        // Cache primitives, not the framework args object. These are read before we issue our
-        // own ScrollTo below, so the Scrolled event that scroll raises can't feed back into a
-        // later decision.
-        this.lastFirstVisible = e.FirstVisibleItemIndex;
-        this.lastLastVisible = e.LastVisibleItemIndex;
-    }
-
     private void OnCardCollapsedAfterRead(object? sender, ReferenceCardEventArgs e)
     {
-        // The card has just rolled up. Defer until its smaller layout settles, then re-anchor.
-        // End rolls the collapsed heading down to the footer's old spot when the card had
-        // filled the viewport (tall-card case); MakeVisible no-ops for a short, already-visible
-        // card, leaving the next reference right below it. ScrollAnchor.Resolve owns that call.
+        // The card just rolled up to its heading. Defer until the smaller layout settles, then
+        // scroll that heading to the top of the viewport so the next reference is cued up right
+        // below it — turning "done" into a smooth advance to the next scripture.
         this.Dispatcher.DispatchDelayed(
             TimeSpan.FromMilliseconds(100),
             () =>
@@ -102,15 +85,7 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
                     return;
                 }
 
-                var index = this.viewModel.References.IndexOf(e.Card);
-                var anchor = ScrollAnchor.Resolve(index, this.lastFirstVisible, this.lastLastVisible);
-                var position = anchor switch
-                {
-                    ScrollAnchorPosition.End => ScrollToPosition.End,
-                    _ => ScrollToPosition.MakeVisible,
-                };
-
-                this.ReferencesView.ScrollTo(e.Card, position: position, animate: true);
+                this.ReferencesView.ScrollTo(e.Card, position: ScrollToPosition.Start, animate: true);
             });
     }
 }

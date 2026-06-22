@@ -232,3 +232,42 @@ Implemented 2026-06-22 on branch `claude/scripture-scroll-position-fix-toiga0`.
   installed (CI/owner machine).
 - **Manual device verification still pending** (steps in Verification), including the
   on-device check of the `<= cardIndex + 1` predicate across font sizes.
+
+## Revision 2 — on-device test + design pivot (2026-06-22)
+
+On-device testing on the owner's physical phone surfaced two things:
+
+1. **Deploy issue, not a code issue.** The "fix not reflected" symptom was a **stale duplicate
+   app**: the phone still had the old-namespace package `org.jesusthechrist.full` installed
+   alongside the current `com.vozloop.jesusthechristscriptures.full`. Tapping the old icon ran a
+   fixless APK. Resolved by uninstalling both via `adb` and doing a clean rebuild/redeploy.
+   (Separately, a VS clean-build hit spurious `NU1010`/`APT0003` from a half-restored `obj/`; a
+   CLI `dotnet build` restored cleanly and regenerated `obj/`. Both gotchas recorded in the
+   `maui-build-environment` memory.)
+
+2. **Behavior pivot, by owner preference.** With the fix actually running, the owner observed
+   that parking the read heading at the **top** (with the next scripture cued up right below it)
+   read better than the originally-specified "roll down to the footer's bottom spot." Decision:
+   make that the intentional behavior for **every** card, tall or short.
+
+### What changed in this revision
+
+- `TopicFeedPage.xaml.cs` `OnCardCollapsedAfterRead` now unconditionally calls
+  `ScrollTo(e.Card, ScrollToPosition.Start, animate: true)` after the 100 ms settle delay. The
+  `isVisible` guard and the deferred-settle delay are kept.
+- **Removed as now-dead:** the `Scrolled="OnReferencesScrolled"` wiring in `TopicFeedPage.xaml`,
+  the `OnReferencesScrolled` handler, the cached `lastFirstVisible`/`lastLastVisible` fields and
+  their reset in `OnAppearing`, and the whole resolver layer —
+  `src/JesusTheChrist.Presentation/Views/ScrollAnchor.cs`, `ScrollAnchorPosition.cs`, and
+  `tests/JesusTheChrist.Presentation.Tests/Views/ScrollAnchorTests.cs`. The End/MakeVisible
+  branching is no longer needed, so the brittle `<= cardIndex + 1` predicate (the review's chief
+  concern) is gone entirely rather than tuned.
+
+### Verification (this revision)
+
+- App build: `dotnet build src/JesusTheChrist.App/JesusTheChrist.App.csproj -c Debug
+  -p:TargetFramework=net10.0-android` → **0 warnings, 0 errors**.
+- Tests: `dotnet test tests/JesusTheChrist.Presentation.Tests` → **93/93** (was 98; the 5
+  removed `ScrollAnchorTests` accounts for the drop).
+- Manual (owner, physical phone): mark a tall scripture done → its heading scrolls to the top of
+  the viewport and the next reference sits ready below; un-read re-expands without a jarring jump.

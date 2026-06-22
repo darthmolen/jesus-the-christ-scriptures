@@ -19,7 +19,6 @@
             x:Name="ReferencesView"
             Grid.Row="1"
             ItemsSource="{Binding References}"
-            Scrolled="OnReferencesScrolled"
             SelectionMode="None">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />

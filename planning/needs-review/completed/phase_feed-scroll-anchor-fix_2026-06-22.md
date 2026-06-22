@@ -152,3 +152,50 @@ heading visibly "roll" into place rather than teleport. Update the existing comm
 ## Outcomes (to fill in after implementation)
 
 - _Pending review/approval of this plan._
+
+---
+
+## Plan Review
+
+**Reviewed:** 2026-06-22 08:10
+**Reviewer:** Claude Code (plan-review-intake)
+
+### Strengths
+- **Context / Root cause** clearly explains current behavior and correctly ties it to `TopicFeedPage.OnCardCollapsedAfterRead` using `ScrollTo(..., MakeVisible)`.
+- **Files to modify** matches the codebase: `TopicFeedPage.xaml` and `.xaml.cs` exist; the plan correctly leaves `ReferenceCardViewModel.ToggleReadAsync`, `TopicFeedViewModel.CardCollapsedAfterRead`, and `ReferenceCardEventArgs` intact.
+- **Why this matches the request** maps the UX goal to a concrete MAUI scroll behavior.
+- **Verification** includes the right manual scenarios for tall-card read, short-card read, and un-read regression checks.
+
+### Issues
+
+#### Critical (Must Address Before Implementation)
+
+**Section: Approach → "2. Anchor the collapsed heading to the footer's place"**
+- **What's wrong:** The proposed tall-card detector (`FirstVisibleItemIndex == cardIndex && LastVisibleItemIndex <= cardIndex + 1`) is not a reliable proxy for "header is above the viewport because this card filled the screen."
+- **Why it matters:** A short expanded card can also be the first visible item with only one item peeking below; on larger viewports / larger text a genuinely tall card may show more following items. If this predicate is wrong, the fix will regress short cards or fail to fix tall cards on some devices.
+- **Suggested fix:** Replace the index-count heuristic with a geometry-based check (actual card/header/footer bounds relative to the `CollectionView` viewport), or define a more robust, testable predicate not tied to "only one next item visible."
+
+#### Important (Should Address)
+
+**Section: Verification (automated test coverage)**
+- **What's wrong:** Only build + manual verification for the new branching logic.
+- **Why it matters:** The repo already has automated tests around collapse/read behavior (`tests/JesusTheChrist.Presentation.Tests/ViewModels/TopicFeedViewModelTests.cs`). Without automated coverage, this regression-prone behavior is easy to break later.
+- **Suggested fix:** Extract the "which scroll anchor should be used?" decision into a small helper/method with unit tests, or add explicit rationale for why manual-only verification is acceptable here.
+
+**Section: Approach → "Store the most recent ItemsViewScrolledEventArgs"**
+- **What's wrong:** Storing the framework event args object as page state is underspecified. The plan doesn't say whether programmatic `ScrollTo` updates should count, or when this cached state should be reset across page re-entry/topic reload.
+- **Why it matters:** The ambiguity makes the implementation harder to reason about and review.
+- **Suggested fix:** Store only the needed primitives (e.g., latest visible index range), and specify reset behavior and whether programmatic scrolls are intentionally included.
+
+#### Minor (Consider)
+
+**Section: Overall plan / workflow consistency**
+- The plan doesn't mention CLAUDE.md phase-closing steps (update outcomes, move phase doc, commit).
+- **Suggested fix:** Add a short post-implementation note covering the required plan-file update and commit workflow after implementation.
+
+### Recommendations
+Tighten the plan around the detection strategy before implementation. The overall approach — changing only the view-layer re-anchor logic — is correct, but the success depends on a more reliable tall-card predicate and a clearer verification/testing story.
+
+### Assessment
+**Implementable as written?** With fixes
+**Reasoning:** The referenced files and APIs exist and the scope is appropriately narrow, but the central detection heuristic is too brittle to trust as written; fix the predicate and clarify verification/state handling before starting.

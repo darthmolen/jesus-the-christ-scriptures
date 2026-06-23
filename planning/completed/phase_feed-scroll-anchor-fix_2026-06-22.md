@@ -1,4 +1,8 @@
-# Phase: Roll the heading down instead of jumping the feed up on "done"
+# Phase: Re-anchor the feed on "done" — park the read heading at the top
+
+> Title updated for the implemented behavior. The original intent ("roll the heading down to
+> the footer's spot") was superseded by Revision 2 below, which parks the collapsed heading at
+> the **top** of the viewport with the next reference cued up beneath it.
 
 Status: revised-after-review
 Date: 2026-06-22

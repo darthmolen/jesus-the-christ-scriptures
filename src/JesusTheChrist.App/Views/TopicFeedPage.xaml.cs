@@ -1,4 +1,4 @@
-﻿using JesusTheChrist.Presentation.Navigation;
+using JesusTheChrist.Presentation.Navigation;
 using JesusTheChrist.Presentation.ViewModels;
 
 namespace JesusTheChrist.App.Views;

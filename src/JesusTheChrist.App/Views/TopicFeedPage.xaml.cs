@@ -71,20 +71,21 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
 
     private void OnCardCollapsedAfterRead(object? sender, ReferenceCardEventArgs e)
     {
-        // The card has just rolled up. Defer until its smaller layout settles, then bring it
-        // back into view: MakeVisible scrolls up to the collapsed card when it sits above the
-        // viewport (the tall-card case) and leaves a short, already-visible card untouched, so
-        // the next reference lands right below it instead of off the bottom of the screen.
+        // The card just rolled up to its heading. Defer until the smaller layout settles, then
+        // scroll that heading to the top of the viewport so the next reference is cued up right
+        // below it — turning "done" into a smooth advance to the next scripture.
         this.Dispatcher.DispatchDelayed(
             TimeSpan.FromMilliseconds(100),
             () =>
             {
                 // The reader may have navigated away during the delay; only scroll while this
                 // page is still visible, or the deferred scroll could jump or hit a stale view.
-                if (this.isVisible)
+                if (!this.isVisible)
                 {
-                    this.ReferencesView.ScrollTo(e.Card, position: ScrollToPosition.MakeVisible, animate: true);
+                    return;
                 }
+
+                this.ReferencesView.ScrollTo(e.Card, position: ScrollToPosition.Start, animate: true);
             });
     }
 }

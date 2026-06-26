@@ -49,29 +49,29 @@ public partial class NoteEditorViewModel : ObservableObject
     public partial string ReferenceLabel { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the target verse text shown in the scripture pane.
+    /// Gets or sets the target verses (numbered lines) shown in the scripture pane.
     /// </summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasVerse))]
-    public partial string VerseText { get; set; } = string.Empty;
+    public partial IReadOnlyList<ContextLineViewModel> Verses { get; set; } = [];
 
     /// <summary>
-    /// Gets a value indicating whether there is verse text to show in the scripture pane.
+    /// Gets a value indicating whether there are verses to show in the scripture pane.
     /// </summary>
-    public bool HasVerse => !string.IsNullOrWhiteSpace(this.VerseText);
+    public bool HasVerse => this.Verses.Count > 0;
 
     /// <summary>
     /// Loads the saved note for the given reference and the verse context shown alongside it.
     /// </summary>
     /// <param name="refId">The reference id whose note is edited.</param>
     /// <param name="referenceLabel">The reference display label for the scripture pane.</param>
-    /// <param name="verseText">The target verse text for the scripture pane.</param>
+    /// <param name="verses">The target verses (numbered lines) for the scripture pane.</param>
     /// <returns>A task that completes when the note is loaded.</returns>
-    public async Task LoadAsync(string refId, string referenceLabel = "", string verseText = "")
+    public async Task LoadAsync(string refId, string referenceLabel = "", IReadOnlyList<ContextLineViewModel>? verses = null)
     {
         this.referenceId = (refId ?? string.Empty).Trim();
         this.ReferenceLabel = (referenceLabel ?? string.Empty).Trim();
-        this.VerseText = (verseText ?? string.Empty).Trim();
+        this.Verses = verses ?? [];
         this.Text = string.Empty;
         this.HasExistingNote = false;
         if (this.referenceId.Length == 0)

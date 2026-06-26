@@ -17,10 +17,14 @@ public partial class TopicFeedViewModel : ObservableObject
     private readonly ContentService content;
     private readonly ReadMarkStore readMarks;
     private readonly NoteStore notes;
+    private readonly TopicPositionStore positions;
     private readonly SettingsStore settings;
     private readonly IDatabaseInitializer databaseInitializer;
     private readonly INavigationService navigation;
     private readonly AppEnvironment environment;
+    private string topicKey = string.Empty;
+    private string? resumeRefId;
+    private string? currentRefId;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TopicFeedViewModel"/> class.
@@ -28,6 +32,7 @@ public partial class TopicFeedViewModel : ObservableObject
     /// <param name="content">The content service that loads the Topical Guide.</param>
     /// <param name="readMarks">The read-mark store.</param>
     /// <param name="notes">The note store.</param>
+    /// <param name="positions">The per-topic reading-position store.</param>
     /// <param name="settings">The settings store (language preference).</param>
     /// <param name="databaseInitializer">Ensures the database schema before reads.</param>
     /// <param name="navigation">The navigation service.</param>
@@ -36,6 +41,7 @@ public partial class TopicFeedViewModel : ObservableObject
         ContentService content,
         ReadMarkStore readMarks,
         NoteStore notes,
+        TopicPositionStore positions,
         SettingsStore settings,
         IDatabaseInitializer databaseInitializer,
         INavigationService navigation,
@@ -44,6 +50,7 @@ public partial class TopicFeedViewModel : ObservableObject
         this.content = content;
         this.readMarks = readMarks;
         this.notes = notes;
+        this.positions = positions;
         this.settings = settings;
         this.databaseInitializer = databaseInitializer;
         this.navigation = navigation;
@@ -90,6 +97,13 @@ public partial class TopicFeedViewModel : ObservableObject
         try
         {
             await this.databaseInitializer.EnsureInitializedAsync();
+
+            this.topicKey = key;
+            this.resumeRefId = await this.positions.GetAsync(key);
+
+            // Start the live pointer at the resume position so leaving without scrolling
+            // re-persists the same reference rather than wiping it.
+            this.currentRefId = this.resumeRefId;
 
             var language = await this.ResolveLanguageAsync();
             var guide = await this.content.LoadAsync(language, this.environment.Scope);
@@ -145,6 +159,41 @@ public partial class TopicFeedViewModel : ObservableObject
         }
     }
 
+    /// <summary>
+    /// The card to restore to the top of the feed on entry — the reference last seen there when
+    /// the reader left this topic — or <see langword="null"/> when there is no saved position
+    /// (or it no longer matches a loaded card).
+    /// </summary>
+    /// <returns>The card to scroll to, or <see langword="null"/>.</returns>
+    public ReferenceCardViewModel? ResumeCard() =>
+        string.IsNullOrEmpty(this.resumeRefId)
+            ? null
+            : this.References.FirstOrDefault(c => c.Id == this.resumeRefId);
+
+    /// <summary>
+    /// Records the reference currently at the top of the feed as the reader scrolls, so it can
+    /// be persisted as the resume position. Held in memory; <see cref="SavePositionAsync"/>
+    /// commits it.
+    /// </summary>
+    /// <param name="refId">The reference identifier at the top of the viewport.</param>
+    public void RecordVisible(string refId)
+    {
+        if (!string.IsNullOrEmpty(refId))
+        {
+            this.currentRefId = refId;
+        }
+    }
+
+    /// <summary>
+    /// Persists the current top-of-feed reference as this topic's resume position. No-op until a
+    /// topic has been loaded and a position is known.
+    /// </summary>
+    /// <returns>A task that completes when the position is saved.</returns>
+    public Task SavePositionAsync() =>
+        string.IsNullOrEmpty(this.topicKey) || string.IsNullOrEmpty(this.currentRefId)
+            ? Task.CompletedTask
+            : this.positions.SaveAsync(this.topicKey, this.currentRefId);
+
     private void OnCardCollapsedAfterRead(ReferenceCardViewModel card) =>
         this.CardCollapsedAfterRead?.Invoke(this, new ReferenceCardEventArgs(card));
 
@@ -155,7 +204,7 @@ public partial class TopicFeedViewModel : ObservableObject
             {
                 [NavigationRoutes.NoteRefIdParameter] = card.Id,
                 [NavigationRoutes.NoteRefLabelParameter] = card.RefLabel,
-                [NavigationRoutes.NoteVerseTextParameter] = card.VerseText,
+                [NavigationRoutes.NoteVersesParameter] = card.Verses,
             });
 
     private Task SetReadAsync(string id, bool isRead) =>

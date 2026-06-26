@@ -57,6 +57,7 @@ public static class MauiProgram
         services.AddSingleton<IDatabaseInitializer>(sp => sp.GetRequiredService<DatabaseInitializer>());
         services.AddSingleton<ReadMarkStore>();
         services.AddSingleton<NoteStore>();
+        services.AddSingleton<TopicPositionStore>();
         services.AddSingleton<SettingsStore>();
         services.AddSingleton<StreakStore>();
 

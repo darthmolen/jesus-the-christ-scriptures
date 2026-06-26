@@ -24,11 +24,17 @@ public class NoteEditorViewModelTests
     public async Task Load_PopulatesScripturePaneFromVerseContext()
     {
         await using var harness = await Harness.CreateAsync();
+        var verses = new[]
+        {
+            new ContextLineViewModel(25, "Wherefore he is able also to save them to the uttermost.", true),
+        };
 
-        await harness.ViewModel.LoadAsync(RefId, "Heb. 7:25", "Wherefore he is able also to save them to the uttermost.");
+        await harness.ViewModel.LoadAsync(RefId, "Heb. 7:25", verses);
 
         Assert.Equal("Heb. 7:25", harness.ViewModel.ReferenceLabel);
-        Assert.Equal("Wherefore he is able also to save them to the uttermost.", harness.ViewModel.VerseText);
+        Assert.Single(harness.ViewModel.Verses);
+        Assert.Equal(25, harness.ViewModel.Verses[0].Verse);
+        Assert.Contains("uttermost", harness.ViewModel.Verses[0].Text);
         Assert.True(harness.ViewModel.HasVerse);
     }
 
@@ -39,7 +45,7 @@ public class NoteEditorViewModelTests
 
         await harness.ViewModel.LoadAsync(RefId);
 
-        Assert.Equal(string.Empty, harness.ViewModel.VerseText);
+        Assert.Empty(harness.ViewModel.Verses);
         Assert.False(harness.ViewModel.HasVerse);
     }
 

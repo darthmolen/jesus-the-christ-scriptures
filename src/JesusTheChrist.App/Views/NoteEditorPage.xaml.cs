@@ -11,7 +11,7 @@ public partial class NoteEditorPage : ContentPage, IQueryAttributable
     private readonly NoteEditorViewModel viewModel;
     private string? referenceId;
     private string? referenceLabel;
-    private string? verseText;
+    private IReadOnlyList<ContextLineViewModel>? verses;
     private bool loaded;
 
     /// <summary>
@@ -37,8 +37,8 @@ public partial class NoteEditorPage : ContentPage, IQueryAttributable
         this.referenceLabel = query.TryGetValue(NavigationRoutes.NoteRefLabelParameter, out var label)
             ? label?.ToString()
             : null;
-        this.verseText = query.TryGetValue(NavigationRoutes.NoteVerseTextParameter, out var verse)
-            ? verse?.ToString()
+        this.verses = query.TryGetValue(NavigationRoutes.NoteVersesParameter, out var verseList)
+            ? verseList as IReadOnlyList<ContextLineViewModel>
             : null;
 
         // A new navigation means a new reference, so allow OnAppearing to load it again.
@@ -59,7 +59,7 @@ public partial class NoteEditorPage : ContentPage, IQueryAttributable
             await this.viewModel.LoadAsync(
                 this.referenceId,
                 this.referenceLabel ?? string.Empty,
-                this.verseText ?? string.Empty);
+                this.verses);
         }
     }
 }

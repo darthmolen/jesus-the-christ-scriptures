@@ -11,6 +11,7 @@ namespace JesusTheChrist.Presentation.Tests.ViewModels;
 public class TopicFeedViewModelTests
 {
     private const string AdvocateRefId = "advocate:newtestament/heb/7/25";
+    private const string SecondRefId = "advocate:newtestament/1-jn/2/1";
 
     [Fact]
     public async Task Load_SetsTitleFromSubTopic()
@@ -219,7 +220,7 @@ public class TopicFeedViewModelTests
     }
 
     [Fact]
-    public async Task OpenNote_NavigatesToNoteRouteWithRefIdLabelAndVerseText()
+    public async Task OpenNote_NavigatesToNoteRouteWithRefIdLabelAndVerses()
     {
         await using var harness = await Harness.CreateAsync();
         await harness.ViewModel.LoadAsync("advocate");
@@ -231,7 +232,7 @@ public class TopicFeedViewModelTests
         Assert.Equal(NavigationRoutes.Note, call.Route);
         Assert.Equal(AdvocateRefId, call.Parameters![NavigationRoutes.NoteRefIdParameter]);
         Assert.Equal(card.RefLabel, call.Parameters![NavigationRoutes.NoteRefLabelParameter]);
-        Assert.Equal(card.VerseText, call.Parameters![NavigationRoutes.NoteVerseTextParameter]);
+        Assert.Same(card.Verses, call.Parameters![NavigationRoutes.NoteVersesParameter]);
     }
 
     [Fact]
@@ -247,16 +248,73 @@ public class TopicFeedViewModelTests
         Assert.True(harness.ViewModel.References[0].HasNote);
     }
 
+    [Fact]
+    public async Task Resume_AfterSavedPosition_ReturnsMatchingCard()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.Positions.SaveAsync("advocate", SecondRefId);
+
+        await harness.ViewModel.LoadAsync("advocate");
+
+        Assert.Same(harness.ViewModel.References[1], harness.ViewModel.ResumeCard());
+    }
+
+    [Fact]
+    public async Task Resume_WithNoSavedPosition_ReturnsNull()
+    {
+        await using var harness = await Harness.CreateAsync();
+
+        await harness.ViewModel.LoadAsync("advocate");
+
+        Assert.Null(harness.ViewModel.ResumeCard());
+    }
+
+    [Fact]
+    public async Task RecordVisible_ThenSave_PersistsPosition()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+
+        harness.ViewModel.RecordVisible(SecondRefId);
+        await harness.ViewModel.SavePositionAsync();
+
+        Assert.Equal(SecondRefId, await harness.Positions.GetAsync("advocate"));
+    }
+
+    [Fact]
+    public async Task SavePosition_WithoutRecord_LeavesStoredPosition()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.Positions.SaveAsync("advocate", AdvocateRefId);
+        await harness.ViewModel.LoadAsync("advocate");
+
+        await harness.ViewModel.SavePositionAsync();
+
+        Assert.Equal(AdvocateRefId, await harness.Positions.GetAsync("advocate"));
+    }
+
+    [Fact]
+    public async Task SavePosition_OnFreshTopicWithoutRecord_PersistsNothing()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+
+        await harness.ViewModel.SavePositionAsync();
+
+        Assert.Null(await harness.Positions.GetAsync("advocate"));
+    }
+
     private sealed class Harness : IAsyncDisposable
     {
         private readonly TempDatabase database;
 
-        private Harness(TempDatabase database, TopicFeedViewModel viewModel, ReadMarkStore readMarks, NoteStore notes, RecordingNavigationService navigation)
+        private Harness(TempDatabase database, TopicFeedViewModel viewModel, ReadMarkStore readMarks, NoteStore notes, TopicPositionStore positions, RecordingNavigationService navigation)
         {
             this.database = database;
             this.ViewModel = viewModel;
             this.ReadMarks = readMarks;
             this.Notes = notes;
+            this.Positions = positions;
             this.Navigation = navigation;
         }
 
@@ -265,6 +323,8 @@ public class TopicFeedViewModelTests
         public ReadMarkStore ReadMarks { get; }
 
         public NoteStore Notes { get; }
+
+        public TopicPositionStore Positions { get; }
 
         public RecordingNavigationService Navigation { get; }
 
@@ -279,11 +339,12 @@ public class TopicFeedViewModelTests
             var content = new ContentService(assets);
             var readMarks = new ReadMarkStore(db.Db);
             var notes = new NoteStore(db.Db);
+            var positions = new TopicPositionStore(db.Db);
             var settings = new SettingsStore(db.Db);
             var navigation = new RecordingNavigationService();
             var env = new AppEnvironment(Scope.Full, Language.En);
-            var vm = new TopicFeedViewModel(content, readMarks, notes, settings, db, navigation, env);
-            return new Harness(db, vm, readMarks, notes, navigation);
+            var vm = new TopicFeedViewModel(content, readMarks, notes, positions, settings, db, navigation, env);
+            return new Harness(db, vm, readMarks, notes, positions, navigation);
         }
 
         public async ValueTask DisposeAsync() => await this.database.DisposeAsync();

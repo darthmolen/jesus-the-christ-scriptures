@@ -37,9 +37,10 @@ public static class NavigationRoutes
     public const string NoteRefLabelParameter = "refLabel";
 
     /// <summary>
-    /// The parameter key carrying the target verse text to the note editor's scripture pane.
+    /// The parameter key carrying the target verses (numbered lines) to the note editor's
+    /// scripture pane.
     /// </summary>
-    public const string NoteVerseTextParameter = "verseText";
+    public const string NoteVersesParameter = "verses";
 
     /// <summary>
     /// The route for the first-run invitation screen.

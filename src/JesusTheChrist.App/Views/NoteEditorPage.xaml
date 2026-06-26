@@ -73,10 +73,21 @@
                         FontSize="15"
                         FontAttributes="Bold"
                         Opacity="0.75" />
-                    <Label
-                        Text="{Binding VerseText}"
-                        FontSize="{DynamicResource ReadingFontSize}"
-                        LineHeight="1.4" />
+                    <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding Verses}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="vm:ContextLineViewModel">
+                                <Label FontSize="{DynamicResource ReadingFontSize}" LineHeight="1.4">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Verse}" FontAttributes="Bold" FontSize="{DynamicResource VerseNumberFontSize}" />
+                                            <Span Text="  " />
+                                            <Span Text="{Binding Text}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
             </ScrollView>
         </Border>

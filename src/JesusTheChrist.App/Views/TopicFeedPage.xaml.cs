@@ -8,9 +8,11 @@ namespace JesusTheChrist.App.Views;
 /// </summary>
 public partial class TopicFeedPage : ContentPage, IQueryAttributable
 {
+    private const int PositionSaveDebounceMs = 750;
     private readonly TopicFeedViewModel viewModel;
     private string? topicKey;
     private bool isVisible;
+    private int saveGeneration;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TopicFeedPage"/> class.
@@ -53,6 +55,7 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
         if (this.viewModel.References.Count == 0)
         {
             await this.viewModel.LoadAsync(this.topicKey);
+            this.ScrollToResumePosition();
         }
         else
         {
@@ -62,11 +65,61 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
     }
 
     /// <inheritdoc/>
-    protected override void OnDisappearing()
+    protected override async void OnDisappearing()
     {
         base.OnDisappearing();
         this.isVisible = false;
         this.viewModel.CardCollapsedAfterRead -= this.OnCardCollapsedAfterRead;
+
+        // Final flush so leaving the topic always persists the latest reading position.
+        await this.viewModel.SavePositionAsync();
+    }
+
+    private void OnReferencesScrolled(object? sender, ItemsViewScrolledEventArgs e)
+    {
+        var index = e.FirstVisibleItemIndex;
+        if (index < 0 || index >= this.viewModel.References.Count)
+        {
+            return;
+        }
+
+        this.viewModel.RecordVisible(this.viewModel.References[index].Id);
+
+        // Persist shortly after scrolling settles (debounced) so an OS kill of a backgrounded
+        // app never loses more than the last moment of position, without writing on every tick.
+        var generation = ++this.saveGeneration;
+        this.Dispatcher.DispatchDelayed(
+            TimeSpan.FromMilliseconds(PositionSaveDebounceMs),
+            async () =>
+            {
+                if (generation == this.saveGeneration)
+                {
+                    await this.viewModel.SavePositionAsync();
+                }
+            });
+    }
+
+    private void ScrollToResumePosition()
+    {
+        var resume = this.viewModel.ResumeCard();
+        if (resume is null)
+        {
+            return;
+        }
+
+        // Defer until layout settles, then park the last-viewed reference at the top so the
+        // reader resumes where they left off. Restore without animation — they're arriving.
+        this.Dispatcher.DispatchDelayed(
+            TimeSpan.FromMilliseconds(100),
+            () =>
+            {
+                if (!this.isVisible)
+                {
+                    return;
+                }
+
+                this.ReferencesView.ScrollTo(resume, position: ScrollToPosition.Start, animate: false);
+            });
     }
 
     private void OnCardCollapsedAfterRead(object? sender, ReferenceCardEventArgs e)

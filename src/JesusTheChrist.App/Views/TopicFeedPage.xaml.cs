@@ -65,14 +65,15 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
     }
 
     /// <inheritdoc/>
-    protected override async void OnDisappearing()
+    protected override void OnDisappearing()
     {
         base.OnDisappearing();
         this.isVisible = false;
         this.viewModel.CardCollapsedAfterRead -= this.OnCardCollapsedAfterRead;
 
         // Final flush so leaving the topic always persists the latest reading position.
-        await this.viewModel.SavePositionAsync();
+        // Fire-and-forget: the helper contains its own failures so teardown can't be torn down.
+        _ = this.FlushPositionAsync();
     }
 
     private void OnReferencesScrolled(object? sender, ItemsViewScrolledEventArgs e)
@@ -90,13 +91,28 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
         var generation = ++this.saveGeneration;
         this.Dispatcher.DispatchDelayed(
             TimeSpan.FromMilliseconds(PositionSaveDebounceMs),
-            async () =>
+            () =>
             {
-                if (generation == this.saveGeneration)
+                // Skip if a newer scroll superseded this one or the reader already left.
+                if (generation == this.saveGeneration && this.isVisible)
                 {
-                    await this.viewModel.SavePositionAsync();
+                    _ = this.FlushPositionAsync();
                 }
             });
+    }
+
+    private async Task FlushPositionAsync()
+    {
+        try
+        {
+            await this.viewModel.SavePositionAsync();
+        }
+        catch (Exception ex)
+        {
+            // Persisting the reading position is best-effort; a storage failure must never
+            // crash the UI thread during scroll or page teardown.
+            System.Diagnostics.Debug.WriteLine($"Failed to save reading position: {ex}");
+        }
     }
 
     private void ScrollToResumePosition()

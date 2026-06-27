@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-27
 **Branch:** `claude/cross-chapter-references`
-**PR:** _(pending — opened after owner review)_
+**PR:** #45 (https://github.com/darthmolen/jesus-the-christ-scriptures/pull/45)
 **Status:** Implemented — 169 unit tests pass, App builds clean (0 warnings under strict CPM). Awaiting on-device verification by owner.
 
 ## Context

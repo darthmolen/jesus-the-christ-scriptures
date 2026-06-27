@@ -2,8 +2,8 @@
 
 **Date:** 2026-06-27
 **Branch:** `claude/cross-chapter-references`
-**PR:** _(pending)_
-**Status:** In progress
+**PR:** _(pending — opened after owner review)_
+**Status:** Implemented — 169 unit tests pass, App builds clean (0 warnings under strict CPM). Awaiting on-device verification by owner.
 
 ## Context
 
@@ -59,4 +59,36 @@ General feed scroll jitter — likely the same non-virtualized in-card measure c
 fix: prefetch ~2–3 cards around the viewport. Captured in `planning/backlog/feed-scroll-prefetch.md`.
 
 ## Outcome
-_(to be filled in on completion — deviations, lessons, PR link)_
+
+Delivered as planned. Commits on `claude/cross-chapter-references`:
+1. Planning docs + backlog item.
+2. Core engine: `ContextVerse.Ch`, `Reference.EndCh`/`SpansChapters`/`TargetSegments()`/
+   `MissingChapters()`/span-aware `Id()`, new `ChapterSegment`, loader projection — 9 new Core tests.
+3. Presentation: `ChapterSegmentViewModel` (lazy realization), `ReferenceCardViewModel.Segments`,
+   `TopicFeedViewModel.BuildSegments` (first chapter always expanded; rest expanded only when the
+   passage is ≤ 60 target verses) — 7 new Presentation tests.
+4. XAML per-chapter collapsible sections + the data fix (extractor + rewritten JSON).
+
+**Verification:** Core 44, Data 20, Presentation 105 (169 total) pass; App builds clean, 0 warnings.
+The extractor self-checks that corpus text matches the prior bundled text on overlapping verses —
+passed for all 6 entries, so the spans are faithful and stylistically consistent.
+
+**Blast radius confirmed at 3** (EN "Summary" / ES "Resumen", indices 27/28/74; EN & ES align 1:1
+across 103 refs). True spans inlined: Matt 5–7 = 111 v, Matt 9:35–11:1 = 47 v, 3 Ne 11–26 = 445 v.
+
+**Decisions / deviations:**
+- `3 Ne 11–26` is 445 verses (the planning estimate of ~600 was high). Still inlined in full per
+  the "faithful" decision; lazy per-chapter realization keeps the card cheap until expanded.
+- Relabeled only the broken `chaps. 11–26` → `3 Ne. 11–26`; kept the other two EN labels. Fixed
+  the Spanish wrong-collapses (`Mateo 5:1–48` → `Mateo 5–7`, etc.); preserved ES `note_en`/
+  `note_source` fields untouched.
+- The data diff is large (~16k lines) — inherent to inlining 603 verses × 2 languages — but the
+  `git round-trip` fidelity (indent=2, no trailing newline) keeps every other entry byte-identical.
+
+**Lessons:** the bundled JSON round-trips exactly through `json.dumps(indent=2, ensure_ascii=False)`
+with no trailing newline, which made a surgical 3-entry edit possible without reformatting 87k lines.
+The cross-chapter Id change means read-state/notes/position keys for these 3 refs reset — acceptable
+since the prior entries were broken; no migration needed.
+
+**Remaining:** on-device verification by the owner (no emulator), then open the PR into `main`
+(owner-only merge).

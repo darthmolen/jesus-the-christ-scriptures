@@ -21,6 +21,7 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// <param name="verseText">The joined target verse text.</param>
     /// <param name="gloss">The note gloss to show, or null when it adds nothing.</param>
     /// <param name="context">The ±context verse window.</param>
+    /// <param name="segments">The target verses grouped into per-chapter segments for display.</param>
     /// <param name="isRead">Whether the reference is already marked read.</param>
     /// <param name="hasNote">Whether a saved note exists for the reference.</param>
     /// <param name="setReadAsync">Persists a new read state for the given id.</param>
@@ -32,6 +33,7 @@ public partial class ReferenceCardViewModel : ObservableObject
         string verseText,
         string? gloss,
         IReadOnlyList<ContextLineViewModel> context,
+        IReadOnlyList<ChapterSegmentViewModel> segments,
         bool isRead,
         bool hasNote,
         Func<string, bool, Task> setReadAsync,
@@ -43,6 +45,7 @@ public partial class ReferenceCardViewModel : ObservableObject
         this.VerseText = verseText;
         this.Gloss = gloss;
         this.Context = context;
+        this.Segments = segments;
         this.Verses = context.Where(c => c.IsTarget).ToList();
         this.setReadAsync = setReadAsync;
         this.openNoteAsync = openNoteAsync;
@@ -71,6 +74,12 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// Gets the target verses as individual numbered lines, for scripture-style display.
     /// </summary>
     public IReadOnlyList<ContextLineViewModel> Verses { get; }
+
+    /// <summary>
+    /// Gets the target verses grouped into per-chapter segments. A single-chapter reference has one
+    /// header-less segment; a cross-chapter reference has one per chapter with tappable headers.
+    /// </summary>
+    public IReadOnlyList<ChapterSegmentViewModel> Segments { get; }
 
     /// <summary>
     /// Gets the note gloss, or null when it adds nothing beyond the verse.

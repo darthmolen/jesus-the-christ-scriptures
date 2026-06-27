@@ -107,19 +107,60 @@
                             <!-- Collapsible body: hidden when the card is rolled up to its heading -->
                             <VerticalStackLayout Spacing="8" IsVisible="{Binding IsExpanded}">
 
-                            <!-- Target verses, each prefixed with its verse number -->
-                            <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding Verses}">
+                            <!-- Target verses, grouped into per-chapter segments. A single-chapter
+                                 reference renders one header-less segment exactly as before; a
+                                 cross-chapter reference shows a tappable chapter header per chapter
+                                 and only builds a chapter's verse views when it is expanded, so
+                                 large spans never realize hundreds of labels at once. -->
+                            <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding Segments}">
                                 <BindableLayout.ItemTemplate>
-                                    <DataTemplate x:DataType="vm:ContextLineViewModel">
-                                        <Label FontSize="{DynamicResource ReadingFontSize}" LineHeight="1.35">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding Verse}" FontAttributes="Bold" FontSize="{DynamicResource VerseNumberFontSize}" />
-                                                    <Span Text="  " />
-                                                    <Span Text="{Binding Text}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
+                                    <DataTemplate x:DataType="vm:ChapterSegmentViewModel">
+                                        <VerticalStackLayout Spacing="6">
+
+                                            <!-- Chapter divider: shown only for cross-chapter references -->
+                                            <Grid
+                                                IsVisible="{Binding ShowHeader}"
+                                                ColumnDefinitions="Auto,*"
+                                                ColumnSpacing="6"
+                                                Padding="0,6,0,0"
+                                                SemanticProperties.Description="{x:Static loc:AppResources.A11yExpandCollapse}">
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding ToggleExpandedCommand}" />
+                                                </Grid.GestureRecognizers>
+                                                <Label
+                                                    Grid.Column="0"
+                                                    Text="{Binding ChevronGlyph}"
+                                                    FontSize="13"
+                                                    Opacity="0.55"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    Text="{Binding ChapterLabel}"
+                                                    FontSize="15"
+                                                    FontAttributes="Bold"
+                                                    Opacity="0.75"
+                                                    VerticalOptions="Center" />
+                                            </Grid>
+
+                                            <!-- Verse lines. Collapsed chapters expose no verses,
+                                                 so the layout builds no child views for them. -->
+                                            <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding VisibleVerses}">
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate x:DataType="vm:ContextLineViewModel">
+                                                        <Label FontSize="{DynamicResource ReadingFontSize}" LineHeight="1.35">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="{Binding Verse}" FontAttributes="Bold" FontSize="{DynamicResource VerseNumberFontSize}" />
+                                                                    <Span Text="  " />
+                                                                    <Span Text="{Binding Text}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+                                            </VerticalStackLayout>
+
+                                        </VerticalStackLayout>
                                     </DataTemplate>
                                 </BindableLayout.ItemTemplate>
                             </VerticalStackLayout>

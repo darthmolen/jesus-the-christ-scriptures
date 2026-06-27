@@ -1873,11 +1873,12 @@
           ]
         },
         {
-          "ref": "Mateo 5:1–48",
+          "ref": "Mateo 5–7",
           "vol": "newtestament",
           "book": "matt",
           "book_title": "Mateo",
           "ch": 5,
+          "end_ch": 7,
           "verses": [
             1,
             2,
@@ -1932,242 +1933,668 @@
             {
               "vs": 1,
               "text": "Y al ver las multitudes, subió al monte y se sentó. Y vinieron a él sus discípulos.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 2,
               "text": "Y abriendo su boca, les enseñaba, diciendo:",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 3,
               "text": "Bienaventurados los pobres en espíritu , porque de ellos es el reino de los cielos.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 4,
               "text": "Bienaventurados los que lloran, porque ellos recibirán consolación.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 5,
               "text": "Bienaventurados los mansos , porque ellos recibirán la tierra como heredad.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 6,
               "text": "Bienaventurados los que tienen hambre y sed de justicia , porque ellos serán saciados .",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 7,
               "text": "Bienaventurados los misericordiosos , porque ellos alcanzarán misericordia.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 8,
               "text": "Bienaventurados los de limpio corazón , porque ellos verán a Dios.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 9,
               "text": "Bienaventurados los pacificadores , porque ellos serán llamados hijos de Dios.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 10,
               "text": "Bienaventurados los que padecen persecución por causa de la justicia, porque de ellos es el reino de los cielos.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 11,
               "text": "Bienaventurados sois cuando por mi causa os vituperen y os persigan, y digan toda clase de mal contra vosotros, mintiendo.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 12,
               "text": "Gozaos y alegraos, porque vuestro galardón es grande en los cielos; pues así persiguieron a los profetas que fueron antes de vosotros.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 13,
               "text": "Vosotros sois la sal de la tierra; pero si la sal perdiere su sabor, ¿con qué será salada? No sirve más para nada, sino para ser echada fuera y hollada por los hombres.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 14,
               "text": "Vosotros sois la luz del mundo; una ciudad asentada sobre un monte no se puede esconder.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 15,
               "text": "Ni se enciende una vela y se pone debajo de un almud, sino sobre el candelero, y alumbra a todos los que están en casa.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 16,
               "text": "Así alumbre vuestra luz delante de los hombres, para que vean vuestras buenas obras y glorifiquen a vuestro Padre que está en los cielos.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 17,
               "text": "No penséis que he venido para abrogar la ley o los profetas; no he venido para abrogar, sino para cumplir .",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 18,
               "text": "Porque de cierto os digo que hasta que pasen el cielo y la tierra, ni una jota ni una tilde pasará de la ley, hasta que todo se haya cumplido.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 19,
               "text": "De manera que cualquiera que quebrante uno de estos mandamientos muy pequeños, y así enseñe a los hombres, muy pequeño será llamado en el reino de los cielos. Pero cualquiera que los cumpla y los enseñe, este será llamado grande en el reino de los cielos.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 20,
               "text": "Porque os digo que si vuestra justicia no excede a la de los escribas y a la de los fariseos, no entraréis en el reino de los cielos.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 21,
               "text": "Oísteis que fue dicho a los antiguos: No matarás ; y cualquiera que matare será culpable de juicio.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 22,
               "text": "Pero yo os digo que cualquiera que se enoje con su hermano será culpable de juicio; y cualquiera que diga a su hermano: Raca , será culpable ante el concilio; y cualquiera que diga: Insensato, quedará expuesto al fuego del infierno .",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 23,
               "text": "Por tanto, si traes tu ofrenda al altar y allí te acuerdas de que tu hermano tiene algo contra ti,",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 24,
               "text": "deja allí tu ofrenda delante del altar y ve, reconcíliate primero con tu hermano, y entonces ven y presenta tu ofrenda.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 25,
               "text": "Reconcíliate pronto con tu adversario, entretanto que estás con él en el camino, no sea que el adversario te entregue al juez, y el juez te entregue al alguacil, y seas echado en la cárcel.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 26,
               "text": "De cierto te digo que no saldrás de allí hasta que hayas pagado el último cuadrante .",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 27,
               "text": "Oísteis que fue dicho: No cometerás adulterio.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 28,
               "text": "Pero yo os digo que cualquiera que mira a una mujer para codiciarla , ya ha cometido adulterio con ella en su corazón.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 29,
               "text": "Por tanto, si tu ojo derecho te es ocasión de caer, sácalo y échalo de ti; porque mejor te es que se pierda uno de tus miembros, y no que todo tu cuerpo sea echado al infierno .",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 30,
               "text": "Y si tu mano derecha te es ocasión de caer, córtala y échala de ti; porque mejor te es que se pierda uno de tus miembros, y no que todo tu cuerpo sea echado al infierno .",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 31,
               "text": "También fue dicho: Cualquiera que repudie a su esposa, déle carta de divorcio .",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 32,
               "text": "Pero yo os digo que el que repudia a su esposa, a no ser por causa de adulterio , hace que ella cometa adulterio; y el que se casa con la repudiada comete adulterio.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 33,
               "text": "Además habéis oído que fue dicho a los antiguos: No jurarás falsamente, sino que cumplirás al Señor tus juramentos .",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 34,
               "text": "Pero yo os digo: No juréis de ninguna manera; ni por el cielo, porque es el trono de Dios;",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 35,
               "text": "ni por la tierra, porque es el estrado de sus pies; ni por Jerusalén, porque es la ciudad del gran Rey.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 36,
               "text": "Ni por tu cabeza jurarás, porque no puedes hacer blanco o negro ni un solo cabello.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 37,
               "text": "Mas sea vuestro hablar: Sí, sí, o No, no, porque lo que es más de esto, del mal procede.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 38,
               "text": "Oísteis que fue dicho: Ojo por ojo, y diente por diente.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 39,
               "text": "Pero yo os digo: No resistáis al malo; antes bien, a cualquiera que te golpee en la mejilla derecha, vuélvele también la otra;",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 40,
               "text": "y al que quiera ponerte a pleito y quitarte la túnica, déjale también la capa;",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 41,
               "text": "y a cualquiera que te obligue a llevar carga por una milla, ve con él dos.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 42,
               "text": "Al que te pida, dale ; y al que quiera tomar de ti prestado, no se lo rehúses.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 43,
               "text": "Oísteis que fue dicho: Amarás a tu prójimo y aborrecerás a tu enemigo.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 44,
               "text": "Pero yo os digo: Amad a vuestros enemigos, bendecid a los que os maldicen, haced bien a los que os aborrecen, y orad por los que os ultrajan y os persiguen;",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 45,
               "text": "para que seáis hijos de vuestro Padre que está en los cielos, que hace salir su sol sobre malos y buenos, y hace llover sobre justos e injustos.",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 46,
               "text": "Porque si amáis a los que os aman, ¿qué recompensa tendréis? ¿No hacen también lo mismo los publicanos?",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 47,
               "text": "Y si saludáis a vuestros hermanos solamente, ¿qué hacéis de más? ¿No hacen también así los gentiles?",
-              "target": true
+              "target": true,
+              "ch": 5
             },
             {
               "vs": 48,
               "text": "Sed , pues, vosotros perfectos , así como vuestro Padre que está en los cielos es perfecto.",
-              "target": true
+              "target": true,
+              "ch": 5
+            },
+            {
+              "vs": 1,
+              "text": "Mirad que no deis vuestra limosna delante de los hombres para ser vistos por ellos; de otra manera, no tendréis recompensa de vuestro Padre que está en los cielos.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 2,
+              "text": "Cuando, pues, des limosna, no hagas tocar trompeta delante de ti, como hacen los hipócritas en las sinagogas y en las calles, para ser alabados por los hombres; de cierto os digo que ya tienen su recompensa.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 3,
+              "text": "Mas cuando tú des limosna, no sepa tu izquierda lo que hace tu derecha,",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 4,
+              "text": "para que sea tu limosna en secreto; y tu Padre, que ve en lo secreto, te recompensará en público.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 5,
+              "text": "Y cuando ores, no seas como los hipócritas , porque a ellos les gusta el orar de pie en las sinagogas y en las esquinas de las calles para ser vistos por los hombres; de cierto os digo que ya tienen su recompensa.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 6,
+              "text": "Mas tú, cuando ores , entra en tu aposento, y cerrada tu puerta, ora a tu Padre que está en secreto; y tu Padre, que ve en lo secreto, te recompensará en público.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 7,
+              "text": "Y al orar, no uséis vanas repeticiones, como los gentiles , que piensan que por su palabrería serán oídos.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 8,
+              "text": "No os hagáis, pues, semejantes a ellos, porque vuestro Padre sabe de qué cosas tenéis necesidad antes que vosotros le pidáis.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 9,
+              "text": "Vosotros, pues, oraréis así: Padre nuestro que estás en los cielos, santificado sea tu nombre .",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 10,
+              "text": "Venga tu reino . Hágase tu voluntad , como en el cielo, así también en la tierra.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 11,
+              "text": "Danos hoy el pan nuestro de cada día.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 12,
+              "text": "Y perdónanos nuestras deudas , como también nosotros perdonamos a nuestros deudores.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 13,
+              "text": "Y no nos metas en tentación , mas líbranos del mal; porque tuyo es el reino, y el poder y la gloria , por todos los siglos. Amén.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 14,
+              "text": "Porque si perdonáis a los hombres sus ofensas, os perdonará también a vosotros vuestro Padre Celestial.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 15,
+              "text": "Pero si no perdonáis a los hombres sus ofensas, tampoco vuestro Padre os perdonará vuestras ofensas.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 16,
+              "text": "Y cuando ayunéis , no pongáis un semblante como los hipócritas, porque ellos demudan sus rostros para mostrar a los hombres que ayunan; de cierto os digo que ya tienen su recompensa.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 17,
+              "text": "Mas tú, cuando ayunes, unge tu cabeza y lava tu rostro,",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 18,
+              "text": "para no mostrar a los hombres que ayunas, sino a tu Padre que está en secreto; y tu Padre, que ve en lo secreto, te recompensará en público.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 19,
+              "text": "No os hagáis tesoros en la tierra, donde la polilla y el orín corrompen, y donde ladrones minan y hurtan ;",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 20,
+              "text": "sino haceos tesoros en el cielo, donde ni la polilla ni el orín corrompen, y donde ladrones no minan ni hurtan.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 21,
+              "text": "Porque donde esté vuestro tesoro, allí estará también vuestro corazón.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 22,
+              "text": "La lámpara del cuerpo es el ojo; así que, si tu ojo es sincero , todo tu cuerpo estará lleno de luz;",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 23,
+              "text": "mas si tu ojo es malo, todo tu cuerpo será tenebroso . Así que, si la luz que hay en ti es tinieblas, ¿cuán grandes no serán esas tinieblas?",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 24,
+              "text": "Ninguno puede servir a dos señores, porque o aborrecerá al uno y amará al otro, o se apegará al uno y menospreciará al otro; no podéis servir a Dios y a las riquezas.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 25,
+              "text": "Por tanto os digo: No os afanéis por vuestra vida, qué habéis de comer o qué habéis de beber; ni por vuestro cuerpo, qué habéis de vestir. ¿No es la vida más que el alimento y el cuerpo más que el vestido?",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 26,
+              "text": "Mirad las aves del cielo, que no siembran, ni siegan ni juntan en alfolíes; y vuestro Padre Celestial las alimenta. ¿No sois vosotros mucho mejores que ellas?",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 27,
+              "text": "Mas, ¿quién de vosotros podrá, afanándose, añadir a su estatura un codo?",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 28,
+              "text": "Y por el vestido, ¿por qué os afanáis? Considerad los lirios del campo, cómo crecen; no trabajan ni hilan;",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 29,
+              "text": "mas os digo que ni aun Salomón con toda su gloria se vistió como uno de ellos.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 30,
+              "text": "Y si la hierba del campo, que hoy es y mañana es echada al horno, Dios la viste así, ¿ no hará mucho más a vosotros, hombres de poca fe ?",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 31,
+              "text": "No os afanéis, pues, diciendo: ¿Qué comeremos, o qué beberemos o con qué nos cubriremos?",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 32,
+              "text": "Porque los gentiles buscan todas estas cosas, pero vuestro Padre Celestial sabe que tenéis necesidad de todas estas cosas.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 33,
+              "text": "Mas buscad primeramente el reino de Dios y su justicia , y todas estas cosas os serán añadidas .",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 34,
+              "text": "Así que, no os afanéis por el día de mañana, porque el día de mañana traerá su propio afán. Basta al día su propio mal.",
+              "target": true,
+              "ch": 6
+            },
+            {
+              "vs": 1,
+              "text": "No juzguéis, para que no seáis juzgados .",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 2,
+              "text": "Porque con el juicio con que juzgáis seréis juzgados, y con la medida con que medís, se os volverá a medir .",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 3,
+              "text": "Y , ¿por qué miras la paja que está en el ojo de tu hermano, y no echas de ver la viga que está en tu propio ojo?",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 4,
+              "text": "O, ¿cómo dirás a tu hermano: Déjame sacar la paja de tu ojo, y he aquí la viga en tu propio ojo?",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 5,
+              "text": "¡Hipócrita! Saca primero la viga de tu propio ojo, y entonces verás bien para sacar la paja del ojo de tu hermano.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 6,
+              "text": "No deis lo santo a los perros ni echéis vuestras perlas delante de los cerdos, no sea que las pisoteen y se vuelvan y os despedacen.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 7,
+              "text": "Pedid , y se os dará; buscad , y hallaréis; llamad , y se os abrirá.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 8,
+              "text": "Porque todo el que pide, recibe; y el que busca, halla; y al que llama, se le abrirá.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 9,
+              "text": "¿Qué hombre hay de vosotros, que si su hijo le pide pan, le dará una piedra?",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 10,
+              "text": "¿Y si le pide un pez, le dará una serpiente?",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 11,
+              "text": "Pues si vosotros, siendo malos , sabéis dar buenas dádivas a vuestros hijos, ¿cuánto más vuestro Padre que está en los cielos dará buenas cosas a los que le piden?",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 12,
+              "text": "Así que, todas las cosas que queráis que los hombres hagan con vosotros, así también haced vosotros con ellos, porque esta es la ley y los profetas.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 13,
+              "text": "Entrad por la puerta estrecha , porque ancha es la puerta y espacioso el camino que lleva a la perdición, y muchos son los que entran por ella.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 14,
+              "text": "Porque estrecha es la puerta y angosto el camino que lleva a la vida, y pocos son los que la hallan.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 15,
+              "text": "Y guardaos de los falsos profetas , que vienen a vosotros vestidos de ovejas, pero por dentro son lobos rapaces.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 16,
+              "text": "Por sus frutos los conoceréis . ¿Se recogen uvas de los espinos o higos de los abrojos?",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 17,
+              "text": "Así, todo buen árbol da buenos frutos , mas el árbol malo da malos frutos.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 18,
+              "text": "No puede el árbol bueno dar malos frutos, ni el árbol malo dar buenos frutos.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 19,
+              "text": "Todo árbol que no da buen fruto es cortado y echado en el fuego.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 20,
+              "text": "Así que, por sus frutos los conoceréis.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 21,
+              "text": "No todo el que me dice: Señor, Señor, entrará en el reino de los cielos, sino el que hace la voluntad de mi Padre que está en los cielos .",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 22,
+              "text": "Muchos me dirán en aquel día: Señor, Señor, ¿no profetizamos en tu nombre, y en tu nombre echamos fuera demonios y en tu nombre hicimos muchos milagros?",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 23,
+              "text": "Y entonces les declararé: Nunca os conocí; apartaos de mí, hacedores de maldad .",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 24,
+              "text": "A cualquiera, pues, que me oye estas palabras y las hace, le compararé a un hombre prudente que edificó su casa sobre la roca .",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 25,
+              "text": "Y descendió la lluvia, y vinieron ríos, y soplaron vientos y azotaron aquella casa; pero no cayó, porque estaba fundada sobre la roca.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 26,
+              "text": "Y a cualquiera que me oye estas palabras y no las hace, le compararé a un hombre insensato que edificó su casa sobre la arena.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 27,
+              "text": "Y descendió la lluvia, y vinieron ríos, y soplaron vientos y dieron con ímpetu contra aquella casa ; y cayó , y fue grande su ruina.",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 28,
+              "text": "Y aconteció que cuando Jesús terminó estas palabras, la multitud se admiraba de su doctrina ,",
+              "target": true,
+              "ch": 7
+            },
+            {
+              "vs": 29,
+              "text": "porque les enseñaba como quien tiene autoridad , y no como los escribas .",
+              "target": true,
+              "ch": 7
             }
           ],
           "note_en": "Sermon on the Mount",
@@ -2175,46 +2602,13 @@
           "note_source": "model"
         },
         {
-          "ref": "Mateo 9:1–38",
+          "ref": "Mateo 9:35–11:1",
           "vol": "newtestament",
           "book": "matt",
           "book_title": "Mateo",
           "ch": 9,
+          "end_ch": 11,
           "verses": [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
-            16,
-            17,
-            18,
-            19,
-            20,
-            21,
-            22,
-            23,
-            24,
-            25,
-            26,
-            27,
-            28,
-            29,
-            30,
-            31,
-            32,
-            33,
-            34,
             35,
             36,
             37,
@@ -2222,194 +2616,286 @@
           ],
           "context": [
             {
-              "vs": 1,
-              "text": "Entonces, entrando Jesús en la barca, pasó al otro lado y vino a su ciudad.",
-              "target": true
-            },
-            {
-              "vs": 2,
-              "text": "Y he aquí le trajeron un paralítico tendido en una cama; y Jesús, viendo la fe de ellos, dijo al paralítico: Ten ánimo, hijo; tus pecados te son perdonados .",
-              "target": true
-            },
-            {
-              "vs": 3,
-              "text": "Y he aquí, algunos de los escribas decían dentro de sí: Este blasfema.",
-              "target": true
-            },
-            {
-              "vs": 4,
-              "text": "Y percibiendo Jesús sus pensamientos, dijo: ¿Por qué pensáis mal en vuestros corazones?",
-              "target": true
-            },
-            {
-              "vs": 5,
-              "text": "Porque , ¿qué es más fácil, decir: Tus pecados te son perdonados, o decir: Levántate y anda?",
-              "target": true
-            },
-            {
-              "vs": 6,
-              "text": "Pues para que sepáis que el Hijo del Hombre tiene potestad en la tierra para perdonar pecados (dijo entonces al paralítico): ¡Levántate!, toma tu lecho y vete a tu casa.",
-              "target": true
-            },
-            {
-              "vs": 7,
-              "text": "Entonces él se levantó y se fue a su casa.",
-              "target": true
-            },
-            {
-              "vs": 8,
-              "text": "Y cuando la gente lo vio, se maravilló y glorificó a Dios, que había dado tal potestad a los hombres.",
-              "target": true
-            },
-            {
-              "vs": 9,
-              "text": "Y saliendo Jesús de allí, vio a un hombre que estaba sentado al banco de los tributos públicos, el cual se llamaba Mateo, y le dijo: Sígueme. Y se levantó y le siguió.",
-              "target": true
-            },
-            {
-              "vs": 10,
-              "text": "Y aconteció que, estando él sentado a la mesa en la casa, he aquí que muchos publicanos y pecadores vinieron y se sentaron juntamente a la mesa con Jesús y sus discípulos.",
-              "target": true
-            },
-            {
-              "vs": 11,
-              "text": "Y cuando vieron esto los fariseos, dijeron a sus discípulos: ¿ Por qué come vuestro Maestro con los publicanos y con los pecadores?",
-              "target": true
-            },
-            {
-              "vs": 12,
-              "text": "Y al oír esto Jesús, les dijo: Los sanos no tienen necesidad de médico, sino los enfermos.",
-              "target": true
-            },
-            {
-              "vs": 13,
-              "text": "Id, pues, y aprended qué significa: Misericordia quiero y no sacrificio; porque no he venido a llamar a justos, sino a pecadores al arrepentimiento .",
-              "target": true
-            },
-            {
-              "vs": 14,
-              "text": "Entonces vinieron a él los discípulos de Juan, diciendo: ¿Por qué nosotros y los fariseos ayunamos muchas veces, y tus discípulos no ayunan?",
-              "target": true
-            },
-            {
-              "vs": 15,
-              "text": "Y Jesús les dijo: ¿Acaso pueden los que están de bodas tener luto entretanto que el esposo está con ellos? Pero vendrán días cuando el esposo les será quitado, y entonces ayunarán .",
-              "target": true
-            },
-            {
-              "vs": 16,
-              "text": "Y nadie pone remiendo de paño nuevo en vestido viejo, porque tal remiendo tira del vestido y se hace peor la rotura.",
-              "target": true
-            },
-            {
-              "vs": 17,
-              "text": "Ni echan vino nuevo en odres viejos; de otra manera, los odres se rompen, y el vino se derrama y se pierden los odres; pero echan el vino nuevo en odres nuevos, y lo uno y lo otro se conservan juntamente.",
-              "target": true
-            },
-            {
-              "vs": 18,
-              "text": "Mientras él les hablaba estas cosas, he aquí, vino uno de los principales y se postró ante él, diciendo: Mi hija acaba de morir; pero ven y pon tu mano sobre ella, y vivirá .",
-              "target": true
-            },
-            {
-              "vs": 19,
-              "text": "Y se levantó Jesús y le siguió, y también sus discípulos.",
-              "target": true
-            },
-            {
-              "vs": 20,
-              "text": "Y he aquí una mujer enferma de flujo de sangre, desde hacía doce años, se le acercó por detrás y tocó el borde de su manto;",
-              "target": true
-            },
-            {
-              "vs": 21,
-              "text": "porque decía dentro de sí: Si solamente tocare su manto, seré sanada.",
-              "target": true
-            },
-            {
-              "vs": 22,
-              "text": "Mas Jesús, volviéndose y mirándola, dijo: Ten ánimo, hija, tu fe te ha sanado . Y la mujer fue sana desde aquella hora.",
-              "target": true
-            },
-            {
-              "vs": 23,
-              "text": "Y cuando entró Jesús en la casa del principal, viendo a los que tocaban flautas y a la gente que hacía bullicio,",
-              "target": true
-            },
-            {
-              "vs": 24,
-              "text": "les dijo: Apartaos, porque la niña no está muerta, sino que duerme. Y se burlaban de él.",
-              "target": true
-            },
-            {
-              "vs": 25,
-              "text": "Y cuando la gente fue echada fuera, entró y la tomó de la mano, y la niña se levantó.",
-              "target": true
-            },
-            {
-              "vs": 26,
-              "text": "Y se difundió la fama de eso por toda aquella tierra.",
-              "target": true
-            },
-            {
-              "vs": 27,
-              "text": "Y cuando Jesús salió de allí, le siguieron dos ciegos, dando voces y diciendo: ¡Ten misericordia de nosotros, Hijo de David!",
-              "target": true
-            },
-            {
-              "vs": 28,
-              "text": "Y al llegar a la casa, vinieron a él los ciegos ; y Jesús les dijo: ¿ Creéis que puedo hacer esto? Ellos dijeron: Sí, Señor.",
-              "target": true
-            },
-            {
-              "vs": 29,
-              "text": "Entonces les tocó los ojos, diciendo: Conforme a vuestra fe os sea hecho.",
-              "target": true
-            },
-            {
-              "vs": 30,
-              "text": "Y los ojos de ellos fueron abiertos. Y Jesús les encargó rigurosamente, diciendo: Mirad que nadie lo sepa.",
-              "target": true
-            },
-            {
-              "vs": 31,
-              "text": "Pero ellos salieron y divulgaron la fama de él por toda aquella tierra.",
-              "target": true
-            },
-            {
-              "vs": 32,
-              "text": "Y saliendo ellos, he aquí, le trajeron un mudo endemoniado .",
-              "target": true
-            },
-            {
-              "vs": 33,
-              "text": "Y una vez echado fuera el demonio, el mudo habló; y la gente se maravillaba, diciendo: Nunca se ha visto cosa semejante en Israel.",
-              "target": true
-            },
-            {
-              "vs": 34,
-              "text": "Pero los fariseos decían: Por el príncipe de los demonios echa fuera los demonios.",
-              "target": true
-            },
-            {
               "vs": 35,
               "text": "Y recorría Jesús todas las ciudades y aldeas, enseñando en las sinagogas de ellos, y predicando el evangelio del reino, y sanando toda enfermedad y toda dolencia en el pueblo.",
-              "target": true
+              "target": true,
+              "ch": 9
             },
             {
               "vs": 36,
               "text": "Y al ver las multitudes, tuvo compasión de ellas, porque estaban fatigadas y dispersas como ovejas que no tienen pastor .",
-              "target": true
+              "target": true,
+              "ch": 9
             },
             {
               "vs": 37,
               "text": "Entonces dijo a sus discípulos: A la verdad la mies es mucha, pero los obreros son pocos.",
-              "target": true
+              "target": true,
+              "ch": 9
             },
             {
               "vs": 38,
               "text": "Rogad, pues, al Señor de la mies, que envíe obreros a su mies.",
-              "target": true
+              "target": true,
+              "ch": 9
+            },
+            {
+              "vs": 1,
+              "text": "Entonces, llamando a sus doce discípulos , les dio autoridad sobre los espíritus inmundos , para que los echasen fuera y sanasen toda enfermedad y toda dolencia.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 2,
+              "text": "Y los nombres de los doce apóstoles son estos: el primero, Simón, que es llamado Pedro, y su hermano Andrés; Jacobo hijo de Zebedeo y su hermano Juan;",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 3,
+              "text": "Felipe y Bartolomé; Tomás y Mateo, el publicano ; Jacobo hijo de Alfeo, y Lebeo, por sobrenombre Tadeo;",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 4,
+              "text": "Simón el Cananita, y Judas Iscariote , el que además le entregó .",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 5,
+              "text": "A estos doce envió Jesús, a los cuales dio mandamiento, diciendo: Por camino de gentiles no vayáis, y en ciudad de samaritanos no entréis;",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 6,
+              "text": "sino id antes a las ovejas perdidas de la casa de Israel.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 7,
+              "text": "Y yendo, predicad, diciendo: El reino de los cielos se ha acercado .",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 8,
+              "text": "Sanad enfermos, limpiad leprosos, resucitad muertos, echad fuera demonios; de gracia recibisteis, dad de gracia.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 9,
+              "text": "No llevéis oro, ni plata, ni cobre en vuestras bolsas ;",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 10,
+              "text": "ni alforja para el camino, ni dos ropas de vestir, ni calzado ni bordón, porque el obrero es digno de su alimento.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 11,
+              "text": "Mas en cualquier ciudad o aldea donde entréis, averiguad quién es digno en ella y reposad allí hasta que salgáis.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 12,
+              "text": "Y al entrar en la casa, saludad.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 13,
+              "text": "Y si la casa fuere digna, vuestra paz vendrá sobre ella; mas si no fuere digna, vuestra paz se volverá a vosotros.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 14,
+              "text": "Y si alguno no os recibiere ni oyere vuestras palabras, salid de aquella casa o ciudad y sacudid el polvo de vuestros pies.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 15,
+              "text": "De cierto os digo que en el día del juicio el castigo será más tolerable para la tierra de Sodoma y de Gomorra que para aquella ciudad.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 16,
+              "text": "He aquí, yo os envío como a ovejas en medio de lobos; sed, pues, prudentes como serpientes y sencillos como palomas.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 17,
+              "text": "Y guardaos de los hombres, porque os entregarán a los concilios y os azotarán en sus sinagogas;",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 18,
+              "text": "y aun ante gobernantes y ante reyes seréis llevados por causa de mí , para testimonio a ellos y a los gentiles.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 19,
+              "text": "Pero cuando os entreguen, no os preocupéis de cómo o de qué hablaréis, porque en aquella hora os será dado lo que habéis de hablar .",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 20,
+              "text": "Pues no sois vosotros los que habláis, sino el Espíritu de vuestro Padre que habla en vosotros.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 21,
+              "text": "Y el hermano entregará a la muerte al hermano, y el padre al hijo; y los hijos se levantarán contra los padres y los harán morir.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 22,
+              "text": "Y seréis aborrecidos por todos por causa de mi nombre; pero el que persevere hasta el fin, este será salvo.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 23,
+              "text": "Mas cuando os persigan en esta ciudad, huid a la otra; porque de cierto os digo que no acabaréis de recorrer todas las ciudades de Israel antes que venga el Hijo del Hombre.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 24,
+              "text": "El discípulo no es más que su maestro, ni el siervo más que su señor.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 25,
+              "text": "Bástale al discípulo ser como su maestro y al siervo como su señor. Si al padre de familia llamaron Beelzebú, ¿cuánto más a los de su casa?",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 26,
+              "text": "Así que, no los temáis, porque nada hay encubierto que no haya de ser manifestado, ni oculto que no haya de saberse.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 27,
+              "text": "Lo que os digo en la oscuridad, decidlo a plena luz; y lo que oís al oído, proclamadlo desde las azoteas.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 28,
+              "text": "Y no temáis a los que matan el cuerpo pero no pueden matar al alma; más bien temed a aquel que puede destruir el alma y el cuerpo en el infierno .",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 29,
+              "text": "¿No se venden dos pajarillos por un cuarto? Con todo, ni uno de ellos cae a tierra sin saberlo vuestro Padre.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 30,
+              "text": "Pues aun vuestros cabellos están todos contados.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 31,
+              "text": "Así que no temáis; más valéis vosotros que muchos pajarillos.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 32,
+              "text": "A cualquiera, pues, que me confiese delante de los hombres, yo también le confesaré delante de mi Padre que está en los cielos.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 33,
+              "text": "Y a cualquiera que me niegue delante de los hombres, yo también le negaré delante de mi Padre que está en los cielos.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 34,
+              "text": "No penséis que he venido para traer paz a la tierra; no he venido para traer paz, sino espada.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 35,
+              "text": "Porque he venido para poner en disensión al hombre contra su padre, y a la hija contra su madre y a la nuera contra su suegra.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 36,
+              "text": "Y los enemigos del hombre serán los de su casa.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 37,
+              "text": "El que ama al padre o a la madre más que a mí, no es digno de mí; y el que ama al hijo o a la hija más que a mí, no es digno de mí.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 38,
+              "text": "Y el que no toma su cruz y sigue en pos de mí no es digno de mí.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 39,
+              "text": "El que halla su vida, la perderá; y el que pierde su vida por causa de mí, la hallará.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 40,
+              "text": "El que os recibe a vosotros, a mí me recibe; y el que a mí me recibe, recibe al que me envió.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 41,
+              "text": "El que recibe a un profeta porque es profeta, recompensa de profeta recibirá; y el que recibe a un justo porque es justo, recompensa de justo recibirá.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 42,
+              "text": "Y cualquiera que dé a uno de estos pequeñitos un vaso de agua fría solamente, porque es discípulo , de cierto os digo que no perderá su recompensa.",
+              "target": true,
+              "ch": 10
+            },
+            {
+              "vs": 1,
+              "text": "Y aconteció que, cuando Jesús terminó de dar mandamientos a sus doce discípulos, se fue de allí a enseñar y a predicar en las ciudades de ellos.",
+              "target": true,
+              "ch": 11
             }
           ],
           "note_en": "sends disciples forth by twos",
@@ -6462,11 +6948,12 @@
           "note_source": "model"
         },
         {
-          "ref": "3 Nefi 11:1–41",
+          "ref": "3 Nefi 11–26",
           "vol": "bookofmormon",
           "book": "3-ne",
           "book_title": "3 Nefi",
           "ch": 11,
+          "end_ch": 26,
           "verses": [
             1,
             2,
@@ -6514,207 +7001,2672 @@
             {
               "vs": 1,
               "text": "Y aconteció que se hallaba reunida una gran multitud del pueblo de Nefi en los alrededores del templo que se encontraba en la tierra de Abundancia, y estaban maravillándose y asombrándose entre sí, y mostrándose los unos a los otros el grande y maravilloso cambio que se había verificado.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 2,
               "text": "Y también estaban conversando acerca de este Jesucristo, de quien se había dado la señal tocante a su muerte.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 3,
               "text": "Y aconteció que mientras así conversaban, unos con otros, oyeron una voz como si viniera del cielo; y miraron alrededor, porque no entendieron la voz que oyeron; y no era una voz áspera ni una voz fuerte; no obstante, y a pesar de ser una voz suave , penetró hasta lo más profundo de los que la oyeron, de tal modo que no hubo parte de su cuerpo que no hiciera estremecer; sí, les penetró hasta el alma misma, e hizo arder sus corazones.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 4,
               "text": "Y sucedió que de nuevo oyeron la voz, y no la entendieron.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 5,
               "text": "Y nuevamente por tercera vez oyeron la voz, y aguzaron el oído para escucharla; y tenían la vista fija en dirección del sonido; y miraban atentamente hacia el cielo, de donde venía el sonido.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 6,
               "text": "Y he aquí, la tercera vez entendieron la voz que oyeron; y les dijo:",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 7,
               "text": "He aquí a mi Hijo Amado , en quien me complazco, en quien he glorificado mi nombre: a él oíd.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 8,
               "text": "Y aconteció que al entender, dirigieron la vista hacia el cielo otra vez; y he aquí, vieron a un Hombre que descendía del cielo; y estaba vestido con una túnica blanca; y descendió y se puso en medio de ellos. Y los ojos de toda la multitud se fijaron en él, y no se atrevieron a abrir la boca, ni siquiera el uno al otro, y no sabían lo que significaba, porque suponían que era un ángel que se les había aparecido.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 9,
               "text": "Y aconteció que extendió la mano, y habló al pueblo, diciendo:",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 10,
               "text": "He aquí, yo soy Jesucristo, de quien los profetas testificaron que vendría al mundo.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 11,
               "text": "Y he aquí, soy la luz y la vida del mundo; y he bebido de la amarga copa que el Padre me ha dado, y he glorificado al Padre, tomando sobre mí los pecados del mundo, con lo cual me he sometido a la voluntad del Padre en todas las cosas desde el principio.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 12,
               "text": "Y sucedió que cuando Jesús hubo hablado estas palabras, toda la multitud cayó al suelo; pues recordaron que se había profetizado entre ellos que Cristo se les manifestaría después de su ascensión al cielo.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 13,
               "text": "Y ocurrió que les habló el Señor, diciendo:",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 14,
               "text": "Levantaos y venid a mí, para que metáis vuestras manos en mi costado, y para que también palpéis las marcas de los clavos en mis manos y en mis pies, a fin de que sepáis que soy el Dios de Israel, y el Dios de toda la tierra , y que he sido muerto por los pecados del mundo.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 15,
               "text": "Y aconteció que los de la multitud se adelantaron y metieron las manos en su costado, y palparon las marcas de los clavos en sus manos y en sus pies; y esto hicieron, yendo uno por uno, hasta que todos hubieron llegado; y vieron con los ojos y palparon con las manos, y supieron con certeza, y dieron testimonio de que era él, de quien habían escrito los profetas que había de venir.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 16,
               "text": "Y cuando todos hubieron ido y comprobado por sí mismos, exclamaron a una voz, diciendo:",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 17,
               "text": "¡Hosanna! ¡Bendito sea el nombre del Más Alto Dios! Y cayeron a los pies de Jesús, y lo adoraron .",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 18,
               "text": "Y aconteció que le habló a Nefi (porque Nefi se hallaba entre la multitud), y le mandó que se acercara.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 19,
               "text": "Y se levantó Nefi, y se acercó y se inclinó ante el Señor, y le besó los pies.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 20,
               "text": "Y el Señor le mandó que se levantara; y se levantó y se puso de pie ante él.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 21,
               "text": "Y el Señor le dijo: Te doy poder para que bautices a los de este pueblo cuando yo haya ascendido al cielo otra vez.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 22,
               "text": "Y además, el Señor llamó a otros , y les habló de igual manera, y les dio poder para bautizar. Y les dijo: De esta manera bautizaréis; y no habrá disputas entre vosotros.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 23,
               "text": "De cierto os digo que a quienes se arrepientan de sus pecados a causa de vuestras palabras , y deseen ser bautizados en mi nombre, de esta manera los bautizaréis: He aquí, descenderéis y, estando de pie en el agua, en mi nombre los bautizaréis.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 24,
               "text": "Y he aquí, estas son las palabras que pronunciaréis, llamándolos por su nombre, diciendo:",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 25,
               "text": "Habiéndoseme dado autoridad de Jesucristo, yo te bautizo en el nombre del Padre , y del Hijo, y del Espíritu Santo. Amén.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 26,
               "text": "Y entonces los sumergiréis en el agua, y saldréis del agua.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 27,
               "text": "Y según esta manera bautizaréis en mi nombre, porque he aquí, de cierto os digo que el Padre, y el Hijo, y el Espíritu Santo son uno ; y yo soy en el Padre, y el Padre en mí, y el Padre y yo somos uno.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 28,
               "text": "Y de acuerdo con lo que os he mandado, así bautizaréis; y no habrá disputas entre vosotros, como hasta ahora ha habido; ni habrá disputas entre vosotros concernientes a los puntos de mi doctrina, como hasta aquí las ha habido.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 29,
               "text": "Porque en verdad, en verdad os digo que aquel que tiene el espíritu de contención no es mío, sino es del diablo, que es el padre de la contención, y él irrita los corazones de los hombres, para que contiendan con ira unos con otros.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 30,
               "text": "He aquí, esta no es mi doctrina, agitar con ira el corazón de los hombres, el uno contra el otro; antes bien mi doctrina es esta, que se acaben tales cosas.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 31,
               "text": "He aquí, en verdad, en verdad os digo que os declararé mi doctrina .",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 32,
               "text": "Y esta es mi doctrina , y es la doctrina que el Padre me ha dado; y yo doy testimonio del Padre, y el Padre da testimonio de mí, y el Espíritu Santo da testimonio del Padre y de mí; y yo testifico que el Padre manda a todos los hombres, en todo lugar, que se arrepientan y crean en mí.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 33,
               "text": "Y cualquiera que crea en mí, y sea bautizado , este será salvo ; y son ellos los que heredarán el reino de Dios.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 34,
               "text": "Y quien no crea en mí, ni sea bautizado, será condenado.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 35,
               "text": "De cierto, de cierto os digo que esta es mi doctrina, y del Padre yo doy testimonio de ella; y quien en mí cree , también cree en el Padre; y el Padre le testificará a él de mí, porque lo visitará con fuego y con el Espíritu Santo .",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 36,
               "text": "Y así dará el Padre testimonio de mí, y el Espíritu Santo le dará testimonio del Padre y de mí, porque el Padre, y yo, y el Espíritu Santo somos uno.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 37,
               "text": "Y también os digo que debéis arrepentiros, y volveros como un niño pequeñito, y ser bautizados en mi nombre, o de ninguna manera recibiréis estas cosas.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 38,
               "text": "Y otra vez os digo que debéis arrepentiros, y ser bautizados en mi nombre, y volveros como un niño pequeñito, o de ningún modo heredaréis el reino de Dios.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 39,
               "text": "De cierto, de cierto os digo que esta es mi doctrina; y los que edifican sobre esto, edifican sobre mi roca, y las puertas del infierno no prevalecerán en contra de ellos.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 40,
               "text": "Y quienes declaren más o menos que esto, y lo establezcan como mi doctrina, tales proceden del mal, y no están fundados sobre mi roca; sino que edifican sobre un cimiento de arena , y las puertas del infierno estarán abiertas para recibirlos, cuando vengan las inundaciones y los azoten los vientos.",
-              "target": true
+              "target": true,
+              "ch": 11
             },
             {
               "vs": 41,
               "text": "Por tanto, id a este pueblo, y declarad las palabras que he hablado, hasta los extremos de la tierra.",
-              "target": true
+              "target": true,
+              "ch": 11
+            },
+            {
+              "vs": 1,
+              "text": "Y aconteció que cuando Jesús hubo hablado estas palabras a Nefi y a los que habían sido llamados (y llegaba a doce el número de los que habían sido llamados, y recibieron el poder y la autoridad para bautizar), he aquí, él extendió la mano hacia la multitud, y les proclamó, diciendo: Bienaventurados sois si prestáis atención a las palabras de estos doce que yo he escogido de entre vosotros para ejercer su ministerio en bien de vosotros y ser vuestros siervos; y a ellos les he dado poder para que os bauticen en el agua; y después que seáis bautizados en el agua, he aquí, os bautizaré con fuego y con el Espíritu Santo. Por tanto, bienaventurados sois si creéis en mí y sois bautizados, después que me habéis visto y sabéis que yo soy.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 2,
+              "text": "Y también, más bienaventurados son aquellos que crean en vuestras palabras por razón de que testificaréis que me habéis visto y que sabéis que yo soy. Sí, bienaventurados son los que crean en vuestras palabras, y desciendan a lo profundo de la humildad y sean bautizados, porque serán visitados con fuego y con el Espíritu Santo, y recibirán una remisión de sus pecados.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 3,
+              "text": "Sí, bienaventurados son los pobres en espíritu que vienen a mí, porque de ellos es el reino de los cielos.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 4,
+              "text": "Y además, bienaventurados son todos los que lloran, porque ellos serán consolados.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 5,
+              "text": "Y bienaventurados son los mansos , porque ellos heredarán la tierra .",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 6,
+              "text": "Y bienaventurados son todos los que padecen hambre y sed de rectitud , porque ellos serán llenos del Espíritu Santo.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 7,
+              "text": "Y bienaventurados son los misericordiosos , porque ellos alcanzarán misericordia.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 8,
+              "text": "Y bienaventurados son todos los de corazón puro , porque ellos verán a Dios.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 9,
+              "text": "Y bienaventurados son todos los pacificadores , porque ellos serán llamados hijos de Dios.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 10,
+              "text": "Y bienaventurados son todos los que son perseguidos por causa de mi nombre, porque de ellos es el reino de los cielos.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 11,
+              "text": "Y bienaventurados sois cuando por mi causa los hombres os vituperen y os persigan, y falsamente digan toda clase de mal contra vosotros;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 12,
+              "text": "porque tendréis gran gozo y os alegraréis en extremo, pues grande será vuestro galardón en los cielos; porque así persiguieron a los profetas que fueron antes de vosotros.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 13,
+              "text": "De cierto, de cierto os digo que os doy a vosotros ser la sal de la tierra; pero si la sal pierde su sabor, ¿con qué será salada la tierra? De allí en adelante la sal no servirá para nada sino para ser echada fuera y hollada por los hombres.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 14,
+              "text": "En verdad, en verdad os digo que os doy a vosotros ser la luz de este pueblo. Una ciudad que se asienta sobre una colina no se puede ocultar.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 15,
+              "text": "He aquí, ¿encienden los hombres una vela y la ponen debajo de un almud? No, sino en un candelero; y da luz a todos los que están en la casa;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 16,
+              "text": "por lo tanto, así alumbre vuestra luz delante de este pueblo, de modo que vean vuestras buenas obras, y glorifiquen a vuestro Padre que está en los cielos.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 17,
+              "text": "No penséis que he venido para abrogar la ley ni los profetas. No he venido para abrogar, sino para cumplir;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 18,
+              "text": "porque en verdad os digo que ni una jota ni una tilde ha pasado de la ley , sino en mí toda se ha cumplido.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 19,
+              "text": "Y he aquí, os he dado la ley y los mandamientos de mi Padre para que creáis en mí, que os arrepintáis de vuestros pecados y vengáis a mí con un corazón quebrantado y un espíritu contrito. He aquí, tenéis los mandamientos ante vosotros, y la ley se ha cumplido.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 20,
+              "text": "Por tanto, venid a mí y sed salvos; porque en verdad os digo que a menos que guardéis mis mandamientos, que ahora os he dado, de ningún modo entraréis en el reino de los cielos.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 21,
+              "text": "Habéis oído que ha sido dicho por los de tiempos antiguos, y también lo tenéis escrito ante vosotros: No matarás ; y cualquiera que matare estará expuesto al juicio de Dios.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 22,
+              "text": "Pero yo os digo que quien se enoje con su hermano corre peligro de su juicio. Y cualquiera que diga a su hermano: Raca, quedará expuesto al concilio; y el que le diga: Insensato, estará en peligro del fuego del infierno.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 23,
+              "text": "Por tanto, si vienes a mí, o deseas venir a mí, y te acuerdas de que tu hermano tiene algo contra ti,",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 24,
+              "text": "ve luego a tu hermano, y reconcíliate primero con él, y luego ven a mí con íntegro propósito de corazón, y yo te recibiré.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 25,
+              "text": "Reconcíliate cuanto antes con tu adversario, mientras te encuentres en el camino con él, no sea que en cualquier momento te prenda, y seas echado en la cárcel.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 26,
+              "text": "En verdad, en verdad te digo que de ningún modo saldrás de allí hasta que hayas pagado el último senine. Y mientras te halles en la prisión, ¿podrás pagar aun siquiera un senine ? De cierto, de cierto te digo que no.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 27,
+              "text": "He aquí, fue escrito por los antiguos que no cometerás adulterio ;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 28,
+              "text": "mas yo os digo que quien mire a una mujer para codiciarla ya ha cometido adulterio en su corazón.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 29,
+              "text": "He aquí, os doy el mandamiento de que no permitáis que ninguna de estas cosas entre en vuestro corazón ,",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 30,
+              "text": "porque mejor es que os privéis de estas cosas, tomando así vuestra cruz , que ser arrojados en el infierno.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 31,
+              "text": "Ha sido escrito, que quien repudiare a su esposa, le dé carta de divorcio .",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 32,
+              "text": "En verdad, en verdad os digo que el que repudie a su esposa, salvo por causa de fornicación , hace que ella cometa adulterio ; y cualquiera que se case con la divorciada, comete adulterio.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 33,
+              "text": "Y además está escrito: No te perjurarás, sino que cumplirás al Señor tus juramentos ;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 34,
+              "text": "mas en verdad, en verdad os digo: No juréis de ninguna manera; ni por el cielo, porque es el trono de Dios;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 35,
+              "text": "ni por la tierra, porque es el estrado de sus pies;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 36,
+              "text": "ni tampoco jurarás por tu cabeza, porque no puedes hacer negro o blanco un solo cabello;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 37,
+              "text": "antes bien, sea vuestro hablar: Sí, sí; No, no; porque lo que sea más que esto, es malo.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 38,
+              "text": "Y he aquí, está escrito: Ojo por ojo y diente por diente;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 39,
+              "text": "mas yo os digo que no debéis resistir al mal, antes bien al que te hiera en la mejilla derecha, vuélvele también la otra.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 40,
+              "text": "Y si alguien te demanda ante la ley, y te quita la túnica, déjale también la capa.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 41,
+              "text": "Y quien te obligue a ir una milla, ve con él dos.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 42,
+              "text": "Al que te pida, dale ; y al que quiera de ti tomar prestado, no se lo rehúses.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 43,
+              "text": "Y he aquí, está escrito también que amarás a tu prójimo, y aborrecerás a tu enemigo;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 44,
+              "text": "mas he aquí, yo os digo: Amad a vuestros enemigos , bendecid a los que os maldicen, haced bien a los que os aborrecen, y orad por los que os ultrajan y os persiguen;",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 45,
+              "text": "para que seáis hijos de vuestro Padre que está en los cielos; pues él hace salir su sol sobre los malos y sobre los buenos.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 46,
+              "text": "Por tanto, estas cosas que existían en la antigüedad, que se hallaban bajo la ley, se han cumplido todas en mí.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 47,
+              "text": "Las cosas antiguas han pasado, y todas las cosas se han vuelto nuevas.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 48,
+              "text": "Por tanto, quisiera que fueseis perfectos así como yo, o como vuestro Padre que está en los cielos es perfecto.",
+              "target": true,
+              "ch": 12
+            },
+            {
+              "vs": 1,
+              "text": "En verdad, en verdad os digo, quisiera que dieseis limosnas a los pobres; mas guardaos de dar vuestras limosnas delante de los hombres para ser vistos de ellos; de otra manera, ningún galardón tenéis de vuestro Padre que está en los cielos.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 2,
+              "text": "Por tanto, cuando hagáis vuestra limosna, no toquéis trompeta delante de vosotros, como lo hacen los hipócritas en las sinagogas y en las calles, para tener gloria de los hombres. En verdad os digo que ya tienen su recompensa.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 3,
+              "text": "Mas cuando tú hagas limosna, no sepa tu mano izquierda lo que hace tu derecha;",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 4,
+              "text": "a fin de que tu limosna sea en secreto; y tu Padre que ve en lo secreto, te recompensará en público.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 5,
+              "text": "Y cuando ores , no seas como los hipócritas, porque les gusta orar de pie en las sinagogas y en las esquinas de las calles, para ser vistos de los hombres. En verdad os digo que ya tienen su recompensa.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 6,
+              "text": "Mas tú, cuando ores, entra en tu aposento, y cuando hayas cerrado la puerta, ora a tu Padre que está en secreto; y tu Padre, que ve en lo secreto, te recompensará en público.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 7,
+              "text": "Y al orar, no uséis vanas repeticiones, como los paganos; pues ellos creen que por su mucha parlería serán oídos.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 8,
+              "text": "No seáis, por tanto, como ellos; porque vuestro Padre sabe las cosas que necesitáis antes que le pidáis.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 9,
+              "text": "De esta manera , pues, orad : Padre nuestro que estás en los cielos, santificado sea tu nombre.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 10,
+              "text": "Sea hecha tu voluntad en la tierra así como en el cielo.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 11,
+              "text": "Y perdónanos nuestras deudas, como nosotros perdonamos a nuestros deudores.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 12,
+              "text": "Y no nos dejes caer en tentación, mas líbranos del mal.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 13,
+              "text": "Porque tuyo es el reino, y el poder, y la gloria, para siempre. Amén.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 14,
+              "text": "Porque si perdonáis a los hombres sus ofensas, os perdonará también a vosotros vuestro Padre Celestial;",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 15,
+              "text": "mas si no perdonáis a los hombres sus ofensas, vuestro Padre tampoco perdonará vuestras ofensas.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 16,
+              "text": "Además, cuando ayunéis , no seáis como los hipócritas, de semblante triste, porque desfiguran sus rostros para mostrar a los hombres que ayunan. En verdad os digo que ya tienen su galardón.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 17,
+              "text": "Mas tú, cuando ayunes, unge tu cabeza y lava tu rostro;",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 18,
+              "text": "para que no muestres a los hombres que ayunas, sino a tu Padre, que está en secreto ; y tu Padre, que ve en lo secreto, te recompensará en público.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 19,
+              "text": "No os acumuléis tesoros sobre la tierra, donde la polilla y el moho corrompen, y los ladrones minan y roban;",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 20,
+              "text": "sino acumulaos tesoros en los cielos, donde ni la polilla ni el moho corrompen, y donde los ladrones no minan ni roban.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 21,
+              "text": "Porque donde esté vuestro tesoro, allí estará también vuestro corazón.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 22,
+              "text": "La luz del cuerpo es el ojo; por tanto, si tu ojo es puro, todo tu cuerpo estará lleno de luz.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 23,
+              "text": "Pero si tu ojo es malo, todo tu cuerpo estará lleno de tinieblas. Por tanto, si la luz que hay en ti es tinieblas, ¡cuán grandes no serán esas tinieblas!",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 24,
+              "text": "Ningún hombre puede servir a dos señores, porque o aborrecerá al uno y amará al otro, o se allegará al uno y despreciará al otro. No podéis servir a Dios y a Mamón .",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 25,
+              "text": "Y aconteció que cuando Jesús hubo hablado estas palabras, miró hacia los doce que había elegido, y les dijo: Acordaos de las palabras que he hablado. Porque he aquí, vosotros sois aquellos a quienes he escogido para ejercer el ministerio entre este pueblo. Os digo, pues: No os afanéis por vuestra vida, qué habéis de comer o qué habéis de beber; ni tampoco por vuestro cuerpo, con qué lo habéis de vestir. ¿No es la vida más que el alimento, y el cuerpo más que el vestido?",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 26,
+              "text": "Mirad las aves del cielo, pues no siembran, ni tampoco siegan, ni recogen en alfolíes; sin embargo, vuestro Padre Celestial las alimenta. ¿No sois vosotros mucho mejores que ellas?",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 27,
+              "text": "¿Quién de vosotros, por mucho que se afane, podrá añadir un codo a su estatura?",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 28,
+              "text": "Y por el vestido, ¿por qué os afanáis? Considerad los lirios del campo cómo crecen: No trabajan, ni hilan;",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 29,
+              "text": "y sin embargo, os digo, que ni aun Salomón, en toda su gloria, se vistió como uno de estos.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 30,
+              "text": "Por tanto, si Dios viste así la hierba del campo, que hoy es, y mañana se echa en el horno, así os vestirá él, si vosotros no sois de poca fe.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 31,
+              "text": "No os afanéis, pues, diciendo: ¿Qué comeremos o qué beberemos, o con qué nos hemos de vestir?",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 32,
+              "text": "Porque vuestro Padre Celestial sabe que tenéis necesidad de todas estas cosas.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 33,
+              "text": "Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 34,
+              "text": "Así que, no os afanéis por el día de mañana, porque el día de mañana traerá su afán por sus propias cosas. Basta el día para su propio mal.",
+              "target": true,
+              "ch": 13
+            },
+            {
+              "vs": 1,
+              "text": "Y aconteció que cuando Jesús hubo hablado estas palabras, se volvió de nuevo hacia la multitud y abrió otra vez su boca, diciendo: De cierto, de cierto os digo: No juzguéis , para que no seáis juzgados.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 2,
+              "text": "Porque con el juicio con que juzguéis, seréis juzgados; y con la medida con que midáis, se os volverá a medir.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 3,
+              "text": "Y, ¿por qué miras la paja que está en el ojo de tu hermano, mas no te fijas en la viga que está en tu propio ojo?",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 4,
+              "text": "O, ¿cómo dirás a tu hermano: Déjame sacar la paja de tu ojo, y he aquí, hay una viga en tu propio ojo?",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 5,
+              "text": "¡Hipócrita!, saca primero la viga de tu propio ojo; y entonces verás claramente para sacar la paja del ojo de tu hermano.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 6,
+              "text": "No deis lo que es santo a los perros, ni echéis vuestras perlas delante de los cerdos; no sea que las huellen con sus pies y se vuelvan y os despedacen.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 7,
+              "text": "Pedid , y se os dará; buscad, y hallaréis; llamad, y se os abrirá.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 8,
+              "text": "Porque todo el que pide, recibe; y el que busca, halla; y al que llama, se le abrirá.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 9,
+              "text": "O, ¿qué hombre hay de vosotros, que si su hijo pide pan, le dará una piedra,",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 10,
+              "text": "o si pide un pescado, le dará una serpiente?",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 11,
+              "text": "Pues si vosotros, siendo malos, sabéis dar buenas dádivas a vuestros hijos, ¿cuánto más vuestro Padre que está en los cielos dará buenas cosas a los que le piden?",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 12,
+              "text": "Así que, cuantas cosas queráis que los hombres os hagan a vosotros, así haced vosotros con ellos, porque esto es la ley y los profetas.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 13,
+              "text": "Entrad por la puerta estrecha ; porque ancha es la puerta, y espacioso el camino, que conduce a la perdición, y muchos son los que entran por ella;",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 14,
+              "text": "porque estrecha es la puerta , y angosto el camino que conduce a la vida, y pocos son los que la hallan.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 15,
+              "text": "Guardaos de los falsos profetas , que vienen a vosotros con vestidos de ovejas, mas por dentro son lobos rapaces.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 16,
+              "text": "Por sus frutos los conoceréis. ¿Se recogen uvas de los espinos, o higos de los cardos?",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 17,
+              "text": "De igual manera, todo árbol bueno produce buen fruto; mas un árbol malo da mal fruto.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 18,
+              "text": "Un árbol bueno no puede producir mal fruto, ni un árbol malo puede producir buen fruto.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 19,
+              "text": "Todo árbol que no da buen fruto es cortado y echado en el fuego.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 20,
+              "text": "Así que, por sus frutos los conoceréis.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 21,
+              "text": "No todo el que me dice: Señor, Señor, entrará en el reino de los cielos; sino el que hace la voluntad de mi Padre que está en los cielos.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 22,
+              "text": "En aquel día muchos me dirán : Señor, Señor, ¿no hemos profetizado en tu nombre, y en tu nombre no hemos echado demonios, y no hemos hecho, en tu nombre, muchas obras milagrosas?",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 23,
+              "text": "Y entonces les declararé: Nunca os conocí , apartaos de mí, obradores de iniquidad.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 24,
+              "text": "Por tanto, cualquiera que oye estas palabras mías, y las hace, lo compararé a un hombre prudente que edificó su casa sobre una roca ;",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 25,
+              "text": "y descendió la lluvia , y vinieron los torrentes, y soplaron los vientos, y dieron con ímpetu contra aquella casa; y no cayó , porque estaba fundada sobre una roca.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 26,
+              "text": "Y todo el que me oye estas palabras, y no las hace, será comparado al hombre insensato que edificó su casa sobre la arena :",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 27,
+              "text": "y descendió la lluvia, y vinieron los torrentes, y soplaron los vientos, y dieron con ímpetu contra aquella casa; y cayó, y grande fue su caída.",
+              "target": true,
+              "ch": 14
+            },
+            {
+              "vs": 1,
+              "text": "Y aconteció que cuando Jesús hubo concluido estas palabras, miró alrededor a la multitud, y les dijo: He aquí, habéis oído las cosas que enseñé antes que ascendiera a mi Padre; por tanto, a cualquiera que se acuerde de estas palabras mías, y las haga , lo exaltaré en el postrer día.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 2,
+              "text": "Y sucedió que cuando Jesús hubo dicho estas palabras, percibió que había algunos entre ellos que se maravillaban, y se preguntaban qué deseaba él concerniente a la ley de Moisés; porque no entendían la palabra de que las cosas viejas habían pasado, y que todas las cosas se habían vuelto nuevas.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 3,
+              "text": "Y les dijo: No os maravilléis de que os dije que las cosas antiguas habían pasado, y que todas las cosas se habían vuelto nuevas.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 4,
+              "text": "He aquí, os digo que se ha cumplido la ley que fue dada a Moisés.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 5,
+              "text": "He aquí, soy yo quien di la ley, y soy el que hice convenio con mi pueblo Israel; por tanto, la ley se cumple en mí, porque he venido para cumplir la ley; por tanto, tiene fin.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 6,
+              "text": "He aquí, yo no abrogo a los profetas; porque cuantos no se han cumplido en mí, en verdad os digo que todos se cumplirán.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 7,
+              "text": "Y porque os dije que las cosas antiguas han pasado, no abrogo lo que se ha hablado concerniente a las cosas que están por venir.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 8,
+              "text": "Porque he aquí, el convenio que hice con mi pueblo no se ha cumplido enteramente; mas la ley que se dio a Moisés tiene su fin en mí.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 9,
+              "text": "He aquí, yo soy la ley y la luz . Mirad hacia mí, y perseverad hasta el fin, y viviréis ; porque al que persevere hasta el fin, le daré vida eterna.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 10,
+              "text": "He aquí, os he dado los mandamientos ; guardad, pues, mis mandamientos. Y esto es la ley y los profetas, porque ellos en verdad testificaron de mí.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 11,
+              "text": "Y sucedió que cuando Jesús hubo hablado estas palabras, dijo a aquellos doce que él había escogido:",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 12,
+              "text": "Vosotros sois mis discípulos; y sois una luz a este pueblo, que es un resto de la casa de José .",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 13,
+              "text": "Y he aquí, esta es la tierra de vuestra herencia; y el Padre os la ha dado.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 14,
+              "text": "Y en ninguna ocasión me ha dado mandamiento el Padre de que lo revelase a vuestros hermanos en Jerusalén.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 15,
+              "text": "Ni en ningún tiempo me ha dado mandamiento el Padre de que les hablara concerniente a las otras tribus de la casa de Israel, que el Padre ha conducido fuera de su tierra.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 16,
+              "text": "Solo esto me mandó el Padre que les dijera:",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 17,
+              "text": "Que tengo otras ovejas que no son de este redil; aquellas también debo yo traer, y oirán mi voz; y habrá un rebaño y un pastor .",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 18,
+              "text": "Ahora bien, por motivo de la obstinación y la incredulidad, no comprendieron mi palabra; por tanto, me mandó el Padre que no les dijese más tocante a esto.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 19,
+              "text": "Pero de cierto os digo que el Padre me ha mandado, y yo os lo digo, que fuisteis separados de entre ellos por motivo de su iniquidad; por tanto, es debido a su iniquidad que no saben de vosotros.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 20,
+              "text": "Y en verdad, os digo, además, que el Padre ha separado de ellos a las otras tribus; y es a causa de su iniquidad que no saben de ellas.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 21,
+              "text": "Y de cierto os digo que vosotros sois aquellos de quienes dije: Tengo otras ovejas que no son de este redil; aquellas también debo yo traer, y oirán mi voz; y habrá un rebaño y un pastor.",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 22,
+              "text": "Y no me comprendieron, porque pensaron que eran los gentiles ; porque no entendieron que, por medio de su predicación, los gentiles se convertirían .",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 23,
+              "text": "Ni me entendieron que dije que oirán mi voz; ni me comprendieron que los gentiles en ningún tiempo habrían de oír mi voz; que no me manifestaría a ellos sino por el Espíritu Santo .",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 24,
+              "text": "Mas he aquí, vosotros habéis oído mi voz , y también me habéis visto; y sois mis ovejas, y contados sois entre los que el Padre me ha dado .",
+              "target": true,
+              "ch": 15
+            },
+            {
+              "vs": 1,
+              "text": "Y en verdad, en verdad os digo que tengo otras ovejas que no son de esta tierra, ni de la tierra de Jerusalén, ni de ninguna de las partes de esa tierra circundante donde he estado para ejercer mi ministerio.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 2,
+              "text": "Porque aquellos de quienes hablo son los que todavía no han oído mi voz; ni en ningún tiempo me he manifestado a ellos.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 3,
+              "text": "Mas he recibido el mandamiento del Padre de que vaya a ellos , para que oigan mi voz y sean contados entre mis ovejas, a fin de que haya un rebaño y un pastor; por tanto, voy para manifestarme a ellos.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 4,
+              "text": "Y os mando que escribáis estas palabras después que me vaya, para que si se da el caso de que mi pueblo en Jerusalén, aquellos que me han visto y han estado conmigo en mi ministerio, no le piden al Padre en mi nombre recibir conocimiento por medio del Espíritu Santo, acerca de vosotros, como también de las otras tribus, de las cuales nada saben, estas palabras que escribáis se preserven y sean manifestadas a los gentiles , para que mediante la plenitud de los gentiles, el resto de la posteridad de aquellos, que será esparcido sobre la faz de la tierra a causa de su incredulidad, sea recogido, o sea, llevado al conocimiento de mí, su Redentor.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 5,
+              "text": "Entonces los reuniré de las cuatro partes de la tierra; y entonces cumpliré el convenio que el Padre ha hecho con todo el pueblo de la casa de Israel .",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 6,
+              "text": "Y benditos son los gentiles por motivo de su creencia en mí, mediante el Espíritu Santo , que les testifica de mí y del Padre.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 7,
+              "text": "He aquí que debido a su creencia en mí, dice el Padre, y a causa de vuestra incredulidad, oh casa de Israel, la verdad llegará a los gentiles en los últimos días , para que les sea manifestada la plenitud de estas cosas.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 8,
+              "text": "Pero, ¡ay de los gentiles incrédulos!, dice el Padre —pues aun cuando han venido sobre la superficie de esta tierra, y han dispersado a mi pueblo que es de la casa de Israel; y han echado de entre ellos a mi pueblo que es de la casa de Israel, y lo han hollado;",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 9,
+              "text": "y a causa de las misericordias del Padre para con los gentiles, así como de los juicios del Padre sobre mi pueblo que es de la casa de Israel, de cierto, de cierto os digo que después de todo esto, y luego que yo haya hecho que los de mi pueblo que son de la casa de Israel sean heridos, y afligidos, y muertos , y que sean echados de entre ellos, y que sean aborrecidos por ellos, y sean entre ellos objeto de escarnio y oprobio—",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 10,
+              "text": "y así manda el Padre que os diga: El día en que los gentiles pequen contra mi evangelio, y rechacen la plenitud de mi evangelio, y se envanezcan por el orgullo de su corazón sobre todas las naciones y sobre todos los pueblos de la tierra, y estén llenos de toda clase de mentiras, y de engaños, y de maldades, y de todo género de hipocresía, y asesinatos, y supercherías sacerdotales, y fornicaciones, y abominaciones secretas; y si cometen todas estas cosas, y rechazan la plenitud de mi evangelio, he aquí, dice el Padre, retiraré la plenitud de mi evangelio de entre ellos.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 11,
+              "text": "Y entonces recordaré mi convenio que he concertado con los de mi pueblo, oh casa de Israel, y les llevaré mi evangelio.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 12,
+              "text": "Y te mostraré, oh casa de Israel, que los gentiles no tendrán poder sobre ti, antes bien me acordaré de mi convenio contigo, oh casa de Israel, y llegarás al conocimiento de la plenitud de mi evangelio.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 13,
+              "text": "Pero si los gentiles se arrepienten y vuelven a mí, dice el Padre, he aquí, serán contados entre los de mi pueblo, oh casa de Israel.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 14,
+              "text": "Y no permitiré que los de mi pueblo, que son de la casa de Israel, vayan entre ellos y los huellen bajo sus pies, dice el Padre.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 15,
+              "text": "Pero si no se vuelven a mí, ni escuchan mi voz, yo les permitiré, sí, permitiré que los de mi pueblo, oh casa de Israel, pasen por en medio de ellos y los huellen , y serán como la sal que ha perdido su sabor, que desde entonces para nada es buena sino para ser arrojada y hollada bajo los pies de mi pueblo, oh casa de Israel.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 16,
+              "text": "De cierto, de cierto os digo que así me ha mandado el Padre: Que dé a este pueblo esta tierra por herencia.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 17,
+              "text": "Y entonces se cumplirán las palabras del profeta Isaías, que dicen:",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 18,
+              "text": "Tus centinelas levantarán la voz; unánimes cantarán, porque verán ojo a ojo cuando el Señor hiciere volver a Sion.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 19,
+              "text": "¡Prorrumpid en alegría! ¡Cantad juntamente, lugares desolados de Jerusalén! Porque el Señor ha consolado a su pueblo, ha redimido a Jerusalén.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 20,
+              "text": "El Señor ha desnudado su santo brazo a la vista de todas las naciones, y todos los extremos de la tierra verán la salvación de Dios.",
+              "target": true,
+              "ch": 16
+            },
+            {
+              "vs": 1,
+              "text": "He aquí, sucedió que cuando Jesús hubo hablado estas palabras, de nuevo miró alrededor hacia la multitud, y les dijo: He aquí, mi tiempo está cerca .",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 2,
+              "text": "Veo que sois débiles, que no podéis comprender todas mis palabras que el Padre me ha mandado que os hable en esta ocasión.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 3,
+              "text": "Por tanto, id a vuestras casas, y meditad las cosas que os he dicho, y pedid al Padre en mi nombre que podáis entender; y preparad vuestras mentes para mañana , y vendré a vosotros otra vez.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 4,
+              "text": "Pero ahora voy al Padre, y también voy a mostrarme a las tribus perdidas de Israel, porque no están perdidas para el Padre, pues él sabe a dónde las ha llevado.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 5,
+              "text": "Y sucedió que cuando Jesús hubo hablado así, de nuevo dirigió la vista alrededor hacia la multitud, y vio que estaban llorando, y lo miraban fijamente, como si le quisieran pedir que permaneciese un poco más con ellos.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 6,
+              "text": "Y les dijo: He aquí, mis entrañas rebosan de compasión por vosotros.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 7,
+              "text": "¿Tenéis enfermos entre vosotros? Traedlos aquí. ¿Tenéis cojos, o ciegos, o lisiados, o mutilados, o leprosos, o atrofiados, o sordos, o quienes estén afligidos de manera alguna? Traedlos aquí y yo los sanaré, porque tengo compasión de vosotros; mis entrañas rebosan de misericordia.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 8,
+              "text": "Pues percibo que deseáis que os muestre lo que he hecho por vuestros hermanos en Jerusalén, porque veo que vuestra fe es suficiente para que yo os sane.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 9,
+              "text": "Y sucedió que cuando hubo hablado así, toda la multitud, de común acuerdo, se acercó, con sus enfermos, y sus afligidos, y sus cojos, y sus ciegos, y sus mudos, y todos los que padecían cualquier aflicción; y los sanaba a todos, según se los llevaban.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 10,
+              "text": "Y todos ellos, tanto los que habían sido sanados, como los que estaban sanos, se postraron a sus pies y lo adoraron; y cuantos, por la multitud pudieron acercarse, le besaron los pies, al grado de que le bañaron los pies con sus lágrimas.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 11,
+              "text": "Y aconteció que mandó que trajesen a sus niños pequeñitos .",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 12,
+              "text": "De modo que trajeron a sus niños pequeñitos, y los colocaron en el suelo alrededor de él, y Jesús estuvo en medio; y la multitud cedió el paso hasta que todos le fueron traídos.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 13,
+              "text": "Y aconteció que cuando los hubieron traído a todos, y Jesús estaba en medio, mandó a los de la multitud que se arrodillasen en el suelo.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 14,
+              "text": "Y sucedió que cuando se hubieron arrodillado en el suelo, gimió Jesús dentro de sí, y dijo: Padre, turbado estoy por causa de la iniquidad del pueblo de la casa de Israel.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 15,
+              "text": "Y cuando hubo pronunciado estas palabras, se arrodilló él mismo también en el suelo; y he aquí, oró al Padre, y las cosas que oró no se pueden escribir, y los de la multitud que lo oyeron, dieron testimonio.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 16,
+              "text": "Y de esta manera testifican: Jamás el ojo ha visto ni el oído escuchado, antes de ahora, tan grandes y maravillosas cosas como las que vimos y oímos que Jesús habló al Padre;",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 17,
+              "text": "y no hay lengua que pueda hablar, ni hombre alguno que pueda escribir, ni corazón de hombre que pueda concebir tan grandes y maravillosas cosas como las que vimos y oímos a Jesús hablar; y nadie puede conceptuar el gozo que llenó nuestras almas cuando lo oímos rogar por nosotros al Padre.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 18,
+              "text": "Y aconteció que cuando Jesús hubo concluido de orar al Padre, se levantó; pero era tan grande el gozo de la multitud, que fueron dominados.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 19,
+              "text": "Y sucedió que Jesús les habló, y mandó que se levantaran.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 20,
+              "text": "Y se levantaron del suelo, y les dijo: Benditos sois a causa de vuestra fe. Y ahora he aquí, es completo mi gozo.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 21,
+              "text": "Y cuando hubo dicho estas palabras, lloró , y la multitud dio testimonio de ello; y tomó a sus niños pequeños, uno por uno, y los bendijo , y rogó al Padre por ellos.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 22,
+              "text": "Y cuando hubo hecho esto, lloró de nuevo;",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 23,
+              "text": "y habló a la multitud, y les dijo: Mirad a vuestros pequeñitos.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 24,
+              "text": "Y he aquí, al levantar la vista para ver, dirigieron la mirada al cielo, y vieron abrirse los cielos, y vieron ángeles que descendían del cielo cual si fuera en medio de fuego; y bajaron y cercaron a aquellos pequeñitos, y fueron rodeados de fuego; y los ángeles les ministraron.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 25,
+              "text": "Y la multitud vio y oyó y dio testimonio; y saben que su testimonio es verdadero, porque todos ellos vieron y oyeron, cada cual por sí mismo; y llegaba su número a unas dos mil quinientas almas; y se componía de hombres, mujeres y niños.",
+              "target": true,
+              "ch": 17
+            },
+            {
+              "vs": 1,
+              "text": "Y aconteció que Jesús mandó a sus discípulos que le llevasen pan y vino .",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 2,
+              "text": "Y mientras fueron a traer el pan y el vino, mandó a la multitud que se sentara en el suelo.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 3,
+              "text": "Y cuando los discípulos hubieron llegado con pan y vino , tomó el pan y lo partió y lo bendijo; y dio a los discípulos y les mandó que comiesen.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 4,
+              "text": "Y cuando hubieron comido y fueron llenos, mandó que dieran a la multitud.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 5,
+              "text": "Y cuando la multitud comió y fue llena, dijo a los discípulos: He aquí, uno de vosotros será ordenado; y a él le daré poder para partir pan y bendecirlo y darlo a los de mi iglesia, a todos los que crean y se bauticen en mi nombre.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 6,
+              "text": "Y siempre procuraréis hacer esto, tal como yo lo he hecho, así como he partido pan y lo he bendecido y os lo he dado.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 7,
+              "text": "Y haréis esto en memoria de mi cuerpo que os he mostrado. Y será un testimonio al Padre de que siempre os acordáis de mí. Y si os acordáis siempre de mí, tendréis mi Espíritu para que esté con vosotros.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 8,
+              "text": "Y sucedió que cuando hubo dicho estas palabras, mandó a sus discípulos que tomaran del vino de la copa y bebieran de él, y que dieran también a los de la multitud para que bebiesen.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 9,
+              "text": "Y aconteció que así lo hicieron, y bebieron y fueron llenos; y dieron a los de la multitud, y estos bebieron y fueron llenos.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 10,
+              "text": "Y cuando los discípulos hubieron hecho esto, Jesús les dijo: Benditos sois por esto que habéis hecho; porque esto cumple mis mandamientos, y esto testifica al Padre que estáis dispuestos a hacer lo que os he mandado.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 11,
+              "text": "Y siempre haréis esto por todos los que se arrepientan y se bauticen en mi nombre; y lo haréis en memoria de mi sangre, que he vertido por vosotros, para que testifiquéis al Padre que siempre os acordáis de mí. Y si os acordáis siempre de mí, tendréis mi Espíritu para que esté con vosotros.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 12,
+              "text": "Y os doy el mandamiento de que hagáis estas cosas. Y si hacéis siempre estas cosas, benditos sois, porque estáis edificados sobre mi roca .",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 13,
+              "text": "Pero aquellos que de entre vosotros hagan más o menos que esto, no están edificados sobre mi roca, sino sobre un cimiento arenoso; y cuando caiga la lluvia, y vengan los torrentes, y soplen los vientos, y den contra ellos, caerán , y las puertas del infierno están ya abiertas para recibirlos.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 14,
+              "text": "Por tanto, benditos sois vosotros, si guardáis mis mandamientos que el Padre me ha mandado que os dé.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 15,
+              "text": "De cierto, de cierto os digo que debéis velar y orar siempre, no sea que el diablo os tiente, y seáis llevados cautivos por él.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 16,
+              "text": "Y así como he orado entre vosotros, así oraréis en mi iglesia, entre los de mi pueblo que se arrepientan y se bauticen en mi nombre. He aquí, yo soy la luz ; yo os he dado el ejemplo .",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 17,
+              "text": "Y ocurrió que cuando Jesús hubo hablado estas palabras a sus discípulos, se volvió de nuevo a la multitud, y dijo:",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 18,
+              "text": "He aquí, en verdad, en verdad os digo que debéis velar y orar siempre, no sea que entréis en tentación; porque Satanás desea poseeros para zarandearos como a trigo.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 19,
+              "text": "Por tanto, siempre debéis orar al Padre en mi nombre;",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 20,
+              "text": "y cualquier cosa que pidáis al Padre en mi nombre, si es justa, creyendo que recibiréis, he aquí, os será concedida.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 21,
+              "text": "Orad al Padre en vuestras familias, siempre en mi nombre, para que sean bendecidos vuestras esposas y vuestros hijos.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 22,
+              "text": "Y he aquí, os reuniréis con frecuencia; y a nadie le prohibiréis estar con vosotros cuando os reunáis, sino permitidles que se alleguen a vosotros, y no los vedéis;",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 23,
+              "text": "sino que oraréis por ellos, y no los echaréis fuera; y si sucede que vienen a vosotros a menudo, rogaréis al Padre por ellos en mi nombre.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 24,
+              "text": "Alzad, pues, vuestra luz para que brille ante el mundo. He aquí, yo soy la luz que debéis sostener en alto: aquello que me habéis visto hacer. He aquí, habéis visto que he orado al Padre, y todos vosotros habéis sido testigos.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 25,
+              "text": "Y habéis visto que he mandado que ninguno de vosotros se alejara, sino más bien he mandado que vinieseis a mí, a fin de que palpaseis y vieseis; así haréis vosotros al mundo; y el que quebranta este mandamiento, se deja llevar a la tentación.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 26,
+              "text": "Y sucedió que cuando Jesús hubo hablado estas palabras, volvió de nuevo la vista a los discípulos que había escogido, y les dijo:",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 27,
+              "text": "He aquí, de cierto, de cierto os digo, os doy otro mandamiento, y luego debo ir a mi Padre para cumplir otros mandamientos que él me ha dado.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 28,
+              "text": "Y he aquí, este es el mandamiento que yo os doy, que no permitáis que ninguno a sabiendas participe indignamente de mi carne y de mi sangre, cuando las administréis;",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 29,
+              "text": "porque quien come mi carne y bebe mi sangre indignamente , come y bebe condenación para su alma; por tanto, si sabéis que un hombre no es digno de comer y beber de mi carne y de mi sangre, se lo prohibiréis.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 30,
+              "text": "No obstante, no lo echaréis de entre vosotros, sino que le ministraréis y oraréis al Padre por él en mi nombre; y si acontece que se arrepiente y es bautizado en mi nombre, entonces lo recibiréis, y le daréis de mi carne y sangre.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 31,
+              "text": "Pero si no se arrepiente, no será contado entre los de mi pueblo, a fin de que no destruya a mi pueblo, pues he aquí, conozco a mis ovejas, y están contadas.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 32,
+              "text": "No obstante, no lo echaréis de vuestras sinagogas ni de vuestros lugares donde adoráis, porque debéis continuar ministrando por estos; pues no sabéis si tal vez vuelvan, y se arrepientan, y vengan a mí con íntegro propósito de corazón, y yo los sane ; y vosotros seréis el medio de traerles la salvación.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 33,
+              "text": "Por tanto, observad estas palabras que yo os he mandado, para que no incurráis en condenación ; porque, ¡ay de aquel a quien el Padre condene!",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 34,
+              "text": "Y os doy estos mandamientos por motivo de las disputas que ha habido entre vosotros. Y benditos sois si no hubiere disputas entre vosotros.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 35,
+              "text": "Y ahora voy al Padre, porque conviene que vaya al Padre por el bien de vosotros.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 36,
+              "text": "Y aconteció que cuando Jesús hubo dado fin a estas palabras, tocó con la mano a los discípulos que había elegido, uno por uno, hasta que los hubo tocado a todos, y les hablaba a medida que los tocaba.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 37,
+              "text": "Y la multitud no oyó las palabras que él habló; por tanto, no dio testimonio; pero los discípulos dieron testimonio de que les dio el poder para conferir el Espíritu Santo . Y más adelante os mostraré que este testimonio es verdadero.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 38,
+              "text": "Y sucedió que cuando Jesús los hubo tocado a todos, llegó una nube y cubrió a la multitud, de modo que no veían a Jesús.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 39,
+              "text": "Y mientras los cubría, él partió de entre ellos y ascendió al cielo. Y los discípulos vieron y dieron testimonio de que ascendió de nuevo al cielo.",
+              "target": true,
+              "ch": 18
+            },
+            {
+              "vs": 1,
+              "text": "Y sucedió que cuando Jesús hubo ascendido al cielo, se dispersó la multitud, y todo hombre tomó a su esposa y sus hijos, y volvió a su propia casa.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 2,
+              "text": "Y se divulgó inmediatamente entre el pueblo, antes que llegara la noche, que la multitud había visto a Jesús, y que él había ejercido su ministerio entre ellos, y que por la mañana otra vez se iba a mostrar a la multitud.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 3,
+              "text": "Sí, y aun durante toda la noche se divulgaron las nuevas concernientes a Jesús; y a tal grado se esparcieron entre el pueblo, que hubo muchos, sí, un número extremadamente grande, que trabajaron afanosamente toda la noche para poder estar a la mañana siguiente en el paraje donde Jesús se iba a mostrar a la multitud.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 4,
+              "text": "Y sucedió que por la mañana, cuando la multitud se hallaba reunida, he aquí, Nefi y su hermano, a quien él había levantado de entre los muertos, y cuyo nombre era Timoteo, como también su hijo, cuyo nombre era Jonás, y también Matoni, y Matoníah, su hermano, y Kumen, y Kumenoni, y Jeremías, y Shemnón, y Jonás, y Sedequías, e Isaías —y estos eran los nombres de los discípulos que Jesús había escogido— y aconteció que avanzaron y se colocaron en medio de la multitud.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 5,
+              "text": "Y he aquí, tan grande era la multitud, que hicieron que se dividiese en doce grupos.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 6,
+              "text": "Y los doce instruyeron a la multitud; y he aquí, hicieron que la multitud se arrodillase en el suelo y orase al Padre en el nombre de Jesús.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 7,
+              "text": "Y los discípulos oraron también al Padre en el nombre de Jesús. Y aconteció que se levantaron y ministraron al pueblo.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 8,
+              "text": "Y cuando hubieron ministrado las mismas palabras que Jesús había hablado, sin variar en nada las palabras que Jesús había hablado, he aquí, se arrodillaron de nuevo y oraron al Padre en el nombre de Jesús.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 9,
+              "text": "Y oraron por lo que más deseaban; y su deseo era que les fuese dado el Espíritu Santo .",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 10,
+              "text": "Y cuando hubieron orado de este modo, descendieron a la orilla del agua, y los siguió la multitud.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 11,
+              "text": "Y sucedió que Nefi entró en el agua, y fue bautizado.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 12,
+              "text": "Y salió del agua y empezó a bautizar; y bautizó a todos aquellos a quienes Jesús había escogido;",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 13,
+              "text": "y aconteció que cuando todos fueron bautizados , y hubieron salido del agua, el Espíritu Santo descendió sobre ellos, y fueron llenos del Espíritu Santo y de fuego.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 14,
+              "text": "Y he aquí, fueron envueltos cual si fuera por fuego; y descendió del cielo, y la multitud lo vio y dio testimonio; y descendieron ángeles del cielo, y les ministraron.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 15,
+              "text": "Y sucedió que mientras los ángeles estaban ministrando a los discípulos, he aquí, Jesús llegó y se puso en medio de ellos y les ministró.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 16,
+              "text": "Y aconteció que habló a la multitud, y mandó que se arrodillaran otra vez en el suelo, y que sus discípulos se arrodillasen también.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 17,
+              "text": "Y sucedió que cuando todos se hubieron puesto de rodillas en el suelo, mandó a sus discípulos que orasen.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 18,
+              "text": "Y he aquí, empezaron a orar; y oraron a Jesús, llamándolo su Señor y su Dios.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 19,
+              "text": "Y sucedió que Jesús se apartó de entre ellos, y se alejó de ellos un poco y se inclinó a tierra, y dijo:",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 20,
+              "text": "Padre, gracias te doy porque has dado el Espíritu Santo a estos que he escogido; y es por su creencia en mí que los he escogido de entre el mundo.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 21,
+              "text": "Padre, te ruego que des el Espíritu Santo a todos los que crean en sus palabras.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 22,
+              "text": "Padre, les has dado el Espíritu Santo porque creen en mí; y ves que creen en mí, porque los oyes, y oran a mí; y oran a mí porque estoy con ellos.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 23,
+              "text": "Y ahora, Padre, te ruego por ellos, y también por todos aquellos que han de creer en sus palabras, para que crean en mí, para que yo sea en ellos como tú, Padre, eres en mí, para que seamos uno .",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 24,
+              "text": "Y aconteció que cuando Jesús hubo orado así al Padre, volvió a sus discípulos, y he aquí, continuaban orando a él sin cesar; y no multiplicaban muchas palabras, porque les era manifestado lo que debían suplicar , y estaban llenos de anhelo.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 25,
+              "text": "Y ocurrió que Jesús los bendijo mientras le dirigían sus oraciones; y la sonrisa de su faz fue sobre ellos, y los iluminó la luz de su semblante ; y he aquí, estaban tan blancos como el semblante y como los vestidos de Jesús; y he aquí, su blancura excedía a toda blancura, sí, no podía haber sobre la tierra cosa tan blanca como su blancura.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 26,
+              "text": "Y Jesús les dijo: Seguid orando; y ellos no cesaban de orar.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 27,
+              "text": "Y otra vez se apartó de ellos y se alejó un poco y se inclinó a tierra; y oró de nuevo al Padre, diciendo:",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 28,
+              "text": "Padre, te doy las gracias por haber purificado a los que he escogido, por causa de su fe, y ruego por ellos, y también por los que han de creer en sus palabras, para que sean purificados en mí, mediante la fe en sus palabras, así como ellos son purificados en mí.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 29,
+              "text": "Padre, no te ruego por el mundo, sino por los que me has dado del mundo, a causa de su fe, para que sean purificados en mí, para que yo sea en ellos como tú, Padre, eres en mí, para que seamos uno, para que yo sea glorificado en ellos.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 30,
+              "text": "Y cuando Jesús hubo hablado estas palabras, vino otra vez a sus discípulos, y he aquí, oraban a él constantemente, sin cesar; y de nuevo él les sonrió; y he aquí, estaban blancos , aun como Jesús.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 31,
+              "text": "Y aconteció que otra vez se alejó un poco y oró al Padre;",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 32,
+              "text": "y la lengua no puede expresar las palabras que oró, ni pueden ser escritas por hombre alguno las palabras que oró.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 33,
+              "text": "Y la multitud oyó y da testimonio; y se abrieron sus corazones, y comprendieron en sus corazones las palabras que él oró.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 34,
+              "text": "No obstante, tan grandes y maravillosas fueron las palabras que oró, que no pueden ser escritas, ni tampoco puede el hombre expresarlas .",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 35,
+              "text": "Y aconteció que cuando Jesús hubo concluido de orar, volvió a sus discípulos, y les dijo: Jamás he visto fe tan grande entre todos los judíos; por tanto, no pude mostrarles tan grandes milagros, por motivo de su incredulidad .",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 36,
+              "text": "En verdad os digo que no hay ninguno de ellos que haya visto cosas tan grandes como las que habéis visto vosotros, ni que haya oído tan grandes cosas como las que vosotros habéis oído.",
+              "target": true,
+              "ch": 19
+            },
+            {
+              "vs": 1,
+              "text": "Y sucedió que mandó a la multitud y también a sus discípulos que dejasen de orar; y les mandó que no cesaran de orar en sus corazones.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 2,
+              "text": "Y les mandó que se levantaran y se pusieran de pie. Y se levantaron y se pusieron de pie.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 3,
+              "text": "Y sucedió que partió pan de nuevo y lo bendijo, y dio de comer a los discípulos.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 4,
+              "text": "Y cuando hubieron comido, les mandó que partieran pan, y dieran a la multitud;",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 5,
+              "text": "y cuando hubieron dado a la multitud, les dio también vino para que bebiesen, y les mandó que dieran a la multitud.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 6,
+              "text": "Ahora bien, ni los discípulos ni la multitud habían llevado pan ni vino;",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 7,
+              "text": "pero verdaderamente les dio de comer pan y de beber vino también.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 8,
+              "text": "Y les dijo: El que come de este pan, come de mi cuerpo para su alma; y el que bebe de este vino, bebe de mi sangre para su alma; y su alma nunca tendrá hambre ni sed, sino que será llena.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 9,
+              "text": "Y cuando toda la multitud hubo comido y bebido, he aquí, fueron llenos del Espíritu; y clamaron a una voz y dieron gloria a Jesús, a quien veían y oían.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 10,
+              "text": "Y sucedió que cuando todos le hubieron dado gloria, Jesús les dijo: He aquí, ahora cumplo el mandamiento que el Padre me ha dado concerniente a este pueblo, que es un resto de la casa de Israel.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 11,
+              "text": "Os acordaréis que os hablé y dije que cuando se cumpliesen las palabras de Isaías —he aquí, están escritas, las tenéis ante vosotros; por lo tanto, escudriñadlas—",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 12,
+              "text": "y en verdad, en verdad os digo que cuando se cumplan, entonces será el cumplimiento del convenio que el Padre ha hecho con su pueblo, oh casa de Israel.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 13,
+              "text": "Y entonces los restos , que estarán dispersados sobre la faz de la tierra, serán recogidos del este y del oeste, y del sur y del norte; y serán llevados al conocimiento del Señor su Dios, que los ha redimido.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 14,
+              "text": "Y el Padre me ha mandado que os dé esta tierra por herencia.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 15,
+              "text": "Y os digo que si los gentiles no se arrepienten después de la bendición que reciban, después que hayan dispersado a mi pueblo,",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 16,
+              "text": "entonces vosotros, que sois un resto de la casa de Jacob, iréis entre ellos; y estaréis en medio de aquellos que serán muchos; y seréis entre ellos como un león entre los animales del bosque, y como cachorro de león entre las manadas de ovejas, el cual, si pasa por en medio, huella y despedaza, y nadie las puede librar.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 17,
+              "text": "Tu mano se levantará sobre tus adversarios, y todos tus enemigos serán talados.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 18,
+              "text": "Y yo recogeré a mi pueblo como el hombre que junta sus gavillas en la era.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 19,
+              "text": "Porque haré a mi pueblo, con el cual el Padre ha hecho convenio, sí, tu cuerno yo haré de hierro, y tus uñas de bronce. Y desmenuzarás a muchos pueblos; y consagraré al Señor sus riquezas, y sus bienes al Señor de toda la tierra. Y he aquí, yo soy quien lo hago.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 20,
+              "text": "Y sucederá, dice el Padre, que en aquel día la espada de mi justicia se cernerá sobre ellos; y a menos que se arrepientan caerá sobre ellos, dice el Padre, sí, sobre todas las naciones de los gentiles.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 21,
+              "text": "Y acontecerá que estableceré a mi pueblo , oh casa de Israel.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 22,
+              "text": "Y he aquí, estableceré a este pueblo en esta tierra, para el cumplimiento del convenio que hice con Jacob, vuestro padre; y será una Nueva Jerusalén . Y los poderes del cielo estarán entre este pueblo; sí, yo mismo estaré en medio de vosotros.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 23,
+              "text": "He aquí, yo soy aquel de quien Moisés habló, diciendo: El Señor vuestro Dios os levantará a un profeta , de vuestros hermanos, semejante a mí; a él oiréis en todas las cosas que os dijere. Y sucederá que toda alma que no escuchare a ese profeta será desarraigada de entre el pueblo.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 24,
+              "text": "En verdad os digo, sí, y todos los profetas desde Samuel y los que le siguen, cuantos han hablado, han testificado de mí.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 25,
+              "text": "Y he aquí, vosotros sois los hijos de los profetas; y sois de la casa de Israel; y sois del convenio que el Padre concertó con vuestros padres, diciendo a Abraham: Y en tu posteridad serán benditas todas las familias de la tierra.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 26,
+              "text": "Porque el Padre me ha levantado para venir a vosotros primero, y me envió a bendeciros, apartando a cada uno de vosotros de vuestras iniquidades; y esto, porque sois los hijos del convenio.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 27,
+              "text": "Y después que hayáis sido bendecidos, entonces cumplirá el Padre el convenio que hizo con Abraham, diciendo: En tu posteridad serán benditas todas las familias de la tierra, hasta el derramamiento del Espíritu Santo sobre los gentiles por medio de mí, y esta bendición a los gentiles los hará más fuertes que todos, por lo que dispersarán a mi pueblo, oh casa de Israel.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 28,
+              "text": "Y serán un azote al pueblo de esta tierra. No obstante, si cuando hayan recibido la plenitud de mi evangelio endurecen sus corazones en contra de mí, haré volver sus iniquidades sobre sus propias cabezas, dice el Padre.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 29,
+              "text": "Y me acordaré del convenio que he hecho con mi pueblo; y he hecho convenio con ellos de que los recogería en mi propio y debido tiempo, y que otra vez les daría por herencia la tierra de sus padres, que es la tierra de Jerusalén , que para ellos es la tierra prometida para siempre, dice el Padre.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 30,
+              "text": "Y sucederá que llegará el día en que les será predicada la plenitud de mi evangelio;",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 31,
+              "text": "y creerán en mí, que soy Jesucristo, el Hijo de Dios; y orarán al Padre en mi nombre.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 32,
+              "text": "Entonces levantarán la voz sus centinelas , y cantarán unánimes; porque verán ojo a ojo.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 33,
+              "text": "Entonces los juntará de nuevo el Padre, y les dará Jerusalén por tierra de su herencia.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 34,
+              "text": "Entonces prorrumpirán en gozo: ¡Cantad juntamente, lugares desolados de Jerusalén; porque el Padre ha consolado a su pueblo, ha redimido a Jerusalén!",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 35,
+              "text": "El Padre ha desnudado su santo brazo a la vista de todas las naciones; y todos los extremos de la tierra verán la salvación del Padre; y el Padre y yo somos uno.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 36,
+              "text": "Entonces se realizará lo que está escrito: ¡Despierta , despierta otra vez, y vístete de tu fortaleza, oh Sion; vístete tus ropas de hermosura, oh Jerusalén, ciudad santa; porque nunca más vendrá a ti incircunciso ni inmundo!",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 37,
+              "text": "¡Sacúdete del polvo; levántate, toma asiento, oh Jerusalén; suéltate las ataduras de tu cuello, oh cautiva hija de Sion!",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 38,
+              "text": "Porque así dice el Señor: Os habéis vendido por nada, y sin dinero seréis redimidos.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 39,
+              "text": "En verdad, en verdad os digo que los de mi pueblo conocerán mi nombre, sí, en aquel día sabrán que yo soy el que hablo.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 40,
+              "text": "Y entonces dirán: ¡Cuán hermosos sobre las montañas son los pies del que les trae buenas nuevas; que publica la paz; que les trae gratas nuevas del bien; que publica salvación; que dice a Sion: Tu Dios reina!",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 41,
+              "text": "Y entonces se oirá el pregón: ¡Apartaos , apartaos, salid de ahí, no toquéis lo que es inmundo ; salid de en medio de ella; sed limpios los que lleváis los vasos del Señor!",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 42,
+              "text": "Porque no saldréis con prisa ni iréis huyendo; porque el Señor irá delante de vosotros, y el Dios de Israel será vuestra retaguardia.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 43,
+              "text": "He aquí, mi siervo obrará prudentemente; será exaltado y alabado y puesto muy en alto.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 44,
+              "text": "Así como muchos se admiraron de ti —tan desfigurado era su aspecto, más que cualquier hombre, y su forma más que la de los hijos de los hombres—",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 45,
+              "text": "así rociará él a muchas naciones; ante él los reyes cerrarán la boca; porque verán lo que no les había sido contado, y considerarán lo que no habían oído.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 46,
+              "text": "En verdad, en verdad os digo que todas estas cosas ciertamente se verificarán, tal como el Padre me lo ha mandado. Entonces se cumplirá este convenio que el Padre ha hecho con su pueblo; y entonces Jerusalén volverá a ser habitada por mi pueblo, y será la tierra de su herencia.",
+              "target": true,
+              "ch": 20
+            },
+            {
+              "vs": 1,
+              "text": "Y de cierto os digo, os doy una señal para que sepáis la época en que estarán a punto de acontecer estas cosas —que recogeré a mi pueblo de su larga dispersión, oh casa de Israel, y estableceré otra vez entre ellos mi Sion;",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 2,
+              "text": "y he aquí, esto es lo que os daré por señal— porque en verdad os digo que cuando se den a conocer a los gentiles estas cosas que os declaro, y que más adelante os declararé de mí mismo, y por el poder del Espíritu Santo que os será dado por el Padre, a fin de que ellos sepan acerca de este pueblo que es un resto de la casa de Jacob, y concerniente a este pueblo mío que será esparcido por ellos;",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 3,
+              "text": "en verdad, en verdad os digo, que cuando el Padre les haga saber estas cosas , y del Padre procedan de ellos a vosotros,",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 4,
+              "text": "porque es según la sabiduría del Padre que sean establecidos en esta tierra e instituidos como pueblo libre por el poder del Padre, para que estas cosas procedan de ellos a un resto de vuestra posteridad, a fin de que se cumpla el convenio del Padre, el cual ha hecho con su pueblo, oh casa de Israel;",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 5,
+              "text": "por tanto, cuando estas obras, y las obras que desde ahora en adelante se hagan entre vosotros, procedan de los gentiles a vuestra posteridad , que degenerará en la incredulidad por causa de la maldad,",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 6,
+              "text": "porque así conviene al Padre que proceda de los gentiles , para que muestre su poder a los gentiles, a fin de que estos, si no endurecen sus corazones, se arrepientan y vengan a mí y sean bautizados en mi nombre y conozcan los verdaderos puntos de mi doctrina, para que sean contados entre los de mi pueblo, oh casa de Israel;",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 7,
+              "text": "y cuando sucedan estas cosas, de modo que vuestra posteridad empiece a conocerlas, entonces les será por señal, para que sepan que la obra del Padre ha empezado ya, para dar cumplimiento al convenio que ha hecho al pueblo que es de la casa de Israel.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 8,
+              "text": "Y cuando venga ese día, sucederá que los reyes cerrarán su boca; porque verán lo que no les había sido declarado, y considerarán lo que no habían oído.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 9,
+              "text": "Porque en aquel día hará el Padre, por mi causa, una obra que será una obra grande y maravillosa entre ellos; y habrá entre ellos quienes no lo creerán, aun cuando un hombre se lo declare.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 10,
+              "text": "Mas he aquí, la vida de mi siervo estará en mi mano; por tanto, no lo dañarán, aunque sea herido por causa de ellos. No obstante, yo lo sanaré, porque les mostraré que mi sabiduría es mayor que la astucia del diablo.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 11,
+              "text": "Acontecerá, pues, que los que no crean en mis palabras, que soy Jesucristo, las cuales el Padre hará que él lleve a los gentiles, y le otorgará el poder para que las lleve a los gentiles (se hará aun como dijo Moisés), serán desarraigados de entre los de mi pueblo que son del convenio.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 12,
+              "text": "Y los de mi pueblo, que son un resto de Jacob, estarán en medio de los gentiles, sí, en medio de ellos como león entre los animales del bosque, y como cachorro de león entre las manadas de ovejas, el cual, si pasa por en medio, huella y despedaza, y nadie las puede librar.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 13,
+              "text": "Su mano se levantará sobre sus adversarios, y todos sus enemigos serán talados.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 14,
+              "text": "Sí, ¡ay de los gentiles, a menos que se arrepientan ! Porque sucederá en aquel día, dice el Padre, que haré matar tus caballos de en medio de ti, y haré destruir tus carros;",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 15,
+              "text": "y talaré las ciudades de tu tierra, y derribaré todas tus plazas fuertes;",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 16,
+              "text": "y exterminaré de tu tierra las hechicerías, y no tendrás más adivinos;",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 17,
+              "text": "tus imágenes grabadas también destruiré, así como tus esculturas de en medio de ti, y nunca más adorarás las obras de tus manos;",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 18,
+              "text": "y arrancaré tus bosques de entre ti, y asolaré tus ciudades.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 19,
+              "text": "Y acontecerá que todas las mentiras , y falsedades, y envidias, y contiendas, y supercherías sacerdotales, y fornicaciones, serán extirpadas.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 20,
+              "text": "Porque sucederá, dice el Padre, que en aquel día talaré de entre mi pueblo a cualquiera que no se arrepienta y venga a mi Hijo Amado, oh casa de Israel.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 21,
+              "text": "Y ejecutaré venganza y furor sobre ellos, así como sobre los paganos, tal como nunca ha llegado a sus oídos.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 22,
+              "text": "Pero si se arrepienten y escuchan mis palabras, y no endurecen sus corazones, estableceré mi iglesia entre ellos; y entrarán en el convenio, y serán contados entre este resto de Jacob, al cual he dado esta tierra por herencia.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 23,
+              "text": "Y ayudarán a mi pueblo, el resto de Jacob, y también a cuantos de la casa de Israel vengan, a fin de que construyan una ciudad que será llamada la Nueva Jerusalén .",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 24,
+              "text": "Y entonces ayudarán a mi pueblo que esté disperso sobre toda la faz de la tierra, para que sean congregados en la Nueva Jerusalén.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 25,
+              "text": "Y entonces el poder del cielo descenderá entre ellos, y también yo estaré en medio.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 26,
+              "text": "Y entonces empezará la obra del Padre en aquel día, sí, cuando sea predicado este evangelio entre el resto de este pueblo. De cierto os digo que en ese día empezará la obra del Padre entre todos los dispersos de mi pueblo, sí, aun entre las tribus que han estado perdidas , las cuales el Padre ha sacado de Jerusalén.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 27,
+              "text": "Sí, empezará la obra entre todos los dispersos de mi pueblo, y el Padre preparará la vía por la cual puedan venir a mí, a fin de que invoquen al Padre en mi nombre.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 28,
+              "text": "Sí, y entonces empezará la obra, y el Padre preparará la vía, entre todas las naciones, por la cual su pueblo pueda volver a la tierra de su herencia.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 29,
+              "text": "Y saldrán de todas las naciones; y no saldrán de prisa , ni irán huyendo, porque yo iré delante de ellos, dice el Padre, y seré su retaguardia.",
+              "target": true,
+              "ch": 21
+            },
+            {
+              "vs": 1,
+              "text": "Entonces se realizará lo que está escrito: ¡Canta, oh estéril, tú que no dabas a luz! ¡Prorrumpe en cánticos , y da voces de júbilo, tú que nunca estuviste de parto!, porque más son los hijos de la desolada que los de la casada, dice el Señor.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 2,
+              "text": "Ensancha el sitio de tu tienda, y extiéndanse las cortinas de tus habitaciones; no seas escasa, alarga tus cuerdas, y haz más fuertes tus estacas ;",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 3,
+              "text": "porque hacia la mano derecha y hacia la izquierda te extenderás; y tu posteridad heredará las naciones gentiles , y hará que se habiten las ciudades desoladas.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 4,
+              "text": "No temas, porque no serás avergonzada, ni te perturbes, porque no serás abochornada ; porque te olvidarás del oprobio de tu juventud, y no te acordarás del reproche de tu juventud, y del reproche de tu viudez nunca más te acordarás.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 5,
+              "text": "Porque tu Hacedor, tu Marido, el Señor de los Ejércitos es su nombre; y tu Redentor, el Santo de Israel, será llamado el Dios de toda la tierra.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 6,
+              "text": "Porque como a mujer dejada y afligida de espíritu, te llamó el Señor, y como a esposa de la juventud, cuando fuiste repudiada, dice tu Dios.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 7,
+              "text": "Por un breve momento te dejé, mas con grandes misericordias te recogeré.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 8,
+              "text": "Con un poco de ira escondí mi rostro de ti por un momento, mas con misericordia eterna tendré compasión de ti, dice el Señor tu Redentor.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 9,
+              "text": "Porque así como las aguas de Noé ; porque así como he jurado que las aguas de Noé nunca más cubrirán la tierra, asimismo he jurado que contigo no me enojaré.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 10,
+              "text": "Porque los montes desaparecerán y los collados serán quitados, pero mi bondad no se apartará de ti, ni será quitado el convenio de mi paz, dice el Señor que tiene misericordia de ti.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 11,
+              "text": "¡Oh afligida, azotada por la tempestad, y sin hallar consuelo! He aquí que yo cimentaré tus piedras con bellos colores, y con zafiros echaré tus cimientos.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 12,
+              "text": "Tus ventanas haré de ágatas, y tus puertas de carbúnculos, y todos tus recintos haré de piedras deleitables.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 13,
+              "text": "Y todos tus hijos serán instruidos por el Señor; y grande será la paz de tus hijos.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 14,
+              "text": "En rectitud serás establecida; estarás lejos de la opresión, porque no temerás, y del terror, porque no se acercará a ti.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 15,
+              "text": "He aquí, de cierto se han de reunir en contra de ti, mas no por parte mía; quien se juntare en contra de ti, caerá por tu causa.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 16,
+              "text": "He aquí, he creado al herrero que sopla el carbón en el fuego, y que saca la herramienta para su obra; y he creado al asolador para destruir.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 17,
+              "text": "Ninguna arma forjada en contra de ti prosperará; y toda lengua que se levantare contra ti en juicio, tú condenarás. Esta es la herencia de los siervos del Señor, y su rectitud viene de mí, dice el Señor.",
+              "target": true,
+              "ch": 22
+            },
+            {
+              "vs": 1,
+              "text": "Y he aquí, ahora os digo que debéis escudriñar estas cosas. Sí, un mandamiento os doy de que escudriñéis estas cosas diligentemente, porque grandes son las palabras de Isaías .",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 2,
+              "text": "Pues él ciertamente habló en lo que respecta a todas las cosas concernientes a mi pueblo que es de la casa de Israel; por tanto, es menester que él hable también a los gentiles.",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 3,
+              "text": "Y todas las cosas que habló se han cumplido, y se cumplirán , de conformidad con las palabras que habló.",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 4,
+              "text": "Por tanto, escuchad mis palabras; escribid las cosas que os he dicho; y de acuerdo con el tiempo y la voluntad del Padre, irán a los gentiles.",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 5,
+              "text": "Y quienes escuchen mis palabras, y se arrepientan y sean bautizados, se salvarán. Escudriñad los profetas , porque muchos son los que testifican de estas cosas.",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 6,
+              "text": "Y aconteció que cuando Jesús hubo dicho estas palabras, les volvió a hablar, después que les hubo explicado todas las Escrituras que habían recibido, y les dijo: He aquí, quisiera que escribieseis otras Escrituras que no tenéis.",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 7,
+              "text": "Y aconteció que dijo a Nefi: Trae los anales que habéis llevado.",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 8,
+              "text": "Y cuando Nefi llevó los anales, y los puso ante él, Jesús los miró y dijo:",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 9,
+              "text": "En verdad os digo que yo mandé a mi siervo, Samuel el Lamanita, que testificara a este pueblo que el día en que el Padre glorificara su nombre en mí habría muchos santos que se levantarían de entre los muertos, y aparecerían a muchos, y les ministrarían. Y les dijo: ¿No fue así?",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 10,
+              "text": "Y sus discípulos le contestaron, y dijeron: Sí, Señor, Samuel profetizó según tus palabras, y todas se cumplieron.",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 11,
+              "text": "Y Jesús les dijo: ¿Por qué no habéis escrito esto, que muchos santos se levantaron, y se aparecieron a muchos, y les ministraron?",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 12,
+              "text": "Y sucedió que Nefi se acordó de que aquello no se había escrito.",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 13,
+              "text": "Y acaeció que Jesús mandó que se escribiera; de modo que se escribió, de acuerdo con lo que él mandó.",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 14,
+              "text": "Y aconteció que cuando Jesús hubo explicado en una todas las Escrituras que ellos habían escrito, les mandó que enseñaran las cosas que él les había explicado.",
+              "target": true,
+              "ch": 23
+            },
+            {
+              "vs": 1,
+              "text": "Y sucedió que les mandó escribir las palabras que el Padre había dado a Malaquías, las cuales él les diría. Y aconteció que después que fueron escritas, él las explicó. Y estas son las palabras que les habló, diciendo: Así dijo el Padre a Malaquías: He aquí, enviaré a mi mensajero , y él preparará el camino delante de mí, y repentinamente vendrá a su templo el Señor a quien buscáis, sí, el mensajero del convenio, en quien os deleitáis; he aquí, vendrá, dice el Señor de los Ejércitos.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 2,
+              "text": "¿Y quién podrá soportar el día de su venida? ¿Y quién podrá estar en pie cuando él aparezca? Porque es como fuego purificador y como jabón de lavadores.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 3,
+              "text": "Y se sentará como refinador y purificador de plata; y purificará a los hijos de Leví , y los refinará como al oro y a la plata, para que ofrezcan al Señor una ofrenda en rectitud.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 4,
+              "text": "Entonces la ofrenda de Judá y de Jerusalén será grata al Señor, como en los días antiguos, y como en años anteriores.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 5,
+              "text": "Y yo me acercaré a vosotros para juicio; y seré pronto testigo contra los hechiceros, y los adúlteros, y contra los que juran en falso, y contra los que defraudan en su salario al jornalero, a la viuda y al huérfano , y agravian al extranjero, y no me temen, dice el Señor de los Ejércitos.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 6,
+              "text": "Porque yo soy el Señor, y no cambio; por consiguiente, no sois consumidos, hijos de Jacob.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 7,
+              "text": "Aun desde los días de vuestros padres os habéis apartado de mis ordenanzas, y no las habéis guardado. Volveos a mí, y yo me volveré a vosotros, dice el Señor de los Ejércitos. Mas vosotros decís: ¿En qué hemos de volvernos?",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 8,
+              "text": "¿Robará el hombre a Dios? Mas vosotros me habéis robado. Pero decís: ¿En qué te hemos robado? En los diezmos y en las ofrendas .",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 9,
+              "text": "Malditos sois con maldición, porque vosotros, toda esta nación, me habéis robado.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 10,
+              "text": "Traed todos los diezmos al alfolí para que haya alimento en mi casa; y probadme ahora en esto, dice el Señor de los Ejércitos, si no os abriré las ventanas de los cielos, y derramaré sobre vosotros una bendición tal que no haya donde contenerla.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 11,
+              "text": "Y reprenderé al devorador por el bien de vosotros, y no destruirá los frutos de vuestra tierra; ni vuestra viña en los campos dará su fruto antes de tiempo, dice el Señor de los Ejércitos.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 12,
+              "text": "Y todas las naciones os llamarán bienaventurados, porque seréis tierra deleitosa, dice el Señor de los Ejércitos.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 13,
+              "text": "Fuertes han sido vuestras palabras contra mí, dice el Señor. No obstante, vosotros decís: ¿Qué hemos hablado contra ti?",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 14,
+              "text": "Habéis dicho: En vano es servir a Dios; ¿y qué nos aprovecha haber guardado sus ordenanzas, y haber andado afligidos delante del Señor de los Ejércitos?",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 15,
+              "text": "Y ahora llamamos dichosos a los soberbios; sí, los que obran iniquidad son ensalzados; sí, aun son librados los que tientan a Dios.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 16,
+              "text": "Entonces los que temían al Señor hablaron a menudo, cada uno a su compañero; y el Señor escuchó y oyó; y fue escrito un libro de memorias delante de él para aquellos que temían al Señor y pensaban en su nombre.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 17,
+              "text": "Y serán míos, dice el Señor de los Ejércitos, el día en que yo integre mis joyas; y los perdonaré como el hombre que perdona a su hijo que le sirve.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 18,
+              "text": "Entonces vosotros os volveréis y discerniréis entre los justos y los malos; entre el que sirve a Dios y el que no le sirve.",
+              "target": true,
+              "ch": 24
+            },
+            {
+              "vs": 1,
+              "text": "Porque he aquí, viene el día que arderá como un horno; y todos los soberbios , sí, y todos los que obran inicuamente serán rastrojo; y aquel día que viene los abrasará, dice el Señor de los Ejércitos, de modo que no les dejará ni raíz ni rama.",
+              "target": true,
+              "ch": 25
+            },
+            {
+              "vs": 2,
+              "text": "Pero para vosotros que teméis mi nombre, surgirá el Hijo de Justicia , con sanidad en sus alas; y saldréis, y os criaréis como terneros en el establo.",
+              "target": true,
+              "ch": 25
+            },
+            {
+              "vs": 3,
+              "text": "Y hollaréis a los malvados; porque serán como cenizas bajo las plantas de vuestros pies el día en que yo haga esto, dice el Señor de los Ejércitos.",
+              "target": true,
+              "ch": 25
+            },
+            {
+              "vs": 4,
+              "text": "Recordad la ley de Moisés, mi siervo, la cual le decreté en Horeb para todo Israel, con los estatutos y juicios.",
+              "target": true,
+              "ch": 25
+            },
+            {
+              "vs": 5,
+              "text": "He aquí, yo os enviaré a Elías el Profeta antes que venga el día grande y terrible del Señor;",
+              "target": true,
+              "ch": 25
+            },
+            {
+              "vs": 6,
+              "text": "y él volverá el corazón de los padres a los hijos, y el corazón de los hijos a sus padres, no sea que yo venga y hiera la tierra con una maldición.",
+              "target": true,
+              "ch": 25
+            },
+            {
+              "vs": 1,
+              "text": "Y acaeció que cuando Jesús hubo declarado estas cosas, las explicó a la multitud; y les explicó todas las cosas, grandes así como pequeñas.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 2,
+              "text": "Y dijo: Estas Escrituras que no habíais tenido con vosotros, el Padre mandó que yo os las diera; porque en su sabiduría dispuso que se dieran a las generaciones futuras.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 3,
+              "text": "Y les explicó todas las cosas, aun desde el principio hasta la época en que él viniera en su gloria ; sí, todas las cosas que habrían de suceder sobre la faz de la tierra, hasta que los elementos se derritieran con calor abrasador, y la tierra se plegara como un rollo, y pasaran los cielos y la tierra;",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 4,
+              "text": "y hasta el grande y postrer día en que todos los pueblos, y todas las familias, y todas las naciones y lenguas comparezcan ante Dios para ser juzgados por sus obras, ya fueren buenas o malas;",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 5,
+              "text": "si fueren buenas, a la resurrección de vida sempiterna; y si fueren malas, a la resurrección de condenación; por lo que constituyen un paralelo, lo uno por un lado y lo otro por el otro, según la misericordia, y la justicia , y la santidad que hay en Cristo, el cual existía desde antes del principio del mundo.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 6,
+              "text": "Y ahora bien, no puede escribirse en este libro ni la centésima parte de las cosas que Jesús verdaderamente enseñó al pueblo;",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 7,
+              "text": "pero he aquí, las planchas de Nefi contienen la mayor parte de las cosas que enseñó al pueblo.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 8,
+              "text": "Y he escrito estas cosas, que son la menor parte de lo que enseñó al pueblo; y las he escrito con objeto de que nuevamente lleguen de los gentiles a este pueblo, según las palabras que Jesús ha hablado.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 9,
+              "text": "Y cuando hayan recibido esto, que conviene que obtengan primero para probar su fe, y si sucede que creen estas cosas, entonces les serán manifestadas las cosas mayores .",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 10,
+              "text": "Y si sucede que no creen estas cosas, entonces les serán retenidas las cosas mayores, para su condenación.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 11,
+              "text": "He aquí, estaba a punto de escribirlas, cuantas se grabaron sobre las planchas de Nefi, pero el Señor lo prohibió, diciendo: Pondré a prueba la fe de mi pueblo.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 12,
+              "text": "Por lo que, yo, Mormón, escribo las cosas que el Señor me ha mandado. Y ahora yo, Mormón, concluyo mis palabras, y procedo a escribir las cosas que se me han mandado.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 13,
+              "text": "Por tanto, quisiera que entendieseis que el Señor verdaderamente enseñó al pueblo por el espacio de tres días; y tras esto, se les manifestaba con frecuencia, y partía pan a menudo, y lo bendecía, y se lo daba.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 14,
+              "text": "Y sucedió que enseñó y ministró a los niños de la multitud de que se ha hablado; y soltó la lengua de ellos, y declararon cosas grandes y maravillosas a sus padres, mayores aún que las que él había revelado al pueblo; y desató la lengua de ellos de modo que pudieron expresarse.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 15,
+              "text": "Y aconteció que después que hubo ascendido al cielo —la segunda vez que se había manifestado a ellos, y había vuelto al Padre, después de haber sanado a todos sus enfermos y sus cojos, y abierto los ojos de sus ciegos, y destapado los oídos de los sordos, y aun había efectuado toda clase de sanidades entre ellos, y levantado a un hombre de entre los muertos, y manifestado a ellos su poder, y ascendido al Padre—",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 16,
+              "text": "he aquí, sucedió que al día siguiente se reunió la multitud, y oyó y vio a estos niños; sí, aun los más pequeñitos abrieron su boca y hablaron cosas maravillosas; y las cosas que dijeron, se prohibió que hombre alguno las escribiera.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 17,
+              "text": "Y aconteció que los discípulos que Jesús había escogido empezaron desde entonces a bautizar y enseñar a cuantos venían a ellos; y cuantos se bautizaron en el nombre de Jesús fueron llenos del Espíritu Santo.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 18,
+              "text": "Y muchos de ellos vieron y oyeron cosas indecibles, que no es lícito escribir.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 19,
+              "text": "Y enseñaron y se ministraron el uno al otro; y tenían todas las cosas en común , todo hombre obrando en justicia uno con otro.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 20,
+              "text": "Y sucedió que hicieron todas las cosas, así como Jesús se lo había mandado.",
+              "target": true,
+              "ch": 26
+            },
+            {
+              "vs": 21,
+              "text": "Y los que fueron bautizados en el nombre de Jesús, fueron llamados la iglesia de Cristo.",
+              "target": true,
+              "ch": 26
             }
           ]
         },

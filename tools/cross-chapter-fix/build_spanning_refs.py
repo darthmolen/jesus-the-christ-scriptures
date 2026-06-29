@@ -44,19 +44,19 @@ def full(ch_start, ch_end):
 # `chapters` is a list of (chapter, verses-or-None); None means the whole chapter.
 TARGETS = [
     {
-        "index": 27,
+        "index": 27, "book": "matt",
         "ref_en": "Matt. 5–7", "ref_es": "Mateo 5–7",
         "ch": 5, "end_ch": 7,
         "chapters": full(5, 7),
     },
     {
-        "index": 28,
+        "index": 28, "book": "matt",
         "ref_en": "Matt. 9:35–11:1", "ref_es": "Mateo 9:35–11:1",
         "ch": 9, "end_ch": 11,
         "chapters": [(9, [35, 36, 37, 38]), (10, None), (11, [1])],
     },
     {
-        "index": 74,
+        "index": 74, "book": "3-ne",
         "ref_en": "3 Ne. 11–26", "ref_es": "3 Nefi 11–26",
         "ch": 11, "end_ch": 26,
         "chapters": full(11, 26),
@@ -111,6 +111,8 @@ def rewrite_entry(entry, *, ref, end_ch, verses, context):
         elif key == "ch":
             out["ch"] = value
             out["end_ch"] = end_ch       # insert immediately after ch
+        elif key == "end_ch":
+            continue                     # already inserted after ch; ignore any pre-existing value
         elif key == "verses":
             out["verses"] = verses
         elif key == "context":
@@ -121,11 +123,16 @@ def rewrite_entry(entry, *, ref, end_ch, verses, context):
 
 
 def verify_overlap(old_context, new_context, label, lang):
-    """The old (start-chapter) context must match the new span verse-for-verse where they overlap."""
+    """The old context must match the new span verse-for-verse where they overlap in the start chapter.
+
+    On a first run the old context is a single (start) chapter with no `ch` tags; on an idempotent
+    re-run it already spans chapters with repeating verse numbers, so compare only the start chapter.
+    """
     start_ch = new_context[0]["ch"]
     new_by_vs = {c["vs"]: c["text"] for c in new_context if c["ch"] == start_ch}
     for c in old_context:
-        if c["vs"] in new_by_vs and c["text"] != new_by_vs[c["vs"]]:
+        old_ch = c.get("ch", start_ch)
+        if old_ch == start_ch and c["vs"] in new_by_vs and c["text"] != new_by_vs[c["vs"]]:
             raise AssertionError(
                 f"[{lang}] {label} v{c['vs']}: corpus text differs from bundled text\n"
                 f"  bundled: {c['text']!r}\n  corpus:  {new_by_vs[c['vs']]!r}")
@@ -142,6 +149,12 @@ def main():
         corpora = {}
         for t in TARGETS:
             entry = refs[t["index"]]
+            # Guard against the bundled file changing order: the hard-coded index must still point
+            # at the expected book and start chapter (true on first run and on idempotent re-runs).
+            if entry["book"] != t["book"] or entry["ch"] != t["ch"]:
+                sys.exit(
+                    f"[{lang}] index {t['index']} expected {t['book']} ch {t['ch']} but found "
+                    f"{entry['book']} ch {entry['ch']} ({entry['ref']!r}) — aborting, not rewriting.")
             book = entry["book"]
             volume = entry["vol"]
             book_key = BOOK_KEY[(book, lang)]

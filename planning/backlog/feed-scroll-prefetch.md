@@ -20,3 +20,7 @@ or image decode) before committing to an approach.
 ## Notes
 - Surfaced during the cross-chapter-references work (2026-06-27). The collapsible chapter sections
   added there are designed to *not* worsen this (collapsed sections build no verse views).
+
+## Secondary problem
+
+When scrolling past a bunch of marked read headers, it's not smooth and very jittery. Is it trying to render the cards even though they are not shown? Need to troubleshoot this as well.

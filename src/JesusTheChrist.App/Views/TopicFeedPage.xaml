@@ -123,7 +123,7 @@
                                                 ColumnDefinitions="Auto,*"
                                                 ColumnSpacing="6"
                                                 Padding="0,6,0,0"
-                                                SemanticProperties.Description="{x:Static loc:AppResources.A11yExpandCollapse}">
+                                                SemanticProperties.Description="{x:Static loc:AppResources.A11yExpandCollapseChapter}">
                                                 <Grid.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding ToggleExpandedCommand}" />
                                                 </Grid.GestureRecognizers>

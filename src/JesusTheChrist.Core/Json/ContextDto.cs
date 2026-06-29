@@ -12,4 +12,11 @@ internal sealed class ContextDto
 
     [JsonPropertyName("target")]
     public bool Target { get; set; }
+
+    /// <summary>
+    /// Gets or sets the chapter this verse belongs to, or <see langword="null"/> when it shares
+    /// the reference's chapter. Only cross-chapter references set this per verse.
+    /// </summary>
+    [JsonPropertyName("ch")]
+    public int? Ch { get; set; }
 }

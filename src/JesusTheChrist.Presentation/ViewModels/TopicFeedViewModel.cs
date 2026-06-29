@@ -14,6 +14,12 @@ namespace JesusTheChrist.Presentation.ViewModels;
 /// </summary>
 public partial class TopicFeedViewModel : ObservableObject
 {
+    /// <summary>
+    /// Cross-chapter cards at or below this target-verse count start fully expanded; larger spans
+    /// open only their first chapter so the view never realizes hundreds of verses at once.
+    /// </summary>
+    private const int EagerVerseLimit = 60;
+
     private readonly ContentService content;
     private readonly ReadMarkStore readMarks;
     private readonly NoteStore notes;
@@ -133,6 +139,7 @@ public partial class TopicFeedViewModel : ObservableObject
                     reference.TargetText,
                     reference.ShowGloss ? reference.Note : null,
                     context,
+                    BuildSegments(reference),
                     readIds.Contains(id),
                     noteIds.Contains(id),
                     this.SetReadAsync,
@@ -144,6 +151,31 @@ public partial class TopicFeedViewModel : ObservableObject
         {
             this.IsLoading = false;
         }
+    }
+
+    /// <summary>
+    /// Builds a card's per-chapter segments. A single-chapter reference yields one header-less
+    /// segment shown in full. A cross-chapter reference yields one segment per chapter with a
+    /// header; the first chapter is always expanded, and the rest start expanded only when the
+    /// whole passage is small enough that realizing every verse up front stays cheap.
+    /// </summary>
+    private static List<ChapterSegmentViewModel> BuildSegments(Reference reference)
+    {
+        var spans = reference.SpansChapters;
+        var expandAll = reference.Context.Count(c => c.Target) <= EagerVerseLimit;
+
+        var segments = reference.TargetSegments();
+        var cards = new List<ChapterSegmentViewModel>(segments.Count);
+        for (var i = 0; i < segments.Count; i++)
+        {
+            var verses = segments[i].Verses
+                .Select(v => new ContextLineViewModel(v.Vs, v.Text, v.Target))
+                .ToList();
+            var isExpanded = !spans || i == 0 || expandAll;
+            cards.Add(new ChapterSegmentViewModel(segments[i].ChapterLabel, spans, verses, isExpanded));
+        }
+
+        return cards;
     }
 
     /// <summary>

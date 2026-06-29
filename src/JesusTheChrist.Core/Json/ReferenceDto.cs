@@ -27,4 +27,11 @@ internal sealed class ReferenceDto
 
     [JsonPropertyName("note")]
     public string? Note { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ending chapter for a cross-chapter reference, or <see langword="null"/>
+    /// for a single-chapter reference.
+    /// </summary>
+    [JsonPropertyName("end_ch")]
+    public int? EndCh { get; set; }
 }

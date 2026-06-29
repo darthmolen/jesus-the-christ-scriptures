@@ -149,6 +149,9 @@
   <data name="A11yExpandCollapse" xml:space="preserve">
     <value>Expand or collapse this reference</value>
   </data>
+  <data name="A11yExpandCollapseChapter" xml:space="preserve">
+    <value>Expand or collapse this chapter</value>
+  </data>
   <data name="A11yToggleRead" xml:space="preserve">
     <value>Toggle read</value>
   </data>

@@ -84,6 +84,45 @@ public class TopicFeedViewModelTests
     }
 
     [Fact]
+    public async Task Load_SingleChapterReference_HasOneHeaderlessExpandedSegment()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+
+        var segment = Assert.Single(harness.ViewModel.References[0].Segments);
+        Assert.False(segment.ShowHeader);
+        Assert.True(segment.IsExpanded);
+        Assert.Equal([25], segment.Verses.Select(v => v.Verse).ToArray());
+    }
+
+    [Fact]
+    public async Task Load_CrossChapterReference_GroupsTargetVersesByChapterWithHeaders()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("summary");
+
+        var card = harness.ViewModel.References[0];
+        Assert.Equal(
+            ["Matthew 9", "Matthew 10", "Matthew 11"],
+            card.Segments.Select(s => s.ChapterLabel).ToArray());
+        Assert.All(card.Segments, s => Assert.True(s.ShowHeader));
+        Assert.Equal([35, 36], card.Segments[0].Verses.Select(v => v.Verse).ToArray());
+        Assert.Equal([1, 2], card.Segments[1].Verses.Select(v => v.Verse).ToArray());
+        Assert.Equal([1], card.Segments[2].Verses.Select(v => v.Verse).ToArray());
+    }
+
+    [Fact]
+    public async Task Load_SmallCrossChapterReference_StartsEverySegmentExpanded()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("summary");
+
+        var card = harness.ViewModel.References[0];
+        Assert.All(card.Segments, s => Assert.True(s.IsExpanded));
+        Assert.Equal(card.Segments[2].Verses, card.Segments[2].VisibleVerses);
+    }
+
+    [Fact]
     public async Task Load_BuildsContextLinesWithTargetFlag()
     {
         await using var harness = await Harness.CreateAsync();
@@ -353,6 +392,21 @@ public class TopicFeedViewModelTests
             {
               "topic": "Jesus Christ", "language": "en", "context_radius": 2,
               "subtopics": [
+                {
+                  "title": "Jesus Christ", "short": "Summary",
+                  "references": [
+                    { "ref": "Matt. 9:35–11:1", "vol": "newtestament", "book": "matt", "book_title": "Matthew",
+                      "ch": 9, "end_ch": 11, "verses": [35, 36, 37, 38],
+                      "context": [
+                        { "vs": 35, "text": "and jesus went about all the cities", "target": true, "ch": 9 },
+                        { "vs": 36, "text": "but when he saw the multitudes", "target": true, "ch": 9 },
+                        { "vs": 1, "text": "and when he had called unto him his twelve", "target": true, "ch": 10 },
+                        { "vs": 2, "text": "now the names of the twelve apostles", "target": true, "ch": 10 },
+                        { "vs": 1, "text": "and it came to pass when jesus had made an end", "target": true, "ch": 11 }
+                      ],
+                      "note": "sends disciples forth by twos" }
+                  ]
+                },
                 {
                   "title": "Jesus Christ, Advocate", "short": "Advocate",
                   "references": [

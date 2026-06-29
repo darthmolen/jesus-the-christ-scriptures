@@ -90,6 +90,8 @@ public static class AppResources
 
     public static string A11yExpandCollapse => Get("A11yExpandCollapse");
 
+    public static string A11yExpandCollapseChapter => Get("A11yExpandCollapseChapter");
+
     public static string A11yToggleRead => Get("A11yToggleRead");
 
     public static string A11yRead => Get("A11yRead");

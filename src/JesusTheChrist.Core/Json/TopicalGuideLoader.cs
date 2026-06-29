@@ -33,8 +33,9 @@ public static class TopicalGuideLoader
                 r.BookTitle,
                 r.Ch,
                 r.Verses,
-                r.Context.Select(c => new ContextVerse(c.Vs, c.Text, c.Target)).ToList(),
-                r.Note)).ToList())).ToList();
+                r.Context.Select(c => new ContextVerse(c.Vs, c.Text, c.Target, c.Ch)).ToList(),
+                r.Note,
+                r.EndCh)).ToList())).ToList();
 
         return new TopicalGuide(dto.Topic, dto.Language, subtopics);
     }

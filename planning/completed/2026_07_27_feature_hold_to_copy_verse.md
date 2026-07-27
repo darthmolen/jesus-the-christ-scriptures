@@ -42,6 +42,7 @@ Two constraints from phase 1 carry forward, and one is new:
 | Why not on the verse | A command per verse means a delegate plus an `AsyncRelayCommand` for every line in the feed, allocated at load. `ContextLineViewModel` stays untouched |
 | Header source | Resolved at press time by scanning `Segments` — costs nothing until the gesture fires |
 | Hold duration | 600ms, just past Android's ~500ms long-press threshold |
+| When the copy fires | When the ramp **completes**, not on release — see the amendment below |
 | Hold effect | Background fill ramp on the existing `Label`. An outline would need a `Border` per verse, roughly doubling per-verse view count on a feed that already lazy-realizes chapters |
 | Toast | In-page overlay `Border` on `TopicFeedPage`, faded via the page's existing `DispatchDelayed` idiom. `CommunityToolkit.Maui` would add a package for one call |
 | Feedback consistency | The card button keeps its in-place `✓ Copied` flip; a verse line has no persistent control to flip, hence the toast |
@@ -119,6 +120,35 @@ The gesture, ramp, slop threshold, and toast have **no automated coverage** and 
 half, and the scroll-versus-hold case is the one most likely to need tuning.
 
 `planning/backlog/copy-verse-button.md` is deleted; both halves of it now exist.
+
+## Amendment — copy on ramp completion (2026-07-27, after device testing)
+
+Both paths were verified working on the phone. The owner then asked for the copy to fire at the **end
+of the animation** rather than on release, so the gesture reads as strictly either/or: you abandon it,
+or it completes and copies.
+
+The ramp was already the clock; it now also commits. `ViewExtensions.Animate` takes a `finished`
+callback of `(double, bool cancelled)`, and every way of abandoning a hold — early release, drifting
+past the slop radius, pointer exit, navigating away — routes through `CancelVerseHold`, which calls
+`AbortAnimation` and therefore arrives at that callback with `cancelled: true`. So the not-cancelled
+branch is reached only by a hold that ran its full 600ms, and it is the single place the copy fires.
+
+What fell out:
+
+- `Stopwatch` timing and the `heldStartTimestamp` field are gone — the animation measures the hold, so
+  nothing needs to time it. The `System.Diagnostics` using went with them.
+- `OnVersePointerReleased` and `OnVersePointerExited` became identical (end the hold, clear the tint)
+  and collapsed into one `OnVerseHoldEnded` handler, wired to both events on both verse templates.
+- The copy moved into a small static `CopyVerse(Label)` helper, called from the callback.
+
+Net effect on the reader: the verse copies the instant the highlight fills, and lifting a finger is no
+longer part of the contract. Lifting afterwards just clears the highlight. Build clean, 188 tests still
+green — the change is entirely in the untested view layer, so it carries no new automated coverage and
+was verified by hand.
+
+**Known cosmetic behaviour:** the highlight stays at full tint from the moment the copy fires until the
+finger lifts. The toast is the confirmation, so this reads acceptably, but fading the tint out on fire
+would punctuate the gesture more clearly. Left as-is pending the owner's preference.
 
 ## Deviations from plan
 

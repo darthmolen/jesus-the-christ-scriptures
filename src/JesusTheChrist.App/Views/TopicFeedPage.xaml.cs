@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using JesusTheChrist.Presentation.Navigation;
 using JesusTheChrist.Presentation.Resources;
 using JesusTheChrist.Presentation.ViewModels;
@@ -41,7 +40,6 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
     private int toastGeneration;
     private Label? heldVerse;
     private Point heldOrigin;
-    private long heldStartTimestamp;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TopicFeedPage"/> class.
@@ -184,10 +182,12 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
 
         this.heldVerse = verse;
         this.heldOrigin = e.GetPosition(this) ?? Point.Zero;
-        this.heldStartTimestamp = Stopwatch.GetTimestamp();
 
         // Ramp the line's background so the reader can watch the gesture arm. Linear, because
         // the ramp doubles as a progress bar — an eased one would misreport how much is left.
+        // The ramp is also the clock: reaching the end *is* the copy, so the reader never has to
+        // let go to commit. Every way of abandoning the hold aborts the animation, which arrives
+        // here as cancelled — so the gesture is strictly either/or.
         var tint = VerseHoldTint();
         verse.Animate(
             VerseHoldAnimation,
@@ -195,7 +195,26 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
             start: 0,
             end: VerseHoldPeakAlpha,
             length: VerseHoldMs,
-            easing: Easing.Linear);
+            easing: Easing.Linear,
+            finished: (_, cancelled) =>
+            {
+                if (!cancelled)
+                {
+                    CopyVerse(verse);
+                }
+            });
+    }
+
+    private static void CopyVerse(Label verse)
+    {
+        // The card owns the command; the verse rides in as its parameter, so no per-verse
+        // command is ever allocated for the hundreds of lines a feed can hold.
+        if (verse.BindingContext is ContextLineViewModel line
+            && CardFor(verse) is { } card
+            && card.CopyVerseCommand.CanExecute(line))
+        {
+            card.CopyVerseCommand.Execute(line);
+        }
     }
 
     private void OnVersePointerMoved(object? sender, PointerEventArgs e)
@@ -221,33 +240,14 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
         }
     }
 
-    private void OnVersePointerReleased(object? sender, PointerEventArgs e)
-    {
-        var verse = this.heldVerse;
-        if (verse is null || !ReferenceEquals(sender, verse))
-        {
-            return;
-        }
-
-        var held = Stopwatch.GetElapsedTime(this.heldStartTimestamp);
-        this.CancelVerseHold();
-
-        // Released too soon is a tap, not a hold — the ramp never finished, so nothing is copied.
-        if (held < TimeSpan.FromMilliseconds(VerseHoldMs)
-            || verse.BindingContext is not ContextLineViewModel line)
-        {
-            return;
-        }
-
-        // The card owns the command; the verse rides in as its parameter, so no per-verse
-        // command is ever allocated for the hundreds of lines a feed can hold.
-        if (CardFor(verse) is { } card && card.CopyVerseCommand.CanExecute(line))
-        {
-            card.CopyVerseCommand.Execute(line);
-        }
-    }
-
-    private void OnVersePointerExited(object? sender, PointerEventArgs e)
+    /// <summary>
+    /// Ends a hold, whether the reader lifted their finger or dragged off the line. Lifting early
+    /// aborts the ramp and copies nothing; lifting after it completed simply clears the highlight,
+    /// because the copy already fired when the ramp reached its end.
+    /// </summary>
+    /// <param name="sender">The verse label the pointer left.</param>
+    /// <param name="e">The pointer event.</param>
+    private void OnVerseHoldEnded(object? sender, PointerEventArgs e)
     {
         if (this.heldVerse is not null && ReferenceEquals(sender, this.heldVerse))
         {

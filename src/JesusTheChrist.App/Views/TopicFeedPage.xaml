@@ -180,8 +180,8 @@
                                                                 <PointerGestureRecognizer
                                                                     PointerPressed="OnVersePointerPressed"
                                                                     PointerMoved="OnVersePointerMoved"
-                                                                    PointerReleased="OnVersePointerReleased"
-                                                                    PointerExited="OnVersePointerExited" />
+                                                                    PointerReleased="OnVerseHoldEnded"
+                                                                    PointerExited="OnVerseHoldEnded" />
                                                             </Label.GestureRecognizers>
                                                             <Label.FormattedText>
                                                                 <FormattedString>
@@ -307,8 +307,8 @@
                                                 <PointerGestureRecognizer
                                                     PointerPressed="OnVersePointerPressed"
                                                     PointerMoved="OnVersePointerMoved"
-                                                    PointerReleased="OnVersePointerReleased"
-                                                    PointerExited="OnVersePointerExited" />
+                                                    PointerReleased="OnVerseHoldEnded"
+                                                    PointerExited="OnVerseHoldEnded" />
                                             </Label.GestureRecognizers>
                                             <Label.Triggers>
                                                 <DataTrigger TargetType="Label" Binding="{Binding IsTarget}" Value="True">

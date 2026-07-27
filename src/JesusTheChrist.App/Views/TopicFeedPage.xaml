@@ -170,7 +170,19 @@
                                             <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding VisibleVerses}">
                                                 <BindableLayout.ItemTemplate>
                                                     <DataTemplate x:DataType="vm:ContextLineViewModel">
-                                                        <Label FontSize="{DynamicResource ReadingFontSize}" LineHeight="1.35">
+                                                        <!-- Hold to copy this verse alone. The gesture rides the Label
+                                                             because a Span accepts only tap recognizers. -->
+                                                        <Label
+                                                            FontSize="{DynamicResource ReadingFontSize}"
+                                                            LineHeight="1.35"
+                                                            SemanticProperties.Hint="{x:Static loc:AppResources.A11yHoldToCopyVerse}">
+                                                            <Label.GestureRecognizers>
+                                                                <PointerGestureRecognizer
+                                                                    PointerPressed="OnVersePointerPressed"
+                                                                    PointerMoved="OnVersePointerMoved"
+                                                                    PointerReleased="OnVersePointerReleased"
+                                                                    PointerExited="OnVersePointerExited" />
+                                                            </Label.GestureRecognizers>
                                                             <Label.FormattedText>
                                                                 <FormattedString>
                                                                     <Span Text="{Binding Verse}" FontAttributes="Bold" FontSize="{DynamicResource VerseNumberFontSize}" />
@@ -287,7 +299,17 @@
                                 BindableLayout.ItemsSource="{Binding Context}">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate x:DataType="vm:ContextLineViewModel">
-                                        <Label FontSize="{DynamicResource ReadingFontSize}" Opacity="0.85">
+                                        <Label
+                                            FontSize="{DynamicResource ReadingFontSize}"
+                                            Opacity="0.85"
+                                            SemanticProperties.Hint="{x:Static loc:AppResources.A11yHoldToCopyVerse}">
+                                            <Label.GestureRecognizers>
+                                                <PointerGestureRecognizer
+                                                    PointerPressed="OnVersePointerPressed"
+                                                    PointerMoved="OnVersePointerMoved"
+                                                    PointerReleased="OnVersePointerReleased"
+                                                    PointerExited="OnVersePointerExited" />
+                                            </Label.GestureRecognizers>
                                             <Label.Triggers>
                                                 <DataTrigger TargetType="Label" Binding="{Binding IsTarget}" Value="True">
                                                     <Setter Property="FontAttributes" Value="Bold" />
@@ -314,6 +336,28 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <!-- Copy confirmation. Spans both rows and floats at the foot of the page; input
+             transparent so it can never swallow a tap meant for the feed beneath it. -->
+        <Border
+            x:Name="ToastHost"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            IsVisible="False"
+            Opacity="0"
+            InputTransparent="True"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Margin="0,0,0,24"
+            Padding="16,10"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 20"
+            BackgroundColor="{AppThemeBinding Light=#1C1C1C, Dark=#E8E8E8}">
+            <Label
+                x:Name="ToastLabel"
+                FontSize="14"
+                TextColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C1C1C}" />
+        </Border>
     </Grid>
 
 </ContentPage>

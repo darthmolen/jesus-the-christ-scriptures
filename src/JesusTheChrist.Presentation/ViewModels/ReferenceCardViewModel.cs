@@ -18,6 +18,7 @@ public partial class ReferenceCardViewModel : ObservableObject
     private readonly Func<ReferenceCardViewModel, Task> openNoteAsync;
     private readonly Action<ReferenceCardViewModel> onReadCollapsed;
     private readonly Func<string, Task> copyAsync;
+    private readonly Func<string, Task> copyVerseAsync;
     private readonly Func<TimeSpan, Task> delayAsync;
 
     /// <summary>
@@ -35,6 +36,7 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// <param name="openNoteAsync">Opens the note editor for the given card.</param>
     /// <param name="onReadCollapsed">Notified when marking read rolls this card up, so the view can re-anchor scroll.</param>
     /// <param name="copyAsync">Places the given text on the system clipboard.</param>
+    /// <param name="copyVerseAsync">Copies a single held verse, which the feed also confirms with a toast.</param>
     /// <param name="delayAsync">Waits the given duration, so the copy confirmation can be paced.</param>
     public ReferenceCardViewModel(
         string id,
@@ -49,6 +51,7 @@ public partial class ReferenceCardViewModel : ObservableObject
         Func<ReferenceCardViewModel, Task> openNoteAsync,
         Action<ReferenceCardViewModel> onReadCollapsed,
         Func<string, Task> copyAsync,
+        Func<string, Task> copyVerseAsync,
         Func<TimeSpan, Task> delayAsync)
     {
         this.Id = id;
@@ -62,6 +65,7 @@ public partial class ReferenceCardViewModel : ObservableObject
         this.openNoteAsync = openNoteAsync;
         this.onReadCollapsed = onReadCollapsed;
         this.copyAsync = copyAsync;
+        this.copyVerseAsync = copyVerseAsync;
         this.delayAsync = delayAsync;
         this.IsRead = isRead;
         this.HasNote = hasNote;
@@ -209,6 +213,43 @@ public partial class ReferenceCardViewModel : ObservableObject
         this.JustCopied = true;
         await this.delayAsync(CopiedFeedbackDuration);
         this.JustCopied = false;
+    }
+
+    [RelayCommand]
+    private Task CopyVerseAsync(ContextLineViewModel? verse) =>
+        verse is null ? Task.CompletedTask : this.copyVerseAsync(this.BuildVerseCopyText(verse));
+
+    /// <summary>
+    /// Joins a single verse into its clipboard form: its book, chapter and verse as a heading, then
+    /// the verse text on the next line. The number is not repeated at the head of the prose.
+    /// </summary>
+    /// <param name="verse">The verse line the reader held.</param>
+    /// <returns>The verse's heading followed by its text.</returns>
+    private string BuildVerseCopyText(ContextLineViewModel verse) =>
+        $"{this.ChapterLabelFor(verse)}:{verse.Verse}\n{verse.Text}";
+
+    /// <summary>
+    /// Finds the localized book-and-chapter label a verse line belongs to. Verse lines carry no
+    /// chapter of their own, so the owning segment is found by identity — a scan that costs nothing
+    /// until a reader actually holds a verse.
+    /// </summary>
+    /// <param name="verse">The verse line to attribute.</param>
+    /// <returns>The chapter label, for example "Matthew 10".</returns>
+    private string ChapterLabelFor(ContextLineViewModel verse)
+    {
+        foreach (var segment in this.Segments)
+        {
+            if (segment.Verses.Any(v => ReferenceEquals(v, verse)))
+            {
+                return segment.ChapterLabel;
+            }
+        }
+
+        // The line came from the ±context window, which materializes its own instances and so never
+        // matches above. Those verses belong to the reference's own chapter: of the whole corpus only
+        // three references span chapters, and none of them carries a non-target context verse. Should
+        // that ever change, a spanning reference's context would need its chapter carried through.
+        return this.Segments.Count > 0 ? this.Segments[0].ChapterLabel : this.RefLabel;
     }
 
     /// <summary>

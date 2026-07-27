@@ -166,6 +166,13 @@
   <data name="A11yCopyVerse" xml:space="preserve">
     <value>Copiar esta referencia al portapapeles</value>
   </data>
+  <data name="A11yHoldToCopyVerse" xml:space="preserve">
+    <value>Mantén pulsado para copiar este versículo</value>
+  </data>
+  <data name="ToastVerseCopied" xml:space="preserve">
+    <value>Versículo copiado</value>
+    <comment>Brief confirmation shown after holding a verse line to copy it.</comment>
+  </data>
   <data name="HomeReferencesReadFormat" xml:space="preserve">
     <value>{0} / {1} referencias leídas</value>
   </data>

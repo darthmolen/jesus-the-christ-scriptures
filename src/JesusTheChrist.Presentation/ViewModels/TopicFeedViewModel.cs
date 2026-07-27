@@ -87,6 +87,12 @@ public partial class TopicFeedViewModel : ObservableObject
     public event EventHandler<ReferenceCardEventArgs>? CardCollapsedAfterRead;
 
     /// <summary>
+    /// Occurs when a reader holds a single verse to copy it, so the view can confirm with a toast.
+    /// The card's own copy button confirms in place instead and does not raise this.
+    /// </summary>
+    public event EventHandler? VerseCopied;
+
+    /// <summary>
     /// Gets or sets the sub-topic title shown at the top of the feed.
     /// </summary>
     [ObservableProperty]
@@ -162,6 +168,7 @@ public partial class TopicFeedViewModel : ObservableObject
                     this.OpenNoteAsync,
                     this.OnCardCollapsedAfterRead,
                     this.copyAsync,
+                    this.CopyVerseAsync,
                     DelayAsync));
             }
         }
@@ -246,6 +253,18 @@ public partial class TopicFeedViewModel : ObservableObject
 
     private void OnCardCollapsedAfterRead(ReferenceCardViewModel card) =>
         this.CardCollapsedAfterRead?.Invoke(this, new ReferenceCardEventArgs(card));
+
+    /// <summary>
+    /// Copies a held verse and asks the view to confirm it. The card knows only that it is copying a
+    /// verse; whether that draws a toast is the feed's business.
+    /// </summary>
+    /// <param name="text">The verse's clipboard form.</param>
+    /// <returns>A task that completes once the clipboard has been written.</returns>
+    private async Task CopyVerseAsync(string text)
+    {
+        await this.copyAsync(text);
+        this.VerseCopied?.Invoke(this, EventArgs.Empty);
+    }
 
     private Task OpenNoteAsync(ReferenceCardViewModel card) =>
         this.navigation.GoToAsync(

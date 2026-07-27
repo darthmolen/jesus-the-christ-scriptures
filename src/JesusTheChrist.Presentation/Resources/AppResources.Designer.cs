@@ -102,6 +102,10 @@ public static class AppResources
 
     public static string A11yCopyVerse => Get("A11yCopyVerse");
 
+    public static string A11yHoldToCopyVerse => Get("A11yHoldToCopyVerse");
+
+    public static string ToastVerseCopied => Get("ToastVerseCopied");
+
     public static string HomeReferencesReadFormat => Get("HomeReferencesReadFormat");
 
     private static string Get(string name) =>

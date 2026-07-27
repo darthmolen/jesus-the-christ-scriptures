@@ -137,6 +137,97 @@ public sealed class ReferenceCardViewModelTests
         Assert.True(card.CopyCommand.CanExecute(null));
     }
 
+    [Fact]
+    public async Task CopyVerse_BuildsHeaderFromChapterLabelAndVerseNumber()
+    {
+        var writes = new List<string>();
+        var card = MakeCrossChapter(copyAsync: text =>
+        {
+            writes.Add(text);
+            return Task.CompletedTask;
+        });
+
+        await card.CopyVerseCommand.ExecuteAsync(card.Segments[0].Verses[0]);
+
+        Assert.Equal(["Matthew 9:35\nAnd Jesus went about all the cities"], writes);
+    }
+
+    [Fact]
+    public async Task CopyVerse_OmitsTheVerseNumberFromTheBody()
+    {
+        var writes = new List<string>();
+        var card = MakeSingleChapter(copyAsync: text =>
+        {
+            writes.Add(text);
+            return Task.CompletedTask;
+        });
+
+        await card.CopyVerseCommand.ExecuteAsync(card.Segments[0].Verses[0]);
+
+        // The number belongs in the header, not repeated at the head of the prose.
+        Assert.Equal("Hebrews 7:25\nWherefore he is able also to save them to the uttermost", writes[0]);
+    }
+
+    [Fact]
+    public async Task CopyVerse_CrossChapterCard_UsesTheOwningChaptersLabel()
+    {
+        var writes = new List<string>();
+        var card = MakeCrossChapter(copyAsync: text =>
+        {
+            writes.Add(text);
+            return Task.CompletedTask;
+        });
+
+        await card.CopyVerseCommand.ExecuteAsync(card.Segments[1].Verses[0]);
+
+        // Not the first chapter's label - the verse belongs to Matthew 10.
+        Assert.StartsWith("Matthew 10:1\n", writes[0], StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task CopyVerse_ContextWindowVerse_FallsBackToTheReferenceChapter()
+    {
+        var writes = new List<string>();
+        var card = MakeSingleChapter(copyAsync: text =>
+        {
+            writes.Add(text);
+            return Task.CompletedTask;
+        });
+
+        // A context line is a different instance than its twin inside a segment, so it is
+        // never found by the segment scan and takes the reference's own chapter.
+        var contextOnly = card.Context.First(c => !c.IsTarget);
+        await card.CopyVerseCommand.ExecuteAsync(contextOnly);
+
+        Assert.Equal("Hebrews 7:24\nbefore the target", writes[0]);
+    }
+
+    [Fact]
+    public async Task CopyVerse_WithNullParameter_DoesNothing()
+    {
+        var writes = new List<string>();
+        var card = MakeSingleChapter(copyAsync: text =>
+        {
+            writes.Add(text);
+            return Task.CompletedTask;
+        });
+
+        await card.CopyVerseCommand.ExecuteAsync(null);
+
+        Assert.Empty(writes);
+    }
+
+    [Fact]
+    public async Task CopyVerse_DoesNotDisturbTheCardLevelCopyConfirmation()
+    {
+        var card = MakeSingleChapter();
+
+        await card.CopyVerseCommand.ExecuteAsync(card.Segments[0].Verses[0]);
+
+        // The verse gesture confirms with a toast, not by flipping the card's copy button.
+        Assert.False(card.JustCopied);
+    }
+
     private static ReferenceCardViewModel MakeSingleChapter(
         Func<string, Task>? copyAsync = null,
         Func<TimeSpan, Task>? delayAsync = null)
@@ -195,5 +286,6 @@ public sealed class ReferenceCardViewModelTests
             openNoteAsync: _ => Task.CompletedTask,
             onReadCollapsed: _ => { },
             copyAsync: copyAsync ?? (_ => Task.CompletedTask),
+            copyVerseAsync: copyAsync ?? (_ => Task.CompletedTask),
             delayAsync: delayAsync ?? (_ => Task.CompletedTask));
 }

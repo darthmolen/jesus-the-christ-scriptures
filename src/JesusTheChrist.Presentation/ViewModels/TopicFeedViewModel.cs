@@ -5,6 +5,7 @@ using JesusTheChrist.Core.Models;
 using JesusTheChrist.Data;
 using JesusTheChrist.Presentation.Data;
 using JesusTheChrist.Presentation.Navigation;
+using JesusTheChrist.Presentation.Platform;
 
 namespace JesusTheChrist.Presentation.ViewModels;
 
@@ -20,6 +21,11 @@ public partial class TopicFeedViewModel : ObservableObject
     /// </summary>
     private const int EagerVerseLimit = 60;
 
+    /// <summary>
+    /// Paces the cards' copy confirmation. Static so the whole app shares one delegate instance.
+    /// </summary>
+    private static readonly Func<TimeSpan, Task> DelayAsync = Task.Delay;
+
     private readonly ContentService content;
     private readonly ReadMarkStore readMarks;
     private readonly NoteStore notes;
@@ -28,6 +34,11 @@ public partial class TopicFeedViewModel : ObservableObject
     private readonly IDatabaseInitializer databaseInitializer;
     private readonly INavigationService navigation;
     private readonly AppEnvironment environment;
+
+    // Hoisted so the feed hands every card the same delegate. Unlike the method groups below, this
+    // one's receiver is a field, so the compiler cannot cache it and each card would otherwise
+    // allocate its own.
+    private readonly Func<string, Task> copyAsync;
     private string topicKey = string.Empty;
     private string? resumeRefId;
     private string? currentRefId;
@@ -43,6 +54,7 @@ public partial class TopicFeedViewModel : ObservableObject
     /// <param name="databaseInitializer">Ensures the database schema before reads.</param>
     /// <param name="navigation">The navigation service.</param>
     /// <param name="environment">App scope and default language.</param>
+    /// <param name="clipboard">The system clipboard, for the cards' copy action.</param>
     public TopicFeedViewModel(
         ContentService content,
         ReadMarkStore readMarks,
@@ -51,8 +63,11 @@ public partial class TopicFeedViewModel : ObservableObject
         SettingsStore settings,
         IDatabaseInitializer databaseInitializer,
         INavigationService navigation,
-        AppEnvironment environment)
+        AppEnvironment environment,
+        IClipboardService clipboard)
     {
+        ArgumentNullException.ThrowIfNull(clipboard);
+
         this.content = content;
         this.readMarks = readMarks;
         this.notes = notes;
@@ -61,6 +76,7 @@ public partial class TopicFeedViewModel : ObservableObject
         this.databaseInitializer = databaseInitializer;
         this.navigation = navigation;
         this.environment = environment;
+        this.copyAsync = clipboard.SetTextAsync;
     }
 
     /// <summary>
@@ -144,7 +160,9 @@ public partial class TopicFeedViewModel : ObservableObject
                     noteIds.Contains(id),
                     this.SetReadAsync,
                     this.OpenNoteAsync,
-                    this.OnCardCollapsedAfterRead));
+                    this.OnCardCollapsedAfterRead,
+                    this.copyAsync,
+                    DelayAsync));
             }
         }
         finally

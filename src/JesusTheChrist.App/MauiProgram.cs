@@ -9,6 +9,7 @@ using JesusTheChrist.Presentation.Appearance;
 using JesusTheChrist.Presentation.Data;
 using JesusTheChrist.Presentation.Globalization;
 using JesusTheChrist.Presentation.Navigation;
+using JesusTheChrist.Presentation.Platform;
 using JesusTheChrist.Presentation.ViewModels;
 #if DEBUG
 using Microsoft.Extensions.Logging;
@@ -70,6 +71,7 @@ public static class MauiProgram
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IAppearanceApplier, AppearanceApplier>();
         services.AddSingleton<ILanguagePreference, PreferencesLanguagePreference>();
+        services.AddSingleton<IClipboardService, MauiClipboardService>();
 
         // Shell + pages + view models. Pages/VMs are fresh per navigation -> transient.
         services.AddSingleton<AppShell>();

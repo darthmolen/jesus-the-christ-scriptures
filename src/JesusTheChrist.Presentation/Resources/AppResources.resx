@@ -140,6 +140,13 @@
   <data name="CardEditNote" xml:space="preserve">
     <value>✎ Note</value>
   </data>
+  <data name="CardCopy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CardCopied" xml:space="preserve">
+    <value>✓ Copied</value>
+    <comment>Shown on the copy button for a moment after a successful copy.</comment>
+  </data>
   <data name="CardShowContext" xml:space="preserve">
     <value>Show scriptural context</value>
   </data>
@@ -157,6 +164,9 @@
   </data>
   <data name="A11yRead" xml:space="preserve">
     <value>Read</value>
+  </data>
+  <data name="A11yCopyVerse" xml:space="preserve">
+    <value>Copy this reference to the clipboard</value>
   </data>
   <data name="HomeReferencesReadFormat" xml:space="preserve">
     <value>{0} / {1} references read</value>

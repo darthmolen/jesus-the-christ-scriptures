@@ -12,10 +12,11 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
     private const int PositionSaveDebounceMs = 750;
 
     /// <summary>
-    /// How long a verse must be held before releasing copies it. Just past Android's ~500ms
-    /// long-press threshold, so a quick tap or a scroll flick never arms it.
+    /// How long a verse must be held before the copy fires. Deliberately under Android's ~500ms
+    /// long-press threshold — readers are impatient, and the ramp plus the slop check below carry
+    /// the job of telling a hold apart from a tap or the start of a scroll.
     /// </summary>
-    private const int VerseHoldMs = 600;
+    private const int VerseHoldMs = 400;
 
     /// <summary>
     /// How far a pointer may drift during a hold before it is read as a scroll and abandoned.

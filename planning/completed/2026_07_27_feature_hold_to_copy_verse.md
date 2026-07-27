@@ -2,8 +2,8 @@
 
 **Date:** 2026-07-27
 **Branch:** `feature/hold-to-copy-verse` (stacked on `feature/card-copy-button`)
-**PR:** _(pending)_
-**Status:** In progress
+**PR:** #48 (https://github.com/darthmolen/jesus-the-christ-scriptures/pull/48)
+**Status:** Implemented and verified on device by the owner; awaiting review and merge.
 **Backlog item:** `planning/backlog/copy-verse-button.md` — this phase completes it; the backlog file is
 deleted here.
 
@@ -25,7 +25,7 @@ Two constraints from phase 1 carry forward, and one is new:
 
 ## Objective / success criteria
 
-- Pressing and holding any verse line for **600ms** copies that verse; releasing early copies nothing.
+- Pressing and holding any verse line for **400ms** copies that verse; letting go earlier copies nothing.
 - The verse's background ramps from transparent to an accent tint over the hold, so the reader can see
   the gesture arming.
 - A scroll that begins on a verse must **not** arm the gesture.
@@ -41,7 +41,7 @@ Two constraints from phase 1 carry forward, and one is new:
 | Where the command lives | **`ReferenceCardViewModel`**, one `CopyVerseCommand` per card, with the verse as `CommandParameter` |
 | Why not on the verse | A command per verse means a delegate plus an `AsyncRelayCommand` for every line in the feed, allocated at load. `ContextLineViewModel` stays untouched |
 | Header source | Resolved at press time by scanning `Segments` — costs nothing until the gesture fires |
-| Hold duration | 600ms, just past Android's ~500ms long-press threshold |
+| Hold duration | 400ms — see the amendment below; started at 600ms and was cut after device testing |
 | When the copy fires | When the ramp **completes**, not on release — see the amendment below |
 | Hold effect | Background fill ramp on the existing `Label`. An outline would need a `Border` per verse, roughly doubling per-verse view count on a feed that already lazy-realizes chapters |
 | Toast | In-page overlay `Border` on `TopicFeedPage`, faded via the page's existing `DispatchDelayed` idiom. `CommunityToolkit.Maui` would add a package for one call |
@@ -88,7 +88,7 @@ are carried entirely by the device checklist below. That is stated plainly becau
 
 - `dotnet build` clean, `dotnet test` green.
 - On the physical Android phone:
-  - Hold a target verse ~600ms → highlight ramps, release copies, toast reads "Verse copied".
+  - Hold a target verse ~400ms → highlight ramps and the copy fires on its own; toast reads "Verse copied".
   - Paste is `Matthew 10:25`, newline, verse text — no verse number in the body.
   - Release early (~300ms) → no copy, highlight clears.
   - **Scroll starting on a verse** → no highlight, no copy. Test a slow drag as well as a flick; this is
@@ -115,9 +115,9 @@ number in the body, cross-chapter attribution, the context-window fallback, null
 and that a verse copy leaves the card button's `JustCopied` alone), and two on `TopicFeedViewModel`
 (a verse copy writes the verse and raises `VerseCopied`; the card button's copy does **not** raise it).
 
-The gesture, ramp, slop threshold, and toast have **no automated coverage** and are entirely unverified
-— nothing here has run on a device yet. The device checklist above is the whole safety net for that
-half, and the scroll-versus-hold case is the one most likely to need tuning.
+The gesture, ramp, slop threshold, and toast have **no automated coverage**; the device checklist above
+is the whole safety net for that half. The owner has since exercised both paths on the phone and
+reported them working, which is what prompted the two amendments below.
 
 `planning/backlog/copy-verse-button.md` is deleted; both halves of it now exist.
 
@@ -131,7 +131,7 @@ The ramp was already the clock; it now also commits. `ViewExtensions.Animate` ta
 callback of `(double, bool cancelled)`, and every way of abandoning a hold — early release, drifting
 past the slop radius, pointer exit, navigating away — routes through `CancelVerseHold`, which calls
 `AbortAnimation` and therefore arrives at that callback with `cancelled: true`. So the not-cancelled
-branch is reached only by a hold that ran its full 600ms, and it is the single place the copy fires.
+branch is reached only by a hold that ran its full duration, and it is the single place the copy fires.
 
 What fell out:
 
@@ -149,6 +149,17 @@ was verified by hand.
 **Known cosmetic behaviour:** the highlight stays at full tint from the moment the copy fires until the
 finger lifts. The toast is the confirmation, so this reads acceptably, but fading the tint out on fire
 would punctuate the gesture more clearly. Left as-is pending the owner's preference.
+
+## Amendment — hold cut to 400ms (2026-07-27)
+
+600ms read as sluggish on device. Cut to **400ms**, deliberately under Android's ~500ms long-press
+threshold, on the owner's call that readers are impatient.
+
+This raises the stakes on the slop check. Now that the copy fires on its own rather than on release, a
+reader who presses, hesitates 400ms, and only then begins to scroll will have copied a verse they never
+meant to. Nothing detects that but `VerseHoldSlopUnits`, which abandons the hold once the pointer
+travels more than 12 units from where it landed. If accidental copies show up in practice, raising that
+radius is the first lever — and it is cheaper than putting the duration back up.
 
 ## Deviations from plan
 

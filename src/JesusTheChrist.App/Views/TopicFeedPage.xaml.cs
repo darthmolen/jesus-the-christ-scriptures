@@ -181,8 +181,17 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
 
         this.CancelVerseHold();
 
+        // No origin means the slop check below can never fire, which would leave a scroll that
+        // begins on a verse with nothing to cancel it — and the copy now commits on its own.
+        // Refusing the hold costs a reader one gesture; arming a blind one costs them a copy
+        // they never asked for.
+        if (e.GetPosition(this) is not { } origin)
+        {
+            return;
+        }
+
         this.heldVerse = verse;
-        this.heldOrigin = e.GetPosition(this) ?? Point.Zero;
+        this.heldOrigin = origin;
 
         // Ramp the line's background so the reader can watch the gesture arm. Linear, because
         // the ramp doubles as a progress bar — an eased one would misreport how much is left.
@@ -214,7 +223,23 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
             && CardFor(verse) is { } card
             && card.CopyVerseCommand.CanExecute(line))
         {
-            card.CopyVerseCommand.Execute(line);
+            // Fire-and-forget by necessity — an animation's finished callback is synchronous.
+            // The helper contains its own failures, as FlushPositionAsync does.
+            _ = CopyVerseAsync(card, line);
+        }
+    }
+
+    private static async Task CopyVerseAsync(ReferenceCardViewModel card, ContextLineViewModel line)
+    {
+        try
+        {
+            await card.CopyVerseCommand.ExecuteAsync(line);
+        }
+        catch (Exception ex)
+        {
+            // A clipboard write can fail on device; copying a verse is best-effort and must
+            // never take the reader's page down with it.
+            System.Diagnostics.Debug.WriteLine($"Failed to copy verse: {ex}");
         }
     }
 

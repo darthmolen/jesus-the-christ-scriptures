@@ -19,8 +19,8 @@
     <!-- Branding (Full flavor). -->
     <ApplicationTitle>Scriptures: Jesus The Christ</ApplicationTitle>
     <ApplicationId>com.vozloop.jesusthechristscriptures.full</ApplicationId>
-    <ApplicationDisplayVersion>1.0.5</ApplicationDisplayVersion>
-    <ApplicationVersion>6</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0.6</ApplicationDisplayVersion>
+    <ApplicationVersion>7</ApplicationVersion>
 
     <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
   </PropertyGroup>

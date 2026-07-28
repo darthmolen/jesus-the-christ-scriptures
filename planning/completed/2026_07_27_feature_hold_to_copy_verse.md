@@ -161,6 +161,28 @@ meant to. Nothing detects that but `VerseHoldSlopUnits`, which abandons the hold
 travels more than 12 units from where it landed. If accidental copies show up in practice, raising that
 radius is the first lever — and it is cheaper than putting the duration back up.
 
+## Amendment — Copilot review round (2026-07-28)
+
+Three of the four review comments were acted on; the fourth was already fixed.
+
+1. **`GetPosition` can return null.** The origin was defaulting to `Point.Zero`, which is worse than
+   it looks: if a platform gives no position on press it gives none on move either, so the slop check
+   never runs and *nothing* can cancel the hold — and the copy now commits on its own. The hold is
+   refused outright when there is no origin. That costs a reader one gesture on such a platform;
+   arming a blind one would cost them a copy they never asked for.
+2. **`Execute` → `ExecuteAsync` on the async command.** Taken, and used as an opening to handle the
+   failure path: the call now goes through a `CopyVerseAsync` helper that awaits and contains its own
+   exceptions, mirroring `FlushPositionAsync`. A clipboard failure on device previously had nowhere to
+   go. Required a matching `CA1031` entry in `GlobalSuppressions.cs`, which is where this repo keeps
+   suppressions rather than inline.
+3. **Phase doc still said "Status: In progress".** Already corrected in a later commit than the one
+   Copilot reviewed; verified rather than re-fixed.
+
+The fourth comment landed on PR #47: `SemanticProperties.Description` was pinned to the copy
+explanation, so TalkBack announced it even after the button flipped to `✓ Copied` — the confirmation
+was sighted-only. Moved to `SemanticProperties.Hint` so the button's own `Text` becomes the accessible
+name and flips with the trigger. Fixed on `feature/card-copy-button` and merged forward.
+
 ## Deviations from plan
 
 1. **The card gained a second copy delegate rather than an event.** `CopyVerseCommand` calls

@@ -167,7 +167,7 @@
     <value>Copiar esta referencia al portapapeles</value>
   </data>
   <data name="A11yHoldToCopyVerse" xml:space="preserve">
-    <value>Mantén pulsado para copiar este versículo</value>
+    <value>Mantén presionado para copiar este versículo</value>
   </data>
   <data name="ToastVerseCopied" xml:space="preserve">
     <value>Versículo copiado</value>

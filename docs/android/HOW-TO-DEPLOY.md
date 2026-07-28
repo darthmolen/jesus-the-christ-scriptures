@@ -124,7 +124,7 @@ that catches a forgotten bump before anything reaches Play.
 | Track | Review | Use |
 |---|---|---|
 | **Internal testing** | none (live in minutes) | dogfooding; the CI default |
-| **Closed testing** (e.g. "Alpha") | first setup reviewed (up to ~7 days) | the 20-tester × 14-day gate that unlocks production for personal accounts |
+| **Closed testing** (e.g. "Alpha") | first setup reviewed (up to ~7 days); later ones are quick | the 15-tester × 14-day gate that unlocks production for personal accounts |
 | **Production** | reviewed | public |
 
 A bundle uploaded to one track lands in the app's **library**, so you can promote the same

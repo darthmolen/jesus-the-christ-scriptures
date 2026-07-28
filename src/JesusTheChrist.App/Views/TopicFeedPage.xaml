@@ -74,7 +74,7 @@
                                     TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}"
                                     VerticalOptions="Center"
                                     MinimumWidthRequest="92"
-                                    SemanticProperties.Description="{x:Static loc:AppResources.A11yCopyVerse}">
+                                    SemanticProperties.Hint="{x:Static loc:AppResources.A11yCopyVerse}">
                                     <Button.Triggers>
                                         <DataTrigger TargetType="Button" Binding="{Binding JustCopied}" Value="True">
                                             <Setter Property="Text" Value="{x:Static loc:AppResources.CardCopied}" />
@@ -229,7 +229,7 @@
                                     TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}"
                                     VerticalOptions="Center"
                                     MinimumWidthRequest="92"
-                                    SemanticProperties.Description="{x:Static loc:AppResources.A11yCopyVerse}">
+                                    SemanticProperties.Hint="{x:Static loc:AppResources.A11yCopyVerse}">
                                     <Button.Triggers>
                                         <DataTrigger TargetType="Button" Binding="{Binding JustCopied}" Value="True">
                                             <Setter Property="Text" Value="{x:Static loc:AppResources.CardCopied}" />

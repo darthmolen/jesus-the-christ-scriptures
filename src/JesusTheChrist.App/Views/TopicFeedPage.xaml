@@ -29,8 +29,8 @@
                     <Border Padding="14" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                         <VerticalStackLayout Spacing="8">
 
-                            <!-- Heading: narrative gloss (top) + reference, with note + read actions -->
-                            <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                            <!-- Heading: narrative gloss (top) + reference, with copy + note + read actions -->
+                            <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="8">
                                 <VerticalStackLayout
                                     Grid.Column="0"
                                     Spacing="2"
@@ -58,11 +58,34 @@
                                             VerticalOptions="Center" />
                                     </HorizontalStackLayout>
                                 </VerticalStackLayout>
-                                <!-- Note + read live in the heading only while collapsed; when the
-                                     card is expanded they move to the footer so a reader of a long
+                                <!-- Copy + note + read live in the heading only while collapsed; when
+                                     the card is expanded they move to the footer so a reader of a long
                                      passage never has to scroll back up to act. -->
                                 <Button
                                     Grid.Column="1"
+                                    IsVisible="{Binding IsCollapsed}"
+                                    Command="{Binding CopyCommand}"
+                                    FontSize="13"
+                                    Padding="10,4"
+                                    CornerRadius="8"
+                                    BorderWidth="1"
+                                    BorderColor="{AppThemeBinding Light=#CCCCCC, Dark=#555555}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}"
+                                    VerticalOptions="Center"
+                                    MinimumWidthRequest="92"
+                                    SemanticProperties.Hint="{x:Static loc:AppResources.A11yCopyVerse}">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding JustCopied}" Value="True">
+                                            <Setter Property="Text" Value="{x:Static loc:AppResources.CardCopied}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding JustCopied}" Value="False">
+                                            <Setter Property="Text" Value="{x:Static loc:AppResources.CardCopy}" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button
+                                    Grid.Column="2"
                                     IsVisible="{Binding IsCollapsed}"
                                     Command="{Binding OpenNoteCommand}"
                                     FontSize="13"
@@ -83,7 +106,7 @@
                                     </Button.Triggers>
                                 </Button>
                                 <Border
-                                    Grid.Column="2"
+                                    Grid.Column="3"
                                     IsVisible="{Binding IsCollapsed}"
                                     WidthRequest="36"
                                     HeightRequest="36"
@@ -171,10 +194,10 @@
                                 Margin="0,4"
                                 Color="{AppThemeBinding Light=#E0E0E0, Dark=#444444}" />
 
-                            <!-- Footer action bar: context toggle on the left, note + read on the
-                                 right. These mirror the heading actions but ride at the foot of the
+                            <!-- Footer action bar: context toggle on the left, copy + note + read on
+                                 the right. These mirror the heading actions but ride at the foot of the
                                  expanded card, so the reader acts right where the passage ends. -->
-                            <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                            <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="8">
                                 <Button
                                     Grid.Column="0"
                                     IsVisible="{Binding HasContext}"
@@ -196,6 +219,28 @@
                                 </Button>
                                 <Button
                                     Grid.Column="1"
+                                    Command="{Binding CopyCommand}"
+                                    FontSize="13"
+                                    Padding="10,4"
+                                    CornerRadius="8"
+                                    BorderWidth="1"
+                                    BorderColor="{AppThemeBinding Light=#CCCCCC, Dark=#555555}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}"
+                                    VerticalOptions="Center"
+                                    MinimumWidthRequest="92"
+                                    SemanticProperties.Hint="{x:Static loc:AppResources.A11yCopyVerse}">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding JustCopied}" Value="True">
+                                            <Setter Property="Text" Value="{x:Static loc:AppResources.CardCopied}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding JustCopied}" Value="False">
+                                            <Setter Property="Text" Value="{x:Static loc:AppResources.CardCopy}" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button
+                                    Grid.Column="2"
                                     Command="{Binding OpenNoteCommand}"
                                     FontSize="13"
                                     Padding="10,4"
@@ -215,7 +260,7 @@
                                     </Button.Triggers>
                                 </Button>
                                 <Border
-                                    Grid.Column="2"
+                                    Grid.Column="3"
                                     WidthRequest="36"
                                     HeightRequest="36"
                                     StrokeShape="RoundRectangle 6"

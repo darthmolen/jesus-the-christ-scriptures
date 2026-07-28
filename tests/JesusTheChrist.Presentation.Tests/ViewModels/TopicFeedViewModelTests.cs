@@ -343,11 +343,25 @@ public class TopicFeedViewModelTests
         Assert.Null(await harness.Positions.GetAsync("advocate"));
     }
 
+    [Fact]
+    public async Task Copy_OnCard_ReachesTheClipboardService()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+        var card = harness.ViewModel.References[0];
+
+        // Deliberately not awaited: everything up to the confirmation delay completes
+        // synchronously, and awaiting would sleep the real two seconds.
+        _ = card.CopyCommand.ExecuteAsync(null);
+
+        Assert.Equal(card.CopyText, harness.Clipboard.LastText);
+    }
+
     private sealed class Harness : IAsyncDisposable
     {
         private readonly TempDatabase database;
 
-        private Harness(TempDatabase database, TopicFeedViewModel viewModel, ReadMarkStore readMarks, NoteStore notes, TopicPositionStore positions, RecordingNavigationService navigation)
+        private Harness(TempDatabase database, TopicFeedViewModel viewModel, ReadMarkStore readMarks, NoteStore notes, TopicPositionStore positions, RecordingNavigationService navigation, FakeClipboard clipboard)
         {
             this.database = database;
             this.ViewModel = viewModel;
@@ -355,6 +369,7 @@ public class TopicFeedViewModelTests
             this.Notes = notes;
             this.Positions = positions;
             this.Navigation = navigation;
+            this.Clipboard = clipboard;
         }
 
         public TopicFeedViewModel ViewModel { get; }
@@ -366,6 +381,8 @@ public class TopicFeedViewModelTests
         public TopicPositionStore Positions { get; }
 
         public RecordingNavigationService Navigation { get; }
+
+        public FakeClipboard Clipboard { get; }
 
         public static async Task<Harness> CreateAsync()
         {
@@ -382,8 +399,9 @@ public class TopicFeedViewModelTests
             var settings = new SettingsStore(db.Db);
             var navigation = new RecordingNavigationService();
             var env = new AppEnvironment(Scope.Full, Language.En);
-            var vm = new TopicFeedViewModel(content, readMarks, notes, positions, settings, db, navigation, env);
-            return new Harness(db, vm, readMarks, notes, positions, navigation);
+            var clipboard = new FakeClipboard();
+            var vm = new TopicFeedViewModel(content, readMarks, notes, positions, settings, db, navigation, env, clipboard);
+            return new Harness(db, vm, readMarks, notes, positions, navigation, clipboard);
         }
 
         public async ValueTask DisposeAsync() => await this.database.DisposeAsync();

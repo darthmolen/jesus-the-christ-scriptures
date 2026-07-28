@@ -138,6 +138,13 @@
   <data name="CardEditNote" xml:space="preserve">
     <value>✎ Nota</value>
   </data>
+  <data name="CardCopy" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="CardCopied" xml:space="preserve">
+    <value>✓ Copiado</value>
+    <comment>Shown on the copy button for a moment after a successful copy.</comment>
+  </data>
   <data name="CardShowContext" xml:space="preserve">
     <value>Mostrar contexto de las Escrituras</value>
   </data>
@@ -155,6 +162,9 @@
   </data>
   <data name="A11yRead" xml:space="preserve">
     <value>Leído</value>
+  </data>
+  <data name="A11yCopyVerse" xml:space="preserve">
+    <value>Copiar esta referencia al portapapeles</value>
   </data>
   <data name="HomeReferencesReadFormat" xml:space="preserve">
     <value>{0} / {1} referencias leídas</value>

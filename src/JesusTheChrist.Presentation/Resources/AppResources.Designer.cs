@@ -84,6 +84,10 @@ public static class AppResources
 
     public static string CardEditNote => Get("CardEditNote");
 
+    public static string CardCopy => Get("CardCopy");
+
+    public static string CardCopied => Get("CardCopied");
+
     public static string CardShowContext => Get("CardShowContext");
 
     public static string CardHideContext => Get("CardHideContext");
@@ -95,6 +99,8 @@ public static class AppResources
     public static string A11yToggleRead => Get("A11yToggleRead");
 
     public static string A11yRead => Get("A11yRead");
+
+    public static string A11yCopyVerse => Get("A11yCopyVerse");
 
     public static string HomeReferencesReadFormat => Get("HomeReferencesReadFormat");
 

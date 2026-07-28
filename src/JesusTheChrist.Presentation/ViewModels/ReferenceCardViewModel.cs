@@ -9,9 +9,16 @@ namespace JesusTheChrist.Presentation.ViewModels;
 /// </summary>
 public partial class ReferenceCardViewModel : ObservableObject
 {
+    /// <summary>
+    /// How long the copy button confirms with "Copied" before reverting to its usual label.
+    /// </summary>
+    public static readonly TimeSpan CopiedFeedbackDuration = TimeSpan.FromSeconds(2);
+
     private readonly Func<string, bool, Task> setReadAsync;
     private readonly Func<ReferenceCardViewModel, Task> openNoteAsync;
     private readonly Action<ReferenceCardViewModel> onReadCollapsed;
+    private readonly Func<string, Task> copyAsync;
+    private readonly Func<TimeSpan, Task> delayAsync;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ReferenceCardViewModel"/> class.
@@ -27,6 +34,8 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// <param name="setReadAsync">Persists a new read state for the given id.</param>
     /// <param name="openNoteAsync">Opens the note editor for the given card.</param>
     /// <param name="onReadCollapsed">Notified when marking read rolls this card up, so the view can re-anchor scroll.</param>
+    /// <param name="copyAsync">Places the given text on the system clipboard.</param>
+    /// <param name="delayAsync">Waits the given duration, so the copy confirmation can be paced.</param>
     public ReferenceCardViewModel(
         string id,
         string refLabel,
@@ -38,7 +47,9 @@ public partial class ReferenceCardViewModel : ObservableObject
         bool hasNote,
         Func<string, bool, Task> setReadAsync,
         Func<ReferenceCardViewModel, Task> openNoteAsync,
-        Action<ReferenceCardViewModel> onReadCollapsed)
+        Action<ReferenceCardViewModel> onReadCollapsed,
+        Func<string, Task> copyAsync,
+        Func<TimeSpan, Task> delayAsync)
     {
         this.Id = id;
         this.RefLabel = refLabel;
@@ -50,6 +61,8 @@ public partial class ReferenceCardViewModel : ObservableObject
         this.setReadAsync = setReadAsync;
         this.openNoteAsync = openNoteAsync;
         this.onReadCollapsed = onReadCollapsed;
+        this.copyAsync = copyAsync;
+        this.delayAsync = delayAsync;
         this.IsRead = isRead;
         this.HasNote = hasNote;
         this.IsExpanded = !isRead;
@@ -120,6 +133,24 @@ public partial class ReferenceCardViewModel : ObservableObject
     public partial bool HasNote { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the card is currently confirming a copy, so the
+    /// copy button can read "Copied" for a moment.
+    /// </summary>
+    [ObservableProperty]
+    public partial bool JustCopied { get; set; }
+
+    /// <summary>
+    /// Gets the clipboard form of the whole reference: its label, then one numbered line per target
+    /// verse, with a chapter heading before each chapter of a cross-chapter reference.
+    /// </summary>
+    /// <remarks>
+    /// Built on first use and cached. Every card in a sub-topic is constructed up front by
+    /// <c>LoadAsync</c> — a card can hold hundreds of verses — so joining this in the constructor
+    /// would charge every reader the cost of copying references they never copy.
+    /// </remarks>
+    public string CopyText => field ??= this.BuildCopyText();
+
+    /// <summary>
     /// Gets or sets a value indicating whether the card body is expanded. When false, only
     /// the heading shows so the feed reads as a progress checklist; tapping the heading or
     /// un-reading the card expands it again.
@@ -167,4 +198,40 @@ public partial class ReferenceCardViewModel : ObservableObject
 
     [RelayCommand]
     private Task OpenNoteAsync() => this.openNoteAsync(this);
+
+    [RelayCommand]
+    private async Task CopyAsync()
+    {
+        await this.copyAsync(this.CopyText);
+
+        // The generated AsyncRelayCommand reports CanExecute false while it runs, so the button
+        // is also disabled for as long as it reads "Copied".
+        this.JustCopied = true;
+        await this.delayAsync(CopiedFeedbackDuration);
+        this.JustCopied = false;
+    }
+
+    /// <summary>
+    /// Joins the reference into its clipboard form. Built from the per-chapter segments rather than
+    /// the context window: segments carry the chapter labels, exclude the ±context verses, and hold
+    /// every target verse even for a chapter the reader has collapsed on screen — a copy carries the
+    /// whole passage, not whatever happens to be realized.
+    /// </summary>
+    /// <returns>The reference label followed by its numbered verses.</returns>
+    private string BuildCopyText()
+    {
+        // "\n" rather than Environment.NewLine so the text is identical on the test host and on device.
+        var lines = new List<string> { this.RefLabel };
+        foreach (var segment in this.Segments)
+        {
+            if (segment.ShowHeader)
+            {
+                lines.Add(segment.ChapterLabel);
+            }
+
+            lines.AddRange(segment.Verses.Select(verse => $"{verse.Verse} {verse.Text}"));
+        }
+
+        return string.Join('\n', lines);
+    }
 }

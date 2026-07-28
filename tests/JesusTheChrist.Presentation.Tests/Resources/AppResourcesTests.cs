@@ -20,6 +20,9 @@ public class AppResourcesTests
             Assert.Equal("+ Note", AppResources.CardAddNote);
             Assert.Equal("Begin", AppResources.ActionBegin);
             Assert.Equal("Show scriptural context", AppResources.CardShowContext);
+            Assert.Equal("Copy", AppResources.CardCopy);
+            Assert.Equal("✓ Copied", AppResources.CardCopied);
+            Assert.Equal("Copy this reference to the clipboard", AppResources.A11yCopyVerse);
         }
         finally
         {
@@ -39,6 +42,9 @@ public class AppResourcesTests
             Assert.Equal("Comenzar", AppResources.ActionBegin);
             Assert.Equal("Idioma", AppResources.SettingsLanguage);
             Assert.Equal("La invitación", AppResources.InvitationTitle);
+            Assert.Equal("Copiar", AppResources.CardCopy);
+            Assert.Equal("✓ Copiado", AppResources.CardCopied);
+            Assert.Equal("Copiar esta referencia al portapapeles", AppResources.A11yCopyVerse);
         }
         finally
         {

@@ -357,6 +357,37 @@ public class TopicFeedViewModelTests
         Assert.Equal(card.CopyText, harness.Clipboard.LastText);
     }
 
+    [Fact]
+    public async Task CopyVerse_OnCard_WritesTheVerseAndRaisesVerseCopied()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+        var card = harness.ViewModel.References[0];
+        var raised = 0;
+        harness.ViewModel.VerseCopied += (_, _) => raised++;
+
+        await card.CopyVerseCommand.ExecuteAsync(card.Segments[0].Verses[0]);
+
+        // The card button's copy must stay silent - only the verse gesture asks for a toast.
+        Assert.Equal(1, raised);
+        Assert.StartsWith("Hebrews 7:25\n", harness.Clipboard.LastText, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task Copy_OnCard_DoesNotRaiseVerseCopied()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+        var card = harness.ViewModel.References[0];
+        var raised = 0;
+        harness.ViewModel.VerseCopied += (_, _) => raised++;
+
+        // Not awaited: see Copy_OnCard_ReachesTheClipboardService.
+        _ = card.CopyCommand.ExecuteAsync(null);
+
+        Assert.Equal(0, raised);
+    }
+
     private sealed class Harness : IAsyncDisposable
     {
         private readonly TempDatabase database;

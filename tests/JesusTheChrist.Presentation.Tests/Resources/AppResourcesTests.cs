@@ -23,6 +23,8 @@ public class AppResourcesTests
             Assert.Equal("Copy", AppResources.CardCopy);
             Assert.Equal("✓ Copied", AppResources.CardCopied);
             Assert.Equal("Copy this reference to the clipboard", AppResources.A11yCopyVerse);
+            Assert.Equal("Verse copied", AppResources.ToastVerseCopied);
+            Assert.Equal("Hold to copy this verse", AppResources.A11yHoldToCopyVerse);
         }
         finally
         {
@@ -45,6 +47,8 @@ public class AppResourcesTests
             Assert.Equal("Copiar", AppResources.CardCopy);
             Assert.Equal("✓ Copiado", AppResources.CardCopied);
             Assert.Equal("Copiar esta referencia al portapapeles", AppResources.A11yCopyVerse);
+            Assert.Equal("Versículo copiado", AppResources.ToastVerseCopied);
+            Assert.Equal("Mantén pulsado para copiar este versículo", AppResources.A11yHoldToCopyVerse);
         }
         finally
         {

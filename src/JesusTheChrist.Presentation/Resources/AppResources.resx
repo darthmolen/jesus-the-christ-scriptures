@@ -168,6 +168,13 @@
   <data name="A11yCopyVerse" xml:space="preserve">
     <value>Copy this reference to the clipboard</value>
   </data>
+  <data name="A11yHoldToCopyVerse" xml:space="preserve">
+    <value>Hold to copy this verse</value>
+  </data>
+  <data name="ToastVerseCopied" xml:space="preserve">
+    <value>Verse copied</value>
+    <comment>Brief confirmation shown after holding a verse line to copy it.</comment>
+  </data>
   <data name="HomeReferencesReadFormat" xml:space="preserve">
     <value>{0} / {1} references read</value>
     <comment>{0} = count read, {1} = total.</comment>

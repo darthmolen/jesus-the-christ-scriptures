@@ -76,7 +76,10 @@
                     <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding Verses}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="vm:ContextLineViewModel">
-                                <Label FontSize="{DynamicResource ReadingFontSize}" LineHeight="1.4">
+                                <!-- No LineHeight: LineHeight > 1 clips the last wrapped line on Android
+                                     (see TopicFeedPage verse template). Keep default spacing so long
+                                     verses render complete. -->
+                                <Label FontSize="{DynamicResource ReadingFontSize}">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="{Binding Verse}" FontAttributes="Bold" FontSize="{DynamicResource VerseNumberFontSize}" />

@@ -3,7 +3,16 @@
 **Date:** 2026-08-02
 **Origin:** Owner report (2026-08-02 session) — 3 Nephi 20:41 rendered as
 "…be ye clean that bear the vessels of" with "the Lord." missing on-screen, yet
-hold-to-copy pasted the **full** verse.
+hold-to-copy pasted the **full** verse. A second example, 3 Nephi 20:46 ("…land of their
+inheritance." → "inheritance." clipped), confirmed the pattern.
+
+## STATUS: fix applied on branch `claude/incomplete-scriptures-english-fejdke`, awaiting on-device verification
+
+Refined root cause and the fix are below. The original suspicion (mixing `VerseNumberFontSize`
+with `ReadingFontSize`) turned out to be a **co-varying red herring** — the two truncating
+templates also both set `LineHeight`, which is the actual, well-documented Android trigger.
+The second example ("the *final* line after word-wrap gets cut off") is the `LineHeight`
+last-line-clip signature.
 
 ## Summary (the "why")
 
@@ -19,33 +28,26 @@ renders**, not in what it holds.
 
 ### Root cause
 
-The verse line is a single `Label` whose `FormattedString` mixes **two font sizes**:
-
-```xml
-<!-- TopicFeedPage.xaml, VisibleVerses template (~line 188) -->
-<Span Text="{Binding Verse}" FontAttributes="Bold" FontSize="{DynamicResource VerseNumberFontSize}" />
-<Span Text="  " />
-<Span Text="{Binding Text}" />   <!-- inherits the Label's ReadingFontSize (larger) -->
-```
-
-On Android, .NET MAUI measures a multi-span `Label`'s wrapped height from the wrong span's
-line metrics (the smaller `VerseNumberFontSize` leading span). The text then lays out with the
-larger reading font, needs more vertical space than was allocated, and the renderer **clips the
-tail of the final wrapped line**. Short verses fit inside the under-measured box and look fine;
-only long verses that wrap enough lines overflow and lose their last few words — exactly what
-3 Nephi 20:41 does.
+The verse line is a `Label` with `LineHeight="1.35"`. On Android, a `Label` whose
+`LineHeight` > 1 and that word-wraps to multiple lines **clips the tail of its last wrapped
+line**: MAUI adds the extra inter-line spacing natively but under-measures the view's height by
+that accumulated amount, so the final line overflows the allocated box and is cut. The deficit
+grows with the number of wrapped lines, which is why only **long** verses lose text, and why the
+clipped part is always at the very **end** (3 Nephi 20:41 "the Lord.", 3 Nephi 20:46
+"inheritance.").
 
 ### Corroborating evidence (why we're confident)
 
 The three verse templates behave exactly as this theory predicts:
 
-| Template | File / line | Number-span font size | Truncates? |
+| Template | File / line | `LineHeight` | Truncates? |
 |---|---|---|---|
-| Primary reader `VisibleVerses` | `TopicFeedPage.xaml` ~188 | `VerseNumberFontSize` (**mixed**) | **Yes** (reported) |
-| Note editor `Verses` | `NoteEditorPage.xaml` ~82 | `VerseNumberFontSize` (**mixed**) | **Yes** (same pattern, at risk) |
-| Context window `Context` | `TopicFeedPage.xaml` ~321 | *(none — same size as text)* | **No** |
+| Primary reader `VisibleVerses` | `TopicFeedPage.xaml` ~188 | `1.35` | **Yes** (reported ×2) |
+| Note editor `Verses` | `NoteEditorPage.xaml` ~82 | `1.4` | **Yes** (same pattern, at risk) |
+| Context window `Context` | `TopicFeedPage.xaml` ~321 | *(none)* | **No** |
 
-The only template that keeps a single font size is the only one that doesn't clip.
+The only template with **no `LineHeight`** is the only one that doesn't clip — regardless of the
+mixed font size, which is present in the two truncating templates but is not the trigger.
 
 ## "Are there more like this?"
 
@@ -55,20 +57,25 @@ The only template that keeps a single font size is the only one that doesn't cli
   references, so there is no finite "list of bad verses" to fix — it's one rendering pattern.
   The longest verses are the most exposed; 1 Nephi / Isaiah / 3 Nephi chapters have several.
 
-## Recommended fix
+## Fix applied
 
-Never mix font sizes inside one wrapping `Label`. Two options:
+Owner chose to **preserve the current look** (inline small verse number, wrapped lines return to
+the left margin). A two-column layout can't produce that — its wrapped lines hang-indent under the
+text column — so the single-`Label` layout is kept and the actual trigger is removed instead:
 
-1. **Two-column layout (recommended, preserves the small superscript number).**
-   Replace the single `FormattedText` `Label` with a `Grid` (or `HorizontalStackLayout`):
-   column 0 = a small bold verse-number `Label`, column 1 = a plain **single-font** wrapping
-   text `Label`. Single-font Labels don't hit the bug. This is the classic hanging-indent
-   scripture layout. Apply to both `TopicFeedPage.xaml` (VisibleVerses) and `NoteEditorPage.xaml`.
+**Removed `LineHeight` from the wrapping verse/paragraph labels** so the native measurement
+matches and the last line renders complete. Look is unchanged except for slightly tighter default
+line spacing.
 
-2. **Drop the mixed size (smallest diff).** Remove `FontSize="{DynamicResource VerseNumberFontSize}"`
-   from the number span so number and text share `ReadingFontSize` (proven safe by the context
-   template). Lowest risk, but the verse number loses its smaller styling — a **design change**,
-   so it needs owner sign-off.
+- `TopicFeedPage.xaml` — VisibleVerses verse-line `Label`: dropped `LineHeight="1.35"`.
+- `NoteEditorPage.xaml` — Verses verse-line `Label`: dropped `LineHeight="1.4"`.
+- `Controls/MarkdownView.cs` — `BuildLabel`: dropped `LineHeight = 1.35` (same bug class for long
+  wrapping markdown paragraphs on the invitation/topic pages).
+
+If tighter spacing reads too cramped on-device, the airier spacing can be restored later via a
+per-line approach that doesn't hit the native measure bug (e.g. inter-item spacing / paragraph
+padding rather than `LineHeight`), or by revisiting the two-column layout (accepting the
+hanging indent).
 
 ## Verification
 

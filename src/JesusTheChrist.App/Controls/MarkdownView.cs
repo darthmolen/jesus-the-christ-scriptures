@@ -120,7 +120,10 @@ public sealed class MarkdownView : ContentView
             formatted.Spans.Add(BuildSpan(inline));
         }
 
-        return new Label { FormattedText = formatted, LineHeight = 1.35 };
+        // No LineHeight: on Android a Label with LineHeight > 1 clips the tail of its last
+        // wrapped line (MAUI under-measures the view height by the accumulated extra spacing),
+        // so long wrapping paragraphs lose their final words on-screen. Default spacing is safe.
+        return new Label { FormattedText = formatted };
     }
 
     private static Span BuildSpan(MarkdownInline inline)

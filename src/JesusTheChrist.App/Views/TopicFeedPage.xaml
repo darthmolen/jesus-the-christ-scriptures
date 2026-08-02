@@ -172,9 +172,13 @@
                                                     <DataTemplate x:DataType="vm:ContextLineViewModel">
                                                         <!-- Hold to copy this verse alone. The gesture rides the Label
                                                              because a Span accepts only tap recognizers. -->
+                                                        <!-- No LineHeight: a Label whose LineHeight > 1 clips the tail of
+                                                             its last wrapped line on Android (MAUI under-measures the view
+                                                             height by the accumulated extra line spacing). Long verses such
+                                                             as 3 Nephi 20:41/46 lost their final words on-screen while the
+                                                             clipboard held the full text. Default spacing renders complete. -->
                                                         <Label
                                                             FontSize="{DynamicResource ReadingFontSize}"
-                                                            LineHeight="1.35"
                                                             SemanticProperties.Hint="{x:Static loc:AppResources.A11yHoldToCopyVerse}">
                                                             <Label.GestureRecognizers>
                                                                 <PointerGestureRecognizer

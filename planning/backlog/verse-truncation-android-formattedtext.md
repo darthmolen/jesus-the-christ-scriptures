@@ -63,19 +63,31 @@ Owner chose to **preserve the current look** (inline small verse number, wrapped
 the left margin). A two-column layout can't produce that — its wrapped lines hang-indent under the
 text column — so the single-`Label` layout is kept and the actual trigger is removed instead:
 
-**Removed `LineHeight` from the wrapping verse/paragraph labels** so the native measurement
-matches and the last line renders complete. Look is unchanged except for slightly tighter default
-line spacing.
+Two changes, both toward the safest possible layout — the verse line now matches our own
+context-window template (which never truncated) **and** the Gospel Library app's own rendering
+(bold, same-size, inline verse numbers), which the owner asked us to mirror:
+
+**1. Removed `LineHeight`** from the wrapping verse/paragraph labels (the actual trigger) so the
+native measurement matches and the last line renders complete:
 
 - `TopicFeedPage.xaml` — VisibleVerses verse-line `Label`: dropped `LineHeight="1.35"`.
 - `NoteEditorPage.xaml` — Verses verse-line `Label`: dropped `LineHeight="1.4"`.
 - `Controls/MarkdownView.cs` — `BuildLabel`: dropped `LineHeight = 1.35` (same bug class for long
   wrapping markdown paragraphs on the invitation/topic pages).
 
-If tighter spacing reads too cramped on-device, the airier spacing can be restored later via a
-per-line approach that doesn't hit the native measure bug (e.g. inter-item spacing / paragraph
-padding rather than `LineHeight`), or by revisiting the two-column layout (accepting the
-hanging indent).
+**2. Made verse numbers bold + same font size** as the body text (Gospel Library style),
+removing the last remaining reason a verse `Label` mixed metrics:
+
+- `TopicFeedPage.xaml` / `NoteEditorPage.xaml` verse-number `Span`s: dropped
+  `FontSize="{DynamicResource VerseNumberFontSize}"`, keeping `FontAttributes="Bold"`.
+- Removed the now-dead plumbing: `VerseNumberFontSize` key in `App.xaml`, and
+  `VerseNumberFontSizeKey` / `VerseNumberRatio` and their assignment in `AppearanceApplier`.
+
+Net result: all three verse templates are now identical (bold same-size number, no `LineHeight`).
+
+If the tighter default line spacing reads too cramped on-device versus the airier Gospel Library
+look, restore spacing via an approach that doesn't hit the native measure bug (inter-item
+`Spacing` / paragraph padding), **not** `LineHeight`.
 
 ## Verification
 

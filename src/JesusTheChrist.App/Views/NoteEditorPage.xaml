@@ -82,7 +82,7 @@
                                 <Label FontSize="{DynamicResource ReadingFontSize}">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding Verse}" FontAttributes="Bold" FontSize="{DynamicResource VerseNumberFontSize}" />
+                                            <Span Text="{Binding Verse}" FontAttributes="Bold" />
                                             <Span Text="  " />
                                             <Span Text="{Binding Text}" />
                                         </FormattedString>

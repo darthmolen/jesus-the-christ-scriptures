@@ -14,11 +14,6 @@
                  SettingsViewModel updates it through the AppearanceApplier. -->
             <x:Double x:Key="ReadingFontSize">16</x:Double>
 
-            <!-- Verse-number superscript: kept proportional to ReadingFontSize
-                 (~0.6x) by the AppearanceApplier so numbers stay smaller than
-                 the verse body text at every slider position. Seeded at 16 * 0.6. -->
-            <x:Double x:Key="VerseNumberFontSize">9.6</x:Double>
-
             <!-- Hold-to-copy highlight: a verse line's background ramps to this while held.
                  Two keys rather than an AppThemeBinding because the ramp is animated from
                  code-behind, where a markup extension does not resolve. -->

@@ -72,6 +72,7 @@ public static class MauiProgram
         services.AddSingleton<IAppearanceApplier, AppearanceApplier>();
         services.AddSingleton<ILanguagePreference, PreferencesLanguagePreference>();
         services.AddSingleton<IClipboardService, MauiClipboardService>();
+        services.AddSingleton<ILinkOpener, MauiLinkOpener>();
 
         // Shell + pages + view models. Pages/VMs are fresh per navigation -> transient.
         services.AddSingleton<AppShell>();

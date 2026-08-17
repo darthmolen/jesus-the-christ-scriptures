@@ -19,6 +19,7 @@ public partial class ReferenceCardViewModel : ObservableObject
     private readonly Action<ReferenceCardViewModel> onReadCollapsed;
     private readonly Func<string, Task> copyAsync;
     private readonly Func<string, Task> copyVerseAsync;
+    private readonly Func<Uri, Task> openLinkAsync;
     private readonly Func<TimeSpan, Task> delayAsync;
 
     /// <summary>
@@ -37,6 +38,8 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// <param name="onReadCollapsed">Notified when marking read rolls this card up, so the view can re-anchor scroll.</param>
     /// <param name="copyAsync">Places the given text on the system clipboard.</param>
     /// <param name="copyVerseAsync">Copies a single held verse, which the feed also confirms with a toast.</param>
+    /// <param name="studyUri">The reference's churchofjesuschrist.org study link.</param>
+    /// <param name="openLinkAsync">Opens an external link.</param>
     /// <param name="delayAsync">Waits the given duration, so the copy confirmation can be paced.</param>
     public ReferenceCardViewModel(
         string id,
@@ -52,6 +55,8 @@ public partial class ReferenceCardViewModel : ObservableObject
         Action<ReferenceCardViewModel> onReadCollapsed,
         Func<string, Task> copyAsync,
         Func<string, Task> copyVerseAsync,
+        Uri? studyUri,
+        Func<Uri, Task> openLinkAsync,
         Func<TimeSpan, Task> delayAsync)
     {
         this.Id = id;
@@ -66,6 +71,8 @@ public partial class ReferenceCardViewModel : ObservableObject
         this.onReadCollapsed = onReadCollapsed;
         this.copyAsync = copyAsync;
         this.copyVerseAsync = copyVerseAsync;
+        this.StudyUri = studyUri;
+        this.openLinkAsync = openLinkAsync;
         this.delayAsync = delayAsync;
         this.IsRead = isRead;
         this.HasNote = hasNote;
@@ -81,6 +88,19 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// Gets the reference label.
     /// </summary>
     public string RefLabel { get; }
+
+    /// <summary>
+    /// Gets the reference's study link on churchofjesuschrist.org, or <see langword="null"/> when
+    /// one could not be built. A cross-chapter reference links to the first chapter of its span;
+    /// each chapter header carries its own link.
+    /// </summary>
+    public Uri? StudyUri { get; }
+
+    /// <summary>
+    /// Gets a value indicating whether the reference has a study link to offer. Gates the link
+    /// affordance, so a reference we cannot build a URL for simply shows no link.
+    /// </summary>
+    public bool HasStudyLink => this.StudyUri is not null;
 
     /// <summary>
     /// Gets the joined target verse text (no verse numbers).
@@ -202,6 +222,10 @@ public partial class ReferenceCardViewModel : ObservableObject
 
     [RelayCommand]
     private Task OpenNoteAsync() => this.openNoteAsync(this);
+
+    [RelayCommand]
+    private Task OpenStudyAsync() =>
+        this.StudyUri is null ? Task.CompletedTask : this.openLinkAsync(this.StudyUri);
 
     [RelayCommand]
     private async Task CopyAsync()

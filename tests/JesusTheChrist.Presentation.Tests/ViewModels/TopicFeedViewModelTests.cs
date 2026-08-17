@@ -388,11 +388,44 @@ public class TopicFeedViewModelTests
         Assert.Equal(0, raised);
     }
 
+    /// <summary>
+    /// The card's link targets the first chapter of a span, highlighting only that chapter's
+    /// target verses — the rest of the span is reachable from the per-chapter headers.
+    /// </summary>
+    [Fact]
+    public async Task Card_StudyLink_TargetsTheFirstChapterOfASpan()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("summary");
+        var card = harness.ViewModel.References[0];
+
+        await card.OpenStudyCommand.ExecuteAsync(null);
+
+        Assert.Equal(
+            "https://www.churchofjesuschrist.org/study/scriptures/nt/matt/9?lang=eng&id=p35-p36#p35",
+            harness.Links.LastOpened);
+    }
+
+    [Fact]
+    public async Task ChapterHeader_StudyLink_TargetsThatChapter()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("summary");
+        var second = harness.ViewModel.References[0].Segments[1];
+
+        await second.OpenStudyCommand.ExecuteAsync(null);
+
+        Assert.Equal(10, second.Ch);
+        Assert.Equal(
+            "https://www.churchofjesuschrist.org/study/scriptures/nt/matt/10?lang=eng&id=p1-p2#p1",
+            harness.Links.LastOpened);
+    }
+
     private sealed class Harness : IAsyncDisposable
     {
         private readonly TempDatabase database;
 
-        private Harness(TempDatabase database, TopicFeedViewModel viewModel, ReadMarkStore readMarks, NoteStore notes, TopicPositionStore positions, RecordingNavigationService navigation, FakeClipboard clipboard)
+        private Harness(TempDatabase database, TopicFeedViewModel viewModel, ReadMarkStore readMarks, NoteStore notes, TopicPositionStore positions, RecordingNavigationService navigation, FakeClipboard clipboard, FakeLinkOpener links)
         {
             this.database = database;
             this.ViewModel = viewModel;
@@ -401,6 +434,7 @@ public class TopicFeedViewModelTests
             this.Positions = positions;
             this.Navigation = navigation;
             this.Clipboard = clipboard;
+            this.Links = links;
         }
 
         public TopicFeedViewModel ViewModel { get; }
@@ -414,6 +448,8 @@ public class TopicFeedViewModelTests
         public RecordingNavigationService Navigation { get; }
 
         public FakeClipboard Clipboard { get; }
+
+        public FakeLinkOpener Links { get; }
 
         public static async Task<Harness> CreateAsync()
         {
@@ -431,8 +467,9 @@ public class TopicFeedViewModelTests
             var navigation = new RecordingNavigationService();
             var env = new AppEnvironment(Scope.Full, Language.En);
             var clipboard = new FakeClipboard();
-            var vm = new TopicFeedViewModel(content, readMarks, notes, positions, settings, db, navigation, env, clipboard);
-            return new Harness(db, vm, readMarks, notes, positions, navigation, clipboard);
+            var links = new FakeLinkOpener();
+            var vm = new TopicFeedViewModel(content, readMarks, notes, positions, settings, db, navigation, env, clipboard, links);
+            return new Harness(db, vm, readMarks, notes, positions, navigation, clipboard, links);
         }
 
         public async ValueTask DisposeAsync() => await this.database.DisposeAsync();

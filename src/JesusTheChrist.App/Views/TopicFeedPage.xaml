@@ -56,6 +56,22 @@
                                             FontAttributes="Bold"
                                             Opacity="0.75"
                                             VerticalOptions="Center" />
+                                        <!-- Study link. Its own recognizer takes precedence over the
+                                             collapse tap on the enclosing stack, so the label still
+                                             rolls the card up and only this glyph leaves the app.
+                                             Padding widens the touch target past the glyph itself. -->
+                                        <Label
+                                            Text="↗"
+                                            IsVisible="{Binding HasStudyLink}"
+                                            FontSize="15"
+                                            Padding="6,4"
+                                            TextColor="#4D8DFF"
+                                            VerticalOptions="Center"
+                                            SemanticProperties.Description="{x:Static loc:AppResources.A11yOpenOnChurchSite}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding OpenStudyCommand}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
                                     </HorizontalStackLayout>
                                 </VerticalStackLayout>
                                 <!-- Copy + note + read live in the heading only while collapsed; when
@@ -143,7 +159,7 @@
                                             <!-- Chapter divider: shown only for cross-chapter references -->
                                             <Grid
                                                 IsVisible="{Binding ShowHeader}"
-                                                ColumnDefinitions="Auto,*"
+                                                ColumnDefinitions="Auto,*,Auto"
                                                 ColumnSpacing="6"
                                                 Padding="0,6,0,0"
                                                 SemanticProperties.Description="{x:Static loc:AppResources.A11yExpandCollapseChapter}">
@@ -163,6 +179,22 @@
                                                     FontAttributes="Bold"
                                                     Opacity="0.75"
                                                     VerticalOptions="Center" />
+                                                <!-- Per-chapter study link, so a reader deep in a long
+                                                     span opens the chapter they are actually in rather
+                                                     than the start of the span. -->
+                                                <Label
+                                                    Grid.Column="2"
+                                                    Text="↗"
+                                                    IsVisible="{Binding HasStudyLink}"
+                                                    FontSize="15"
+                                                    Padding="6,4"
+                                                    TextColor="#4D8DFF"
+                                                    VerticalOptions="Center"
+                                                    SemanticProperties.Description="{x:Static loc:AppResources.A11yOpenOnChurchSite}">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding OpenStudyCommand}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
                                             </Grid>
 
                                             <!-- Verse lines. Collapsed chapters expose no verses,

@@ -35,4 +35,20 @@ public static class VolumeExtensions
     /// <param name="volume">The volume.</param>
     /// <returns>The zero-based canonical order.</returns>
     public static int Order(this Volume volume) => (int)volume;
+
+    /// <summary>
+    /// Gets the volume code used in a churchofjesuschrist.org study URL.
+    /// </summary>
+    /// <param name="volume">The volume.</param>
+    /// <returns>The site volume code, for example <c>nt</c> or <c>dc-testament</c>.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">The volume is not a known volume.</exception>
+    public static string SiteCode(this Volume volume) => volume switch
+    {
+        Volume.OldTestament => "ot",
+        Volume.NewTestament => "nt",
+        Volume.BookOfMormon => "bofm",
+        Volume.DoctrineAndCovenants => "dc-testament",
+        Volume.PearlOfGreatPrice => "pgp",
+        _ => throw new ArgumentOutOfRangeException(nameof(volume)),
+    };
 }

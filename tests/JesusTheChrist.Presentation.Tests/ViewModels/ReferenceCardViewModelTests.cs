@@ -1,9 +1,50 @@
+using JesusTheChrist.Presentation.Tests.Fakes;
 using JesusTheChrist.Presentation.ViewModels;
 
 namespace JesusTheChrist.Presentation.Tests.ViewModels;
 
 public sealed class ReferenceCardViewModelTests
 {
+    private static readonly Uri CardStudyUri =
+        new("https://www.churchofjesuschrist.org/study/scriptures/nt/heb/7?lang=eng&id=p25#p25");
+
+    [Fact]
+    public async Task OpenStudy_OpensTheReferenceStudyLink()
+    {
+        var opener = new FakeLinkOpener();
+        var card = MakeSingleChapter(openLinkAsync: opener.OpenAsync);
+
+        await card.OpenStudyCommand.ExecuteAsync(null);
+
+        Assert.Equal(CardStudyUri.ToString(), opener.LastOpened);
+    }
+
+    [Fact]
+    public void HasStudyLink_IsTrue_WhenAUriWasBuilt() =>
+        Assert.True(MakeSingleChapter().HasStudyLink);
+
+    /// <summary>
+    /// A reference we cannot build a URL for shows no link rather than offering a dead one.
+    /// </summary>
+    [Fact]
+    public async Task OpenStudy_WithoutAUri_IsANoOpAndHidesTheLink()
+    {
+        var opener = new FakeLinkOpener();
+        var card = Make(
+            "Heb. 7:25",
+            [new ContextLineViewModel(25, "Wherefore he is able", isTarget: true)],
+            [],
+            copyAsync: null,
+            delayAsync: null,
+            studyUri: null,
+            openLinkAsync: opener.OpenAsync);
+
+        await card.OpenStudyCommand.ExecuteAsync(null);
+
+        Assert.False(card.HasStudyLink);
+        Assert.Empty(opener.Opened);
+    }
+
     [Fact]
     public void CopyText_SingleChapterReference_IsLabelThenNumberedVerses()
     {
@@ -230,7 +271,8 @@ public sealed class ReferenceCardViewModelTests
 
     private static ReferenceCardViewModel MakeSingleChapter(
         Func<string, Task>? copyAsync = null,
-        Func<TimeSpan, Task>? delayAsync = null)
+        Func<TimeSpan, Task>? delayAsync = null,
+        Func<Uri, Task>? openLinkAsync = null)
     {
         List<ContextLineViewModel> target =
             [new ContextLineViewModel(25, "Wherefore he is able also to save them to the uttermost", isTarget: true)];
@@ -241,9 +283,11 @@ public sealed class ReferenceCardViewModelTests
         return Make(
             "Heb. 7:25",
             context,
-            [new ChapterSegmentViewModel("Hebrews 7", showHeader: false, target, isExpanded: true)],
+            [Segment(7, "Hebrews 7", showHeader: false, target)],
             copyAsync,
-            delayAsync);
+            delayAsync,
+            CardStudyUri,
+            openLinkAsync);
     }
 
     private static ReferenceCardViewModel MakeCrossChapter(
@@ -260,19 +304,36 @@ public sealed class ReferenceCardViewModelTests
             "Matt. 9:35–11:1",
             [.. ninth, .. tenth],
             [
-                new ChapterSegmentViewModel("Matthew 9", showHeader: true, ninth, isExpanded: true),
-                new ChapterSegmentViewModel("Matthew 10", showHeader: true, tenth, isExpanded: true),
+                Segment(9, "Matthew 9", showHeader: true, ninth),
+                Segment(10, "Matthew 10", showHeader: true, tenth),
             ],
             copyAsync,
-            delayAsync);
+            delayAsync,
+            CardStudyUri);
     }
+
+    private static ChapterSegmentViewModel Segment(
+        int ch,
+        string chapterLabel,
+        bool showHeader,
+        IReadOnlyList<ContextLineViewModel> verses) =>
+        new(
+            ch,
+            chapterLabel,
+            showHeader,
+            verses,
+            isExpanded: true,
+            new Uri($"https://www.churchofjesuschrist.org/study/scriptures/nt/matt/{ch}?lang=eng"),
+            _ => Task.CompletedTask);
 
     private static ReferenceCardViewModel Make(
         string refLabel,
         IReadOnlyList<ContextLineViewModel> context,
         IReadOnlyList<ChapterSegmentViewModel> segments,
         Func<string, Task>? copyAsync,
-        Func<TimeSpan, Task>? delayAsync) =>
+        Func<TimeSpan, Task>? delayAsync,
+        Uri? studyUri,
+        Func<Uri, Task>? openLinkAsync = null) =>
         new(
             "advocate:newtestament/heb/7/25",
             refLabel,
@@ -287,5 +348,7 @@ public sealed class ReferenceCardViewModelTests
             onReadCollapsed: _ => { },
             copyAsync: copyAsync ?? (_ => Task.CompletedTask),
             copyVerseAsync: copyAsync ?? (_ => Task.CompletedTask),
+            studyUri: studyUri,
+            openLinkAsync: openLinkAsync ?? (_ => Task.CompletedTask),
             delayAsync: delayAsync ?? (_ => Task.CompletedTask));
 }

@@ -108,6 +108,10 @@ public static class AppResources
 
     public static string A11yJumpToChapter => Get("A11yJumpToChapter");
 
+    public static string CardBackToTop => Get("CardBackToTop");
+
+    public static string A11yBackToTop => Get("A11yBackToTop");
+
     public static string ToastVerseCopied => Get("ToastVerseCopied");
 
     public static string HomeReferencesReadFormat => Get("HomeReferencesReadFormat");

@@ -417,3 +417,22 @@ back the way it was left, regardless of read state.
 **Tests:** 236 green (Core 65, Data 26, Presentation 145), up from 229. Build clean, 0 warnings.
 Seven new Presentation tests cover the strip, the render gating, the collapse-to-index case, and
 that re-anchoring fires on open but not on close.
+
+### UAT round 2 — the strip was one-way
+
+The owner caught what the first pass missed: the strip is only reachable from the top of the card.
+After reading a chapter the reader sits dozens of verses below it, so moving to the next chapter
+meant scrolling back over everything they had just read — the tedium the strip existed to remove,
+reintroduced at every chapter boundary. The strip solved entering a chapter and did nothing about
+leaving one.
+
+Fixed with a **"↑ To top"** link at the end of each open chapter, on strip cards only, scrolling back
+to the card top where the strip lives. Deliberately a pure view concern: the handler walks up from
+the tapped label with the existing `CardFor` helper, exactly as a held verse finds its card, so no
+view model learns that scrolling exists. No view-model change at all — `ChapterSegmentViewModel.InStrip`
+already gates it, and because a segment only renders while expanded, the link appears exactly when a
+chapter is open and never otherwise.
+
+**Lesson:** the strip was designed for the *entry* half of the interaction and reviewed the same way.
+A navigation affordance needs its return path designed at the same time, or it is one-way by
+construction. Worth checking for on any future in-place swap — see ADR 0001.

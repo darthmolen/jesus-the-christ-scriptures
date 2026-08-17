@@ -27,6 +27,8 @@ public class AppResourcesTests
             Assert.Equal("Hold to copy this verse", AppResources.A11yHoldToCopyVerse);
             Assert.Equal("Open on churchofjesuschrist.org", AppResources.A11yOpenOnChurchSite);
             Assert.Equal("Go to this chapter", AppResources.A11yJumpToChapter);
+            Assert.Equal("↑ To top", AppResources.CardBackToTop);
+            Assert.Equal("Back to the chapter list", AppResources.A11yBackToTop);
         }
         finally
         {
@@ -53,6 +55,8 @@ public class AppResourcesTests
             Assert.Equal("Mantén presionado para copiar este versículo", AppResources.A11yHoldToCopyVerse);
             Assert.Equal("Abrir en churchofjesuschrist.org", AppResources.A11yOpenOnChurchSite);
             Assert.Equal("Ir a este capítulo", AppResources.A11yJumpToChapter);
+            Assert.Equal("↑ Al inicio", AppResources.CardBackToTop);
+            Assert.Equal("Volver a la lista de capítulos", AppResources.A11yBackToTop);
         }
         finally
         {

@@ -96,6 +96,12 @@ This is a reading app. Scrolling is the reader's principal cost, and a design th
 on *navigation* is spending it away from the content. Swapping content inside a fixed container is
 not a workaround for a scroll limitation here; it is the thing that should have been designed first.
 
+**Amendment (same day):** the first cut of the strip was **one-way**. It made entering a chapter one
+tap and left leaving one unchanged, so the reader still had to scroll back over the chapter they had
+just read to reach the strip again. A "↑ To top" link at the end of each open chapter closes the
+loop. The general form of the mistake is worth keeping: *an in-place swap needs its return path
+designed at the same time as its entry path, or it is one-way by construction.*
+
 **The consequence for whoever reads this next:** do not treat the strip as debt awaiting repayment
 by the "proper" grouped `CollectionView`. When a revisit trigger fires, the move is almost certainly
 to add chapter addressability **underneath** the strip — so that a verse deep link or a search hit

@@ -209,8 +209,9 @@
                                 Color="{AppThemeBinding Light=#E0E0E0, Dark=#444444}" />
 
                             <!-- Context window. It sits above the footer bar, so the toggle that
-                                 opened it is also the first thing below it: a reader who finishes
-                                 the context never has to scroll back up to close it. -->
+                                 opened it waits just past the end of the context, separated only by
+                                 the divider below: a reader who finishes the contextual read never
+                                 has to scroll back up to close it. -->
                             <VerticalStackLayout
                                 IsVisible="{Binding IsContextVisible}"
                                 Spacing="4"

@@ -65,7 +65,7 @@ After completing any task:
 - Specific change 1
 - Specific change 2
 
-Phase: planning/completed/phase_[name]_[date].md
+Phase: planning/completed/yyyy_mm_dd_feature_[slug].md
 ```
 
 ## Branch & Merge Policy

@@ -44,8 +44,11 @@ public sealed class ChapterSegmentViewModelTests
 
     private static ChapterSegmentViewModel Make(bool isExpanded) =>
         new(
+            10,
             "Matthew 10",
             showHeader: true,
             [new ContextLineViewModel(1, "and when he had called", isTarget: true)],
-            isExpanded);
+            isExpanded,
+            new Uri("https://www.churchofjesuschrist.org/study/scriptures/nt/matt/10?lang=eng&id=p1#p1"),
+            _ => Task.CompletedTask);
 }

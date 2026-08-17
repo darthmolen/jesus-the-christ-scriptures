@@ -39,6 +39,10 @@ public partial class TopicFeedViewModel : ObservableObject
     // one's receiver is a field, so the compiler cannot cache it and each card would otherwise
     // allocate its own.
     private readonly Func<string, Task> copyAsync;
+
+    // Hoisted for the same reason as copyAsync: a field receiver defeats the compiler's
+    // method-group caching, so every card would otherwise allocate its own delegate.
+    private readonly Func<Uri, Task> openLinkAsync;
     private string topicKey = string.Empty;
     private string? resumeRefId;
     private string? currentRefId;
@@ -55,6 +59,7 @@ public partial class TopicFeedViewModel : ObservableObject
     /// <param name="navigation">The navigation service.</param>
     /// <param name="environment">App scope and default language.</param>
     /// <param name="clipboard">The system clipboard, for the cards' copy action.</param>
+    /// <param name="links">The platform link opener, for the cards' study links.</param>
     public TopicFeedViewModel(
         ContentService content,
         ReadMarkStore readMarks,
@@ -64,9 +69,11 @@ public partial class TopicFeedViewModel : ObservableObject
         IDatabaseInitializer databaseInitializer,
         INavigationService navigation,
         AppEnvironment environment,
-        IClipboardService clipboard)
+        IClipboardService clipboard,
+        ILinkOpener links)
     {
         ArgumentNullException.ThrowIfNull(clipboard);
+        ArgumentNullException.ThrowIfNull(links);
 
         this.content = content;
         this.readMarks = readMarks;
@@ -77,6 +84,7 @@ public partial class TopicFeedViewModel : ObservableObject
         this.navigation = navigation;
         this.environment = environment;
         this.copyAsync = clipboard.SetTextAsync;
+        this.openLinkAsync = links.OpenAsync;
     }
 
     /// <summary>
@@ -161,7 +169,7 @@ public partial class TopicFeedViewModel : ObservableObject
                     reference.TargetText,
                     reference.ShowGloss ? reference.Note : null,
                     context,
-                    BuildSegments(reference),
+                    BuildSegments(reference, language, this.openLinkAsync),
                     readIds.Contains(id),
                     noteIds.Contains(id),
                     this.SetReadAsync,
@@ -169,6 +177,8 @@ public partial class TopicFeedViewModel : ObservableObject
                     this.OnCardCollapsedAfterRead,
                     this.copyAsync,
                     this.CopyVerseAsync,
+                    StudyUri(ScriptureUrlBuilder.Build(reference, language)),
+                    this.openLinkAsync,
                     DelayAsync));
             }
         }
@@ -179,12 +189,29 @@ public partial class TopicFeedViewModel : ObservableObject
     }
 
     /// <summary>
+    /// Parses a built study URL. A URL we cannot parse yields <see langword="null"/> rather than
+    /// throwing: a bad book code somewhere in the corpus should cost that card its link, not break
+    /// the whole feed's load.
+    /// </summary>
+    /// <param name="url">The URL built by <see cref="ScriptureUrlBuilder"/>.</param>
+    /// <returns>The absolute URI, or <see langword="null"/> when it does not parse.</returns>
+    private static Uri? StudyUri(string url) =>
+        Uri.TryCreate(url, UriKind.Absolute, out var uri) ? uri : null;
+
+    /// <summary>
     /// Builds a card's per-chapter segments. A single-chapter reference yields one header-less
     /// segment shown in full. A cross-chapter reference yields one segment per chapter with a
     /// header; the first chapter is always expanded, and the rest start expanded only when the
     /// whole passage is small enough that realizing every verse up front stays cheap.
     /// </summary>
-    private static List<ChapterSegmentViewModel> BuildSegments(Reference reference)
+    /// <param name="reference">The reference to lay out.</param>
+    /// <param name="language">The reader's language, for the chapters' study links.</param>
+    /// <param name="openLinkAsync">Opens an external link.</param>
+    /// <returns>The chapter segments backing the card.</returns>
+    private static List<ChapterSegmentViewModel> BuildSegments(
+        Reference reference,
+        Language language,
+        Func<Uri, Task> openLinkAsync)
     {
         var spans = reference.SpansChapters;
         var expandAll = reference.Context.Count(c => c.Target) <= EagerVerseLimit;
@@ -197,7 +224,14 @@ public partial class TopicFeedViewModel : ObservableObject
                 .Select(v => new ContextLineViewModel(v.Vs, v.Text, v.Target))
                 .ToList();
             var isExpanded = !spans || i == 0 || expandAll;
-            cards.Add(new ChapterSegmentViewModel(segments[i].ChapterLabel, spans, verses, isExpanded));
+            cards.Add(new ChapterSegmentViewModel(
+                segments[i].Ch,
+                segments[i].ChapterLabel,
+                spans,
+                verses,
+                isExpanded,
+                StudyUri(ScriptureUrlBuilder.Build(reference, segments[i], language)),
+                openLinkAsync));
         }
 
         return cards;

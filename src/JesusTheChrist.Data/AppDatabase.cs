@@ -32,5 +32,6 @@ public sealed class AppDatabase
         await this.Connection.CreateTableAsync<NoteEntry>();
         await this.Connection.CreateTableAsync<Setting>();
         await this.Connection.CreateTableAsync<TopicPosition>();
+        await this.Connection.CreateTableAsync<ChapterPosition>();
     }
 }

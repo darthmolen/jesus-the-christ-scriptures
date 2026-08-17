@@ -59,6 +59,7 @@ public static class MauiProgram
         services.AddSingleton<ReadMarkStore>();
         services.AddSingleton<NoteStore>();
         services.AddSingleton<TopicPositionStore>();
+        services.AddSingleton<ChapterPositionStore>();
         services.AddSingleton<SettingsStore>();
         services.AddSingleton<StreakStore>();
 

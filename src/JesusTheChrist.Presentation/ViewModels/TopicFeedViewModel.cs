@@ -30,6 +30,7 @@ public partial class TopicFeedViewModel : ObservableObject
     private readonly ReadMarkStore readMarks;
     private readonly NoteStore notes;
     private readonly TopicPositionStore positions;
+    private readonly ChapterPositionStore chapterPositions;
     private readonly SettingsStore settings;
     private readonly IDatabaseInitializer databaseInitializer;
     private readonly INavigationService navigation;
@@ -54,6 +55,7 @@ public partial class TopicFeedViewModel : ObservableObject
     /// <param name="readMarks">The read-mark store.</param>
     /// <param name="notes">The note store.</param>
     /// <param name="positions">The per-topic reading-position store.</param>
+    /// <param name="chapterPositions">The per-reference chapter-position store, for long spans.</param>
     /// <param name="settings">The settings store (language preference).</param>
     /// <param name="databaseInitializer">Ensures the database schema before reads.</param>
     /// <param name="navigation">The navigation service.</param>
@@ -65,6 +67,7 @@ public partial class TopicFeedViewModel : ObservableObject
         ReadMarkStore readMarks,
         NoteStore notes,
         TopicPositionStore positions,
+        ChapterPositionStore chapterPositions,
         SettingsStore settings,
         IDatabaseInitializer databaseInitializer,
         INavigationService navigation,
@@ -79,6 +82,7 @@ public partial class TopicFeedViewModel : ObservableObject
         this.readMarks = readMarks;
         this.notes = notes;
         this.positions = positions;
+        this.chapterPositions = chapterPositions;
         this.settings = settings;
         this.databaseInitializer = databaseInitializer;
         this.navigation = navigation;
@@ -155,6 +159,7 @@ public partial class TopicFeedViewModel : ObservableObject
             this.Title = subTopic.Title;
             var readIds = await this.readMarks.GetReadIdsAsync();
             var noteIds = await this.notes.GetNoteIdsAsync();
+            var savedChapters = await this.chapterPositions.GetAllAsync();
 
             foreach (var reference in subTopic.References)
             {
@@ -163,13 +168,30 @@ public partial class TopicFeedViewModel : ObservableObject
                     .Select(c => new ContextLineViewModel(c.Vs, c.Text, c.Target))
                     .ToList();
 
+                // Group the target verses once. Every card is built up front, so each extra pass
+                // over a reference is paid for the whole sub-topic — and the segments already hold
+                // exactly the target verses, so the threshold can be counted straight off them.
+                var segments = reference.TargetSegments();
+                var expandAll = segments.Sum(s => s.Verses.Count) <= EagerVerseLimit;
+
+                // Only a span too large to open at once gets the accordion and its remembered
+                // chapter: on a short span that would take away a passage the reader can otherwise
+                // read straight through.
+                var usesChapterMemory = reference.SpansChapters && !expandAll;
+
                 this.References.Add(new ReferenceCardViewModel(
                     id,
                     reference.RefLabel,
                     reference.TargetText,
                     reference.ShowGloss ? reference.Note : null,
                     context,
-                    BuildSegments(reference, language, this.openLinkAsync),
+                    BuildSegments(
+                        reference,
+                        segments,
+                        expandAll,
+                        language,
+                        this.openLinkAsync,
+                        savedChapters.TryGetValue(id, out var savedCh) ? savedCh : null),
                     readIds.Contains(id),
                     noteIds.Contains(id),
                     this.SetReadAsync,
@@ -179,6 +201,8 @@ public partial class TopicFeedViewModel : ObservableObject
                     this.CopyVerseAsync,
                     StudyUri(ScriptureUrlBuilder.Build(reference, language)),
                     this.openLinkAsync,
+                    usesChapterMemory,
+                    this.chapterPositions.SaveAsync,
                     DelayAsync));
             }
         }
@@ -201,29 +225,40 @@ public partial class TopicFeedViewModel : ObservableObject
     /// <summary>
     /// Builds a card's per-chapter segments. A single-chapter reference yields one header-less
     /// segment shown in full. A cross-chapter reference yields one segment per chapter with a
-    /// header; the first chapter is always expanded, and the rest start expanded only when the
-    /// whole passage is small enough that realizing every verse up front stays cheap.
+    /// header; a card with chapter memory opens exactly one of them, and otherwise every chapter
+    /// past the first opens only when the whole passage is small enough to realize up front.
     /// </summary>
     /// <param name="reference">The reference to lay out.</param>
+    /// <param name="segments">The reference's chapter segments, grouped once by the caller.</param>
+    /// <param name="expandAll">Whether the passage is small enough to open every chapter at once.</param>
     /// <param name="language">The reader's language, for the chapters' study links.</param>
     /// <param name="openLinkAsync">Opens an external link.</param>
+    /// <param name="savedCh">The chapter the reader was last in, or <see langword="null"/>.</param>
     /// <returns>The chapter segments backing the card.</returns>
     private static List<ChapterSegmentViewModel> BuildSegments(
         Reference reference,
+        IReadOnlyList<ChapterSegment> segments,
+        bool expandAll,
         Language language,
-        Func<Uri, Task> openLinkAsync)
+        Func<Uri, Task> openLinkAsync,
+        int? savedCh)
     {
         var spans = reference.SpansChapters;
-        var expandAll = reference.Context.Count(c => c.Target) <= EagerVerseLimit;
 
-        var segments = reference.TargetSegments();
+        // A card with chapter memory opens exactly one chapter: the one the reader was last in,
+        // or the first when nothing is remembered (or the remembered chapter no longer exists,
+        // which a corpus revision could cause).
+        var openCh = !spans || expandAll
+            ? (int?)null
+            : savedCh is int saved && segments.Any(s => s.Ch == saved) ? saved : segments[0].Ch;
+
         var cards = new List<ChapterSegmentViewModel>(segments.Count);
         for (var i = 0; i < segments.Count; i++)
         {
             var verses = segments[i].Verses
                 .Select(v => new ContextLineViewModel(v.Vs, v.Text, v.Target))
                 .ToList();
-            var isExpanded = !spans || i == 0 || expandAll;
+            var isExpanded = openCh is int only ? segments[i].Ch == only : !spans || i == 0 || expandAll;
             cards.Add(new ChapterSegmentViewModel(
                 segments[i].Ch,
                 segments[i].ChapterLabel,

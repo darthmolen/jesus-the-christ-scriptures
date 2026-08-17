@@ -14,6 +14,8 @@ public partial class ChapterSegmentViewModel : ObservableObject
 
     private readonly Func<Uri, Task> openLinkAsync;
 
+    private Func<ChapterSegmentViewModel, Task>? onExpanded;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="ChapterSegmentViewModel"/> class.
     /// </summary>
@@ -99,8 +101,27 @@ public partial class ChapterSegmentViewModel : ObservableObject
     /// </summary>
     public string ChevronGlyph => this.IsExpanded ? "▾" : "▸";
 
+    /// <summary>
+    /// Registers the owner notified when this chapter is expanded. The card uses it to collapse the
+    /// other chapters and remember this one; a segment holds no reference to its siblings, so the
+    /// card is the only place that can see all of them.
+    /// </summary>
+    /// <param name="listener">Invoked with this segment whenever it expands.</param>
+    public void AttachExpansionListener(Func<ChapterSegmentViewModel, Task> listener) =>
+        this.onExpanded = listener;
+
     [RelayCommand]
-    private void ToggleExpanded() => this.IsExpanded = !this.IsExpanded;
+    private async Task ToggleExpandedAsync()
+    {
+        this.IsExpanded = !this.IsExpanded;
+
+        // Only expanding is reported. Collapsing the open chapter is allowed — on a long span it
+        // turns the card into a chapter index — and must not clear the remembered chapter.
+        if (this.IsExpanded && this.onExpanded is not null)
+        {
+            await this.onExpanded(this);
+        }
+    }
 
     [RelayCommand]
     private Task OpenStudyAsync() =>

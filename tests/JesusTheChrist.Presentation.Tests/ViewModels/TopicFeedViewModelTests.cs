@@ -421,12 +421,71 @@ public class TopicFeedViewModelTests
             harness.Links.LastOpened);
     }
 
+    [Fact]
+    public async Task LongSpan_OpensOnlyItsFirstChapter_WhenNothingIsRemembered()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("long");
+        var card = harness.ViewModel.References[0];
+
+        Assert.True(card.UsesChapterMemory);
+        Assert.Equal([true, false, false], card.Segments.Select(s => s.IsExpanded));
+    }
+
+    [Fact]
+    public async Task LongSpan_ReopensTheRememberedChapterAlone()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("long");
+        var card = harness.ViewModel.References[0];
+
+        // The reader moves to the third chapter, then leaves and comes back.
+        await card.Segments[2].ToggleExpandedCommand.ExecuteAsync(null);
+        await harness.ViewModel.LoadAsync("long");
+
+        var reloaded = harness.ViewModel.References[0];
+        Assert.Equal([false, false, true], reloaded.Segments.Select(s => s.IsExpanded));
+    }
+
+    /// <summary>
+    /// A remembered chapter that no longer exists (a corpus revision could drop one) must not leave
+    /// every chapter closed.
+    /// </summary>
+    [Fact]
+    public async Task LongSpan_FallsBackToTheFirstChapter_WhenTheRememberedOneIsGone()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("long");
+        var refId = harness.ViewModel.References[0].Id;
+
+        await harness.ChapterPositions.SaveAsync(refId, 99);
+        await harness.ViewModel.LoadAsync("long");
+
+        Assert.Equal([true, false, false], harness.ViewModel.References[0].Segments.Select(s => s.IsExpanded));
+    }
+
+    /// <summary>
+    /// The short cross-chapter span keeps opening every chapter, unchanged by this feature.
+    /// </summary>
+    [Fact]
+    public async Task ShortSpan_KeepsEveryChapterOpenAndUsesNoChapterMemory()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("summary");
+        var card = harness.ViewModel.References[0];
+
+        Assert.False(card.UsesChapterMemory);
+        Assert.All(card.Segments, s => Assert.True(s.IsExpanded));
+        Assert.Empty(await harness.ChapterPositions.GetAllAsync());
+    }
+
     private sealed class Harness : IAsyncDisposable
     {
         private readonly TempDatabase database;
 
-        private Harness(TempDatabase database, TopicFeedViewModel viewModel, ReadMarkStore readMarks, NoteStore notes, TopicPositionStore positions, RecordingNavigationService navigation, FakeClipboard clipboard, FakeLinkOpener links)
+        private Harness(TempDatabase database, TopicFeedViewModel viewModel, ReadMarkStore readMarks, NoteStore notes, TopicPositionStore positions, RecordingNavigationService navigation, FakeClipboard clipboard, FakeLinkOpener links, ChapterPositionStore chapterPositions)
         {
+            this.ChapterPositions = chapterPositions;
             this.database = database;
             this.ViewModel = viewModel;
             this.ReadMarks = readMarks;
@@ -451,13 +510,16 @@ public class TopicFeedViewModelTests
 
         public FakeLinkOpener Links { get; }
 
+        public ChapterPositionStore ChapterPositions { get; }
+
         public static async Task<Harness> CreateAsync()
         {
             var db = await TempDatabase.CreateAsync();
+            var guide = BuildGuide();
             var assets = new FakeAssetSource(new Dictionary<string, string>
             {
-                ["jesus-christ.en.json"] = EnGuide,
-                ["jesus-christ.es.json"] = EnGuide,
+                ["jesus-christ.en.json"] = guide,
+                ["jesus-christ.es.json"] = guide,
             });
             var content = new ContentService(assets);
             var readMarks = new ReadMarkStore(db.Db);
@@ -468,8 +530,9 @@ public class TopicFeedViewModelTests
             var env = new AppEnvironment(Scope.Full, Language.En);
             var clipboard = new FakeClipboard();
             var links = new FakeLinkOpener();
-            var vm = new TopicFeedViewModel(content, readMarks, notes, positions, settings, db, navigation, env, clipboard, links);
-            return new Harness(db, vm, readMarks, notes, positions, navigation, clipboard, links);
+            var chapterPositions = new ChapterPositionStore(db.Db);
+            var vm = new TopicFeedViewModel(content, readMarks, notes, positions, chapterPositions, settings, db, navigation, env, clipboard, links);
+            return new Harness(db, vm, readMarks, notes, positions, navigation, clipboard, links, chapterPositions);
         }
 
         public async ValueTask DisposeAsync() => await this.database.DisposeAsync();
@@ -515,5 +578,40 @@ public class TopicFeedViewModelTests
               ]
             }
             """;
+
+        /// <summary>
+        /// Splices a deliberately long span into the guide. Chapter memory only engages past
+        /// <c>EagerVerseLimit</c> (60 target verses), so the fixture needs a passage larger than any
+        /// hand-written literal would comfortably hold — 3 chapters of 25 verses stands in for
+        /// 3 Nephi 11–26.
+        /// </summary>
+        /// <returns>The guide JSON including the long-span sub-topic.</returns>
+        private static string BuildGuide()
+        {
+            var context = new List<string>();
+            foreach (var ch in new[] { 11, 12, 13 })
+            {
+                for (var vs = 1; vs <= 25; vs++)
+                {
+                    context.Add(
+                        $$"""{ "vs": {{vs}}, "text": "chapter {{ch}} verse {{vs}}", "target": true, "ch": {{ch}} }""");
+                }
+            }
+
+            var longSpan = $$"""
+                ,{
+                  "title": "Jesus Christ, Long Span", "short": "Long",
+                  "references": [
+                    { "ref": "3 Ne. 11–13", "vol": "bookofmormon", "book": "3-ne", "book_title": "3 Nephi",
+                      "ch": 11, "end_ch": 13, "verses": [1],
+                      "context": [ {{string.Join(", ", context)}} ] }
+                  ]
+                }
+                """;
+
+            // Insert the sub-topic before the guide's closing "]}"".
+            var close = EnGuide.LastIndexOf(']');
+            return string.Concat(EnGuide.AsSpan(0, close), longSpan, EnGuide.AsSpan(close));
+        }
     }
 }

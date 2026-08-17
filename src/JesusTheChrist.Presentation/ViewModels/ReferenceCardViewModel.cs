@@ -20,6 +20,7 @@ public partial class ReferenceCardViewModel : ObservableObject
     private readonly Func<string, Task> copyAsync;
     private readonly Func<string, Task> copyVerseAsync;
     private readonly Func<Uri, Task> openLinkAsync;
+    private readonly Func<string, int, Task> saveChapterAsync;
     private readonly Func<TimeSpan, Task> delayAsync;
 
     /// <summary>
@@ -40,6 +41,11 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// <param name="copyVerseAsync">Copies a single held verse, which the feed also confirms with a toast.</param>
     /// <param name="studyUri">The reference's churchofjesuschrist.org study link.</param>
     /// <param name="openLinkAsync">Opens an external link.</param>
+    /// <param name="usesChapterMemory">
+    /// Whether this card's chapters behave as an accordion and remember which one was open. True
+    /// only for a spanning reference too large to show every chapter at once.
+    /// </param>
+    /// <param name="saveChapterAsync">Persists the chapter the reader opened within this reference.</param>
     /// <param name="delayAsync">Waits the given duration, so the copy confirmation can be paced.</param>
     public ReferenceCardViewModel(
         string id,
@@ -57,8 +63,14 @@ public partial class ReferenceCardViewModel : ObservableObject
         Func<string, Task> copyVerseAsync,
         Uri? studyUri,
         Func<Uri, Task> openLinkAsync,
+        bool usesChapterMemory,
+        Func<string, int, Task> saveChapterAsync,
         Func<TimeSpan, Task> delayAsync)
     {
+        // Guarded because the accordion wiring below enumerates it on the spot; its siblings are
+        // only stored, which is why CA1062 singles this one out.
+        ArgumentNullException.ThrowIfNull(segments);
+
         this.Id = id;
         this.RefLabel = refLabel;
         this.VerseText = verseText;
@@ -73,7 +85,18 @@ public partial class ReferenceCardViewModel : ObservableObject
         this.copyVerseAsync = copyVerseAsync;
         this.StudyUri = studyUri;
         this.openLinkAsync = openLinkAsync;
+        this.UsesChapterMemory = usesChapterMemory;
+        this.saveChapterAsync = saveChapterAsync;
         this.delayAsync = delayAsync;
+
+        if (usesChapterMemory)
+        {
+            foreach (var segment in segments)
+            {
+                segment.AttachExpansionListener(this.OnSegmentExpandedAsync);
+            }
+        }
+
         this.IsRead = isRead;
         this.HasNote = hasNote;
         this.IsExpanded = !isRead;
@@ -101,6 +124,14 @@ public partial class ReferenceCardViewModel : ObservableObject
     /// affordance, so a reference we cannot build a URL for simply shows no link.
     /// </summary>
     public bool HasStudyLink => this.StudyUri is not null;
+
+    /// <summary>
+    /// Gets a value indicating whether this card's chapters behave as an accordion — at most one
+    /// open at a time — and remember which one the reader was in across visits. True only for a
+    /// spanning reference too large to open every chapter at once, since forcing an accordion on a
+    /// short span would take away a passage the reader can otherwise read straight through.
+    /// </summary>
+    public bool UsesChapterMemory { get; }
 
     /// <summary>
     /// Gets the joined target verse text (no verse numbers).
@@ -226,6 +257,26 @@ public partial class ReferenceCardViewModel : ObservableObject
     [RelayCommand]
     private Task OpenStudyAsync() =>
         this.StudyUri is null ? Task.CompletedTask : this.openLinkAsync(this.StudyUri);
+
+    /// <summary>
+    /// Collapses the other chapters and remembers this one. A reader working through a passage the
+    /// size of 3 Nephi 11–26 otherwise reopens at its first chapter every visit, having to re-find
+    /// where they were.
+    /// </summary>
+    /// <param name="expanded">The chapter the reader just opened.</param>
+    /// <returns>A task that completes once the chapter has been persisted.</returns>
+    private Task OnSegmentExpandedAsync(ChapterSegmentViewModel expanded)
+    {
+        foreach (var segment in this.Segments)
+        {
+            if (!ReferenceEquals(segment, expanded))
+            {
+                segment.IsExpanded = false;
+            }
+        }
+
+        return this.saveChapterAsync(this.Id, expanded.Ch);
+    }
 
     [RelayCommand]
     private async Task CopyAsync()

@@ -200,6 +200,53 @@
                                 </BindableLayout.ItemTemplate>
                             </VerticalStackLayout>
 
+                            <!-- Divider between the original passage and the contextual read,
+                                 shown only while the context window is open. -->
+                            <BoxView
+                                IsVisible="{Binding IsContextVisible}"
+                                HeightRequest="1"
+                                Margin="0,4"
+                                Color="{AppThemeBinding Light=#E0E0E0, Dark=#444444}" />
+
+                            <!-- Context window. It sits above the footer bar, so the toggle that
+                                 opened it waits just past the end of the context, separated only by
+                                 the divider below: a reader who finishes the contextual read never
+                                 has to scroll back up to close it. -->
+                            <VerticalStackLayout
+                                IsVisible="{Binding IsContextVisible}"
+                                Spacing="4"
+                                BindableLayout.ItemsSource="{Binding Context}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:ContextLineViewModel">
+                                        <Label
+                                            FontSize="{DynamicResource ReadingFontSize}"
+                                            Opacity="0.85"
+                                            SemanticProperties.Hint="{x:Static loc:AppResources.A11yHoldToCopyVerse}">
+                                            <Label.GestureRecognizers>
+                                                <PointerGestureRecognizer
+                                                    PointerPressed="OnVersePointerPressed"
+                                                    PointerMoved="OnVersePointerMoved"
+                                                    PointerReleased="OnVerseHoldEnded"
+                                                    PointerExited="OnVerseHoldEnded" />
+                                            </Label.GestureRecognizers>
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding IsTarget}" Value="True">
+                                                    <Setter Property="FontAttributes" Value="Bold" />
+                                                    <Setter Property="Opacity" Value="1" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Verse}" FontAttributes="Bold" />
+                                                    <Span Text=" " />
+                                                    <Span Text="{Binding Text}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+
                             <!-- Separator -->
                             <BoxView
                                 HeightRequest="1"
@@ -208,7 +255,10 @@
 
                             <!-- Footer action bar: context toggle on the left, copy + note + read on
                                  the right. These mirror the heading actions but ride at the foot of the
-                                 expanded card, so the reader acts right where the passage ends. -->
+                                 expanded card, so the reader acts right where the passage ends. This
+                                 must stay the LAST child of the collapsible body — the context window
+                                 it toggles renders above it, so that a reader who reaches the end of
+                                 the contextual read finds the Hide button waiting there. -->
                             <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="8">
                                 <Button
                                     Grid.Column="0"
@@ -291,42 +341,6 @@
                                         SemanticProperties.Description="{x:Static loc:AppResources.A11yRead}" />
                                 </Border>
                             </Grid>
-
-                            <!-- Context window -->
-                            <VerticalStackLayout
-                                IsVisible="{Binding IsContextVisible}"
-                                Spacing="4"
-                                BindableLayout.ItemsSource="{Binding Context}">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate x:DataType="vm:ContextLineViewModel">
-                                        <Label
-                                            FontSize="{DynamicResource ReadingFontSize}"
-                                            Opacity="0.85"
-                                            SemanticProperties.Hint="{x:Static loc:AppResources.A11yHoldToCopyVerse}">
-                                            <Label.GestureRecognizers>
-                                                <PointerGestureRecognizer
-                                                    PointerPressed="OnVersePointerPressed"
-                                                    PointerMoved="OnVersePointerMoved"
-                                                    PointerReleased="OnVerseHoldEnded"
-                                                    PointerExited="OnVerseHoldEnded" />
-                                            </Label.GestureRecognizers>
-                                            <Label.Triggers>
-                                                <DataTrigger TargetType="Label" Binding="{Binding IsTarget}" Value="True">
-                                                    <Setter Property="FontAttributes" Value="Bold" />
-                                                    <Setter Property="Opacity" Value="1" />
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding Verse}" FontAttributes="Bold" />
-                                                    <Span Text=" " />
-                                                    <Span Text="{Binding Text}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
-                            </VerticalStackLayout>
 
                             </VerticalStackLayout>
                             <!-- /Collapsible body -->

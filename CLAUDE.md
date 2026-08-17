@@ -31,7 +31,9 @@ planning/
 
 Before executing any task:
 
-1. Create a phase document in `planning/in_progress/` named `phase_[name]_[date].md`
+1. Create a phase document in `planning/in_progress/` named `yyyy_mm_dd_feature_[slug].md`
+   (date first, so the directory sorts chronologically; older docs use the retired
+   `phase_[name]_[date].md` form and are left as-is)
 2. Document the objective, approach, and success criteria
 3. List all files expected to be modified
 4. Identify dependencies and prerequisites
@@ -63,7 +65,7 @@ After completing any task:
 - Specific change 1
 - Specific change 2
 
-Phase: planning/completed/phase_[name]_[date].md
+Phase: planning/completed/yyyy_mm_dd_feature_[slug].md
 ```
 
 ## Branch & Merge Policy

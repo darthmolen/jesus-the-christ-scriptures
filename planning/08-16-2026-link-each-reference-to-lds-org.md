@@ -1,0 +1,3 @@
+1) we should hyperlink the scripture in the header to lds.org if they want to study further.
+2) when clicking "show scriptural context" we have to scroll back up when we finish reading to click done. that bar needs to travel down to the bottom. We still need to leave a separator line of sorts to separate the original from the contextual read though. thoughts?
+3) When in the very very very long multi-chapter references, we need to at least remember the chapter the person is in. it was difficult finishing 3 Ne 11-26 and remembering each time which chapter I was in. It just defaults back to 11 and all of them closed. Only keep the chapter they were on open, the rest before and after can still be minimized.

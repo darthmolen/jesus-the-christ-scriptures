@@ -61,6 +61,9 @@ Short spans and single-chapter references are untouched: no strip, headers inlin
   picker rather than a column of headers to scroll past.
 - Chapter position is now exact enough in practice **without** the framework ever needing to address
   a chapter.
+- **Confirmed on device** (owner, 1.0.7 UAT): *"the little boxes actually make it more readable.
+  Sure it's not scrolling, but scrolling can be tedious, so why not change within the same box?"*
+  See the verdict below — this is the load-bearing consequence, not a nicety.
 
 **Bad**
 
@@ -77,6 +80,27 @@ Short spans and single-chapter references are untouched: no strip, headers inlin
 - `ShowChapterStrip` is deliberately the same condition as `UsesChapterMemory`. Two names for one
   idea, kept because each reads correctly at its own end (view vs. behaviour). If they ever need to
   diverge, that is the signal this decision is being outgrown.
+
+## Verdict after use (2026-08-17)
+
+The framing above — a constraint worked around — undersells what happened, and the correction
+matters more than the record of it.
+
+The strip was reached for because chapters could not be scrolled to. On device it turned out to be
+**the better interaction on its own merits**, independent of the constraint that produced it. The
+owner's words: *"I don't know what I was expecting but I love it... Sure it's not scrolling, but
+scrolling can be tedious, so why not change within the same box? I wouldn't have thought of that. I
+was still stuck on scroll scroll scroll."*
+
+This is a reading app. Scrolling is the reader's principal cost, and a design that spends scrolling
+on *navigation* is spending it away from the content. Swapping content inside a fixed container is
+not a workaround for a scroll limitation here; it is the thing that should have been designed first.
+
+**The consequence for whoever reads this next:** do not treat the strip as debt awaiting repayment
+by the "proper" grouped `CollectionView`. When a revisit trigger fires, the move is almost certainly
+to add chapter addressability **underneath** the strip — so that a verse deep link or a search hit
+can scroll precisely — while keeping the strip as the reader-facing navigation. Replacing the strip
+with per-chapter scrolling would trade a better interaction for a more orthodox one.
 
 ## Alternatives considered
 
@@ -113,8 +137,9 @@ chapter memory exists.
 
 ## Revisit when
 
-Any one of these should reopen the question, and the answer will likely be the grouped
-`CollectionView`:
+Any one of these should reopen the question. The answer will likely involve the grouped
+`CollectionView` — but read the verdict above first: reopening this means asking how to gain
+chapter and verse **addressability**, not whether to replace the strip.
 
 - **The app grows past "Topical Guide scroller."** This decision is scoped to a feed of short
   references where cross-chapter spans are a rare special case. Full-chapter reading, a search

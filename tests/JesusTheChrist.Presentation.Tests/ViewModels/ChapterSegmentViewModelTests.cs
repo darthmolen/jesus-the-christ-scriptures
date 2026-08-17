@@ -16,30 +16,52 @@ public sealed class ChapterSegmentViewModelTests
     }
 
     [Fact]
-    public void Toggle_RealizesThenHidesVerses()
+    public async Task Toggle_RealizesThenHidesVerses()
     {
         var vm = Make(isExpanded: false);
 
-        vm.ToggleExpandedCommand.Execute(null);
+        await vm.ToggleExpandedCommand.ExecuteAsync(null);
         Assert.True(vm.IsExpanded);
         Assert.Same(vm.Verses, vm.VisibleVerses);
 
-        vm.ToggleExpandedCommand.Execute(null);
+        await vm.ToggleExpandedCommand.ExecuteAsync(null);
         Assert.False(vm.IsExpanded);
         Assert.Empty(vm.VisibleVerses);
     }
 
     [Fact]
-    public void Toggle_RaisesChangeForVisibleVersesAndChevron()
+    public async Task Toggle_RaisesChangeForVisibleVersesAndChevron()
     {
         var vm = Make(isExpanded: false);
         var changed = new List<string?>();
         vm.PropertyChanged += (_, e) => changed.Add(e.PropertyName);
 
-        vm.ToggleExpandedCommand.Execute(null);
+        await vm.ToggleExpandedCommand.ExecuteAsync(null);
 
         Assert.Contains(nameof(ChapterSegmentViewModel.VisibleVerses), changed);
         Assert.Contains(nameof(ChapterSegmentViewModel.ChevronGlyph), changed);
+    }
+
+    /// <summary>
+    /// Only expanding is reported. Collapsing the open chapter is a legitimate move — it turns a
+    /// long card into a chapter index — and must not be mistaken for the reader moving on.
+    /// </summary>
+    [Fact]
+    public async Task ExpansionListener_FiresOnExpandOnly()
+    {
+        var vm = Make(isExpanded: false);
+        var fired = 0;
+        vm.AttachExpansionListener(_ =>
+        {
+            fired++;
+            return Task.CompletedTask;
+        });
+
+        await vm.ToggleExpandedCommand.ExecuteAsync(null);
+        Assert.Equal(1, fired);
+
+        await vm.ToggleExpandedCommand.ExecuteAsync(null);
+        Assert.Equal(1, fired);
     }
 
     private static ChapterSegmentViewModel Make(bool isExpanded) =>

@@ -46,6 +46,80 @@ public sealed class ReferenceCardViewModelTests
     }
 
     [Fact]
+    public async Task ChapterMemory_ExpandingOneChapterCollapsesTheOthers()
+    {
+        var card = MakeCrossChapter(usesChapterMemory: true);
+        Assert.True(card.Segments[0].IsExpanded);
+
+        await card.Segments[1].ToggleExpandedCommand.ExecuteAsync(null);
+
+        Assert.False(card.Segments[0].IsExpanded);
+        Assert.True(card.Segments[1].IsExpanded);
+    }
+
+    [Fact]
+    public async Task ChapterMemory_ExpandingAChapterPersistsIt()
+    {
+        var saved = new List<(string RefId, int Ch)>();
+        var card = MakeCrossChapter(
+            usesChapterMemory: true,
+            saveChapterAsync: (refId, ch) =>
+            {
+                saved.Add((refId, ch));
+                return Task.CompletedTask;
+            });
+
+        await card.Segments[1].ToggleExpandedCommand.ExecuteAsync(null);
+
+        Assert.Equal(("advocate:newtestament/heb/7/25", 10), Assert.Single(saved));
+    }
+
+    /// <summary>
+    /// Collapsing the only open chapter is allowed, and must not record anything — the reader is
+    /// looking at the index, not moving to a different chapter.
+    /// </summary>
+    [Fact]
+    public async Task ChapterMemory_CollapsingTheOpenChapterSavesNothing()
+    {
+        var saved = new List<(string RefId, int Ch)>();
+        var card = MakeCrossChapter(
+            usesChapterMemory: true,
+            saveChapterAsync: (refId, ch) =>
+            {
+                saved.Add((refId, ch));
+                return Task.CompletedTask;
+            });
+
+        await card.Segments[0].ToggleExpandedCommand.ExecuteAsync(null);
+
+        Assert.False(card.Segments[0].IsExpanded);
+        Assert.Empty(saved);
+    }
+
+    /// <summary>
+    /// A short span opens every chapter at once and stays that way; an accordion there would take
+    /// away a passage the reader can otherwise read straight through.
+    /// </summary>
+    [Fact]
+    public async Task WithoutChapterMemory_ChaptersDoNotCollapseEachOther()
+    {
+        var saved = new List<(string RefId, int Ch)>();
+        var card = MakeCrossChapter(
+            usesChapterMemory: false,
+            saveChapterAsync: (refId, ch) =>
+            {
+                saved.Add((refId, ch));
+                return Task.CompletedTask;
+            });
+
+        await card.Segments[1].ToggleExpandedCommand.ExecuteAsync(null);
+        await card.Segments[1].ToggleExpandedCommand.ExecuteAsync(null);
+
+        Assert.True(card.Segments[0].IsExpanded);
+        Assert.Empty(saved);
+    }
+
+    [Fact]
     public void CopyText_SingleChapterReference_IsLabelThenNumberedVerses()
     {
         var card = MakeSingleChapter();
@@ -292,7 +366,9 @@ public sealed class ReferenceCardViewModelTests
 
     private static ReferenceCardViewModel MakeCrossChapter(
         Func<string, Task>? copyAsync = null,
-        Func<TimeSpan, Task>? delayAsync = null)
+        Func<TimeSpan, Task>? delayAsync = null,
+        bool usesChapterMemory = false,
+        Func<string, int, Task>? saveChapterAsync = null)
     {
         List<ContextLineViewModel> ninth =
             [new ContextLineViewModel(35, "And Jesus went about all the cities", isTarget: true)];
@@ -304,25 +380,30 @@ public sealed class ReferenceCardViewModelTests
             "Matt. 9:35–11:1",
             [.. ninth, .. tenth],
             [
+                // With chapter memory the feed opens only the first chapter, which is the state the
+                // accordion has to move from.
                 Segment(9, "Matthew 9", showHeader: true, ninth),
-                Segment(10, "Matthew 10", showHeader: true, tenth),
+                Segment(10, "Matthew 10", showHeader: true, tenth, isExpanded: !usesChapterMemory),
             ],
             copyAsync,
             delayAsync,
-            CardStudyUri);
+            CardStudyUri,
+            usesChapterMemory: usesChapterMemory,
+            saveChapterAsync: saveChapterAsync);
     }
 
     private static ChapterSegmentViewModel Segment(
         int ch,
         string chapterLabel,
         bool showHeader,
-        IReadOnlyList<ContextLineViewModel> verses) =>
+        IReadOnlyList<ContextLineViewModel> verses,
+        bool isExpanded = true) =>
         new(
             ch,
             chapterLabel,
             showHeader,
             verses,
-            isExpanded: true,
+            isExpanded,
             new Uri($"https://www.churchofjesuschrist.org/study/scriptures/nt/matt/{ch}?lang=eng"),
             _ => Task.CompletedTask);
 
@@ -333,7 +414,9 @@ public sealed class ReferenceCardViewModelTests
         Func<string, Task>? copyAsync,
         Func<TimeSpan, Task>? delayAsync,
         Uri? studyUri,
-        Func<Uri, Task>? openLinkAsync = null) =>
+        Func<Uri, Task>? openLinkAsync = null,
+        bool usesChapterMemory = false,
+        Func<string, int, Task>? saveChapterAsync = null) =>
         new(
             "advocate:newtestament/heb/7/25",
             refLabel,
@@ -350,5 +433,7 @@ public sealed class ReferenceCardViewModelTests
             copyVerseAsync: copyAsync ?? (_ => Task.CompletedTask),
             studyUri: studyUri,
             openLinkAsync: openLinkAsync ?? (_ => Task.CompletedTask),
+            usesChapterMemory: usesChapterMemory,
+            saveChapterAsync: saveChapterAsync ?? ((_, _) => Task.CompletedTask),
             delayAsync: delayAsync ?? (_ => Task.CompletedTask));
 }

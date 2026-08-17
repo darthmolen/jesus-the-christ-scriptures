@@ -18,3 +18,6 @@
 
 # Visual Studio SDK resolver scratch files, regenerated on every design-time build.
 *.SdkResolver.*.proj.Backup.tmp
+
+# Local research scratch: cloned upstream repos and reference material we read but never ship.
+research/

@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:roundIcon="@mipmap/appicon_round" android:supportsRtl="true"></application>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.INTERNET" />
+	<!--
+		No permissions are declared. The app reads a bundled corpus, stores notes and progress in a
+		local SQLite database, and never opens a socket: INTERNET and ACCESS_NETWORK_STATE came from
+		the MAUI template and were never used. Tapping a study link hands a URL to Launcher, which
+		is the browser's or Gospel Library's network access, not ours.
+
+		Debug builds still get INTERNET injected by the Android SDK for the debugger; the shipped
+		Release manifest has none. Verify with the merged manifest under obj/ before assuming.
+
+		Before adding one back, check it is genuinely exercised - an unused permission is a Play
+		policy hygiene finding and forces Data Safety answers we would otherwise not have to make.
+	-->
 </manifest>

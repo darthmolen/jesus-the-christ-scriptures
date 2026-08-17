@@ -48,6 +48,12 @@ After completing any task:
 4. Note lessons learned or issues encountered
 5. **COMMIT**: All work must be committed with a descriptive message before moving to the next phase
 
+## Architecture Decisions
+
+Decisions that constrain future work — where the obvious option was rejected for a non-obvious
+reason — are recorded as ADRs in `docs/adr/`. See [docs/adr/README.md](docs/adr/README.md) for when
+one is warranted and the format. Never rewrite an accepted ADR; supersede it.
+
 ## Commit Protocol
 
 ### Mandatory Commit Points

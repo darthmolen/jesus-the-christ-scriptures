@@ -479,6 +479,106 @@ public class TopicFeedViewModelTests
         Assert.Empty(await harness.ChapterPositions.GetAllAsync());
     }
 
+    [Fact]
+    public async Task LongSpan_ShowsAChapterStripAndDrawsOnlyTheOpenChapter()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("long");
+        var card = harness.ViewModel.References[0];
+
+        Assert.True(card.ShowChapterStrip);
+        Assert.All(card.Segments, s => Assert.True(s.InStrip));
+
+        // Every chapter appears in the strip; only the open one draws its header and verses.
+        Assert.Equal([11, 12, 13], card.Segments.Select(s => s.Ch));
+        Assert.Equal([true, false, false], card.Segments.Select(s => s.IsRendered));
+    }
+
+    [Fact]
+    public async Task LongSpan_TappingAStripChapterRendersItAndHidesThePrevious()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("long");
+        var card = harness.ViewModel.References[0];
+
+        await card.Segments[2].ToggleExpandedCommand.ExecuteAsync(null);
+
+        Assert.Equal([false, false, true], card.Segments.Select(s => s.IsRendered));
+    }
+
+    /// <summary>
+    /// Closing the open chapter leaves the card as a bare index — the strip and nothing else.
+    /// </summary>
+    [Fact]
+    public async Task LongSpan_ClosingTheOpenChapterRendersNoChapters()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("long");
+        var card = harness.ViewModel.References[0];
+
+        await card.Segments[0].ToggleExpandedCommand.ExecuteAsync(null);
+
+        Assert.True(card.ShowChapterStrip);
+        Assert.All(card.Segments, s => Assert.False(s.IsRendered));
+    }
+
+    [Fact]
+    public async Task LongSpan_OpeningAChapterAsksTheViewToReAnchorTheCard()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("long");
+        var card = harness.ViewModel.References[0];
+
+        ReferenceCardViewModel? anchored = null;
+        harness.ViewModel.ChapterExpanded += (_, e) => anchored = e.Card;
+
+        await card.Segments[2].ToggleExpandedCommand.ExecuteAsync(null);
+
+        Assert.Same(card, anchored);
+    }
+
+    [Fact]
+    public async Task LongSpan_ClosingTheOpenChapterDoesNotReAnchor()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("long");
+        var card = harness.ViewModel.References[0];
+
+        var raised = 0;
+        harness.ViewModel.ChapterExpanded += (_, _) => raised++;
+
+        await card.Segments[0].ToggleExpandedCommand.ExecuteAsync(null);
+
+        Assert.Equal(0, raised);
+    }
+
+    /// <summary>
+    /// A short span still lists its chapters inline, so it neither shows a strip nor hides a closed
+    /// chapter's header.
+    /// </summary>
+    [Fact]
+    public async Task ShortSpan_HasNoStripAndRendersEveryChapter()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("summary");
+        var card = harness.ViewModel.References[0];
+
+        Assert.False(card.ShowChapterStrip);
+        Assert.All(card.Segments, s => Assert.False(s.InStrip));
+        Assert.All(card.Segments, s => Assert.True(s.IsRendered));
+    }
+
+    [Fact]
+    public async Task SingleChapterReference_RendersItsOnlySegment()
+    {
+        await using var harness = await Harness.CreateAsync();
+        await harness.ViewModel.LoadAsync("advocate");
+        var segment = Assert.Single(harness.ViewModel.References[0].Segments);
+
+        Assert.False(harness.ViewModel.References[0].ShowChapterStrip);
+        Assert.True(segment.IsRendered);
+    }
+
     private sealed class Harness : IAsyncDisposable
     {
         private readonly TempDatabase database;

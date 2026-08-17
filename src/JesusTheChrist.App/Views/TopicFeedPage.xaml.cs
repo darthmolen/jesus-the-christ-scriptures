@@ -75,6 +75,8 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
         this.viewModel.CardCollapsedAfterRead += this.OnCardCollapsedAfterRead;
         this.viewModel.VerseCopied -= this.OnVerseCopied;
         this.viewModel.VerseCopied += this.OnVerseCopied;
+        this.viewModel.ChapterExpanded -= this.OnChapterExpanded;
+        this.viewModel.ChapterExpanded += this.OnChapterExpanded;
         this.isVisible = true;
 
         if (string.IsNullOrEmpty(this.topicKey))
@@ -101,6 +103,7 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
         this.isVisible = false;
         this.viewModel.CardCollapsedAfterRead -= this.OnCardCollapsedAfterRead;
         this.viewModel.VerseCopied -= this.OnVerseCopied;
+        this.viewModel.ChapterExpanded -= this.OnChapterExpanded;
 
         // A hold in flight when the reader navigates away must not leave a tinted line behind.
         this.CancelVerseHold();
@@ -374,6 +377,29 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
             {
                 // The reader may have navigated away during the delay; only scroll while this
                 // page is still visible, or the deferred scroll could jump or hit a stale view.
+                if (!this.isVisible)
+                {
+                    return;
+                }
+
+                this.ReferencesView.ScrollTo(e.Card, position: ScrollToPosition.Start, animate: true);
+            });
+    }
+
+    private void OnChapterExpanded(object? sender, ReferenceCardEventArgs e)
+    {
+        // Opening a chapter closes the one before it, so the card's height changes above the reader
+        // and the chapter they just chose drifts down the viewport. Re-anchor the card to the top:
+        // with the strip, everything above the open chapter is the card heading and one wrapped row
+        // of chapter numbers, so this lands the chapter itself just under them.
+        //
+        // The card is the finest target available — CollectionView.ScrollTo resolves an item to an
+        // index in its own ItemsSource, and chapters live in a BindableLayout inside the card's
+        // template, so they have no index to aim at. See docs/adr/0001.
+        this.Dispatcher.DispatchDelayed(
+            TimeSpan.FromMilliseconds(100),
+            () =>
+            {
                 if (!this.isVisible)
                 {
                     return;

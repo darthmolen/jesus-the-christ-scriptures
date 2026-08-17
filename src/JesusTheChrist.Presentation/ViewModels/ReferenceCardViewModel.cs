@@ -134,6 +134,14 @@ public partial class ReferenceCardViewModel : ObservableObject
     public bool UsesChapterMemory { get; }
 
     /// <summary>
+    /// Gets a value indicating whether the card navigates its chapters with a compact strip of
+    /// chapter numbers rather than a stacked header per chapter. The same condition as
+    /// <see cref="UsesChapterMemory"/> — a span only needs a strip once it is long enough that its
+    /// chapters are worth jumping between — but named for what the view draws.
+    /// </summary>
+    public bool ShowChapterStrip => this.UsesChapterMemory;
+
+    /// <summary>
     /// Gets the joined target verse text (no verse numbers).
     /// </summary>
     public string VerseText { get; }

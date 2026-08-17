@@ -26,6 +26,7 @@ public class AppResourcesTests
             Assert.Equal("Verse copied", AppResources.ToastVerseCopied);
             Assert.Equal("Hold to copy this verse", AppResources.A11yHoldToCopyVerse);
             Assert.Equal("Open on churchofjesuschrist.org", AppResources.A11yOpenOnChurchSite);
+            Assert.Equal("Go to this chapter", AppResources.A11yJumpToChapter);
         }
         finally
         {
@@ -51,6 +52,7 @@ public class AppResourcesTests
             Assert.Equal("Versículo copiado", AppResources.ToastVerseCopied);
             Assert.Equal("Mantén presionado para copiar este versículo", AppResources.A11yHoldToCopyVerse);
             Assert.Equal("Abrir en churchofjesuschrist.org", AppResources.A11yOpenOnChurchSite);
+            Assert.Equal("Ir a este capítulo", AppResources.A11yJumpToChapter);
         }
         finally
         {

@@ -301,3 +301,49 @@ Delete `planning/backlog/title-deeplink-to-lds.md` as part of feature 1 — it i
 
 Three PRs into `main`, owner-only merge. The 1.0.6 → 1.0.7 / versionCode 7 → 8 bump ships in a
 separate release PR after all three merge.
+
+---
+
+## UAT round 1 (2026-08-17)
+
+Owner exercised the merged 1.0.7 build on the phone and reported two things.
+
+### 1. A chapter opened at the bottom of the viewport — fixed
+
+**Mine.** The plan asserted no chapter-level scroll seam was needed, reasoning that "with the
+accordion only one chapter is realized, so the card is short." That ignored the chapter *index*:
+one stacked header per closed chapter still sat above the open one — fifteen of them above chapter
+26, roughly 450du — and nothing re-anchored the feed when the previously open chapter collapsed.
+The same class of bug as `phase_feed-scroll-on-collapse_2026-06-16`.
+
+The owner's question — *what are the primitives driving the chapters, and why is only the card
+available for positioning?* — reframed it. `BindableLayout` is not an `ItemsView`, so chapters have
+no index for `ScrollTo` to resolve; a card is one opaque row to the scrolling machinery. The fix
+therefore removes the need to scroll inside a card rather than fighting for the ability to:
+
+- Long spans list chapters as a **compact wrapped strip of numbers**, open one filled.
+- A closed chapter draws nothing (`ChapterSegmentViewModel.IsRendered`); the strip replaces its header.
+- Opening one raises `TopicFeedViewModel.ChapterExpanded`; the page re-anchors via the existing
+  `ScrollTo(card, Start)` seam.
+
+Everything above the open chapter drops from ~450du to ~110du, so anchoring the card lands the
+chapter effectively at the top. Short spans and single-chapter references are untouched.
+
+Recorded as **[ADR 0001](../../docs/adr/0001-chapter-navigation-inside-a-reference-card.md)** at the
+owner's request — the first ADR in the repo, with `docs/adr/README.md` establishing the practice.
+The grouped-`CollectionView` alternative is documented there with its revisit triggers, the chief
+one being "the app grows past a Topical Guide scroller."
+
+### 2. A re-opened read card closes again on return — deferred
+
+**Pre-existing**, from `phase_card-inline-actions_2026-06-14`, not a 1.0.7 regression.
+`ReferenceCardViewModel` derives `IsExpanded` from read state at construction and never persists a
+manual re-open, while the page and view model are transient.
+
+Deferred to `planning/backlog/2026_08_17_feature_restore_reading_state.md` at the owner's request,
+carrying the decision that Reading Mode and Checklist Mode are the same thing — a topic should come
+back the way it was left, regardless of read state.
+
+**Tests:** 236 green (Core 65, Data 26, Presentation 145), up from 229. Build clean, 0 warnings.
+Seven new Presentation tests cover the strip, the render gating, the collapse-to-index case, and
+that re-anchoring fires on open but not on close.

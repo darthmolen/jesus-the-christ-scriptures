@@ -106,6 +106,8 @@ public static class AppResources
 
     public static string A11yOpenOnChurchSite => Get("A11yOpenOnChurchSite");
 
+    public static string A11yJumpToChapter => Get("A11yJumpToChapter");
+
     public static string ToastVerseCopied => Get("ToastVerseCopied");
 
     public static string HomeReferencesReadFormat => Get("HomeReferencesReadFormat");

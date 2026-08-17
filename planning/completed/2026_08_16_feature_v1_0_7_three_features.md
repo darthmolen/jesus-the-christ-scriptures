@@ -304,6 +304,76 @@ separate release PR after all three merge.
 
 ---
 
+## Outcome
+
+**Status:** All three features implemented, reviewed, and merged to `main` on 2026-08-16; a
+fourth PR followed on 2026-08-17 from UAT (see below). Shipped as **1.0.7 / versionCode 8**.
+
+| PR | Feature | Merge |
+|----|---------|-------|
+| [#50](https://github.com/darthmolen/jesus-the-christ-scriptures/pull/50) | Context toggle at the card bottom | `84874a0` |
+| [#51](https://github.com/darthmolen/jesus-the-christ-scriptures/pull/51) | Reference deep links | `d1ea376` |
+| [#52](https://github.com/darthmolen/jesus-the-christ-scriptures/pull/52) | Remembered chapter in long spans | `33eee46` |
+| [#54](https://github.com/darthmolen/jesus-the-christ-scriptures/pull/54) | Chapter strip (UAT fix) | see UAT round 1 |
+
+**236 tests** green (Core 65, Data 26, Presentation 145), up from 188 — 229 after the three
+features, plus seven from the UAT fix. Build clean at 0 warnings under strict CPM and
+warnings-as-errors, including the Android XAML compile.
+
+### Deviations from plan
+
+1. **`Uri` rather than `string` for study links.** CA1054/CA1056 rejected string URLs on public
+   surface. The analyzer improved the design: `StudyUri` is nullable, so a URL that will not parse
+   hides the link through `HasStudyLink` instead of throwing during feed load. Core's builder still
+   returns `string`; the single conversion happens in `TopicFeedViewModel.StudyUri`.
+2. **The chapter toggle became an async command.** Persisting on expand needs an await, and
+   `ToggleReadAsync` was already the repo's idiom for a toggle that writes to a store.
+3. **`MauiLinkOpener` awaits rather than copying `MarkdownView`'s fire-and-forget.** `_ = Launcher…`
+   would leave an unobserved faulted task; the awaited-and-contained shape matches `CopyVerseAsync`
+   from the hold-to-copy phase, with the `CA1031` entry in `GlobalSuppressions.cs`.
+4. **The feed fixture needed a generated long span.** Chapter memory does not engage below the
+   60-verse threshold, and the existing Matt 9:35–11:1 fixture is 47 verses, so the accordion tests
+   could not have been written against it. `BuildGuide()` splices in a 75-verse span.
+5. **`CLAUDE.md` was corrected in two places, not one.** The Copilot review found the commit-message
+   template still carried `phase_[name]_[date].md` after the Pre-Task line had been updated.
+
+### Copilot review
+
+Five comments across the three PRs, all verified against the code and all accepted — two of them
+defects introduced by this work:
+
+- **`BuildSegments` lost its doc comment** (#51). The summary was left stranded above `StudyUri`,
+  giving that method two `<summary>` blocks and `BuildSegments` none.
+- **`TargetSegments()` was recomputed once per chapter** (#51). `ScriptureUrlBuilder.Build(Reference,
+  Language, int)` re-groups internally, so 3 Ne 11–26 regrouped all 445 verses sixteen times per
+  feed load — and every card is built up front. Fixed with a `ChapterSegment` overload, pinned to
+  the chapter-number overload by a test.
+- **The target-verse count was computed twice** (#52), in `UsesChapterMemory` and again as
+  `expandAll`. `LoadAsync` now groups once and derives both; three passes per reference became one.
+- Two documentation-accuracy points on #50 (the context-window comment and the `CLAUDE.md`
+  commit template).
+
+### Lessons
+
+- **Do not pass `--delete-branch` when merging a stacked PR.** Deleting `feature/context-bar-at-bottom`
+  auto-**closed** #51, which targeted it, and a closed PR cannot be retargeted or reopened while its
+  base is missing. Recovery was to push the branch back, reopen, retarget to `main`, merge, then
+  delete. Merge stacked PRs first and delete branches last.
+- GitHub did not auto-retarget the child PR here, contrary to the usual behaviour — most likely
+  because the branch deletion landed in the same operation as the merge. Retarget explicitly.
+- A review that flags a "redundant computation" in a feed that builds every card up front is worth
+  taking seriously rather than filing as a nit; the cost scales with the largest passage in the corpus.
+
+### Remaining
+
+**On-device UAT by the owner** for the combined 1.0.7 build — round 1 is recorded below; this is
+round 2, covering the chapter strip and a re-check of the three original features. The device checklist above is the whole
+safety net for the XAML and gesture work, which has no automated coverage by design. The highest-risk
+item is the ↗ tap target: it sits inside containers that already carry their own tap recognizers, on
+both the card header and the chapter header.
+
+---
+
 ## UAT round 1 (2026-08-17)
 
 Owner exercised the merged 1.0.7 build on the phone and reported two things.

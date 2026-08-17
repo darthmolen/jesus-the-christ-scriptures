@@ -151,10 +151,61 @@
                                  cross-chapter reference shows a tappable chapter header per chapter
                                  and only builds a chapter's verse views when it is expanded, so
                                  large spans never realize hundreds of labels at once. -->
+                            <!-- Chapter strip. A long span lists its chapters here as a compact,
+                                 wrapped row of numbers instead of stacking a header per chapter:
+                                 fifteen closed headers above chapter 26 is what pushed the open
+                                 chapter down the viewport. Tapping a number opens that chapter,
+                                 tapping the open one closes it back to a bare index. -->
+                            <FlexLayout
+                                IsVisible="{Binding ShowChapterStrip}"
+                                BindableLayout.ItemsSource="{Binding Segments}"
+                                Wrap="Wrap"
+                                Direction="Row"
+                                JustifyContent="Start"
+                                AlignItems="Center">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:ChapterSegmentViewModel">
+                                        <Border
+                                            Margin="0,2,6,2"
+                                            Padding="10,4"
+                                            StrokeShape="RoundRectangle 6"
+                                            StrokeThickness="1"
+                                            Stroke="{AppThemeBinding Light=#CCCCCC, Dark=#555555}"
+                                            BackgroundColor="Transparent"
+                                            SemanticProperties.Description="{x:Static loc:AppResources.A11yJumpToChapter}">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding ToggleExpandedCommand}" />
+                                            </Border.GestureRecognizers>
+                                            <Label
+                                                Text="{Binding Ch}"
+                                                FontSize="14"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                TextColor="{AppThemeBinding Light=#1C1C1C, Dark=#FFFFFF}">
+                                                <Label.Triggers>
+                                                    <!-- The open chapter's chip fills with the accent, so its
+                                                         number needs to flip to read against it in both themes. -->
+                                                    <DataTrigger TargetType="Label" Binding="{Binding IsExpanded}" Value="True">
+                                                        <Setter Property="TextColor" Value="#FFFFFF" />
+                                                        <Setter Property="FontAttributes" Value="Bold" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                            <Border.Triggers>
+                                                <DataTrigger TargetType="Border" Binding="{Binding IsExpanded}" Value="True">
+                                                    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#4D8DFF, Dark=#4D8DFF}" />
+                                                    <Setter Property="Stroke" Value="#4D8DFF" />
+                                                </DataTrigger>
+                                            </Border.Triggers>
+                                        </Border>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+
                             <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding Segments}">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate x:DataType="vm:ChapterSegmentViewModel">
-                                        <VerticalStackLayout Spacing="6">
+                                        <VerticalStackLayout Spacing="6" IsVisible="{Binding IsRendered}">
 
                                             <!-- Chapter divider: shown only for cross-chapter references -->
                                             <Grid

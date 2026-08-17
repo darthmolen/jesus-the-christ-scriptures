@@ -105,6 +105,13 @@ public partial class TopicFeedViewModel : ObservableObject
     public event EventHandler? VerseCopied;
 
     /// <summary>
+    /// Occurs when a reader opens a chapter inside a long span, so the view can re-anchor the feed
+    /// to that card. Expanding one chapter collapses another, which changes the card's height above
+    /// the reader and would otherwise leave the chapter they just chose partway down the viewport.
+    /// </summary>
+    public event EventHandler<ReferenceCardEventArgs>? ChapterExpanded;
+
+    /// <summary>
     /// Gets or sets the sub-topic title shown at the top of the feed.
     /// </summary>
     [ObservableProperty]
@@ -202,7 +209,7 @@ public partial class TopicFeedViewModel : ObservableObject
                     StudyUri(ScriptureUrlBuilder.Build(reference, language)),
                     this.openLinkAsync,
                     usesChapterMemory,
-                    this.chapterPositions.SaveAsync,
+                    this.SaveChapterAsync,
                     DelayAsync));
             }
         }
@@ -245,10 +252,14 @@ public partial class TopicFeedViewModel : ObservableObject
     {
         var spans = reference.SpansChapters;
 
+        // The same condition as the card's chapter memory: a long span navigates by strip, so its
+        // closed chapters draw nothing and the open one sits directly under the strip.
+        var inStrip = spans && !expandAll;
+
         // A card with chapter memory opens exactly one chapter: the one the reader was last in,
         // or the first when nothing is remembered (or the remembered chapter no longer exists,
         // which a corpus revision could cause).
-        var openCh = !spans || expandAll
+        var openCh = !inStrip
             ? (int?)null
             : savedCh is int saved && segments.Any(s => s.Ch == saved) ? saved : segments[0].Ch;
 
@@ -266,7 +277,8 @@ public partial class TopicFeedViewModel : ObservableObject
                 verses,
                 isExpanded,
                 StudyUri(ScriptureUrlBuilder.Build(reference, segments[i], language)),
-                openLinkAsync));
+                openLinkAsync,
+                inStrip));
         }
 
         return cards;
@@ -333,6 +345,25 @@ public partial class TopicFeedViewModel : ObservableObject
     {
         await this.copyAsync(text);
         this.VerseCopied?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// Remembers the chapter a reader opened and asks the view to re-anchor to its card. The card
+    /// knows only that it changed chapters; whether the feed scrolls is the feed's business, which
+    /// is why this wraps the store rather than handing the card the store's method directly.
+    /// </summary>
+    /// <param name="refId">The reference whose chapter changed.</param>
+    /// <param name="ch">The chapter the reader opened.</param>
+    /// <returns>A task that completes once the chapter has been persisted.</returns>
+    private async Task SaveChapterAsync(string refId, int ch)
+    {
+        await this.chapterPositions.SaveAsync(refId, ch);
+
+        var card = this.References.FirstOrDefault(c => c.Id == refId);
+        if (card is not null)
+        {
+            this.ChapterExpanded?.Invoke(this, new ReferenceCardEventArgs(card));
+        }
     }
 
     private Task OpenNoteAsync(ReferenceCardViewModel card) =>

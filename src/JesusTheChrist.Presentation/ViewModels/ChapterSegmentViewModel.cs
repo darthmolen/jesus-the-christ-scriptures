@@ -26,6 +26,10 @@ public partial class ChapterSegmentViewModel : ObservableObject
     /// <param name="isExpanded">Whether the segment starts expanded.</param>
     /// <param name="studyUri">This chapter's churchofjesuschrist.org study link.</param>
     /// <param name="openLinkAsync">Opens an external link.</param>
+    /// <param name="inStrip">
+    /// Whether the owning card navigates its chapters with a strip. When it does, a closed chapter
+    /// draws nothing at all — the strip is how it is reached — instead of leaving a header behind.
+    /// </param>
     public ChapterSegmentViewModel(
         int ch,
         string chapterLabel,
@@ -33,7 +37,8 @@ public partial class ChapterSegmentViewModel : ObservableObject
         IReadOnlyList<ContextLineViewModel> verses,
         bool isExpanded,
         Uri? studyUri,
-        Func<Uri, Task> openLinkAsync)
+        Func<Uri, Task> openLinkAsync,
+        bool inStrip = false)
     {
         this.Ch = ch;
         this.ChapterLabel = chapterLabel;
@@ -42,12 +47,19 @@ public partial class ChapterSegmentViewModel : ObservableObject
         this.IsExpanded = isExpanded;
         this.StudyUri = studyUri;
         this.openLinkAsync = openLinkAsync;
+        this.InStrip = inStrip;
     }
 
     /// <summary>
     /// Gets the chapter number this segment covers.
     /// </summary>
     public int Ch { get; }
+
+    /// <summary>
+    /// Gets a value indicating whether the owning card navigates its chapters with a strip, in
+    /// which case a closed chapter draws nothing and the strip is the only way to reach it.
+    /// </summary>
+    public bool InStrip { get; }
 
     /// <summary>
     /// Gets the chapter header text, for example "Matthew 10".
@@ -88,7 +100,19 @@ public partial class ChapterSegmentViewModel : ObservableObject
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(VisibleVerses))]
     [NotifyPropertyChangedFor(nameof(ChevronGlyph))]
+    [NotifyPropertyChangedFor(nameof(IsRendered))]
     public partial bool IsExpanded { get; set; }
+
+    /// <summary>
+    /// Gets a value indicating whether this chapter draws anything at all.
+    /// </summary>
+    /// <remarks>
+    /// Always true for a card without a chapter strip, which lists every chapter's header inline.
+    /// With a strip only the open chapter is drawn: stacking fifteen closed headers above chapter 26
+    /// is what pushed the open chapter down the viewport in the first place, and the strip already
+    /// carries the navigation those headers were providing.
+    /// </remarks>
+    public bool IsRendered => !this.InStrip || this.IsExpanded;
 
     /// <summary>
     /// Gets the verses to bind. Collapsed segments expose an empty list so the bound layout builds

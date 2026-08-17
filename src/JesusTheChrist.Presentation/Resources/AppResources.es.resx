@@ -172,6 +172,9 @@
   <data name="A11yOpenOnChurchSite" xml:space="preserve">
     <value>Abrir en churchofjesuschrist.org</value>
   </data>
+  <data name="A11yJumpToChapter" xml:space="preserve">
+    <value>Ir a este capítulo</value>
+  </data>
   <data name="ToastVerseCopied" xml:space="preserve">
     <value>Versículo copiado</value>
     <comment>Brief confirmation shown after holding a verse line to copy it.</comment>

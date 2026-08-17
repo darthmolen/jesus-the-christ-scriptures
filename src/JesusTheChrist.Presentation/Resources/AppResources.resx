@@ -177,6 +177,13 @@
   <data name="A11yJumpToChapter" xml:space="preserve">
     <value>Go to this chapter</value>
   </data>
+  <data name="CardBackToTop" xml:space="preserve">
+    <value>↑ To top</value>
+    <comment>Ends a chapter in a long span; returns to the chapter strip at the top of the card.</comment>
+  </data>
+  <data name="A11yBackToTop" xml:space="preserve">
+    <value>Back to the chapter list</value>
+  </data>
   <data name="ToastVerseCopied" xml:space="preserve">
     <value>Verse copied</value>
     <comment>Brief confirmation shown after holding a verse line to copy it.</comment>

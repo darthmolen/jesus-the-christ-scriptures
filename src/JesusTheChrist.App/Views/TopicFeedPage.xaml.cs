@@ -386,6 +386,24 @@ public partial class TopicFeedPage : ContentPage, IQueryAttributable
             });
     }
 
+    /// <summary>
+    /// Returns the reader to the top of the card they are reading, where the chapter strip lives, so
+    /// picking the next chapter is one tap rather than a scroll back over everything they just read.
+    /// </summary>
+    /// <remarks>
+    /// Purely a view concern — the card is found by walking up from the tapped label, exactly as a
+    /// held verse finds its card, so no view model learns that scrolling exists.
+    /// </remarks>
+    /// <param name="sender">The tapped "to top" label.</param>
+    /// <param name="e">The tap event.</param>
+    private void OnBackToTop(object? sender, TappedEventArgs e)
+    {
+        if (sender is Element element && CardFor(element) is { } card)
+        {
+            this.ReferencesView.ScrollTo(card, position: ScrollToPosition.Start, animate: true);
+        }
+    }
+
     private void OnChapterExpanded(object? sender, ReferenceCardEventArgs e)
     {
         // Opening a chapter closes the one before it, so the card's height changes above the reader

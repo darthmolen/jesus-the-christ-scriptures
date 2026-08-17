@@ -278,6 +278,25 @@
                                                 </BindableLayout.ItemTemplate>
                                             </VerticalStackLayout>
 
+                                            <!-- Back to the chapter strip. Without this the strip only
+                                                 pays off once: after reading a chapter the reader is
+                                                 dozens of verses below it, and reaching the next chapter
+                                                 would mean scrolling all the way back — the tedium the
+                                                 strip exists to remove. Only strip cards need it; a short
+                                                 span reads straight through into its next chapter. -->
+                                            <Label
+                                                Text="{x:Static loc:AppResources.CardBackToTop}"
+                                                IsVisible="{Binding InStrip}"
+                                                FontSize="13"
+                                                Padding="8,10"
+                                                HorizontalOptions="End"
+                                                TextColor="#4D8DFF"
+                                                SemanticProperties.Description="{x:Static loc:AppResources.A11yBackToTop}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OnBackToTop" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+
                                         </VerticalStackLayout>
                                     </DataTemplate>
                                 </BindableLayout.ItemTemplate>

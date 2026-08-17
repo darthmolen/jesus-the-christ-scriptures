@@ -189,12 +189,6 @@ public partial class TopicFeedViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Builds a card's per-chapter segments. A single-chapter reference yields one header-less
-    /// segment shown in full. A cross-chapter reference yields one segment per chapter with a
-    /// header; the first chapter is always expanded, and the rest start expanded only when the
-    /// whole passage is small enough that realizing every verse up front stays cheap.
-    /// </summary>
-    /// <summary>
     /// Parses a built study URL. A URL we cannot parse yields <see langword="null"/> rather than
     /// throwing: a bad book code somewhere in the corpus should cost that card its link, not break
     /// the whole feed's load.
@@ -204,6 +198,16 @@ public partial class TopicFeedViewModel : ObservableObject
     private static Uri? StudyUri(string url) =>
         Uri.TryCreate(url, UriKind.Absolute, out var uri) ? uri : null;
 
+    /// <summary>
+    /// Builds a card's per-chapter segments. A single-chapter reference yields one header-less
+    /// segment shown in full. A cross-chapter reference yields one segment per chapter with a
+    /// header; the first chapter is always expanded, and the rest start expanded only when the
+    /// whole passage is small enough that realizing every verse up front stays cheap.
+    /// </summary>
+    /// <param name="reference">The reference to lay out.</param>
+    /// <param name="language">The reader's language, for the chapters' study links.</param>
+    /// <param name="openLinkAsync">Opens an external link.</param>
+    /// <returns>The chapter segments backing the card.</returns>
     private static List<ChapterSegmentViewModel> BuildSegments(
         Reference reference,
         Language language,
@@ -226,7 +230,7 @@ public partial class TopicFeedViewModel : ObservableObject
                 spans,
                 verses,
                 isExpanded,
-                StudyUri(ScriptureUrlBuilder.Build(reference, language, segments[i].Ch)),
+                StudyUri(ScriptureUrlBuilder.Build(reference, segments[i], language)),
                 openLinkAsync));
         }
 

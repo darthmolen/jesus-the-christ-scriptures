@@ -110,6 +110,23 @@ public sealed class ScriptureUrlBuilderTests
             ScriptureUrlBuilder.Build(reference, Language.En, 12));
     }
 
+    /// <summary>
+    /// The segment overload exists only to avoid re-grouping a reference's verses once per chapter,
+    /// so it must produce exactly what the chapter-number overload does.
+    /// </summary>
+    [Fact]
+    public void Segment_overload_matches_the_chapter_overload()
+    {
+        var reference = SpanningReference();
+
+        foreach (var segment in reference.TargetSegments())
+        {
+            Assert.Equal(
+                ScriptureUrlBuilder.Build(reference, Language.En, segment.Ch),
+                ScriptureUrlBuilder.Build(reference, segment, Language.En));
+        }
+    }
+
     [Fact]
     public void Reference_overload_falls_back_to_the_chapter_when_a_reference_has_no_verses()
     {

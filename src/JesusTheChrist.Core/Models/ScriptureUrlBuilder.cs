@@ -58,6 +58,29 @@ public static class ScriptureUrlBuilder
     }
 
     /// <summary>
+    /// Builds the study link for a chapter segment the caller already has in hand.
+    /// </summary>
+    /// <remarks>
+    /// Prefer this to the chapter-number overload whenever the segments have been computed:
+    /// that one re-groups the reference's verses on every call, so building a link per chapter of a
+    /// long span would regroup the whole passage once per chapter.
+    /// </remarks>
+    /// <param name="reference">The reference the segment belongs to.</param>
+    /// <param name="segment">The chapter segment to link.</param>
+    /// <param name="language">The reader's language, which selects the <c>lang</c> parameter.</param>
+    /// <returns>The absolute study URL.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="reference"/> or <paramref name="segment"/> is <see langword="null"/>.
+    /// </exception>
+    public static string Build(Reference reference, ChapterSegment segment, Language language)
+    {
+        ArgumentNullException.ThrowIfNull(reference);
+        ArgumentNullException.ThrowIfNull(segment);
+
+        return Build(reference.Vol, reference.Book, segment.Ch, Numbers(segment), language);
+    }
+
+    /// <summary>
     /// Builds a study link from its parts.
     /// </summary>
     /// <param name="volume">The volume the book belongs to.</param>

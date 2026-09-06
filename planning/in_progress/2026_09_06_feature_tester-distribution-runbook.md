@@ -43,9 +43,12 @@ None to the approach. Two things the plan did not anticipate:
 
 ## Not done
 
-- `release.yml` untouched, by decision. It stays pinned to `internal` on a tag; track changes are
-  a Console promotion from the app library, which needs no rebuild. The runbook says so explicitly
-  to stop a future reader from "fixing" it.
+- `release.yml` untouched, by decision. It stays on `internal` for tagged builds; moving a build to
+  a testing track is a Console promotion from the app library, which needs no rebuild.
+
+  Review caught that the first draft overstated this as "don't edit the workflow to change tracks",
+  which contradicted `HOW-TO-DEPLOY.md`. Both docs now draw the same distinction: promotion moves
+  one build, whereas `PLAY_TRACK` is a standing change to where every future tagged release lands.
 - The Console steps are written from Play's current documentation but **have not been clicked
   through** — the account type is still unknown. `HOW-TO-DEPLOY.md` already carries a scar from
   Play moving "API access" out from under it, so treat these steps as provisional and correct them

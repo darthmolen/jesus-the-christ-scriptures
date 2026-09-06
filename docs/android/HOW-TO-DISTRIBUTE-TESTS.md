@@ -112,10 +112,15 @@ Open in this repo today; any of them will stall a first review on a reviewed tra
 
 ## A note on the release workflow
 
-[`release.yml`](../../.github/workflows/release.yml) hardcodes `PLAY_TRACK: internal` and fires
-only on a `v*` tag; there is no `workflow_dispatch` and no track input. That is deliberate — CI
-always lands on the safe, unreviewed track, and moving a build to another track is a Console
-promotion from the app library, which needs no rebuild. Don't edit the workflow to change tracks.
+[`release.yml`](../../.github/workflows/release.yml) sets `PLAY_TRACK: internal` and fires only on
+a `v*` tag; there is no `workflow_dispatch` and no track input. So CI always lands on the safe,
+unreviewed track.
+
+**To get a build onto a testing track, promote it in the Console** — *Create new release → Add from
+library* — which needs no rebuild and no new tag. Editing `PLAY_TRACK` is a different tool for a
+different job: it changes where *every* future tagged release lands, permanently. Use it when you
+have decided that closed testing is the new default destination, not to move a single build.
+[HOW-TO-DEPLOY.md](HOW-TO-DEPLOY.md) says the same.
 
 [testing-req]: https://support.google.com/googleplay/android-developer/answer/14151465
 [set-up-test]: https://support.google.com/googleplay/android-developer/answer/9845334

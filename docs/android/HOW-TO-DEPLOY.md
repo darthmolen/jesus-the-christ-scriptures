@@ -113,8 +113,9 @@ re-run both scripts.
    the csproj `versionName`, builds + signs the `.aab`, and uploads it to the
    **`PLAY_TRACK`** track (default `internal`). Watch it under the repo's **Actions** tab.
 4. If you publish to `internal`, **promote** to closed/production in the Console when ready
-   (see [Tracks](#tracks)), or change `PLAY_TRACK` in the workflow to target a track
-   directly.
+   (see [Tracks](#tracks)). Changing `PLAY_TRACK` is for when you want *every* future tagged
+   release to land somewhere else — it is a standing change to the pipeline, not the way to move
+   one build.
 
 The guard step fails the build if you tag `v1.0.2` while the csproj still says `1.0.1` —
 that catches a forgotten bump before anything reaches Play.
@@ -124,8 +125,12 @@ that catches a forgotten bump before anything reaches Play.
 | Track | Review | Use |
 |---|---|---|
 | **Internal testing** | none (live in minutes) | dogfooding; the CI default |
-| **Closed testing** (e.g. "Alpha") | first setup reviewed (up to ~7 days); later ones are quick | the 15-tester × 14-day gate that unlocks production for personal accounts |
+| **Closed testing** (e.g. "Alpha") | first setup reviewed (up to ~7 days); later ones are quick | the 12-tester × 14-day gate that unlocks production for personal accounts (organization accounts are exempt) |
 | **Production** | reviewed | public |
+
+To hand testers an install link, see
+[HOW-TO-DISTRIBUTE-TESTS.md](HOW-TO-DISTRIBUTE-TESTS.md) — it covers which track you actually
+need and how to avoid collecting every tester's email by hand.
 
 A bundle uploaded to one track lands in the app's **library**, so you can promote the same
 `versionCode` across tracks without rebuilding (Console → the track → **Promote release**,
@@ -157,3 +162,4 @@ When CI isn't an option, build and upload by hand — this is exactly what CI au
 
 - Store listing copy (title, descriptions, graphics checklist): [play-listing.md](play-listing.md)
 - Privacy policy (host it and paste the URL in the Console): [privacy-policy.md](privacy-policy.md)
+- Getting builds onto testers' phones: [HOW-TO-DISTRIBUTE-TESTS.md](HOW-TO-DISTRIBUTE-TESTS.md)

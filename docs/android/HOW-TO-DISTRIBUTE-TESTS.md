@@ -93,7 +93,9 @@ the opt-in URL themselves and press the button, or they don't count. ([Play docs
   their own 14-day clock; they don't count until it completes again.
 - **Since 2026 Google also checks testers genuinely used the app.** Recruit people who will
   actually open it, not twelve names who install and forget.
-- **The first closed-testing release is reviewed** — up to about 7 days. Later ones are quick.
+- **Every closed-testing release is reviewed, not just the first.** Budget ~24 hours; a first
+  setup can take up to about 7 days, and a newer account up to about 3. Sometimes it clears in
+  minutes, but that is luck, not the rule — don't plan a demo around it.
 - **Testers must be signed into the Play Store with the account that joined the group.** This is
   the single most common "it says I'm not a tester" cause.
 
@@ -109,6 +111,19 @@ Open in this repo today; any of them will stall a first review on a reviewed tra
       [privacy-policy.md](privacy-policy.md) (`permalink: /privacy/`). Confirm it resolves
       publicly, then paste the URL into the Console.
 - [ ] **App content declarations** — data safety, target audience, ads, content rating.
+
+## Waiting on a review? You probably don't have to
+
+**Promotion is the reviewed step; the CI upload is not.** `release.yml` publishes to `internal`,
+which has no review and is installable within minutes of the build finishing. Only when you
+promote that build to a closed or open track does Play open a submission and review it.
+
+So while a promotion sits *In review*, the same `versionCode` is already live on `internal`. If
+you just want the build on your own phone — checking a colour, confirming a fix — install it from
+there and let the review finish on its own schedule. The review gates your testers, not you.
+
+A useful tell: in **Publishing overview → Submission activity**, every row is a track you promoted
+to. Internal uploads never appear there at all.
 
 ## A note on the release workflow
 

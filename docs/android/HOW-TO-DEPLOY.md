@@ -125,7 +125,7 @@ that catches a forgotten bump before anything reaches Play.
 | Track | Review | Use |
 |---|---|---|
 | **Internal testing** | none (live in minutes) | dogfooding; the CI default |
-| **Closed testing** (e.g. "Alpha") | first setup reviewed (up to ~7 days); later ones are quick | the 12-tester × 14-day gate that unlocks production for personal accounts (organization accounts are exempt) |
+| **Closed testing** (e.g. "Alpha") | **every release reviewed** — usually within 24h, up to ~7 days for a first setup | the 12-tester × 14-day gate that unlocks production for personal accounts (organization accounts are exempt) |
 | **Production** | reviewed | public |
 
 To hand testers an install link, see

@@ -25,6 +25,7 @@ public sealed class ProgressRingView : GraphicsView
         nameof(TrackColor),
         typeof(Color),
         typeof(ProgressRingView),
+        ProgressRingDrawable.DefaultTrackColor,
         propertyChanged: (b, _, n) => Apply(b, n, static (d, c) => d.TrackColor = c));
 
     /// <summary>
@@ -34,6 +35,7 @@ public sealed class ProgressRingView : GraphicsView
         nameof(ProgressColor),
         typeof(Color),
         typeof(ProgressRingView),
+        ProgressRingDrawable.DefaultProgressColor,
         propertyChanged: (b, _, n) => Apply(b, n, static (d, c) => d.ProgressColor = c));
 
     /// <summary>
@@ -43,6 +45,7 @@ public sealed class ProgressRingView : GraphicsView
         nameof(CompleteColor),
         typeof(Color),
         typeof(ProgressRingView),
+        ProgressRingDrawable.DefaultCompleteColor,
         propertyChanged: (b, _, n) => Apply(b, n, static (d, c) => d.CompleteColor = c));
 
     private readonly ProgressRingDrawable drawable = new();
@@ -100,8 +103,8 @@ public sealed class ProgressRingView : GraphicsView
 
     private static void Apply(BindableObject bindable, object newValue, Action<ProgressRingDrawable, Color> set)
     {
-        // A null means the style or theme binding has not produced a colour yet; keep the
-        // drawable's own default rather than painting with a null stroke.
+        // Each property defaults to the drawable's own colour, so this only fires when something
+        // explicitly binds null; keep the current colour rather than painting with a null stroke.
         if (newValue is not Color color)
         {
             return;

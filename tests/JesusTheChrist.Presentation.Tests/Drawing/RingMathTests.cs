@@ -34,9 +34,30 @@ public class RingMathTests
         Assert.Equal(360f, RingMath.SweepDegrees(2.0));
     }
 
+    // The regression this suite previously missed: SweepDegrees returned a correct 360, but the
+    // drawable fed that to DrawArc as an end angle, which collapsed to a zero-degree arc and
+    // painted nothing. A full ring must be reported as complete so it is drawn as a circle.
     [Fact]
-    public void StartAngleDegrees_IsTopOfCircle()
+    public void IsComplete_AtFull_IsTrue()
     {
-        Assert.Equal(-90f, RingMath.StartAngleDegrees);
+        Assert.True(RingMath.IsComplete(1.0));
+    }
+
+    [Fact]
+    public void IsComplete_JustBelowFull_IsFalse()
+    {
+        Assert.False(RingMath.IsComplete(0.999));
+    }
+
+    [Fact]
+    public void IsComplete_AboveOne_IsTrue()
+    {
+        Assert.True(RingMath.IsComplete(1.5));
+    }
+
+    [Fact]
+    public void IsComplete_AtZero_IsFalse()
+    {
+        Assert.False(RingMath.IsComplete(0.0));
     }
 }

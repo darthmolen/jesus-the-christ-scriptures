@@ -116,6 +116,8 @@ public static class AppResources
 
     public static string HomeReferencesReadFormat => Get("HomeReferencesReadFormat");
 
+    public static string HomeTopicCompleteFormat => Get("HomeTopicCompleteFormat");
+
     private static string Get(string name) =>
         ResourceManagerInstance.GetString(name, cultureOverride) ?? string.Empty;
 }

@@ -57,7 +57,7 @@
                                 WidthRequest="44"
                                 HeightRequest="44"
                                 VerticalOptions="Center"
-                                SemanticProperties.Description="{Binding ProgressLabel}" />
+                                SemanticProperties.Description="{Binding ProgressDescription}" />
                             <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                                 <Label
                                     Text="{Binding ShortTitle}"

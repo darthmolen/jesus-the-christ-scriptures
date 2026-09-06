@@ -188,6 +188,10 @@
     <value>Verse copied</value>
     <comment>Brief confirmation shown after holding a verse line to copy it.</comment>
   </data>
+  <data name="HomeTopicCompleteFormat" xml:space="preserve">
+    <value>{0} / {1} — complete</value>
+    <comment>Screen-reader label for a fully-read sub-topic. {0} = count read, {1} = total. The completion cue is gold in the UI, so it must also be spoken.</comment>
+  </data>
   <data name="HomeReferencesReadFormat" xml:space="preserve">
     <value>{0} / {1} references read</value>
     <comment>{0} = count read, {1} = total.</comment>

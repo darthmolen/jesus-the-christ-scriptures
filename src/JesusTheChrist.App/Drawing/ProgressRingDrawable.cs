@@ -32,6 +32,11 @@ public sealed class ProgressRingDrawable : IDrawable
     /// </summary>
     public Color ProgressColor { get; set; } = Color.FromArgb("#512BD4");
 
+    /// <summary>
+    /// Gets or sets the colour of the ring once every reference has been read.
+    /// </summary>
+    public Color CompleteColor { get; set; } = Color.FromArgb("#B8860B");
+
     /// <inheritdoc/>
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
@@ -46,6 +51,16 @@ public sealed class ProgressRingDrawable : IDrawable
 
         canvas.StrokeSize = this.StrokeWidth;
         canvas.StrokeLineCap = LineCap.Round;
+
+        // A full ring is a closed circle, not an arc: DrawArc takes start and end angles, so a
+        // 360-degree sweep ends exactly where it starts and paints nothing at all. Drawn in place
+        // of the track rather than over it, so there is no wasted paint.
+        if (RingMath.IsComplete(this.Fraction))
+        {
+            canvas.StrokeColor = this.CompleteColor;
+            canvas.DrawEllipse(bounds);
+            return;
+        }
 
         canvas.StrokeColor = this.TrackColor;
         canvas.DrawEllipse(bounds);

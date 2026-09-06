@@ -1,3 +1,6 @@
+using System.Globalization;
+using JesusTheChrist.Presentation.Resources;
+
 namespace JesusTheChrist.Presentation.ViewModels;
 
 /// <summary>
@@ -53,7 +56,34 @@ public sealed class TopicRowViewModel
     public double Fraction => this.Total == 0 ? 0.0 : (double)this.Read / this.Total;
 
     /// <summary>
+    /// Gets a value indicating whether every reference in this sub-topic has been read.
+    /// An empty sub-topic is never complete.
+    /// </summary>
+    public bool IsComplete => this.Total > 0 && this.Read >= this.Total;
+
+    /// <summary>
     /// Gets the "read / total" progress label.
     /// </summary>
     public string ProgressLabel => $"{this.Read} / {this.Total}";
+
+    /// <summary>
+    /// Gets the screen-reader description of this row's progress. Completion is signalled
+    /// visually by the gold ring alone, so it has to be spoken here as well.
+    /// </summary>
+    public string ProgressDescription
+    {
+        get
+        {
+            if (!this.IsComplete)
+            {
+                return this.ProgressLabel;
+            }
+
+            // Format with the same culture that resolves the string, matching HomeViewModel.
+            var culture = AppResources.Culture ?? CultureInfo.CurrentUICulture;
+#pragma warning disable CA1863 // Format string is culture-dependent (changes on language switch); a cached CompositeFormat cannot be used.
+            return string.Format(culture, AppResources.HomeTopicCompleteFormat, this.Read, this.Total);
+#pragma warning restore CA1863
+        }
+    }
 }

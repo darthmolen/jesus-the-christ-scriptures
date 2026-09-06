@@ -27,6 +27,11 @@
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
 
+    <!-- Completion gold for the Home progress ring. Two tones because one cannot clear the 3:1
+         non-text contrast bar on both a white and a near-black ground. -->
+    <Color x:Key="Gold">#B8860B</Color>
+    <Color x:Key="GoldDark">#F5C542</Color>
+
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>

@@ -29,6 +29,7 @@ public class AppResourcesTests
             Assert.Equal("Go to this chapter", AppResources.A11yJumpToChapter);
             Assert.Equal("↑ To top", AppResources.CardBackToTop);
             Assert.Equal("Back to the chapter list", AppResources.A11yBackToTop);
+            Assert.Equal("{0} / {1} — complete", AppResources.HomeTopicCompleteFormat);
         }
         finally
         {
@@ -103,6 +104,7 @@ public class AppResourcesTests
         {
             AppResources.Culture = new CultureInfo("es");
             Assert.Equal("{0} / {1} referencias leídas", AppResources.HomeReferencesReadFormat);
+            Assert.Equal("{0} / {1} — completado", AppResources.HomeTopicCompleteFormat);
         }
         finally
         {

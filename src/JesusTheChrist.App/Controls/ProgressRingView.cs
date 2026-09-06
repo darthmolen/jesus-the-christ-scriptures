@@ -18,6 +18,33 @@ public sealed class ProgressRingView : GraphicsView
         0.0,
         propertyChanged: OnFractionChanged);
 
+    /// <summary>
+    /// Bindable backing store for the <see cref="TrackColor"/> property.
+    /// </summary>
+    public static readonly BindableProperty TrackColorProperty = BindableProperty.Create(
+        nameof(TrackColor),
+        typeof(Color),
+        typeof(ProgressRingView),
+        propertyChanged: (b, _, n) => Apply(b, n, static (d, c) => d.TrackColor = c));
+
+    /// <summary>
+    /// Bindable backing store for the <see cref="ProgressColor"/> property.
+    /// </summary>
+    public static readonly BindableProperty ProgressColorProperty = BindableProperty.Create(
+        nameof(ProgressColor),
+        typeof(Color),
+        typeof(ProgressRingView),
+        propertyChanged: (b, _, n) => Apply(b, n, static (d, c) => d.ProgressColor = c));
+
+    /// <summary>
+    /// Bindable backing store for the <see cref="CompleteColor"/> property.
+    /// </summary>
+    public static readonly BindableProperty CompleteColorProperty = BindableProperty.Create(
+        nameof(CompleteColor),
+        typeof(Color),
+        typeof(ProgressRingView),
+        propertyChanged: (b, _, n) => Apply(b, n, static (d, c) => d.CompleteColor = c));
+
     private readonly ProgressRingDrawable drawable = new();
 
     /// <summary>
@@ -37,10 +64,51 @@ public sealed class ProgressRingView : GraphicsView
         set => this.SetValue(FractionProperty, value);
     }
 
+    /// <summary>
+    /// Gets or sets the colour of the unfilled track.
+    /// </summary>
+    public Color TrackColor
+    {
+        get => (Color)this.GetValue(TrackColorProperty);
+        set => this.SetValue(TrackColorProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the colour of the filled progress arc.
+    /// </summary>
+    public Color ProgressColor
+    {
+        get => (Color)this.GetValue(ProgressColorProperty);
+        set => this.SetValue(ProgressColorProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the colour of the ring once every reference has been read.
+    /// </summary>
+    public Color CompleteColor
+    {
+        get => (Color)this.GetValue(CompleteColorProperty);
+        set => this.SetValue(CompleteColorProperty, value);
+    }
+
     private static void OnFractionChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var view = (ProgressRingView)bindable;
         view.drawable.Fraction = (double)newValue;
+        view.Invalidate();
+    }
+
+    private static void Apply(BindableObject bindable, object newValue, Action<ProgressRingDrawable, Color> set)
+    {
+        // A null means the style or theme binding has not produced a colour yet; keep the
+        // drawable's own default rather than painting with a null stroke.
+        if (newValue is not Color color)
+        {
+            return;
+        }
+
+        var view = (ProgressRingView)bindable;
+        set(view.drawable, color);
         view.Invalidate();
     }
 }

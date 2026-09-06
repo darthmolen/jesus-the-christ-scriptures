@@ -56,13 +56,45 @@ circle rather than an arc in that case.
 - **Two gold tones.** No single gold clears 3:1 non-text contrast against both a white and a
   near-black ground.
 
+## Outcome
+
+Merged as [PR #59](https://github.com/darthmolen/jesus-the-christ-scriptures/pull/59) and released
+in **1.0.8 / versionCode 9** (tag `v1.0.8`, run 34032530347), which CI published to the Play
+`internal` track on 2026-09-06 at 12:17 UTC. Promoted to Closed testing - Alpha the same morning.
+
+### Review feedback
+
+Copilot flagged the new colour getters as throwing `InvalidCastException` when the bindable value
+is null. **That premise was wrong** — `Microsoft.Maui.Graphics.Color` is a reference type, so
+`(Color)null` is a valid null cast, verified against Microsoft.Maui.Graphics 10.0.20. The concern
+underneath was real though: the getters are typed non-nullable and could return null before the
+implicit style applied.
+
+Fixed at the cause rather than guarding the symptom. `ProgressRingDrawable` now owns its three
+defaults as `static readonly` fields and each `BindableProperty` takes them as its `defaultValue`,
+so null is unreachable and the two sets of defaults cannot drift apart.
+
 ## Success criteria
 
 - [x] `dotnet test` — 245 passing (65 Core, 26 Data, 154 Presentation)
 - [x] `dotnet build -f net10.0-android` — 0 warnings, 0 errors under strict CPM
-- [ ] On-device: 0% grey, partial purple, **100% gold**, in both light and dark themes
-- [ ] On-device: finishing a topic turns its ring gold on return to Home without a restart
-- [ ] TalkBack speaks the completion word on a finished row
+- [ ] **Not yet verified on device** — 0% grey, partial purple, 100% gold, in both themes
+- [ ] **Not yet verified on device** — finishing a topic turns its ring gold on return to Home
+      without a restart
+- [ ] **Not yet verified on device** — TalkBack speaks the completion word on a finished row
+
+The build is installable from the `internal` track, so these three are unblocked; they are carried
+forward rather than closed. See *Carried forward* below.
+
+## Carried forward
+
+The three on-device checks above are the whole of what is left. They are deliberately **not**
+ticked: the fix is released but unconfirmed by eye, and marking them done would record a
+verification that never happened.
+
+The most likely correction is the light-theme gold. `#B8860B` was chosen to clear 3:1 non-text
+contrast on white, which pushes it toward the brown end of gold; if it reads brown on the phone,
+retune it (and `GoldDark` `#F5C542` with it) in a follow-up.
 
 ## Open risks
 

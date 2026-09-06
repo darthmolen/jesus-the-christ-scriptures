@@ -30,6 +30,27 @@ the repo, the runbook opens by having the reader check it and then branches.
 | `docs/android/HOW-TO-DISTRIBUTE-TESTS.md` | new — account-type triage, Path A (open testing), Path B (closed + Google Group), bilingual handout, review prerequisites |
 | `docs/android/HOW-TO-DEPLOY.md` | corrected the tester count; cross-linked the new doc |
 
+## Outcome
+
+Merged as [PR #60](https://github.com/darthmolen/jesus-the-christ-scriptures/pull/60), then
+corrected by [PR #62](https://github.com/darthmolen/jesus-the-christ-scriptures/pull/62) within
+hours — the first real use of the runbook disproved one of its own claims.
+
+### What the 1.0.8 promotion taught
+
+The runbook said closed-testing releases after the first are "quick". Promoting 1.0.8 from
+`internal` to Closed testing - Alpha sat *In review* for over an hour. **Every** closed-testing
+release is reviewed, not just the first; ~24h is the honest budget, up to ~3 days on a newer
+account. Minutes happens, but it is luck, not the rule.
+
+The more useful thing the episode surfaced was never in the doc at all: **promotion is the reviewed
+step, and the CI upload to `internal` is not.** The same `versionCode` stays installable from
+`internal` for the entire time a promotion sits in review, so checking a fix on your own device
+never has to wait on Google. PR #62 adds that as its own section, along with the diagnostic tell —
+in *Publishing overview → Submission activity*, every row is a track you promoted to, and internal
+uploads never appear there, which is why that page can look as though CI publishes straight to
+Alpha.
+
 ## Deviations from plan
 
 None to the approach. Two things the plan did not anticipate:
